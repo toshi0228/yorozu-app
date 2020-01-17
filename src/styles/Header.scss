@@ -1,0 +1,30 @@
+
+
+@mixin layout {
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.header-wrap{
+    @include layout();
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .rogin-btn{
+        a {
+            display: inline-block;
+            line-height: 36px;
+            background: #DB6E60;
+            padding: 0.5em 1em;
+            text-decoration: none;
+            color: #fff;
+            border-radius: 3px;
+        }
+    }
+}
+
+
+.header-borde-line{
+    border: 0.5px #DB6E60 solid;
+}
