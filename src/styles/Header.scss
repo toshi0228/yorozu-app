@@ -12,7 +12,7 @@
     justify-content: space-between;
     align-items: center;
     .rogin-btn{
-        a {
+        div {
             display: inline-block;
             line-height: 36px;
             background: #DB6E60;
@@ -20,6 +20,8 @@
             text-decoration: none;
             color: #fff;
             border-radius: 3px;
+            cursor: pointer;
+            user-select: none;
         }
     }
 }

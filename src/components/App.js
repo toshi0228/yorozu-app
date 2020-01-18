@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 class App extends React.Component{
   componentDidMount(){
     this.props.readEvents()
-    console.log("hi")
+    console.log("最初Apiで読み込む")
   }
 
 

@@ -1,7 +1,28 @@
-import {SIGN_IN_ACCOUNT} from 'constants/actionTypes'
+import {SIGN_IN_ACCOUNT} from '../constants/actionTypes'
+import Account from '../models/account'
+
+
+const DEFAULT_STATE = {
+    ...new Account({id:'1', email:'aaa@gmail',username:'toshi' }),
+}
 
 
 
+
+const accountReducer = (state = DEFAULT_STATE, action) => {
+    
+    switch(action.type){
+        case SIGN_IN_ACCOUNT:
+            console.log("lsigIn:accounReducer")
+            console.log(state)
+            return state
+        default:
+            return state;
+    }
+};
+
+
+export default accountReducer;
 
 
 // import {

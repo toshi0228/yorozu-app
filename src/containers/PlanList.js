@@ -7,7 +7,6 @@ import { changeScore} from '../actions/plus'
 
 
 const mapStateToProps = (state) => {
-
     return {
       planList: state.planData.planList,
     };
