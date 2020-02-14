@@ -5,6 +5,11 @@ export const SET_ACCOUNT = 'SET_ACCOUNT'
 export const SET_ACCOUNT_ERRORS = 'SET_ACCOUNT_ERRORS'
 
 
+// Application
+export const START_LOADING = 'STOP_LOADING'
+
+
+
 // // Application
 // export const START_LOADING = 'START_LOADING'
 // export const STOP_LOADING = 'STOP_LOADING'

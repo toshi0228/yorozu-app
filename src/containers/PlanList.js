@@ -1,23 +1,19 @@
-import PlanList from "../components/planList"
-import { connect } from 'react-redux'
-import { changeScore} from '../actions/plus'
+import React from 'react'
+import Plan from '../components/plan'
+import '../styles/PlanList.scss'
 
 
 
-
-
-const mapStateToProps = (state) => {
-    return {
-      planList: state.planData.planList,
-    };
-  };
-
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changeScore: (id) => dispatch(changeScore(id))
-  }
+const PlanList = () =>{
+  return (
+    <div>
+      <div className='title-description'>どんなお仕事をお願いする...?</div>
+      <Plan/>
+      <Plan/>
+      <Plan/>
+    </div>
+    )
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps )(PlanList);
+export default PlanList

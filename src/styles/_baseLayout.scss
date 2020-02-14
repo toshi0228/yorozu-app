@@ -1,0 +1,12 @@
+
+@mixin layout {
+    text-align: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+
+@mixin decoration-none {
+    text-decoration: none;
+    color: #000;
+}

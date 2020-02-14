@@ -1,27 +1,10 @@
+@import "modules";
+@import "baseLayout";
 
 
 
 
-@mixin layout {
-    text-align: center;
-    width: 70%;
-    margin: 0 auto;
-}
-
-
-.plan-list-wrap{
+.title-description{
     @include layout;
-    .plan-list{
-        padding: 0;
-        list-style: none;
-        .plan{
-            font-size: 18px;
-            list-style: none;
-            margin-top: 24px;
-            padding-top: 28px;
-            padding-bottom: 28px;
-            border-radius: 8px;
-            background-color: #fff;
-        }
-    }
+    margin-top: 60px;
 }

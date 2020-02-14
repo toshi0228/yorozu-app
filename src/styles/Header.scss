@@ -1,32 +1,63 @@
+@import "baseLayout";
+@import "modules";
 
 
-@mixin layout {
-    text-align: center;
-    width: 70%;
-    margin: 0 auto;
+
+header{
+    @include layout;
 }
 
-.header-wrap{
-    @include layout();
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+.inner{
+    display: grid;
+    grid-template-columns: 100px 2fr 1fr;
+    grid-template-rows: 70px;
+    padding-top: 5px;
+
+    .logo{
+        display: flex;
+        align-items: center;
+        a{
+            @include decoration-none;
+        }
+    }
+
+    .menu{
+        display: flex;
+        align-items: center;
+
+        li{
+            margin-left: 18px;
+            list-style: none;
+
+            a{
+                @include decoration-none;
+            }
+        }
+    }
+
     .rogin-btn{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        
+        // ボタンのデザイン
         div {
             display: inline-block;
             line-height: 36px;
-            background: #DB6E60;
+            background: $mainColor;
             padding: 0.5em 1em;
             text-decoration: none;
             color: #fff;
             border-radius: 3px;
             cursor: pointer;
             user-select: none;
+            margin-left: 20px;
         }
     }
 }
 
 
 .header-borde-line{
-    border: 0.5px #DB6E60 solid;
+    border: 0.5px block solid;
 }

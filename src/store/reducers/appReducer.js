@@ -10,8 +10,6 @@ const planData = (state = {}, action) => {
         default:
             return state;
     }
-
-
 };
 
 export default planData;
