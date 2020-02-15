@@ -1,12 +1,13 @@
 import React from 'react';
-import { Provider } from 'react-redux'
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import store from '../store'
+import { Provider } from 'react-redux';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import store from '../store';
 import TopePage from '../containers/TopPage';
 import SignInPage from '../containers/SignInPage';
 import SignUpPage from '../containers/SignUpPage';
 import CreatePlan from '../containers/CreatePlan';
 import Auth from './Auth';
+import TimeLine from '../containers/TimeLine';
 
 // import PlanList from "../containers/PlanList"
 // import Header from '../containers/Header'
@@ -15,40 +16,34 @@ import Auth from './Auth';
 // import { readEvents } from '../actions'
 // import { connect } from 'react-redux'
 
-
-const App = () =>{
-  return(
+const App = () => {
+  return (
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route exact path = "/" component={TopePage} />
-          <Route exact path = "/sign_in" component={SignInPage} />
-          <Route exact path = "/sign_up" component={SignUpPage} />
+          <Route exact path="/" component={TopePage} />
+          <Route exact path="/sign_in" component={SignInPage} />
+          <Route exact path="/sign_up" component={SignUpPage} />
 
           <Auth>
             <Switch>
-              <Route exact path = "/create_plan" component={CreatePlan} />
+              <Route exact path="/create_plan" component={CreatePlan} />
+              <Route exact path="/time_line" component={TimeLine} />
             </Switch>
           </Auth>
-
         </Switch>
       </BrowserRouter>
     </Provider>
-  )
-}
+  );
+};
 
-export default App
-
-
-
-
+export default App;
 
 // class App extends React.Component{
 //   componentDidMount(){
 //     this.props.readEvents()
 //     console.log("最初Apiで読み込む")
 //   }
-
 
 //   render(){
 
@@ -66,8 +61,6 @@ export default App
 
 // const mapStateToProps = (state) => state
 
-
-
 // const mapDispatchToProps = dispatch => {
 //   return {
 //     readEvents: () => dispatch(readEvents())
@@ -75,5 +68,5 @@ export default App
 // }
 
 // // const mapDispatchToProps = ({readEvents})
-  
+
 // export default connect(mapStateToProps, mapDispatchToProps)(App);

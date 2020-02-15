@@ -1,0 +1,21 @@
+@import './baseLayout';
+
+.box-wrap {
+  @include layout;
+  background: skyblue;
+  display: flex;
+  justify-content: space-between;
+  .box {
+    height: 100px;
+    width: 100px;
+  }
+  .box1 {
+    background: red;
+  }
+  .box2 {
+    background: yellow;
+  }
+  .box3 {
+    background: blue;
+  }
+}
