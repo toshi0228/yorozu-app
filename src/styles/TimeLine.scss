@@ -2,20 +2,39 @@
 
 .box-wrap {
   @include layout;
-  background: skyblue;
-  display: flex;
-  justify-content: space-between;
-  .box {
-    height: 100px;
-    width: 100px;
-  }
-  .box1 {
+  // background: skyblue;
+  // .box {
+  //   height: 100px;
+  //   width: 100px;
+  //   // background: white;
+  // }
+  .cal1 {
     background: red;
   }
-  .box2 {
+  .cal2 {
     background: yellow;
   }
-  .box3 {
+  .cal3 {
     background: blue;
   }
 }
+
+// .box-wrap {
+//   @include layout;
+//   background: skyblue;
+//   display: flex;
+//   justify-content: space-between;
+//   .box {
+//     height: 100px;
+//     width: 100px;
+//   }
+//   .box1 {
+//     background: red;
+//   }
+//   .box2 {
+//     background: yellow;
+//   }
+//   .box3 {
+//     background: blue;
+//   }
+// }

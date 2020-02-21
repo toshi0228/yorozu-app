@@ -8,6 +8,10 @@ import SignUpPage from '../containers/SignUpPage';
 import CreatePlan from '../containers/CreatePlan';
 import Auth from './Auth';
 import TimeLine from '../containers/TimeLine';
+import PlanListPage from '../containers/PlanListPage';
+import PlanDetailPage from '../containers/PlanDetailPage';
+import MessagePage from '../containers/MessagePage';
+import MessageRoomPage from '../containers/MessageRoomPage';
 
 // import PlanList from "../containers/PlanList"
 // import Header from '../containers/Header'
@@ -24,6 +28,10 @@ const App = () => {
           <Route exact path="/" component={TopePage} />
           <Route exact path="/sign_in" component={SignInPage} />
           <Route exact path="/sign_up" component={SignUpPage} />
+          <Route exact path="/plan" component={PlanListPage} />
+          <Route path="/plan/detail/:id" component={PlanDetailPage} />
+          <Route exact path="/message" component={MessagePage} />
+          <Route path="/message/rooms/:id" component={MessageRoomPage} />
 
           <Auth>
             <Switch>

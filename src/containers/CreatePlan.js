@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 
 import axios from 'axios';
 
@@ -9,11 +9,12 @@ import { rootReducer } from '../store';
 import '../styles/CreatePlan.scss';
 import TagForm from '../components/tagForm/index';
 
-import AppContext from '../contexts/AppContext';
+// import AppContext from '../contexts/AppContext';
 
 // import planReducer from '../store/reducers/planReducer'
 
-const CreatePlan = () => {
+const CreatePlan = props => {
+  console.log(props);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
@@ -26,12 +27,19 @@ const CreatePlan = () => {
   const [tag5, setTag5] = useState('');
   const [tag6, setTag6] = useState('');
 
-  const value = useContext(AppContext);
+  // const value = useContext(AppContext);
 
   const [state, dispatch] = useReducer(rootReducer, {});
 
   const register = () => {
-    const planContent = { title, description, image, price, tag };
+    const tags = { tag1, tag2, tag3, tag4, tag5, tag6 };
+    const planContent = {
+      title,
+      description,
+      image,
+      price,
+      tags
+    };
     axios.post('http://localhost:8080/create_plan', planContent);
 
     dispatch({ type: 'CREATE_PLAN', planContent });
@@ -98,19 +106,47 @@ const CreatePlan = () => {
           onChange={e => setTag(e.target.value)}
         />
 
-        <AppContext.Provider value={{ tag1, setTag1 }}>
-          <div className="tag-wrapper">
-            <TagForm className="tag1 tag-form" label="タグ１" />
-            <TagForm className="tag2 tag-form" label="タグ2" />
-            <TagForm className="tag3 tag-form" label="タグ3" />
-          </div>
+        <div className="tag-wrapper">
+          <TagForm
+            className="tag1 tag-form"
+            label="タグ１"
+            tag={tag1}
+            setTag={setTag1}
+          />
+          <TagForm
+            className="tag2 tag-form"
+            label="タグ2"
+            tag={tag2}
+            setTag={setTag2}
+          />
+          <TagForm
+            className="tag3 tag-form"
+            label="タグ3"
+            tag={tag3}
+            setTag={setTag3}
+          />
+        </div>
 
-          <div className="tag-wrapper">
-            <TagForm className="tag1 tag-form" label="タグ4" />
-            <TagForm className="tag2 tag-form" label="タグ5" />
-            <TagForm className="tag3 tag-form" label="タグ6" />
-          </div>
-        </AppContext.Provider>
+        <div className="tag-wrapper">
+          <TagForm
+            className="tag1 tag-form"
+            label="タグ4"
+            tag={tag4}
+            setTag={setTag4}
+          />
+          <TagForm
+            className="tag2 tag-form"
+            label="タグ5"
+            tag={tag5}
+            setTag={setTag5}
+          />
+          <TagForm
+            className="tag3 tag-form"
+            label="タグ6"
+            tag={tag6}
+            setTag={setTag6}
+          />
+        </div>
 
         <p className="input-area-description">画像</p>
         {/* <input type='file'/> */}
@@ -120,7 +156,7 @@ const CreatePlan = () => {
           onChange={e => setImage(e.target.value)}
         />
 
-        <div>aaa{value}aaa</div>
+        {/* <div>aaa{value}aaa</div> */}
 
         <div className="register-btn" onClick={register}>
           登録

@@ -15,7 +15,7 @@ const Header = () => {
 
           <ul className="menu">
             <li>
-              <Link to="/work">Home</Link>
+              <Link to="/plan">Home</Link>
             </li>
             <li>
               <Link to="/project">About</Link>
