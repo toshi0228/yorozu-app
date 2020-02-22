@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 
-// import { Row, Col, Card } from 'antd';
-
 import '../styles/TimeLine.scss';
 
 const TimeLine = () => {

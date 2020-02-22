@@ -1,16 +1,13 @@
+@import 'baseLayout';
+@import 'modules';
 
-@import "baseLayout";
-@import "modules";
-
-
-
-footer{
-    margin-top: 80px;
-    background: #354341;
-    height: 150px;
-    .logo{
-        @include layout;
-        color: $white;
-        line-height: 150px;
-    }
-}
+// footer{
+//     margin-top: 80px;
+//     background: #354341;
+//     height: 150px;
+//     .logo{
+//         @include layout;
+//         color: $white;
+//         line-height: 150px;
+//     }
+// }

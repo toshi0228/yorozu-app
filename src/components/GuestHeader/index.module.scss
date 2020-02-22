@@ -1,0 +1,10 @@
+@import '../../styles/baseLayout';
+@import '../../styles/modules/color';
+
+header {
+  @include layout;
+
+  .headerContainer {
+    height: 64px;
+  }
+}

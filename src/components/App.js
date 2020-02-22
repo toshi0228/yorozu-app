@@ -12,6 +12,7 @@ import PlanListPage from '../containers/PlanListPage';
 import PlanDetailPage from '../containers/PlanDetailPage';
 import MessagePage from '../containers/MessagePage';
 import MessageRoomPage from '../containers/MessageRoomPage';
+import GuestHeader from './GuestHeader';
 
 // import PlanList from "../containers/PlanList"
 // import Header from '../containers/Header'
@@ -29,6 +30,8 @@ const App = () => {
           <Route exact path="/sign_in" component={SignInPage} />
           <Route exact path="/sign_up" component={SignUpPage} />
           <Route exact path="/plan" component={PlanListPage} />
+          <Route exact path="/project" component={GuestHeader} />
+
           <Route path="/plan/detail/:id" component={PlanDetailPage} />
           <Route exact path="/message" component={MessagePage} />
           <Route path="/message/rooms/:id" component={MessageRoomPage} />
