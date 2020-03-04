@@ -1,18 +1,26 @@
+import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+import accountReducer from './reducers/accountReducer';
+import planReducer from './reducers/planReducer';
+import { routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 
-import { createStore, combineReducers} from "redux"
-
-// import planData from './reducer/planReducer'
-// import appReducer from './reducer/appReducer'
-import accountReducer from './reducers/accountReducer'
-import planReducer from "./reducers/planReducer";
-
-
-export const rootReducer = combineReducers({
+export const createRootReducer = history =>
+  combineReducers({
+    router: connectRouter(history),
     account: accountReducer,
-    plan: planReducer,
-    // accountReducer,
-});
+    plan: planReducer
+  });
 
-const store = createStore(rootReducer);
-export default store
+export const history = createBrowserHistory();
 
+export default function configureStore() {
+  const store = createStore(
+    createRootReducer(history), // root reducer with router state
+    applyMiddleware(
+      routerMiddleware(history) // for dispatching history actions
+    )
+  );
+
+  return store;
+}

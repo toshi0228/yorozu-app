@@ -1,11 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
-
 import axios from 'axios';
-
-import Header from './Header';
-import Footer from './Footer';
-import { rootReducer } from '../store';
-
+import { createRootReducer } from '../store';
 import '../styles/CreatePlan.scss';
 import TagForm from '../components/tagForm/index';
 
@@ -29,7 +24,7 @@ const CreatePlan = props => {
 
   // const value = useContext(AppContext);
 
-  const [state, dispatch] = useReducer(rootReducer, {});
+  const [state, dispatch] = useReducer(createRootReducer, {});
 
   const register = () => {
     const tags = { tag1, tag2, tag3, tag4, tag5, tag6 };
@@ -67,14 +62,11 @@ const CreatePlan = props => {
   // }
 
   useEffect(() => {
-    console.log('@@@');
-    console.log(state);
-    console.log('@@@');
+    console.log('createplanコンテナが呼び誰た');
   }, [state]);
 
   return (
     <div>
-      <Header />
       <div className="event-create-wrapper">
         <div>イベント作成ページ</div>
 
@@ -161,9 +153,7 @@ const CreatePlan = props => {
         <div className="register-btn" onClick={register}>
           登録
         </div>
-      </div>{' '}
-      {/* --->event-create-wrapper */}
-      <Footer />
+      </div>
     </div>
   );
 };

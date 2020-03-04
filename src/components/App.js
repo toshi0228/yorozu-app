@@ -1,83 +1,74 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import store from '../store';
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'connected-react-router';
+import configureStore, { history } from '../store';
+// 上記必要なこと
+
 import TopePage from '../containers/TopPage';
-import SignInPage from '../containers/SignInPage';
+import SignInPage from '../containers/SignInPage2';
 import SignUpPage from '../containers/SignUpPage';
 import CreatePlan from '../containers/CreatePlan';
 import Auth from './Auth';
-import TimeLine from '../containers/TimeLine';
+// import TimeLine from '../containers/TimeLine';
+import CreatePlanPage from '../containers/CreatePlanPage';
 import PlanListPage from '../containers/PlanListPage';
 import PlanDetailPage from '../containers/PlanDetailPage';
 import MessagePage from '../containers/MessagePage';
 import MessageRoomPage from '../containers/MessageRoomPage';
-import GuestHeader from './GuestHeader';
+import { withGuestLayout, withMemberLayout } from './Layouts/RouteWithLayout';
+import requireAuth from './requireAuth';
 
-// import PlanList from "../containers/PlanList"
-// import Header from '../containers/Header'
-// import Data from '../containers/Data'
-// import '../styles/App.scss';
-// import { readEvents } from '../actions'
-// import { connect } from 'react-redux'
-
+const store = configureStore();
 const App = () => {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path="/" component={TopePage} />
-          <Route exact path="/sign_in" component={SignInPage} />
-          <Route exact path="/sign_up" component={SignUpPage} />
-          <Route exact path="/plan" component={PlanListPage} />
-          <Route exact path="/project" component={GuestHeader} />
+          <Route exact path="/" component={withGuestLayout(TopePage)} />
+          <Route path="/sign_in" component={withGuestLayout(SignInPage)} />
+          <Route path="/sign_up" component={withGuestLayout(SignUpPage)} />
+          <Route exact path="/plan" component={withGuestLayout(PlanListPage)} />
+          <Route exact path="/project" component={withGuestLayout(TopePage)} />
 
-          <Route path="/plan/detail/:id" component={PlanDetailPage} />
-          <Route exact path="/message" component={MessagePage} />
-          <Route path="/message/rooms/:id" component={MessageRoomPage} />
+          <Route
+            path="/plan/detail/:id"
+            render={withGuestLayout(PlanDetailPage)}
+          />
+          <Route exact path="/message" render={withGuestLayout(MessagePage)} />
+
+          <Route
+            path="/message/rooms/:id"
+            render={withGuestLayout(MessageRoomPage)}
+          />
+
+          {/* <Route path="/create_plan" render={withMemberLayout(RequireAuth)} /> */}
+
+          <Route
+            path="/create_plan"
+            render={withMemberLayout(requireAuth(CreatePlanPage))}
+          />
 
           <Auth>
             <Switch>
-              <Route exact path="/create_plan" component={CreatePlan} />
-              <Route exact path="/time_line" component={TimeLine} />
+              <Route
+                exact
+                path="/time_line"
+                render={withMemberLayout(CreatePlan)}
+              />
+
+              {/* 
+              <Route
+                exact
+                path="/time_line"
+                render={withGuestLayout(CreatePlanPage)}
+              /> */}
             </Switch>
           </Auth>
         </Switch>
-      </BrowserRouter>
+      </ConnectedRouter>
     </Provider>
   );
 };
 
 export default App;
-
-// class App extends React.Component{
-//   componentDidMount(){
-//     this.props.readEvents()
-//     console.log("最初Apiで読み込む")
-//   }
-
-//   render(){
-
-//       // const {number, plus} = this.props
-
-//     return(
-//       <div className="wrap">
-//         <Header/>
-//         <Data />
-//         <PlanList/>
-//       </div>
-//     )
-//   }
-// };
-
-// const mapStateToProps = (state) => state
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     readEvents: () => dispatch(readEvents())
-//   }
-// }
-
-// // const mapDispatchToProps = ({readEvents})
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);

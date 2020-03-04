@@ -1,16 +1,24 @@
 import React from 'react';
-
-import Header from './Header';
 import PlanList from '../components/planList/index';
-import Footer from './Footer';
+import { Col, Row, Pagination } from 'antd';
+import '../styles/PlanListPage.scss';
+
+// import { Pagination } from 'antd';
 
 const PlanListPage = () => {
   return (
-    <div>
-      <Header />
-      <PlanList />
-      <Footer />
-    </div>
+    <>
+      <Row type="flex" justify="center" style={{ marginBottom: 70 }}>
+        <Col className="p" span={18}>
+          <PlanList />
+        </Col>
+      </Row>
+      <Row type="flex" justify="center">
+        <Col>
+          <Pagination defaultCurrent={1} total={50} />
+        </Col>
+      </Row>
+    </>
   );
 };
 

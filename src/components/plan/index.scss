@@ -3,11 +3,9 @@
 
 .plan-container {
   list-style: none;
-  background: skyblue;
-  @include layout;
   .plan-image {
     width: 100%;
-    height: 334px;
+    height: 200px;
   }
 }
 

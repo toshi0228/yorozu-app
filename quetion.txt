@@ -1,9 +1,36 @@
+2020 3 2
+
+
+・tokenがあって、fetchCurrentAccountがあるのはなぜ
+・ログインして、tokenがないってなに
+・ドラッガーでファイル保存 フォルダーどうする？
+・index.js:1 Warning: [antd: Upload] `value` is not validate prop, do you mean `fileList`? 
+・return connect(mapStateToProps, null)(Auth)って、どんなものか
+・tokenがあるのに、isLoggedInはなんのため必要なのか
+・shouldNavigateAway
+・connectRouterを使う時、midolewareを使わないのか
+・configureStoreって?
+・connectRouter(history)は、なぜ引数にhistoryを入れるのか
+.createstoreのhistoryはどこからきているのか？
+
+
+2020 2 26
+
+・persistのwhiteは、reducerなのか それとも、中身か
+・connecteRouterとはなにか
+・ログイン状態を保たせるのはどうのか
+・Signatureらへんがわからない 公開鍵認証
+
+
 2020 2 21
 
 ・どのようにページが呼び出されているのか
 ・styleはなぜjavascript風に書いているのか
 ・レイアウトなんのために使うのか
 ・cssのモジュールのメリットはなにか
+・ルーターのrenderとcomponentsの違い
+・mapdispacthTozpropsのstateやdispatchはどこからきたのか
+ concatがあるからのか、それともproviderのおかげなのか？
 
 2020 2 20
 

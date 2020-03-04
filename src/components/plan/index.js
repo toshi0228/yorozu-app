@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Card } from 'antd';
 import './index.scss';
 
 const Plan = ({
@@ -15,7 +14,7 @@ const Plan = ({
   tag4
 }) => {
   return (
-    <li className="plan-container">
+    <div className="plan-container">
       <div className="left-container">
         <img className="plan-image" alt="" src={image} />
       </div>
@@ -41,7 +40,7 @@ const Plan = ({
           </Link>
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 

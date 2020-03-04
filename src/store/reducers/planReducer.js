@@ -1,25 +1,22 @@
-import Plan from "../../models/plan"
+import Plan from '../../models/plan';
+import { CREATE_PLAN } from '../actionTypes';
 
+const DEFAULT_STATE = {
+  ...new Plan({})
+};
 
-const DEFAULT_STATE ={
-    ...new Plan({})
-}
+const planReducer = (state = DEFAULT_STATE, action) => {
+  switch (action.type) {
+    case CREATE_PLAN:
+      console.log({ ...action.payload });
+      return { ...state, ...action.planContent };
 
-const planReducer = (state = DEFAULT_STATE , action) =>{
-    switch(action.type){
+    default:
+      return state;
+  }
+};
 
-        case "CREATE_PLAN":
-            return {...state, ...action.planContent}
-
-        default:
-            return state
-    }
-}
-
-
-export default planReducer
-
-
+export default planReducer;
 
 // const reducer = (state=[], action) =>{
 //     switch(action.type){

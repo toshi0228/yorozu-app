@@ -1,0 +1,25 @@
+header.ant-layout-header {
+  color: #000;
+  background: #fff;
+}
+
+.ant-layout-footer {
+  background: #7dbcea;
+  color: #fff;
+}
+.ant-layout-footer {
+  line-height: 1.5;
+}
+.ant-layout-sider {
+  /* background: #3ba0e9; */
+  background: #001529;
+
+  color: #fff;
+  line-height: 120px;
+}
+.ant-layout-content {
+  background: rgba(16, 142, 233, 1);
+  color: #fff;
+  min-height: 120px;
+  line-height: 120px;
+}

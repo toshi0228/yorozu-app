@@ -1,0 +1,65 @@
+@import '../../../styles/baseLayout';
+@import '../../../styles/modules/color';
+
+header {
+  // @include layout;
+  // .left {
+  //   background: skyblue;
+  // }
+  // .center {
+  //   background: yellow;
+  // }
+  // .right {
+  //   background: green;
+  // }
+
+  .headerContainer {
+    height: 64px;
+    border-bottom: solid 0.7px;
+  }
+
+  .btn {
+    display: inline-block;
+    line-height: 36px;
+    background: $mainColor;
+    padding: 0.1em 0.8em;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+// .btn {
+//   display: inline-block;
+//   line-height: 36px;
+//   background: $mainColor;
+//   padding: 0.5em 1em;
+//   text-decoration: none;
+//   color: #fff;
+//   border-radius: 3px;
+//   cursor: pointer;
+//   user-select: none;
+//   margin-left: 20px;
+// }
+
+// .rogin-btn {
+//   display: flex;
+//   justify-content: flex-end;
+//   align-items: center;
+
+//   // ボタンのデザイン
+//   div {
+//     display: inline-block;
+//     line-height: 36px;
+//     background: $mainColor;
+//     padding: 0.5em 1em;
+//     text-decoration: none;
+//     color: #fff;
+//     border-radius: 3px;
+//     cursor: pointer;
+//     user-select: none;
+//     margin-left: 20px;
+//   }
+// }
