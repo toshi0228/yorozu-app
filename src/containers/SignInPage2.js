@@ -1,78 +1,74 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { signIn } from '../store/actions/account';
-// import { Col, Row } from 'antd';
-
-import '../styles/SignInPage.scss';
+import { Button, Form, Input, Icon } from 'antd';
 
 const SignInPage = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault();
-    const formProps = { email, password };
-    const response = await axios.post('http://localhost:8080/', formProps);
-    console.log(response);
-
-    let res = { ...response.data, isLoggedIn: true };
-    localStorage.setItem('id', res.id);
-    localStorage.setItem('token', res.token);
-
-    props.singIn(formProps);
+    props.singIn({ email, password });
     setEmail('');
     setPassword('');
   };
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     let formData = { email, password };
-  //     const response = await axios.post('http://localhost:8080/', formData);
-  //     let res = { ...response.data, isLoggedIn: true };
-  //     localStorage.setItem('id', res.id);
-  //     localStorage.setItem('token', res.token);
+  const layout = {
+    wrapperCol: {
+      offset: 8,
+      span: 8
+    }
+  };
 
-  //     props.history.push('/create_plan');
-  //     return;
-  //   } catch {
-  //     setErrorMessage('メールかパスワードが間違ってます');
-  //     // dispatch(push('/signin'))
-  //   }
-
-  //   setEmail('');
-  //   setPassword('');
-  // };
+  const tailLayout = {
+    wrapperCol: {
+      offset: 10,
+      span: 8
+    }
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className="sign-page-title">ログイン</h2>
-      <div className="sign-in-page-wrap">
-        <p className="alert">{errorMessage}</p>
+    <>
+      <h2 style={{ textAlign: 'center' }}>ログイン</h2>
+      <p style={{ textAlign: 'center', marginTop: 40 }}>
+        メールアドレスとパスワードを入力してください。
+      </p>
+      <p className="alert">{errorMessage}</p>
 
-        <p className="input-label mail-input">メールアドレス入力</p>
-        <input
-          type="text"
-          value={email}
-          onChange={e => {
-            setEmail(e.target.value);
-          }}
-        />
-
-        <p className="input-label">パスワード入力</p>
-        <input
-          value={password}
-          onChange={e => {
-            setPassword(e.target.value);
-          }}
-        />
-
-        <p className="submit-btn">
-          <input type="submit" value="送信" />
-        </p>
-      </div>
-    </form>
+      <Form {...layout} onSubmit={onSubmit}>
+        <Form.Item name="username" style={{ marginTop: 40 }}>
+          <Input
+            prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            placeholder="メールアドレス"
+            value={email}
+            onChange={e => {
+              setEmail(e.target.value);
+            }}
+          />
+        </Form.Item>
+        <Form.Item name="password">
+          <Input.Password
+            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+            value={password}
+            onChange={e => {
+              setPassword(e.target.value);
+            }}
+            placeholder="パスワード"
+          />
+        </Form.Item>
+        <Form.Item {...tailLayout}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ marginTop: 40, width: '50%' }}
+          >
+            ログイン
+          </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
 
@@ -83,98 +79,3 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(null, mapDispatchToProps)(SignInPage);
-
-// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-
-// import React, { useState, useEffect, useForm } from 'react';
-// import { Col, Row, Form, Input, Button } from 'antd';
-
-// const layout = {
-//   labelCol: { span: 8 },
-//   wrapperCol: { span: 16 }
-// };
-// const tailLayout = {
-//   wrapperCol: { offset: 8, span: 16 }
-// };
-
-// const Demo = () => {
-//   const onFinish = values => {
-//     console.log('Success:', values);
-//   };
-
-//   const onFinishFailed = errorInfo => {
-//     console.log('Failed:', errorInfo);
-//   };
-
-//   return (
-//     <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
-//       <Form.Item
-//         label="Username"
-//         name="username"
-//         rules={[{ required: true, message: 'Please input your username!' }]}
-//       >
-//         <Input />
-//       </Form.Item>
-
-//       <Form.Item>
-//         <Button type="primary" htmlType="submit" className="login-form-button">
-//           送信
-//         </Button>
-//       </Form.Item>
-//     </Form>
-//   );
-// };
-
-// export default Demo;
-
-// const SignInPage = () => {
-//   const [userName, setUserNmae] = useState([]);
-
-//   const handleSubmit = values => {
-//     values.preventDefault();
-//     console.log('Received values of form: ', values);
-//   };
-
-//   return (
-//     <Row type="flex" justify="center">
-//       <Col span={12}>
-//         新しくサインページを作る
-//         <Form
-//           onSubmit={handleSubmit}
-//           name="basic"
-//           initialValues={{
-//             remember: true
-//           }}
-//         >
-//           <Form.Item>
-//             <Input />
-//           </Form.Item>
-
-//           <Form.Item
-//             name="username"
-//             rules={[
-//               {
-//                 required: true,
-//                 message: 'Please input your Username!'
-//               }
-//             ]}
-//           >
-//             <Input placeholder="Username" />
-//           </Form.Item>
-
-//           <Form.Item>
-//             <Button
-//               type="primary"
-//               htmlType="submit"
-//               className="login-form-button"
-//             >
-//               送信
-//             </Button>
-//           </Form.Item>
-//         </Form>
-//       </Col>
-//     </Row>
-//   );
-// };
-
-// export default SignInPage;

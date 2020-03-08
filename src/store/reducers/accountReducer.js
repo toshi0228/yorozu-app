@@ -3,7 +3,7 @@ import Account from '../../models/account';
 
 export const DEFAULT_STATE = {
   ...new Account({}),
-  token: '',
+  authToken: '',
   isLoggedIn: false
 };
 
@@ -13,14 +13,9 @@ const accountReducer = (state = DEFAULT_STATE, action) => {
       return state;
 
     case SIGN_IN_ACCOUNT:
-      console.log(action.payload);
       return { ...state, ...action.payload };
 
     case 'CREATE_ACCOUNT':
-      return { ...state, ...action.res };
-
-    case 'LOGIN':
-      console.log('アカウントログイン');
       return { ...state, ...action.res };
 
     default:

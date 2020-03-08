@@ -3,7 +3,7 @@ import axios from 'axios';
 import { createRootReducer } from '../store';
 // import { push } from 'connected-react-router'
 
-import '../styles/SignUpPage.scss';
+import style from '../styles/SignUpPage.module.scss';
 
 const SignInPage = props => {
   const [email, setEmail] = useState('');
@@ -42,8 +42,8 @@ const SignInPage = props => {
 
   return (
     <div>
-      <h2 className="sign-page-title">新規登録</h2>
-      <div className="sign-in-page-wrap">
+      <h2 className={style.signPageTitle}>新規登録</h2>
+      <div className={style.signInPageWrap}>
         <p className="alert">{errorMessage}</p>
 
         <p className="input-label mail-input">メールアドレス入力</p>

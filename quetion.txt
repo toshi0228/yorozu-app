@@ -1,10 +1,22 @@
+2020 3 6
+・python uuidってなに？
+・画像をaxiosでとってきたら、リストに入れるべきなのか
+・リストシリアライザーは、いつ使うのだろう
+・なぜpythonはenvを使うのか
+・JSONRenderer().render(serializer.data) 何？
+・認証とpermishonの違いは
+・クラス変数をオーバーライドすることで,,, p81
+・djangoタグ rest framework どうするんだろう
+
 2020 3 2
+
+・ドラッガーでファイル保存 フォルダーどうする？
+・index.js:1 Warning: [antd: Upload] `value` is not validate prop, do you mean `fileList`? 
+
 
 
 ・tokenがあって、fetchCurrentAccountがあるのはなぜ
 ・ログインして、tokenがないってなに
-・ドラッガーでファイル保存 フォルダーどうする？
-・index.js:1 Warning: [antd: Upload] `value` is not validate prop, do you mean `fileList`? 
 ・return connect(mapStateToProps, null)(Auth)って、どんなものか
 ・tokenがあるのに、isLoggedInはなんのため必要なのか
 ・shouldNavigateAway

@@ -1,27 +1,18 @@
 import { SET_ACCOUNT, SIGN_IN_ACCOUNT } from '../actionTypes';
+import { postSignIn } from '../../services/authApiRequest';
+import { push } from 'connected-react-router';
 
-export const signInAccount = user => {
+export const signIn = formProps => dispatch => {
+  return postSignIn(formProps).then(res => {
+    dispatch(signInAccount({ ...res.data, authToken: res.data.token }));
+    dispatch(push('/create_plan'));
+  });
+};
+
+const signInAccount = user => {
   return {
     type: SIGN_IN_ACCOUNT,
     payload: { ...user, isLoggedIn: true }
-  };
-};
-
-// const signInAccount = user => ({
-//   type: SIGN_IN_ACCOUNT,
-//   payload: { ...user, isLoggedIn: true, errors: [] },
-// })
-
-export const signIn = formProps => {
-  return {
-    type: SIGN_IN_ACCOUNT,
-    payload: {
-      token: 'aa1',
-      id: 1,
-      email: formProps.inputEmail,
-      username: formProps.inputPassword,
-      isLoggedIn: true
-    }
   };
 };
 

@@ -22,7 +22,7 @@ const RequireAuth = ComposedComponent => {
 
   const mapStateToProps = ({ account }) => ({
     isLoggedIn: account.isLoggedIn,
-    authTokenExist: account.token
+    authTokenExist: account.authToken
   });
 
   const mapDispatchToProps = dispatch => {

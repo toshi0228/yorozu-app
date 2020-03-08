@@ -7,7 +7,7 @@ import configureStore, { history } from '../store';
 
 import TopePage from '../containers/TopPage';
 import SignInPage from '../containers/SignInPage2';
-import SignUpPage from '../containers/SignUpPage';
+import SignUpPage from '../containers/SignUpPage2';
 import CreatePlan from '../containers/CreatePlan';
 import Auth from './Auth';
 // import TimeLine from '../containers/TimeLine';
