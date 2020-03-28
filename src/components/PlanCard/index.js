@@ -10,7 +10,7 @@ const PlanCard = ({ item }) => {
     <>
       <Link to={`/plan/detail/${item.id}`}>
         <Card
-          cover={<img alt="example" src={item.image} />}
+          cover={<img alt="example" src={item.image} style={{ height: 200 }} />}
           hoverable
           actions={[
             <Link to="/">

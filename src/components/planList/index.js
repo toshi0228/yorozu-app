@@ -9,7 +9,9 @@ const PlanList = () => {
   const [plans, setPlans] = useState([]);
 
   const feachPlan = async () => {
-    const response = await axios.get('http://localhost:8080/create_plan');
+    const response = await axios.get('http://127.0.0.1:8000/api/plan/');
+    console.log(response);
+    // const response = await axios.get('http://localhost:8080/create_plan');
     setPlans(response.data);
     return;
   };

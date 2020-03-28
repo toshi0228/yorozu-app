@@ -1,4 +1,42 @@
+
+
+2020 3 24
+・webpackは何のために必要なのか
+・as_view()
+・MyUserManager(BaseUserManager)
+・self.model()は、どこからきているか
+・axios.defaults.headers.commonは、どこに書いてある
+
+
+
+2020 3 14
+・djoserって結局何をしているのか。
+・リフレッシュトークンとは何。
+・serializerのcreateどのタイミングで使われるのか
+・cookie認証を行うとなぜ、csrf対策が必要なのか
+・csrfがまだわかない
+・axios.defaults.headers.commonは、どこに書いてある
+・なぜ’Bearer ' を使うのか
+・createuserとモデルのユーザーの違いが曖昧
+
+
+
+
+
+2020 3 9
+・この表記がなぞ_('user')
+・gettext_lazyは何を行なっているのか
+・error_messagesのキーは何を指定しているのか
+・メールの正規化って何を行なっているのか。
+・AbstractBaseUserとBaseUserManagerの違い
+・has_perm/has_perms/has_module_permsは何をしているの
+・self._dbはどこからきているのか
+・is_staffは、どこで使われた関数なのか
+・セッションとクッキーをreactで表現しているのか
+
+
 2020 3 6
+・style 直接書き込みのなぜ
 ・python uuidってなに？
 ・画像をaxiosでとってきたら、リストに入れるべきなのか
 ・リストシリアライザーは、いつ使うのだろう
@@ -7,6 +45,7 @@
 ・認証とpermishonの違いは
 ・クラス変数をオーバーライドすることで,,, p81
 ・djangoタグ rest framework どうするんだろう
+・Iconがうまく表示されない
 
 2020 3 2
 

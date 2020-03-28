@@ -10,6 +10,7 @@ const SignUpPage = props => {
 
   const onSubmit = e => {
     e.preventDefault();
+    console.log({ email, password });
     props.singUp({ email, password });
     setEmail('');
     setPassword('');

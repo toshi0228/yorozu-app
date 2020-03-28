@@ -1,5 +1,5 @@
-if ('あ') {
-  console.log('呼ばれた');
-} else {
-  console.log('呼ばれない');
-}
+const react = first => () => {
+  console.log(first);
+};
+
+react('iti');

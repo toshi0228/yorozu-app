@@ -15,7 +15,7 @@ import CreatePlanPage from '../containers/CreatePlanPage';
 import PlanListPage from '../containers/PlanListPage';
 import PlanDetailPage from '../containers/PlanDetailPage';
 import MessagePage from '../containers/MessagePage';
-import MessageRoomPage from '../containers/MessageRoomPage';
+import MessageRoomPage from '../containers/Message/MessageRoomPage';
 import { withGuestLayout, withMemberLayout } from './Layouts/RouteWithLayout';
 import requireAuth from './requireAuth';
 
@@ -36,7 +36,6 @@ const App = () => {
             render={withGuestLayout(PlanDetailPage)}
           />
           <Route exact path="/message" render={withGuestLayout(MessagePage)} />
-
           <Route
             path="/message/rooms/:id"
             render={withGuestLayout(MessageRoomPage)}
