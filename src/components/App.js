@@ -17,8 +17,11 @@ import Auth from './Auth';
 import CreatePlanPage from '../containers/PlanRelatedPages/CreatePlanPage';
 import PlanListPage from '../containers/PlanRelatedPages/PlanListPage';
 import PlanDetailPage from '../containers/PlanRelatedPages/PlanDetailPage';
+
+// メッセージ関連
 import MessagePage from '../containers/MessageRelatedPages/MessageListPage';
-import MessageRoomPage from '../containers/Message/MessageRoomPage';
+import MessageRoomPage from '../containers/MessageRelatedPages/MessageRoomPage';
+
 import { withGuestLayout, withMemberLayout } from './Layouts/RouteWithLayout';
 import requireAuth from './requireAuth';
 import DashboardPage from '../containers/DashboardPage/DashboardPage';

@@ -69,23 +69,3 @@ const MessageRoomPage = () => {
 };
 
 export default MessageRoomPage;
-
-{
-  /* <List
-className="comment-list"
-header={`${data.length} replies`}
-itemLayout="horizontal"
-dataSource={data}
-renderItem={item => (
-  <li>
-    <Comment
-      actions={item.actions}
-      author={item.author}
-      avatar={item.avatar}
-      content={item.content}
-      datetime={item.datetime}
-    />
-  </li>
-)}
-/>, */
-}
