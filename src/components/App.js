@@ -18,6 +18,7 @@ import MessagePage from '../containers/MessagePage';
 import MessageRoomPage from '../containers/Message/MessageRoomPage';
 import { withGuestLayout, withMemberLayout } from './Layouts/RouteWithLayout';
 import requireAuth from './requireAuth';
+import DashboardPage from '../containers/DashboardPage/DashboardPage';
 
 const store = configureStore();
 const App = () => {
@@ -29,7 +30,11 @@ const App = () => {
           <Route path="/sign_in" component={withGuestLayout(SignInPage)} />
           <Route path="/sign_up" component={withGuestLayout(SignUpPage)} />
           <Route exact path="/plan" component={withGuestLayout(PlanListPage)} />
-          <Route exact path="/project" component={withGuestLayout(TopePage)} />
+          <Route
+            exact
+            path="/project"
+            component={withGuestLayout(DashboardPage)}
+          />
 
           <Route
             path="/plan/detail/:id"
