@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { signUp } from '../store/actions/account';
+import { signUp } from '../../store/actions/account';
 import { Button, Form, Input, Icon } from 'antd';
 
 const SignUpPage = props => {

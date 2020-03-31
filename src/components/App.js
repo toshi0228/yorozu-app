@@ -6,15 +6,18 @@ import configureStore, { history } from '../store';
 // 上記必要なこと
 
 import TopePage from '../containers/TopPage';
-import SignInPage from '../containers/SignInPage2';
-import SignUpPage from '../containers/SignUpPage2';
-import CreatePlan from '../containers/CreatePlan';
+
+// アカウント関連
+import SignInPage from '../containers/AccountRelatedPages/SignInPage';
+import SignUpPage from '../containers/AccountRelatedPages/SignUpPage';
+
+import CreatePlan from '../containers/PreviousCode/CreatePlan';
 import Auth from './Auth';
 // import TimeLine from '../containers/TimeLine';
-import CreatePlanPage from '../containers/CreatePlanPage';
-import PlanListPage from '../containers/PlanListPage';
-import PlanDetailPage from '../containers/PlanDetailPage';
-import MessagePage from '../containers/MessagePage';
+import CreatePlanPage from '../containers/PlanRelatedPages/CreatePlanPage';
+import PlanListPage from '../containers/PlanRelatedPages/PlanListPage';
+import PlanDetailPage from '../containers/PlanRelatedPages/PlanDetailPage';
+import MessagePage from '../containers/MessageRelatedPages/MessageListPage';
 import MessageRoomPage from '../containers/Message/MessageRoomPage';
 import { withGuestLayout, withMemberLayout } from './Layouts/RouteWithLayout';
 import requireAuth from './requireAuth';

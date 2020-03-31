@@ -1,6 +1,6 @@
 import React from 'react';
-import Plan from '../components/plan';
-import '../styles/PlanList.scss';
+import Plan from '../../components/plan';
+import '../../styles/PlanList.scss';
 
 const PlanList = () => {
   return (

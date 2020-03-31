@@ -1,9 +1,9 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import axios from 'axios';
-import { createRootReducer } from '../store';
+import { createRootReducer } from '../../store';
 // import { push } from 'connected-react-router'
 
-import '../styles/SignInPage.scss';
+import style from '../styles/SignUpPage.module.scss';
 
 const SignInPage = props => {
   const [email, setEmail] = useState('');
@@ -27,16 +27,6 @@ const SignInPage = props => {
 
       props.history.push('/create_plan');
       return;
-
-      // const mockLoginUrl = "http://bfcc8345-d049-4b34-809e-1fe5e2dc1e52.mock.pstmn.io/api/v1/sign_in"
-      // const response = await axios.post(mockLoginUrl, formData)
-
-      // const token = response.data.token
-      // const res = {...response.data.account, token}
-
-      // dispatch({ type:'LOGIN', res})
-      // localStorage.setItem('id', res.id)
-      // localStorage.setItem('token', res.token)
     } catch {
       setErrorMessage('メールかパスワードが間違ってます');
       // dispatch(push('/signin'))
@@ -52,8 +42,8 @@ const SignInPage = props => {
 
   return (
     <div>
-      <h2 className="sign-page-title">ログイン</h2>
-      <div className="sign-in-page-wrap">
+      <h2 className={style.signPageTitle}>新規登録</h2>
+      <div className={style.signInPageWrap}>
         <p className="alert">{errorMessage}</p>
 
         <p className="input-label mail-input">メールアドレス入力</p>
