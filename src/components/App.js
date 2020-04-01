@@ -11,7 +11,7 @@ import TopePage from '../containers/TopPage';
 import SignInPage from '../containers/AccountRelatedPages/SignInPage';
 import SignUpPage from '../containers/AccountRelatedPages/SignUpPage';
 
-import CreatePlan from '../containers/PreviousCode/CreatePlan';
+import CreatePlan from '../containers/ThrowOutCode/CreatePlan';
 import Auth from './Auth';
 // import TimeLine from '../containers/TimeLine';
 import CreatePlanPage from '../containers/PlanRelatedPages/CreatePlanPage';

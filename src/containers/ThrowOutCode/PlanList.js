@@ -1,5 +1,5 @@
 import React from 'react';
-import Plan from '../../components/plan';
+import Plan from '../../components/ThrowOutCode/plan';
 import '../../styles/PlanList.scss';
 
 const PlanList = () => {

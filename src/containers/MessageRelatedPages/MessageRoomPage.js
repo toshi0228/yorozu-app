@@ -1,6 +1,6 @@
 import React from 'react';
 import { Comment, List, Row, Col } from 'antd';
-import MessageForm from '../../components/messageForm/index';
+import MessageForm from '../../components/FormRelated/messageForm/index';
 
 const MessageRoomPage = () => {
   const data = [

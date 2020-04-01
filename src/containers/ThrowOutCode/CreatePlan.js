@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from 'react';
 import axios from 'axios';
 import { createRootReducer } from '../../store';
 import '../../styles/CreatePlan.scss';
-import TagForm from '../../components/tagForm/index';
+import TagForm from '../../components/FormRelated/tagForm/index';
 
 // import AppContext from '../contexts/AppContext';
 

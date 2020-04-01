@@ -1,5 +1,5 @@
 import React from 'react';
-import PlanList from '../../components/planList/index';
+import PlanList from '../../components/planRelated/planList/index';
 import { Col, Row, Pagination } from 'antd';
 import '../../styles/PlanListPage.scss';
 

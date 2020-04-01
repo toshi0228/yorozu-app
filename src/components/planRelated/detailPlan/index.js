@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button, Rate, Tag, Icon } from 'antd';
 import styles from './index.module.scss';
-import data from '../../Data/dummyData.json';
+import data from '../../../Data/dummyData.json';
 
 const DetailPlan = ({ id, history }) => {
   console.log(history);

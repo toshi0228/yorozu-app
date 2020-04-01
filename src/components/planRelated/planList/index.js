@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { List } from 'antd';
 import axios from 'axios';
 import PlanCard from '../PlanCard';
-// import Plan from '../plan/index';
-// import styles from './index.module.scss';
 
 const PlanList = () => {
   const [plans, setPlans] = useState([]);

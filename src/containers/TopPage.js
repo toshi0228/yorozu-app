@@ -1,7 +1,7 @@
 import React from 'react';
 // import Header from './Header'
 // import Footer from './Footer'
-import PlanList from './PreviousCode/PlanList';
+import PlanList from './ThrowOutCode/PlanList';
 
 const TopePage = () => {
   return (

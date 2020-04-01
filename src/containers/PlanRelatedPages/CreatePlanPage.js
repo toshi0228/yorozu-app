@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Upload, Input, Row, Col, Icon, Button } from 'antd';
-import InputTag from '../../components/InputTag';
+import InputTag from '../../components/ThrowOutCode/InputTag';
 import axios from 'axios';
 import { cratePlan } from '../../store/actions/plan';
 
