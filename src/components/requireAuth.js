@@ -12,6 +12,7 @@ const RequireAuth = ComposedComponent => {
       if (props.authTokenExist) {
         console.log('tokenあり');
       } else {
+        // tokenがなければ、ログインページに飛ぶ
         props.push('sign_in');
         console.log('tokenなし');
       }
