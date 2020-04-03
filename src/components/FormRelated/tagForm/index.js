@@ -1,4 +1,4 @@
-import React from 'react';
+import React from './node_modules/react';
 import './index.scss';
 
 const TagForm = ({ className, label, tag, setTag }) => {

@@ -34,8 +34,8 @@ import DashboardPage from '../containers/DashboardPage/DashboardPage';
 // ボツになりそうなコード
 import TopePage from '../containers/TopPage';
 import CreatePlan from '../containers/ThrowOutCode/CreatePlan';
+import ContractingPage from '../containers/ContractingPage/ContractingPage';
 // import Auth from '../components/Auth';
-
 
 // 引数をpropsにして,historyを受け取る
 const Router = props => {
@@ -43,36 +43,64 @@ const Router = props => {
     <ConnectedRouter history={props.history}>
       <Switch>
         {/* トップページ */}
-        <Route exact path={routes.top()} component={withGuestLayout(PlanListPage)} />
+        <Route
+          exact
+          path={routes.top()}
+          component={withGuestLayout(PlanListPage)}
+        />
 
         {/* ログインページ */}
-        <Route path={routes.siginIn()} component={withGuestLayout(SignInPage)} />
+        <Route
+          path={routes.siginIn()}
+          component={withGuestLayout(SignInPage)}
+        />
 
         {/* 新規登録ページ */}
         <Route path={routes.signUp()} component={withGuestLayout(SignUpPage)} />
 
         {/* ダッシュボードページ */}
-        <Route exact path={routes.dashboard()} component={withGuestLayout(DashboardPage)} />
+        <Route
+          exact
+          path={routes.dashboard()}
+          component={withGuestLayout(DashboardPage)}
+        />
 
         {/* プランの詳細ページ */}
-        <Route path={routes.planDetail()} render={withGuestLayout(PlanDetailPage)} />
+        <Route
+          path={routes.planDetail()}
+          render={withGuestLayout(PlanDetailPage)}
+        />
 
         {/* メッセージのトップページ */}
-        <Route exact path={routes.messageList()} render={withGuestLayout(MessagePage)} />
+        <Route
+          exact
+          path={routes.messageList()}
+          render={withGuestLayout(MessagePage)}
+        />
 
         {/* メッセージ詳細ページ */}
-        <Route path={routes.messageRoom()} render={withGuestLayout(MessageRoomPage)} />
+        <Route
+          path={routes.messageRoom()}
+          render={withGuestLayout(MessageRoomPage)}
+        />
 
         {/* <Route path="/create_plan" render={withMemberLayout(RequireAuth)} /> */}
 
         {/* プラン作成  */}
-        <Route path={routes.createPlan()} render={withMemberLayout(requireAuth(CreatePlanPage))} />
+        <Route
+          path={routes.createPlan()}
+          render={withMemberLayout(requireAuth(CreatePlanPage))}
+        />
 
         {/* ボツページ（トップページ） */}
         <Route exact path="/plan" component={withGuestLayout(TopePage)} />
 
         {/* ボツページ（トップページ） */}
-        <Route exact path="/time_line" render={withMemberLayout(CreatePlan)} />
+        <Route
+          exact
+          path={routes.contracting()}
+          render={withMemberLayout(ContractingPage)}
+        />
       </Switch>
     </ConnectedRouter>
   );
@@ -80,11 +108,11 @@ const Router = props => {
 
 export default Router;
 
-
-
-{/* <Auth>
+{
+  /* <Auth>
   <Switch>
     <Route exact path="/time_line" render={withMemberLayout(CreatePlan)} />
     <Route exact path="/time_line" render={withGuestLayout(CreatePlanPage)} />
   </Switch>
-</Auth> */}
+</Auth> */
+}

@@ -31,7 +31,7 @@ const GuestHeader = () => {
                     <Link to="/plan">Home</Link>
                   </Col>
                   <Col>
-                    <Link to="/project">About</Link>
+                    <Link to="/project">ダッシュボード</Link>
                   </Col>
                   <Col>
                     <Link to="/time_line">Topic</Link>

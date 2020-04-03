@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Col, Row } from 'antd';
 import styles from './index.module.scss';
 // const { Header } = Layout;
+import routes from '../../../routes'
 
 const GuestHeader = () => {
   return (
@@ -23,13 +24,13 @@ const GuestHeader = () => {
               <Col>
                 <Row type="flex" className="menu" gutter={24}>
                   <Col>
-                    <Link to="/plan">Home</Link>
+                    <Link to="/plan">TimeLine</Link>
                   </Col>
                   <Col>
-                    <Link to="/project">About</Link>
+                    <Link to="/project">Dashboard</Link>
                   </Col>
                   <Col>
-                    <Link to="/time_line">Topic</Link>
+                    <Link to={routes.contracting()}>Subscribe</Link>
                   </Col>
                   <Col>
                     <Link to="/create_plan">Create</Link>

@@ -2,12 +2,13 @@ const UrlList = {
   top: () => '/',
   siginIn: () => '/sign_in',
   signUp: () => '/sign_up',
-  dashboard: () => '/project',
   planDetail: () => '/plan/detail/:id',
   planDetail: () => '/plan/detail/:id',
   createPlan: () => '/create_plan',
   messageList: () => '/message',
   messageRoom: () => '/message/rooms/:id',
+  dashboard: () => '/project',
+  contracting: () => '/contracting',
 
 };
 
