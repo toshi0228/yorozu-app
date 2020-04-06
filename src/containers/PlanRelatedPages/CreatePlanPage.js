@@ -23,6 +23,7 @@ const CreatePlanPage = props => {
       price,
       tags
     };
+    console.log(planContent);
     axios.post('http://localhost:8080/create_plan', planContent);
     props.createPlan(planContent);
   };
@@ -109,15 +110,17 @@ const CreatePlanPage = props => {
         </Col>
       </Row>
 
+      {/* タグ入力 */}
       <InputTag tags={tags} setTags={setTags} />
 
+      {/* 送信ボタン */}
       <Row type="flex" justify="center">
         <Col>
           <Button
             type="primary"
             htmlType="submit"
             size="large"
-            style={{ background: '#2AB3A2', width: 200 }}
+            style={{ width: 200 }}
             onClick={register}
           >
             送信

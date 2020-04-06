@@ -89,8 +89,12 @@ const Router = props => {
         {/* プラン作成  */}
         <Route
           path={routes.createPlan()}
-          render={withMemberLayout(requireAuth(CreatePlanPage))}
+          render={withMemberLayout(CreatePlanPage)}
         />
+        {/* <Route
+          path={routes.createPlan()}
+          render={withMemberLayout(requireAuth(CreatePlanPage))}
+        /> */}
 
         {/* ボツページ（トップページ） */}
         <Route exact path="/plan" component={withGuestLayout(TopePage)} />
