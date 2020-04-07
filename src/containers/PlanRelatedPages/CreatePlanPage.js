@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Upload, Input, Row, Col, Icon, Button } from 'antd';
 import InputTag from '../../components/ThrowOutCode/InputTag';
 import axios from 'axios';
-import { cratePlan } from '../../store/actions/plan';
+import { postPlanEvent } from '../../store/actions/plan';
 
 const { TextArea } = Input;
 const { Dragger } = Upload;
@@ -25,7 +25,7 @@ const CreatePlanPage = props => {
     };
     console.log(planContent);
     axios.post('http://localhost:8080/create_plan', planContent);
-    props.createPlan(planContent);
+    props.postPlanEvent(planContent);
   };
 
   return (
@@ -111,7 +111,7 @@ const CreatePlanPage = props => {
       </Row>
 
       {/* タグ入力 */}
-      <InputTag tags={tags} setTags={setTags} />
+      <InputTag setTags={setTags} />
 
       {/* 送信ボタン */}
       <Row type="flex" justify="center">
@@ -139,8 +139,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    createPlan: planContent => {
-      return dispatch(cratePlan(planContent));
+    postPlanEvent: planContent => {
+      return dispatch(postPlanEvent(planContent));
     }
   };
 };

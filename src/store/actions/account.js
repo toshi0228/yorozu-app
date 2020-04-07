@@ -3,6 +3,11 @@ import { postSignIn, postSignUp } from '../../services/authApiRequest';
 import { push } from 'connected-react-router';
 import { setAuthHeader } from '../../services/ApiRequest';
 
+// =====================================================================================
+// redux thunkが必要な処理
+// 非同期の場合は、アクションではなく、関数を返す つまり内側の処理が終わった値を返す。
+// =====================================================================================
+
 export const signIn = formProps => dispatch => {
   return postSignIn(formProps)
     .then(res => {

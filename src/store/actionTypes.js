@@ -8,4 +8,7 @@ export const SET_ACCOUNT_ERRORS = 'SET_ACCOUNT_ERRORS';
 export const START_LOADING = 'STOP_LOADING';
 
 // Plan
-export const CREATE_PLAN = 'CREATE_PLAN';
+export const CREATE_PLAN_EVENT = 'CREATE_PLAN';
+
+// Tag
+export const READ_TAG_EVENTS = 'READ_TAG_EVENTS';

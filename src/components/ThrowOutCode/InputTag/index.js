@@ -1,72 +1,82 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { Col, Row, Select } from 'antd';
-import axios from 'axios';
+import { readTagEvent } from '../../../store/actions/tags';
+import _ from 'lodash';
 
 const { Option } = Select;
 
-const InputTag = ({ tags, setTags }) => {
-  // この中にオプションタグを入れていく
-  const children = [];
+const InputTag = ({ setTags, tagsData, readTagEvent }) => {
+  // =====================================================================================
+  // ロダッシュを使って、タグデータ(type:オブジェクト)を読み込む
+  // mapとの違いは配列ではなく、オブジェクトを受け取ってオブジェクトを返す
+  // ▼参考サイト１
+  // https://techblog.kayac.com/2017-12-2_lodash
+  // =====================================================================================
 
+  // =====================================================================================
+  // optionTagListにオプションタグを入れていく
   // 親コンポーネントから送られてきたタグの数だけオプションを追加する
-  tags.forEach((tag, index) => {
-    children.push(<Option key={index.toString()}>{tag}</Option>);
-  });
-
   // タグを検索するときにデータベースから候補として表示させる
-  const feachTags = async () => {
-    const response = await axios.get('http://127.0.0.1:8000/api/tag/');
-    const tags = response.data.reduce((previous, tag) => {
-      previous.push(tag.name);
-      return previous;
-    }, []);
-    setTags(tags);
-  };
+  // =====================================================================================
+
+  const optionTagList = [];
+
+  _.map(tagsData, tag => {
+    optionTagList.push(<Option key={tag.name}>{tag.name}</Option>);
+  });
 
   useEffect(() => {
-    feachTags();
-  });
+    readTagEvent();
+  }, []);
 
   // =====================================================================================
-  // 元々のタグの場合valueには数字が入る;
-  // ex) ["1", "デザイン", "遊び", "2"] => ["企画", "デザイン", "遊び", "インスタグラム"]
-  // 数字の場合、valueの文字数が一の場合変換する
-  // newTagsは、formから選択されたtagと新しく追加したタグ
+  // OptionTagKeyListには、Optionタグの keyの値が入る
+  // ex)["企画", "デザイン", "遊び", "インスタグラム"]
+  // setTagには、選択したタグと、新しく入力したタグが入る
   // =====================================================================================
 
-  const handleChange = value => {
-    console.log(value);
-    tags = value.map(value => {
-      if (value.length === 1) {
-        return tags[value];
-      } else {
-        return value;
-      }
-    });
-    console.log(tags);
-    setTags(tags);
+  const handleChange = OptionTagKeyList => {
+    setTags(OptionTagKeyList);
   };
 
   // =====================================================================================
   // onChange={handleChange}引数がどこから受け取ってるかわからないがantデザインの使用なんだろう
+  // handleChangeの引数には、Optionタグの keyの値がvalueとして入る
+  // <Option key={tag.name}>{tag.name}</Option>
+  // =====================================================================================
+
+  // =====================================================================================
+  // <Select mode="tags" style={{ width: '100%' }} onChange={handleChange}></Select>
+  // Selectタグのmodeオプション
+  // multipleとtagの違い
+  // multipleは、データベースからあるか探す
+  // tagは作り出す
   // =====================================================================================
 
   return (
     <Row style={{ marginBottom: 64 }}>
       <Col span={12} offset={3}>
         <Select mode="tags" style={{ width: '100%' }} onChange={handleChange}>
-          {children}
+          {optionTagList}
         </Select>
       </Col>
     </Row>
   );
 };
 
-export default InputTag;
+const mapStateToProps = state => {
+  return {
+    tagsData: state.tag
+  };
+};
 
-// =====================================================================================
-// Selectタグのmodeオプション
-// multipleとtagの違い
-// multipleは、データベースからあるか探す
-// tagは作り出す
-// =====================================================================================
+const mapDispatchToProps = dispatch => {
+  return {
+    readTagEvent: () => {
+      return dispatch(readTagEvent());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputTag);

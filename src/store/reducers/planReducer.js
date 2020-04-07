@@ -1,5 +1,5 @@
 import Plan from '../../models/plan';
-import { CREATE_PLAN } from '../actionTypes';
+import { CREATE_PLAN_EVENT } from '../actionTypes';
 
 const DEFAULT_STATE = {
   ...new Plan({})
@@ -7,7 +7,7 @@ const DEFAULT_STATE = {
 
 const planReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case CREATE_PLAN:
+    case CREATE_PLAN_EVENT:
       console.log({ ...action.payload });
       return { ...state, ...action.planContent };
 

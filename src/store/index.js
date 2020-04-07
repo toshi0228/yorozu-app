@@ -1,17 +1,20 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+// アカウント取得など非同期の処理を行うのでreduxThunkを読み込み
 import reduxThunk from 'redux-thunk';
 import accountReducer from './reducers/accountReducer';
 import planReducer from './reducers/planReducer';
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
+import tagReducer from './reducers/tagReducer';
 
 // creatStoreをするときにcreateRootReducerは引数として、historyを受け取る
 export const createRootReducer = history =>
   combineReducers({
     router: connectRouter(history),
     account: accountReducer,
-    plan: planReducer
+    plan: planReducer,
+    tag: tagReducer
   });
 
 export const history = createBrowserHistory();
@@ -28,6 +31,7 @@ export default function configureStore() {
   return store;
 }
 
+// =====================================================================================
 // store = createStore()
 // sotreはcreateStoreから作られたデータが入っている
 
@@ -43,3 +47,4 @@ export default function configureStore() {
 
 // 構造
 // createBrowserHistory -> configureStore -> createStore -> createRootReducer -> combineReducers
+// =====================================================================================
