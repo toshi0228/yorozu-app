@@ -35,6 +35,7 @@ import DashboardPage from '../containers/DashboardPage/DashboardPage';
 import TopePage from '../containers/TopPage';
 import CreatePlan from '../containers/ThrowOutCode/CreatePlan';
 import ContractingPage from '../containers/ContractingPage/ContractingPage';
+import FormPage from '../containers/FormPage';
 // import Auth from '../components/Auth';
 
 // 引数をpropsにして,historyを受け取る
@@ -97,7 +98,7 @@ const Router = props => {
         /> */}
 
         {/* ボツページ（トップページ） */}
-        <Route exact path="/plan" component={withGuestLayout(TopePage)} />
+        <Route exact path="/plan" component={withGuestLayout(FormPage)} />
 
         {/* ボツページ（トップページ） */}
         <Route

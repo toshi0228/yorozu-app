@@ -6,7 +6,7 @@ export const postSignIn = params => {
 };
 
 export const postSignUp = params => {
-  return axios.post('http://127.0.0.1:8000/account/register/', params);
+  return axios.post('http://localhost:8000/api/account/register/', params);
 };
 
 // http://127.0.0.1:8000/account/register/

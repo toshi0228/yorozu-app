@@ -1,19 +1,66 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Upload, Input, Row, Col, Icon, Button } from 'antd';
-import InputTag from '../../components/ThrowOutCode/InputTag';
-import axios from 'axios';
+import InputTag from '../../components/formRelated/tagForm';
 import { postPlanEvent } from '../../store/actions/plan';
+import ImageForm from '../../components/formRelated/ImageForm';
 
 const { TextArea } = Input;
 const { Dragger } = Upload;
 
-const CreatePlanPage = props => {
+const CreatePlanPage = (props) => {
   const [title, setTitle] = useState('');
   const [image, setImage] = useState([]);
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [tags, setTags] = useState([]);
+
+  const fileData = {
+    name: 'image',
+    multiple: true,
+    onChange: (file) => {
+      onDrop(file);
+    },
+  };
+
+  const onDrop = (e) => {
+    console.log('fileのアップロード');
+    console.log(e);
+    loadImage(e.file);
+  };
+
+  // const loadImage = file => {
+  //   setTimeout(() => {
+  //     console.log('読み込み完了');
+  //     console.log(file);
+  //     setImage(file);
+  //   )},2000);
+  // };
+
+  const loadImage = (file) => {
+    setImage(file);
+    setTimeout(() => {
+      console.log(image);
+    }, 2000);
+  };
+
+  // const aaa = setImage => {
+  //   console.log('aaafunc');
+  //   console.log(image);
+  // };
+
+  // () => console.log(image)
+
+  // const fileData = {
+  //   name: 'image',
+  //   multiple: true,
+  //   action: 'http://127.0.0.1:8000/api/plan/',
+  //   headers: {
+  //     'content-type': 'multipart/form-data'
+  //   }
+  // };
+
+  // action: 'http://127.0.0.1:8000/api/plan/entry',
 
   const register = () => {
     const planContent = {
@@ -21,10 +68,8 @@ const CreatePlanPage = props => {
       description,
       image,
       price,
-      tags
+      tags,
     };
-    console.log(planContent);
-    axios.post('http://localhost:8080/create_plan', planContent);
     props.postPlanEvent(planContent);
   };
 
@@ -46,7 +91,7 @@ const CreatePlanPage = props => {
 
       <Row style={{ marginBottom: 48 }}>
         <Col span={10} offset={3}>
-          <Input value={title} onChange={e => setTitle(e.target.value)} />
+          <Input value={title} onChange={(e) => setTitle(e.target.value)} />
         </Col>
       </Row>
 
@@ -56,9 +101,22 @@ const CreatePlanPage = props => {
         </Col>
       </Row>
 
+      {/* <Row style={{ marginBottom: 48 }}>
+        <Col span={9} offset={3}>
+          <input type="file" name="file" onChange={e => hundleImage(e)} />
+        </Col>
+      </Row> */}
+
       <Row style={{ marginBottom: 48 }}>
         <Col span={9} offset={3}>
-          <Dragger value={image} onChange={e => setImage(e.file.name)}>
+          <ImageForm image={image} setImage={setImage} />
+        </Col>
+      </Row>
+
+      {/* <Row style={{ marginBottom: 48 }}>
+        <Col span={9} offset={3}> */}
+      {/* <Dragger value={image} onChange={e => setImage(e.file.name)}> */}
+      {/* <Dragger {...fileData}>
             <p className="ant-upload-drag-icon">
               <Icon type="inbox" />
             </p>
@@ -69,7 +127,7 @@ const CreatePlanPage = props => {
             </p>
           </Dragger>
         </Col>
-      </Row>
+      </Row> */}
 
       <Row style={{ marginBottom: 8 }}>
         <Col span={18} offset={3}>
@@ -81,7 +139,7 @@ const CreatePlanPage = props => {
         <Col span={18} offset={3}>
           <TextArea
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
             autoSize={{ minRows: 6, maxRows: 6 }}
           />
         </Col>
@@ -99,7 +157,7 @@ const CreatePlanPage = props => {
             prefix="￥"
             suffix="円"
             value={price}
-            onChange={e => setPrice(e.target.value)}
+            onChange={(e) => setPrice(e.target.value)}
           />
         </Col>
       </Row>
@@ -131,18 +189,45 @@ const CreatePlanPage = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    plan: state.plan
+    plan: state.plan,
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    postPlanEvent: planContent => {
-      return dispatch(postPlanEvent(planContent));
-    }
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  postPlanEvent: (planContent) => dispatch(postPlanEvent(planContent)),
+});
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     postPlanEvent: planContent => {
+//       return dispatch(postPlanEvent(planContent));
+//     }
+//   };
+// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePlanPage);
+
+// const hundleImage = e => {
+//   console.log(e.target.files[0]);
+//   const file = e.target.files[0];
+//   console.log(file);
+//   const reader = new FileReader();
+//   // reader.readAsDataURL(file);
+//   // const reader = new FileReader();
+//   reader.onload = e => {
+//     console.log('読み込まれた');
+//     const ToBase64image = e.target.result;
+//     setImage(ToBase64image);
+//   };
+//   // console.log(image);
+//   // console.log(reader.readAsDataURL(file));
+//   // reader.readAsDataURL(file);
+//   // const url = reader.readAsDataURL(file);
+//   // console.log(image);
+//   // console.log(url);
+//   // setImage(url);
+//   // console.log(reader.result);
+//   console.log('画像の変更');
+// };

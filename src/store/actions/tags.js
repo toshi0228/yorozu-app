@@ -1,7 +1,18 @@
 import { READ_TAG_EVENTS } from '../actionTypes';
 import { feachTags } from '../../services/ApiRequest';
 
-// import { setAuthHeader } from '../../services/ApiRequest';
+export const readTagEvent = () => dispatch => {
+  feachTags().then(res => {
+    dispatch(readTag({ ...res.data }));
+  });
+};
+
+export const readTag = tags => {
+  return {
+    type: READ_TAG_EVENTS,
+    payload: { ...tags }
+  };
+};
 
 // =====================================================================================
 // 非同期の場合は、API通信を行って、そこから取得した値をとってから値をstoreに飛ばしたい。
@@ -47,70 +58,3 @@ import { feachTags } from '../../services/ApiRequest';
 
 // dispatch(type,payload)なら値は届く
 // =====================================================================================
-
-export const readTagEvent = () => dispatch => {
-  feachTags().then(res => {
-    dispatch(readTag({ ...res.data }));
-  });
-};
-
-export const readTag = tags => {
-  return {
-    type: READ_TAG_EVENTS,
-    payload: { ...tags }
-  };
-};
-
-// export const signIn = formProps => dispatch => {
-//   return postSignIn(formProps)
-//     .then(res => {
-//       // リクエストをするときにアクセストークンをヘッダーにセットする
-//       setAuthHeader(res.data);
-
-//       // accountReducerにセットする
-//       dispatch(signInAccount({ authToken: { ...res.data } }));
-
-//       // dispatch(signInAccount({ ...res.data, authToken: res.data.token }));
-//       dispatch(push('/create_plan'));
-//     })
-//     .catch(e => {
-//       console.log(`${e} ログイン失敗`);
-//     });
-// };
-
-// const signInAccount = user => {
-//   return {
-//     type: SIGN_IN_ACCOUNT,
-//     payload: { ...user, isLoggedIn: true }
-//   };
-// };
-
-// export const readTag = () => dispatch => {
-//   return feachTags().then(res => {
-//     setTag();
-//   });
-// };
-
-// const setTag = () => {
-//   return {
-//     type: READ_TAG
-//   };
-// };
-
-// const feachTags = async () => {
-//   const response = await axios.get('http://127.0.0.1:8000/api/tag/');
-//   const tags = response.data.reduce((previous, tag) => {
-//     previous.push(tag.name);
-//     return previous;
-//   }, []);
-
-// export const readTag = () => dispatch => {
-//   return {
-//     type: READ_TAG
-//   };
-// };
-
-// import { SET_ACCOUNT, SIGN_IN_ACCOUNT } from '../actionTypes';
-// import { postSignIn, postSignUp } from '../../services/authApiRequest';
-// import { push } from 'connected-react-router';
-// import { setAuthHeader } from '../../services/ApiRequest';

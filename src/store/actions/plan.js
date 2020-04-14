@@ -2,6 +2,8 @@ import { CREATE_PLAN_EVENT } from '../actionTypes';
 import { postPlan } from '../../services/ApiRequest';
 
 export const postPlanEvent = planContent => dispatch => {
+  // const submitData = new FormData();
+  // submitData.append('planConten', planConten);
   return postPlan(planContent);
 };
 
