@@ -9,11 +9,10 @@ const UrlList = {
   messageRoom: () => '/message/rooms/:id',
   dashboard: () => '/project',
   contracting: () => '/contracting',
-
+  myPage: () => '/my_page',
 };
 
 export default UrlList;
-
 
 // export default {
 //   top: () => '/',

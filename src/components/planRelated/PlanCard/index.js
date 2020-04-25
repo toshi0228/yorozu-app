@@ -13,11 +13,9 @@ const PlanCard = ({ item }) => {
           cover={<img alt="example" src={item.image} style={{ height: 200 }} />}
           hoverable
           actions={[
-            <Link to="/">
-              <Icon type="twitter" />
-            </Link>,
+            <Icon type="twitter" />,
             <Icon type="instagram" />,
-            <Icon type="facebook" />
+            <Icon type="facebook" />,
           ]}
         >
           <Meta title={item.title} description={item.description} />
@@ -28,3 +26,8 @@ const PlanCard = ({ item }) => {
 };
 
 export default PlanCard;
+
+// リンクを作るとエラーになる
+// <Link to="/"> */}
+// <Icon type="twitter" />
+// </Link>

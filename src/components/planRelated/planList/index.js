@@ -8,7 +8,7 @@ const PlanList = () => {
 
   const feachPlan = async () => {
     const response = await axios.get('http://127.0.0.1:8000/api/plan/');
-    console.log(response.data[0]);
+    console.log(response.data);
     // const response = await axios.get('http://localhost:8080/create_plan');
     setPlans(response.data);
     return;
@@ -22,7 +22,7 @@ const PlanList = () => {
     <List
       grid={{ gutter: [32, 32], column: 3, xs: 1, sm: 2, md: 3 }}
       dataSource={plans}
-      renderItem={item => (
+      renderItem={(item) => (
         <List.Item>
           <PlanCard item={item} />
         </List.Item>

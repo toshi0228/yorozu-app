@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Col, Row } from 'antd';
 import styles from './index.module.scss';
-import routes from '../../../routes'
+import routes from '../../../routes';
 // const { Header } = Layout;
 
 const GuestHeader = () => {
@@ -34,6 +34,9 @@ const GuestHeader = () => {
                   </Col>
                   <Col>
                     <Link to="/create_plan">Create</Link>
+                  </Col>
+                  <Col>
+                    <Link to={routes.myPage()}>MyPage</Link>
                   </Col>
                 </Row>
               </Col>

@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-// import Dropzone from 'react-dropzone';
 import { useDropzone } from 'react-dropzone';
 import { Spin } from 'antd';
 import styles from './index.module.scss';

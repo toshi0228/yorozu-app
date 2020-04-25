@@ -1,22 +1,27 @@
-const aaa = () => () => ({
-  aaa: 'aaa'
-});
-console.log(aaa()());
+console.log(JSON.stringify([{ name: 'aa' }]));
 
-// const aaa = () => ({
-//   aaa: 'aaa'
-// });
+// import _ from 'lodash';
 
-// const bbb = () => {
-//   return { a: 'ss' };
+// const params = {
+//   name: '名前',
+//   title: 'タイトル',
+//   image: '画像ファイル',
+//   tags: ['タグ1', 'タグ2'], // 追加
 // };
-// console.log(aaa);
-// console.log(bbb);
 
-// var a = {};
-// a.abc = test;
-// a.abc();
+// _forEach(params, (value, key) => console.log(value));
 
-// function test() {
-//   console.log('aaa');
-// }
+// const formData = new FormData()
+// Object.entries(params).forEach(([key, value]) => {
+//   if (Array.isArray(value)) {
+//     value.forEach((v, i) => {
+//       formData.append(key + '[]', v)  // arrayデータを分割して入れ直す
+//     })
+//   } else {
+//     formData.append(key, value)
+//   }
+// })
+
+// _.forEach({ a: 1, b: 2 }, function (value, key) {
+//   console.log(key);
+// });

@@ -22,7 +22,7 @@ import MessageRoomPage from '../containers/MessageRelatedPages/MessageRoomPage';
 // ゲストヘッダーとメンバーヘッダーでレイアウトを変更する
 import {
   withGuestLayout,
-  withMemberLayout
+  withMemberLayout,
 } from '../components/Layouts/RouteWithLayout';
 
 // 認証 jwtがあるか確認
@@ -36,10 +36,11 @@ import TopePage from '../containers/TopPage';
 import CreatePlan from '../containers/ThrowOutCode/CreatePlan';
 import ContractingPage from '../containers/ContractingPage/ContractingPage';
 import FormPage from '../containers/FormPage';
+import MyPage from '../containers/MyPage/MyPage';
 // import Auth from '../components/Auth';
 
 // 引数をpropsにして,historyを受け取る
-const Router = props => {
+const Router = (props) => {
   return (
     <ConnectedRouter history={props.history}>
       <Switch>
@@ -96,6 +97,9 @@ const Router = props => {
           path={routes.createPlan()}
           render={withMemberLayout(requireAuth(CreatePlanPage))}
         /> */}
+
+        {/* マイページ */}
+        <Route path={routes.myPage()} render={withMemberLayout(MyPage)} />
 
         {/* ボツページ（トップページ） */}
         <Route exact path="/plan" component={withGuestLayout(FormPage)} />

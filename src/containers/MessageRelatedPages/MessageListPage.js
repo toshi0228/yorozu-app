@@ -1,20 +1,20 @@
 import React from 'react';
-import { Col, Row, Card, List, Avatar } from 'antd';
+import { Col, Row, List, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 
 const data = [
   {
-    title: 'Ant Design Title 1'
+    title: 'Ant Design Title 1',
   },
   {
-    title: 'Ant Design Title 2'
+    title: 'Ant Design Title 2',
   },
   {
-    title: 'Ant Design Title 3'
+    title: 'Ant Design Title 3',
   },
   {
-    title: 'Ant Design Title 4'
-  }
+    title: 'Ant Design Title 4',
+  },
 ];
 
 const MessagePage = ({ id }) => {
@@ -31,7 +31,7 @@ const MessagePage = ({ id }) => {
           <List
             itemLayout="horizontal"
             dataSource={data}
-            renderItem={item => (
+            renderItem={(item) => (
               <List.Item>
                 <List.Item.Meta
                   avatar={
