@@ -10,7 +10,7 @@ const MyPage = () => {
   const [tags, setTags] = useState([]);
 
   const register = () => {
-    console.loog('登録');
+    console.log('登録');
     // const planContent = {
     //   title,
     //   description,

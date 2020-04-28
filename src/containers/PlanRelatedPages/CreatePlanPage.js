@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Upload, Input, Row, Col, Icon, Button } from 'antd';
+import { Upload, Input, Row, Col, Button } from 'antd';
 import InputTag from '../../components/formRelated/tagForm';
 import { postPlanEvent } from '../../store/actions/plan';
 import ImageForm from '../../components/formRelated/ImageForm';
 
 const { TextArea } = Input;
-const { Dragger } = Upload;
 
 const CreatePlanPage = (props) => {
   const [title, setTitle] = useState('');

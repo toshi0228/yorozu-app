@@ -1,5 +1,6 @@
 console.log(JSON.stringify([{ name: 'aa' }]));
-
+var original = Promise.resolve(33);
+console.log(original);
 // import _ from 'lodash';
 
 // const params = {

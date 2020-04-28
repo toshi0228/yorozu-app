@@ -9,10 +9,11 @@ export const feachTags = () => {
   return axios.get('http://127.0.0.1:8000/api/tag/');
 };
 
-export const postPlan = (params) => {
-  console.log('API通信');
-  console.log(params);
+export const getProfile = () => {
+  return axios.get('http://127.0.0.1:8000/api/profile/1');
+};
 
+export const postPlan = (params) => {
   const formData = new FormData();
 
   // =====================================================================================

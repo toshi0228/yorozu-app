@@ -32,8 +32,8 @@ import requireAuth from '../components/requireAuth';
 import DashboardPage from '../containers/DashboardPage/DashboardPage';
 
 // ボツになりそうなコード
-import TopePage from '../containers/TopPage';
-import CreatePlan from '../containers/ThrowOutCode/CreatePlan';
+// import TopePage from '../containers/TopPage';
+// import CreatePlan from '../containers/ThrowOutCode/CreatePlan';
 import ContractingPage from '../containers/ContractingPage/ContractingPage';
 import FormPage from '../containers/FormPage';
 import MyPage from '../containers/MyPage/MyPage';
@@ -51,6 +51,12 @@ const Router = (props) => {
           component={withGuestLayout(PlanListPage)}
         />
 
+        {/* プランの詳細ページ */}
+        <Route
+          path={routes.planDetail()}
+          render={withGuestLayout(PlanDetailPage)}
+        />
+
         {/* ログインページ */}
         <Route
           path={routes.siginIn()}
@@ -65,12 +71,6 @@ const Router = (props) => {
           exact
           path={routes.dashboard()}
           component={withGuestLayout(DashboardPage)}
-        />
-
-        {/* プランの詳細ページ */}
-        <Route
-          path={routes.planDetail()}
-          render={withGuestLayout(PlanDetailPage)}
         />
 
         {/* メッセージのトップページ */}

@@ -2,19 +2,21 @@ import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 // アカウント取得など非同期の処理を行うのでreduxThunkを読み込み
 import reduxThunk from 'redux-thunk';
-import accountReducer from './reducers/accountReducer';
-import planReducer from './reducers/planReducer';
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
+import accountReducer from './reducers/accountReducer';
+import planReducer from './reducers/planReducer';
 import tagReducer from './reducers/tagReducer';
+import profileReducer from './reducers/profileReducer';
 
 // creatStoreをするときにcreateRootReducerは引数として、historyを受け取る
-export const createRootReducer = history =>
+export const createRootReducer = (history) =>
   combineReducers({
     router: connectRouter(history),
     account: accountReducer,
     plan: planReducer,
-    tag: tagReducer
+    tag: tagReducer,
+    profile: profileReducer,
   });
 
 export const history = createBrowserHistory();
@@ -47,4 +49,15 @@ export default function configureStore() {
 
 // 構造
 // createBrowserHistory -> configureStore -> createStore -> createRootReducer -> combineReducers
+
+// router関係は、もうこれ通りするしかない
+// https://github.com/supasate/connected-react-router
+// =====================================================================================
+
+// =====================================================================================
+// applyMiddlewareの引数に、適用する Middleware を入れる。
+// applyMiddlewareを使用すると、dispatchが実行された際に、
+// dispatchではなく指定した Middleware が呼び出されるようになる。
+// dispatchの内部で、actionがtypeプロパティを持ったプレーンなオブジェクトか判断する
+// Middlewareは、dispatch and getStateを引数として受け取る
 // =====================================================================================

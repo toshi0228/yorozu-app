@@ -12,3 +12,6 @@ export const CREATE_PLAN_EVENT = 'CREATE_PLAN';
 
 // Tag
 export const READ_TAG_EVENTS = 'READ_TAG_EVENTS';
+
+// Profile
+export const READ_PROFILE_EVENTS = 'READ_PROFILE_EVENTS';

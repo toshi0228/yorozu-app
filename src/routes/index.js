@@ -3,7 +3,6 @@ const UrlList = {
   siginIn: () => '/sign_in',
   signUp: () => '/sign_up',
   planDetail: () => '/plan/detail/:id',
-  planDetail: () => '/plan/detail/:id',
   createPlan: () => '/create_plan',
   messageList: () => '/message',
   messageRoom: () => '/message/rooms/:id',
