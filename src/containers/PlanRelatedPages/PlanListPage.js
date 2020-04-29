@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import PlanList from '../../components/planRelated/planList/index';
 import { Col, Row, Pagination } from 'antd';
 import '../../styles/PlanListPage.scss';
+import { fetchPlanList } from '../../store/actions/plan';
 
 // import { Pagination } from 'antd';
 
-const PlanListPage = () => {
+// useEffect
+
+const PlanListPage = (props) => {
+  useEffect(() => {
+    props.readPlanListEvents();
+  }, []);
+
   return (
     <>
       <Row type="flex" justify="center" style={{ marginBottom: 70 }}>
-        <Col className="p" span={18}>
-          <PlanList />
+        <Col span={18}>
+          <PlanList planListdata={props.planList} />
         </Col>
       </Row>
       <Row type="flex" justify="center">
@@ -22,4 +30,12 @@ const PlanListPage = () => {
   );
 };
 
-export default PlanListPage;
+const mapStateToprops = (state) => ({
+  planList: state.plan,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  readPlanListEvents: () => dispatch(fetchPlanList()),
+});
+
+export default connect(mapStateToprops, mapDispatchToProps)(PlanListPage);

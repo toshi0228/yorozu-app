@@ -5,14 +5,21 @@ export const setAuthHeader = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'Bearer' + authToken.access;
 };
 
+// プラン取得
+export const getPlanList = () => {
+  return axios.get('http://127.0.0.1:8000/api/plan/');
+};
+
 export const feachTags = () => {
   return axios.get('http://127.0.0.1:8000/api/tag/');
 };
 
+// プロフィールの取得
 export const getProfile = () => {
   return axios.get('http://127.0.0.1:8000/api/profile/1');
 };
 
+// プラン登録
 export const postPlan = (params) => {
   const formData = new FormData();
 

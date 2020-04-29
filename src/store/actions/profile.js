@@ -10,10 +10,10 @@ export const feachProfile = () => (dispatch) => {
 };
 
 // action
-export const readProfile = (featchProfileData) => {
+export const readProfile = (fetchProfileData) => {
   return {
     type: READ_PROFILE_EVENTS,
-    payload: featchProfileData,
+    payload: fetchProfileData,
   };
 };
 

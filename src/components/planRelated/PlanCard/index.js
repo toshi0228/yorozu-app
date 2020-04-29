@@ -4,13 +4,20 @@ import { Link } from 'react-router-dom';
 
 // import { Link } from 'react-router-dom';
 
-const PlanCard = ({ item }) => {
+// ============================================================
+// プランリストのカード部分
+// ============================================================
+
+const PlanCard = ({ planData }) => {
+  console.log(planData);
   const { Meta } = Card;
   return (
     <>
-      <Link to={`/plan/detail/${item.id}`}>
+      <Link to={`/plan/detail/${planData.yorozuyaProfile.id}`}>
         <Card
-          cover={<img alt="example" src={item.image} style={{ height: 200 }} />}
+          cover={
+            <img alt="example" src={planData.image} style={{ height: 200 }} />
+          }
           hoverable
           actions={[
             <Icon type="twitter" />,
@@ -18,7 +25,7 @@ const PlanCard = ({ item }) => {
             <Icon type="facebook" />,
           ]}
         >
-          <Meta title={item.title} description={item.description} />
+          <Meta title={planData.title} description={planData.description} />
         </Card>
       </Link>
     </>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Upload, Input, Row, Col, Button } from 'antd';
+import { Input, Row, Col, Button } from 'antd';
 import InputTag from '../../components/formRelated/tagForm';
 import { postPlanEvent } from '../../store/actions/plan';
 import ImageForm from '../../components/formRelated/ImageForm';

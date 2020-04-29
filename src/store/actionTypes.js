@@ -9,6 +9,7 @@ export const START_LOADING = 'STOP_LOADING';
 
 // Plan
 export const CREATE_PLAN_EVENT = 'CREATE_PLAN';
+export const READ_PLAN_EVENTS = 'READ_PLAN_EVENTS';
 
 // Tag
 export const READ_TAG_EVENTS = 'READ_TAG_EVENTS';
