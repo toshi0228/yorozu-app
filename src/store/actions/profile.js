@@ -2,14 +2,14 @@ import { READ_PROFILE_EVENTS } from '../actionTypes';
 import { getProfile } from '../../services/ApiRequest';
 import { getNodeText } from '@testing-library/react';
 
-// axios通信
-export const feachProfile = () => (dispatch) => {
-  return getProfile().then((res) => {
+// 万屋の詳細ページのhttpリクエスト;
+export const feachProfile = (id) => (dispatch) => {
+  return getProfile(id).then((res) => {
     dispatch(readProfile(res.data));
   });
 };
 
-// action
+// 万屋の詳細ページのアクション
 export const readProfile = (fetchProfileData) => {
   return {
     type: READ_PROFILE_EVENTS,

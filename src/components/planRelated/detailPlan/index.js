@@ -1,17 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Row, Col, Button, Rate, Tag, Icon } from 'antd';
 import styles from './index.module.scss';
 import data from '../../../Data/dummyData.json';
+import DetailPlanSection from '../detailPlanSection/index';
 
-const DetailPlan = ({ id, history }) => {
-  console.log(history);
-  console.log(data);
-  const Consultation = () => {
-    alert('相談します');
-  };
+const DetailPlan = ({ profileData }) => {
+  // プランが読み込まれたら、配列のプランデータを読み込み
+  const PlanList = profileData.planList.map((planData, index) => {
+    return <DetailPlanSection key={index} planData={planData} />;
+  });
 
+  // const PlanList = () => {
+  //   if (profileData.isLoading) {
+  //     profileData.planList.map((planData) => {
+  //       return <DetailPlanSection planData={planData} />;
+  //     });
+  //   } else {
+  //     return <DetailPlanSection />;
+  //   }
+  // };
   return (
     <>
       <Row>
@@ -22,69 +29,16 @@ const DetailPlan = ({ id, history }) => {
 
       {/* 左サイドバー */}
       <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
-        {/* メインの画像 */}
+        {/* プラン一覧 */}
         <Col span={12} md={12}>
-          <img
-            alt="example"
-            src={data.iamge}
-            style={{ width: '100%', height: 360, borderRadius: 8 }}
-          />
-
-          {/* プランのタイトル */}
-          <div>
-            {/* タイトル */}
-            <Row style={{ marginTop: 40 }}>
-              {/* <Col offset={2}> */}
-              <Col>
-                <h2>{data.planTitle}</h2>
-              </Col>
-            </Row>
-
-            {/*料金 */}
-            <Row>
-              {/* <Col offset={2}> */}
-              <Col>
-                <h3>{data.planPrice}円</h3>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col>
-                <hr></hr>
-              </Col>
-            </Row>
-
-            {/* プランの説明 */}
-            {/* <Row type="flex" justify="center" style={{ paddingTop: 10 }}> */}
-            <Row style={{ paddingTop: 20 }}>
-              <Col span={20}>
-                {`詳細プラン${id}のコンポーネントですよ`}
-                {data.planDescription}
-              </Col>
-            </Row>
-
-            {/* 相談ボタン */}
-            <Row gutter={[32, 32]} type="flex" style={{ marginTop: 20 }}>
-              {/* <Col offset={2}> */}
-              <Col>
-                <Link to="/message/">
-                  <Button type="primary" onClick={Consultation}>
-                    相談する
-                  </Button>
-                </Link>
-              </Col>
-
-              <Col style={{ marginBottom: 20 }}>
-                <Button type="primary">契約する</Button>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col>
-                <hr></hr>
-              </Col>
-            </Row>
-          </div>
+          {PlanList}
+          {/* <PlanList /> */}
+          {/*プランセクションの切り出し */}
+          {/* <DetailPlanSection
+            planList={profileData.planList}
+            isLoading={profileData.isLoading}
+          /> */}
+          {/* <DetailPlanSection /> */}
         </Col>
 
         {/* 右サイドバー */}
@@ -107,14 +61,14 @@ const DetailPlan = ({ id, history }) => {
               <img
                 className={styles.circle}
                 alt="example"
-                src={data.profileImage}
+                src={profileData.profileImage}
               />
             </Col>
           </Row>
 
           <Row type="flex" justify="center" style={{ marginTop: 25 }}>
             <Col>
-              <div style={{ fontSize: 20 }}>長野峡泉</div>
+              <div style={{ fontSize: 20 }}>{profileData.yorozuyaName}</div>
             </Col>
           </Row>
 
@@ -130,7 +84,9 @@ const DetailPlan = ({ id, history }) => {
           {/* プロフィールの説明 */}
           <Row type="flex" justify="center" style={{ marginTop: 40 }}>
             <Col span={18}>
-              <div style={{ paddding: 20 }}>{data.profileDescription}</div>
+              <div style={{ paddding: 20 }}>
+                {profileData.profileDescription}
+              </div>
             </Col>
           </Row>
         </Col>
@@ -139,4 +95,4 @@ const DetailPlan = ({ id, history }) => {
   );
 };
 
-export default connect()(DetailPlan);
+export default DetailPlan;

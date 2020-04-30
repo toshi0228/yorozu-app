@@ -2,21 +2,22 @@ import React from 'react';
 import { Card, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 
-// import { Link } from 'react-router-dom';
-
 // ============================================================
 // プランリストのカード部分
 // ============================================================
 
 const PlanCard = ({ planData }) => {
-  console.log(planData);
   const { Meta } = Card;
   return (
     <>
-      <Link to={`/plan/detail/${planData.yorozuyaProfile.id}`}>
+      <Link to={`/plan/detail/${planData.id}`}>
         <Card
           cover={
-            <img alt="example" src={planData.image} style={{ height: 200 }} />
+            <img
+              alt="example"
+              src={planData.yorozuMainImage}
+              style={{ height: 200 }}
+            />
           }
           hoverable
           actions={[
@@ -25,7 +26,10 @@ const PlanCard = ({ planData }) => {
             <Icon type="facebook" />,
           ]}
         >
-          <Meta title={planData.title} description={planData.description} />
+          <Meta
+            title={planData.yorozuyaName}
+            description={planData.profileDescription}
+          />
         </Card>
       </Link>
     </>

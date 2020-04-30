@@ -7,8 +7,6 @@ import { fetchPlanList } from '../../store/actions/plan';
 
 // import { Pagination } from 'antd';
 
-// useEffect
-
 const PlanListPage = (props) => {
   useEffect(() => {
     props.readPlanListEvents();
@@ -16,11 +14,14 @@ const PlanListPage = (props) => {
 
   return (
     <>
+      {/* <p>人とは、違うユニークさで戦おう</p> */}
       <Row type="flex" justify="center" style={{ marginBottom: 70 }}>
         <Col span={18}>
           <PlanList planListdata={props.planList} />
         </Col>
       </Row>
+
+      {/* ページの項目 */}
       <Row type="flex" justify="center">
         <Col>
           <Pagination defaultCurrent={1} total={50} />

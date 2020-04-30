@@ -5,24 +5,25 @@ import { feachProfile } from '../../store/actions/profile';
 
 const PlanDetailPage = (props) => {
   useEffect(() => {
-    props.feachProfileEvent();
+    // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
+    const { id } = props.props.match.params;
+    props.feachProfileEvent(id);
   }, []);
 
-  // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
-  const { id } = props.props.match.params;
   return (
     <>
-      <DetailPlan id={id} />
+      <DetailPlan profileData={props.profile} />
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  isLoading: state.profile.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  feachProfileEvent: () => dispatch(feachProfile()),
+  feachProfileEvent: (id) => dispatch(feachProfile(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlanDetailPage);
