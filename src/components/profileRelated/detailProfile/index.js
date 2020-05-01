@@ -4,14 +4,22 @@ import styles from './index.module.scss';
 import DetailPlanSection from '../../planRelated/detailPlanSection/index';
 
 const DetailProfile = ({ profileData }) => {
-  // console.log(profileData.planList);
+  console.log(profileData.tagList);
   const [planList, setPlanList] = useState([]);
+  const [tagList, setTagList] = useState([]);
 
   const renderPlanList = () => {
+    // プランリストを返す
     const planList = profileData.planList.map((planData, index) => {
       return <DetailPlanSection key={index} planData={planData} />;
     });
     setPlanList(planList);
+
+    // タグリストを返す
+    const tagList = profileData.tagList.map((tag) => {
+      return <Tag>{tag}</Tag>;
+    });
+    setTagList(tagList);
   };
 
   // 初回のrenderでprofileDataに値が入っていなくて、エラーが起きるので、if文の処理を仕込む
@@ -87,11 +95,7 @@ const DetailProfile = ({ profileData }) => {
           {/* タグ */}
           <Row>
             <Col offset={3} span={20}>
-              <Tag>旅館オーナー</Tag>
-              <Tag>インスタグラマー</Tag>
-              <Tag>サプライズ</Tag>
-              <Tag>カメラマン</Tag>
-              <Tag>エンジニエア</Tag>
+              {tagList}
             </Col>
           </Row>
 
