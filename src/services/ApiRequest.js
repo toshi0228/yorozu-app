@@ -5,19 +5,18 @@ export const setAuthHeader = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'Bearer' + authToken.access;
 };
 
-// トップページ プラン取得
-export const getPlanList = () => {
+// トップページ 万屋プロフィールリストの取得
+export const getProfileList = () => {
   return axios.get('http://127.0.0.1:8000/api/profile/');
-};
-// return axios.get('http://127.0.0.1:8000/api/plan/');
-
-export const feachTags = () => {
-  return axios.get('http://127.0.0.1:8000/api/tag/');
 };
 
 // 万屋、詳細ページの取得
-export const getProfile = (id) => {
+export const getProfileDetail = (id) => {
   return axios.get(`http://127.0.0.1:8000/api/profile/${id}`);
+};
+
+export const feachTags = () => {
+  return axios.get('http://127.0.0.1:8000/api/tag/');
 };
 
 // プラン登録

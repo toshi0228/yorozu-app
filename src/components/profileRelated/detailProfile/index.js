@@ -1,14 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Button, Rate, Tag, Icon } from 'antd';
 import styles from './index.module.scss';
-import data from '../../../Data/dummyData.json';
-import DetailPlanSection from '../detailPlanSection/index';
+import DetailPlanSection from '../../planRelated/detailPlanSection/index';
 
-const DetailPlan = ({ profileData }) => {
-  // プランが読み込まれたら、配列のプランデータを読み込み
-  const PlanList = profileData.planList.map((planData, index) => {
-    return <DetailPlanSection key={index} planData={planData} />;
-  });
+const DetailProfile = ({ profileData }) => {
+  // console.log(profileData.planList);
+  const [planList, setPlanList] = useState([]);
+
+  const renderPlanList = () => {
+    const planList = profileData.planList.map((planData, index) => {
+      return <DetailPlanSection key={index} planData={planData} />;
+    });
+    setPlanList(planList);
+  };
+
+  // 初回のrenderでprofileDataに値が入っていなくて、エラーが起きるので、if文の処理を仕込む
+  // 初回はfalseなのでtrueの処理はされない
+  useEffect(() => {
+    if (profileData[0][0].isLoading) {
+      renderPlanList();
+    }
+  }, [profileData]);
+
+  // const PlanList = profileData.planList.map((palnData, index) => {
+  //   return console.log(palnData);
+  // });
+
+  // const tags = [];
+
+  // // プランが読み込まれたら、配列のプランデータを読み込み
+  // const PlanList = profileData.planList.map((planData, index) => {
+  //   // if (index === 0) {
+  //   //   tags.push(planData.tags[0].name);
+  //   // }
+  //   // tags.forEach((tag) => {
+  //   //   if (tag === planData.tags[0].name) {
+  //   //     console.log('同じのがあった');
+  //   //   } else {
+  //   //     console.log('同じものではない');
+  //   //     tags.push(planData.tags[0].name);
+  //   //   }
+  //   // });
+  //   // console.log(tags);
+  //   return <DetailPlanSection key={index} planData={planData} />;
+  // });
+
+  // const tagList = tags.map((tag) => {
+  //   return console.log(tag);
+  // });
 
   // const PlanList = () => {
   //   if (profileData.isLoading) {
@@ -31,7 +70,8 @@ const DetailPlan = ({ profileData }) => {
       <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
         {/* プラン一覧 */}
         <Col span={12} md={12}>
-          {PlanList}
+          {planList}
+          {/* {renderPlanList} */}
           {/* <PlanList /> */}
           {/*プランセクションの切り出し */}
           {/* <DetailPlanSection
@@ -95,4 +135,4 @@ const DetailPlan = ({ profileData }) => {
   );
 };
 
-export default DetailPlan;
+export default DetailProfile;

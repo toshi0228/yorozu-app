@@ -1,13 +1,12 @@
 import React from 'react';
-import { Card, Icon } from 'antd';
+import { Card, Icon, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 
 // ============================================================
 // プランリストのカード部分
 // ============================================================
 
-const PlanCard = ({ planData }) => {
-  const { Meta } = Card;
+const ProfileCard = ({ planData }) => {
   return (
     <>
       <Link to={`/plan/detail/${planData.id}`}>
@@ -26,9 +25,10 @@ const PlanCard = ({ planData }) => {
             <Icon type="facebook" />,
           ]}
         >
-          <Meta
+          <Card.Meta
             title={planData.yorozuyaName}
             description={planData.profileDescription}
+            style={{ height: 100 }}
           />
         </Card>
       </Link>
@@ -36,7 +36,7 @@ const PlanCard = ({ planData }) => {
   );
 };
 
-export default PlanCard;
+export default ProfileCard;
 
 // リンクを作るとエラーになる
 // <Link to="/"> */}

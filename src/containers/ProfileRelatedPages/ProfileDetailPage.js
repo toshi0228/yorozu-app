@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import DetailPlan from '../../components/planRelated/detailPlan';
-import { feachProfile } from '../../store/actions/profile';
+import DetailPlan from '../../components/profileRelated/detailProfile';
+import { feachProfileDetail } from '../../store/actions/profile';
 
-const PlanDetailPage = (props) => {
+const ProfileDetailPage = (props) => {
   useEffect(() => {
     // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
     const { id } = props.props.match.params;
-    props.feachProfileEvent(id);
+    props.readProfileDetailEvent(id);
   }, []);
 
   return (
@@ -23,10 +23,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  feachProfileEvent: (id) => dispatch(feachProfile(id)),
+  readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlanDetailPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetailPage);
 
 // =====================================================================================
 // 2020/4/28

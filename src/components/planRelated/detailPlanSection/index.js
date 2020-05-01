@@ -8,7 +8,6 @@ import data from '../../../Data/dummyData.json';
 // ====================================================================
 
 const DetailPlanSection = ({ planData }) => {
-  console.log(planData);
   const Consultation = () => {
     alert('相談します');
   };
@@ -16,7 +15,7 @@ const DetailPlanSection = ({ planData }) => {
     <>
       <img
         alt="example"
-        src={planData.image}
+        src={`http://127.0.0.1:8000${planData.image}`}
         style={{ width: '100%', height: 360, borderRadius: 8 }}
       />
       {/* プランのタイトル */}

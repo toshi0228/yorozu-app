@@ -6,14 +6,16 @@ import { ConnectedRouter } from 'connected-react-router';
 // urlを読み込む;
 import routes from '../routes';
 
+// プロフィール関連(トップページ)
+import ProfileListPage from '../containers/ProfileRelatedPages/ProfileListPage';
+import ProfileDetailPage from '../containers/ProfileRelatedPages/ProfileDetailPage';
+
 // アカウント関連
 import SignInPage from '../containers/AccountRelatedPages/SignInPage';
 import SignUpPage from '../containers/AccountRelatedPages/SignUpPage';
 
 // プラン関連
 import CreatePlanPage from '../containers/PlanRelatedPages/CreatePlanPage';
-import PlanListPage from '../containers/PlanRelatedPages/PlanListPage';
-import PlanDetailPage from '../containers/PlanRelatedPages/PlanDetailPage';
 
 // メッセージ関連
 import MessagePage from '../containers/MessageRelatedPages/MessageListPage';
@@ -37,6 +39,7 @@ import DashboardPage from '../containers/DashboardPage/DashboardPage';
 import ContractingPage from '../containers/ContractingPage/ContractingPage';
 import FormPage from '../containers/FormPage';
 import MyPage from '../containers/MyPage/MyPage';
+
 // import Auth from '../components/Auth';
 
 // 引数をpropsにして,historyを受け取る
@@ -48,13 +51,13 @@ const Router = (props) => {
         <Route
           exact
           path={routes.top()}
-          component={withGuestLayout(PlanListPage)}
+          component={withGuestLayout(ProfileListPage)}
         />
 
-        {/* プランの詳細ページ */}
+        {/* プロフィール詳細ページ */}
         <Route
-          path={routes.planDetail()}
-          render={withGuestLayout(PlanDetailPage)}
+          path={routes.profileDetail()}
+          render={withGuestLayout(ProfileDetailPage)}
         />
 
         {/* ログインページ */}

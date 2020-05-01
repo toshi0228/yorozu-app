@@ -1,10 +1,35 @@
-import { READ_PROFILE_EVENTS } from '../actionTypes';
-import { getProfile } from '../../services/ApiRequest';
-import { getNodeText } from '@testing-library/react';
+import { READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT } from '../actionTypes';
+import { getProfileList } from '../../services/ApiRequest';
+import { getProfileDetail } from '../../services/ApiRequest';
+// import { postPlan } from '../../services/ApiRequest';
+
+// プロフィールリストの読み込み
+export const fetchProfileList = () => (dispatch) => {
+  getProfileList().then((res) => {
+    dispatch(readProfileList(res.data));
+  });
+};
+
+// プロフィールのアクションクリエーター
+export const readProfileList = (fetchProfileListData) => {
+  return {
+    type: READ_PROFILE_EVENTS,
+    payload: fetchProfileListData,
+  };
+};
+
+// プラン登録  これはあとで登録画面の時修正したい
+// export const postProfileEvent = (ProfileContent) => (dispatch) => {
+//   return postProfile(ProfileContent);
+// };
+
+// =====================================================================================
+
+// import { READ_PROFILE_EVENTS } from '../actionTypes';
 
 // 万屋の詳細ページのhttpリクエスト;
-export const feachProfile = (id) => (dispatch) => {
-  return getProfile(id).then((res) => {
+export const feachProfileDetail = (id) => (dispatch) => {
+  return getProfileDetail(id).then((res) => {
     dispatch(readProfile(res.data));
   });
 };
@@ -12,7 +37,7 @@ export const feachProfile = (id) => (dispatch) => {
 // 万屋の詳細ページのアクション
 export const readProfile = (fetchProfileData) => {
   return {
-    type: READ_PROFILE_EVENTS,
+    type: READ_PROFILE_DETAIL_EVENT,
     payload: fetchProfileData,
   };
 };
