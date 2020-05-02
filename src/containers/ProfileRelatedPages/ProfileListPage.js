@@ -10,7 +10,6 @@ import { fetchProfileList } from '../../store/actions/profile';
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 const ProfileListPage = (props) => {
-  console.log(props.data);
   useEffect(() => {
     props.readProfileListEvents();
   }, []);

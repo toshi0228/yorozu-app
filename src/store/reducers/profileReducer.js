@@ -6,7 +6,7 @@ const DEFAULT_STATE = {
   isLoading: false,
   // トップページのprofileListのデータ
   profileList: [],
-  // profileDetailページのデータ なので、topページを表示の時は空のオブジェクト
+  // profileDetailページのデータ。planListとtagListは最初にmapで作業があるので先に初期値を入れる
   profileDetail: { planList: [], tagList: [] },
 };
 
@@ -30,12 +30,19 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
 
       // タグのみそれぞれのプランに紐づいているの,それぞれのタグを取り出す
       // ex) tagList:["企画", "インスターグラマー", "インスターグラマー"]
+
+      console.log('READ_PROFILE_DETAIL_EVENT');
+
+      // tags:[[],[]]
       const tags = action.payload.planList.map((plan) => {
-        return plan.tags[0].name;
+        // タグのみ取り出す
+        // [{ id: '', name: '' }, {}] -> ["インスターグラマー", "企画"]
+        return _.map(plan.tags, (tag) => tag.name);
       });
-      // リストの重複を無くしてくれる ex)["企画", "インスターグラマー"]
-      // const tagList = _.union(tags);
-      state.profileDetail.tagList = _.union(tags);
+
+      // _.unionはリストの重複を無くしてくれる
+      // ex) _.union([2], [1, 2]) => [2, 1]
+      state.profileDetail.tagList = _.union(...tags);
 
       // state.profileDetailにgetリクエストで受け取ったオブジェクトを入れる
       state.profileDetail = { ...state.profileDetail, ...action.payload };

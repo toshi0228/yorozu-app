@@ -16,7 +16,12 @@ const DetailProfile = ({ data }) => {
 
   // タグリストを返す
   const tagList = data.profileDetail.tagList.map((tag, index) => {
-    return <Tag key={index}>{tag}</Tag>;
+    return (
+      <Tag.CheckableTag
+        style={{ color: '#DB6E60', cursor: 'pointer' }}
+        key={index}
+      >{`#${tag}`}</Tag.CheckableTag>
+    );
   });
 
   return (
@@ -36,6 +41,12 @@ const DetailProfile = ({ data }) => {
 
         {/* 右サイドバー */}
         <Col span={6}>
+          {/* よろず名前*/}
+          <Row>
+            <Col offset={3} span={20}>
+              <h3 className={styles.name}>{data.profileDetail.yorozuyaName}</h3>
+            </Col>
+          </Row>
           {/* タグ */}
           <Row>
             <Col offset={3} span={20}>
@@ -54,9 +65,7 @@ const DetailProfile = ({ data }) => {
           </Row>
           <Row type="flex" justify="center" style={{ marginTop: 25 }}>
             <Col>
-              <div style={{ fontSize: 20 }}>
-                {data.profileDetail.yorozuyaName}
-              </div>
+              <div style={{ fontSize: 20 }}>{data.profileDetail.nickname}</div>
             </Col>
           </Row>
           {/* 評価 */}

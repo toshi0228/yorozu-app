@@ -1,9 +1,14 @@
 @import '../../../styles/baseLayout';
 @import '../../../styles/modules/color';
 
-// .detailPlanCard {
-//   background: skyblue;
-// }
+.name {
+  background: #f7f9f9;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  // text-align: center;
+}
 
 .circle {
   width: 150px;
