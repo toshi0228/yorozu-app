@@ -4,35 +4,46 @@ import { READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT } from '../actionTypes';
 
 const DEFAULT_STATE = {
   isLoading: false,
-  planList: [],
-  tagList: [],
-  // ...new Profile({}),
+  // トップページのprofileListのデータ
+  profileList: [],
+  // profileDetailページのデータ なので、topページを表示の時は空のオブジェクト
+  profileDetail: { planList: [], tagList: [] },
 };
 
 const profileReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     // トップページのプロフィールリストを読み込む
     // 最初にプロフィールを読み込む処理
-
     case READ_PROFILE_EVENTS:
-      return action.payload;
+      // 最初にデーターを初期化する
+      state.profileList = [];
+      // action.payloadの中にprofileリストをstate.profileListに入れる:[{},{}]
+      action.payload.forEach((profileData) => {
+        state.profileList.push(profileData);
+      });
+      return { ...state, isLoading: true };
 
     // プロフィールの詳細ページを読み込む
     case READ_PROFILE_DETAIL_EVENT:
-      state[0][0].isLoading = true;
+      // console.log('READ_PROFILE_DETAIL_EVENT');
+      // action.payLoadには、idに紐づいたオブジェクトが入っている:{id:"1"...}
 
+      // タグのみそれぞれのプランに紐づいているの,それぞれのタグを取り出す
       // ex) tagList:["企画", "インスターグラマー", "インスターグラマー"]
       const tags = action.payload.planList.map((plan) => {
         return plan.tags[0].name;
       });
       // リストの重複を無くしてくれる ex)["企画", "インスターグラマー"]
-      const tagList = _.union(tags);
-      return { ...state, ...action.payload, tagList };
+      // const tagList = _.union(tags);
+      state.profileDetail.tagList = _.union(tags);
+
+      // state.profileDetailにgetリクエストで受け取ったオブジェクトを入れる
+      state.profileDetail = { ...state.profileDetail, ...action.payload };
+
+      return { ...state, isLoading: true };
 
     default:
-      // 読み込み時、配列出ないとうまく行かないので、そのまま渡す
-      // プロフィールはリストの形なので、defaultでもリストにしておく
-      return [state];
+      return state;
   }
 };
 

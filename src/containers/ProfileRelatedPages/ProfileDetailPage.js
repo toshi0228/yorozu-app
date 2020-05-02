@@ -12,14 +12,13 @@ const ProfileDetailPage = (props) => {
 
   return (
     <>
-      <DetailPlan profileData={props.profile} />
+      <DetailPlan data={props.data} />
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
-  profile: state.profile,
-  isLoading: state.profile.isLoading,
+  data: state.profile,
 });
 
 const mapDispatchToProps = (dispatch) => ({

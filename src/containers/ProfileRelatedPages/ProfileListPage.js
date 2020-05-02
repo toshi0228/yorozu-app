@@ -10,6 +10,7 @@ import { fetchProfileList } from '../../store/actions/profile';
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 const ProfileListPage = (props) => {
+  console.log(props.data);
   useEffect(() => {
     props.readProfileListEvents();
   }, []);
@@ -18,7 +19,7 @@ const ProfileListPage = (props) => {
     <>
       <Row type="flex" justify="center" style={{ marginBottom: 70 }}>
         <Col span={18}>
-          <ProfileList profileListData={props.profileList} />
+          <ProfileList data={props.data} />
         </Col>
       </Row>
 
@@ -33,7 +34,7 @@ const ProfileListPage = (props) => {
 };
 
 const mapStateToprops = (state) => ({
-  profileList: state.profile,
+  data: state.profile,
 });
 
 const mapDispatchToProps = (dispatch) => ({

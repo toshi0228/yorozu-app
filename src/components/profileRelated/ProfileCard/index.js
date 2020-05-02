@@ -6,15 +6,15 @@ import { Link } from 'react-router-dom';
 // プランリストのカード部分
 // ============================================================
 
-const ProfileCard = ({ planData }) => {
+const ProfileCard = ({ data }) => {
   return (
     <>
-      <Link to={`/plan/detail/${planData.id}`}>
+      <Link to={`/plan/detail/${data.id}`}>
         <Card
           cover={
             <img
               alt="example"
-              src={planData.yorozuMainImage}
+              src={data.yorozuMainImage}
               style={{ height: 200 }}
             />
           }
@@ -26,8 +26,8 @@ const ProfileCard = ({ planData }) => {
           ]}
         >
           <Card.Meta
-            title={planData.yorozuyaName}
-            description={planData.profileDescription}
+            title={data.yorozuyaName}
+            description={data.profileDescription}
             style={{ height: 100 }}
           />
         </Card>
