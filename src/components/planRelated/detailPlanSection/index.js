@@ -2,9 +2,12 @@ import React from 'react';
 import { Col, Row, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import data from '../../../Data/dummyData.json';
+import PlanRequestModal from '../planRequestModal';
 
 // ====================================================================
 // 詳細ページのプランのセクション
+// 24分割で, 左空白3、左サイド12,右サイド6 右空白3
+// プランの部分は左の12の部分
 // ====================================================================
 
 const DetailPlanSection = ({ planData }) => {
@@ -45,26 +48,27 @@ const DetailPlanSection = ({ planData }) => {
         {/* プランの説明 */}
         {/* <Row type="flex" justify="center" style={{ paddingTop: 10 }}> */}
         <Row style={{ paddingTop: 20 }}>
-          <Col span={20}>
+          <Col span={24}>
             {/* {`詳細プランのコンポーネントですよ`} */}
             {planData.description}
           </Col>
         </Row>
 
         {/* 相談ボタン */}
-        <Row gutter={[32, 32]} type="flex" style={{ marginTop: 20 }}>
+        <Row
+          gutter={[32, 32]}
+          type="flex"
+          style={{ marginTop: 20 }}
+          justify="end"
+        >
           {/* <Col offset={2}> */}
-          <Col>
-            <Link to="/message/">
-              <Button type="primary" onClick={Consultation}>
-                相談する
-              </Button>
-            </Link>
+          <Col style={{ marginBottom: 20 }}>
+            <PlanRequestModal />
           </Col>
 
-          <Col style={{ marginBottom: 20 }}>
+          {/* <Col style={{ marginBottom: 20 }}>
             <Button type="primary">契約する</Button>
-          </Col>
+          </Col> */}
         </Row>
 
         <Row>

@@ -6,6 +6,8 @@ import DetailPlanSection from '../../planRelated/detailPlanSection/index';
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、profileの詳細ページ
 // 引数 dataには、profileのオブジェクトが入っている
+// 24分割で, 左空白3、左サイド12,右サイド6 右空白3
+// Rowの最大24で、その中でcolを決める
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 const DetailProfile = ({ data }) => {
@@ -32,6 +34,7 @@ const DetailProfile = ({ data }) => {
         </Col>
       </Row>
 
+      {/*24分割で, 左空白3、左サイド12,右サイド6 右空白3*/}
       {/* 左サイドバー */}
       <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
         {/* プラン一覧 */}

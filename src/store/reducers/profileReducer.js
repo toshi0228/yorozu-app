@@ -31,8 +31,6 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
       // タグのみそれぞれのプランに紐づいているの,それぞれのタグを取り出す
       // ex) tagList:["企画", "インスターグラマー", "インスターグラマー"]
 
-      console.log('READ_PROFILE_DETAIL_EVENT');
-
       // tags:[[],[]]
       const tags = action.payload.planList.map((plan) => {
         // タグのみ取り出す
