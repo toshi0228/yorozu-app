@@ -11,9 +11,6 @@ import PlanRequestModal from '../planRequestModal';
 // ====================================================================
 
 const DetailPlanSection = ({ planData }) => {
-  const Consultation = () => {
-    alert('相談します');
-  };
   return (
     <>
       <img
@@ -54,7 +51,7 @@ const DetailPlanSection = ({ planData }) => {
           </Col>
         </Row>
 
-        {/* 相談ボタン */}
+        {/* プランリクエストボタン */}
         <Row
           gutter={[32, 32]}
           type="flex"

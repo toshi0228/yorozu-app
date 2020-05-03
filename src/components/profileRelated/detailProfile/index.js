@@ -2,6 +2,7 @@ import React from 'react';
 import { Row, Col, Button, Rate, Tag, Icon } from 'antd';
 import styles from './index.module.scss';
 import DetailPlanSection from '../../planRelated/detailPlanSection/index';
+import ConsultationButton from '../ConsultationButton';
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、profileの詳細ページ
@@ -30,18 +31,18 @@ const DetailProfile = ({ data }) => {
       </Row>
 
       {/*24分割で, 左空白3、左サイド12,右サイド6 右空白3*/}
-      {/* 左サイドバー */}
+      {/* 左サイドバー 割合12/24*/}
       <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
         {/* プラン一覧 */}
         <Col span={12} md={12}>
           {planList}
         </Col>
 
-        {/* 右サイドバー */}
+        {/* 右サイドバー 割合6/24 */}
         <Col span={6}>
           {/* よろず名前*/}
           <Row>
-            <Col offset={3} span={20}>
+            <Col offset={3} span={21}>
               <h3 className={styles.name}>{data.profileDetail.yorozuyaName}</h3>
             </Col>
           </Row>
@@ -74,6 +75,14 @@ const DetailProfile = ({ data }) => {
             </Col>
           </Row>
           <Icon type="icon-facebook" />
+
+          {/* 相談ボタン */}
+          <Row type="flex" justify="center">
+            <Col>
+              <ConsultationButton />
+            </Col>
+          </Row>
+
           {/* プロフィールの説明 */}
           <Row type="flex" justify="center" style={{ marginTop: 40 }}>
             <Col span={18}>

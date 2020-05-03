@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Input, message } from 'antd';
-import { planRequest } from '../../../store/actions/plan';
+import { sendMessage } from '../../../store/actions/message';
 
 // ====================================================================
-// プランリクエストのモーダル
+// 相談ボタンとクリックした時に起動するモーダル
 // ====================================================================
 
-const PlanRequestModal = (props) => {
+const ConsultationButton = (props) => {
+  console.log(props);
   const [isVisible, setIsVisible] = useState(false);
   const [modalInputText, setModalInputText] = useState('');
   const showModal = () => {
@@ -16,7 +17,7 @@ const PlanRequestModal = (props) => {
 
   const hundleSubmit = () => {
     setIsVisible(false);
-    props.planRequestEvent(modalInputText);
+    props.sendMessageEvent(modalInputText);
   };
 
   const handleCancel = () => {
@@ -24,11 +25,9 @@ const PlanRequestModal = (props) => {
   };
   return (
     <div>
-      <Button type="primary" onClick={showModal}>
-        リクエストを送る
-      </Button>
+      <Button onClick={showModal}>相談をする</Button>
       <Modal
-        title="リクエスト"
+        title="やよずさんにメッセージで相談をする"
         visible={isVisible}
         onOk={hundleSubmit}
         onCancel={handleCancel}
@@ -39,13 +38,15 @@ const PlanRequestModal = (props) => {
         ]}
       >
         <p style={{ marginBottom: 20 }}>
-          よろず屋が承認すると契約できるようになります。
+          気になったら、まずは教えてほしいことを相談！
           <br />
-          相談内容を記入した上でよろず屋と契約が可能かどうか確認しましょう。
+          希望にあうマッチングをするために、よろずには現在の状況、
+          <br />
+          困っていること、 目標など、できるだけ詳しく送りましょう。
         </p>
         <Input.TextArea
           autoSize={{ minRows: 10, maxRows: 12 }}
-          placeholder="契約を考えているので、承認をお願いいたします"
+          placeholder="もう少し具体的にどんなことをするか教えてください！"
           onChange={(e) => setModalInputText(e.target.value)}
         />
         <p style={{ marginBottom: 10 }}></p>
@@ -59,7 +60,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapStateToDispatch = (dipatch) => ({
-  planRequestEvent: (requestMessage) => dipatch(planRequest(requestMessage)),
+  sendMessageEvent: (message) => dipatch(sendMessage(message)),
 });
 
-export default connect(mapStateToProps, mapStateToDispatch)(PlanRequestModal);
+export default connect(mapStateToProps, mapStateToDispatch)(ConsultationButton);
