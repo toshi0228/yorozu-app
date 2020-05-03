@@ -1,0 +1,16 @@
+.h1 {
+  color: red;
+}
+
+// 複数行の三点リーダーがうまく行かない
+// style={{
+//   height: 100,
+//   overflow: 'hidden',
+//   maxWidth: 200,
+//   display: '-webkit-box',
+//   WebkitLineClamp: 4,
+//   WebkitBoxOrient: 'vertical',
+
+//   textOverflow: 'ellipsis',
+//   whiteSpace: 'nowrap',
+// }}

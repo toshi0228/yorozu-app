@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Input } from 'antd';
+import FormButton from '../../formRelated/FormButton';
 
 const PlanRequestModal = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,16 +14,13 @@ const PlanRequestModal = () => {
 
   const handleCancel = () => {
     setIsVisible(false);
-
-    // this.setState({
-    //   visible: false,
-    // });
   };
   return (
     <div>
       <Button type="primary" onClick={showModal}>
         リクエストを送る
       </Button>
+      {/* <FormButton /> */}
       <Modal
         title="リクエストの相談"
         visible={isVisible}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Icon, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
+import styles from './index.module.scss';
 
 // ============================================================
 // プランリストのカード部分
@@ -28,7 +29,10 @@ const ProfileCard = ({ data }) => {
           <Card.Meta
             title={data.yorozuyaName}
             description={data.profileDescription}
-            style={{ height: 100 }}
+            style={{
+              height: 100,
+              overflow: 'hidden',
+            }}
           />
         </Card>
       </Link>

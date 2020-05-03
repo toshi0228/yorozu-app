@@ -1,0 +1,22 @@
+@import '../../../styles/modules/color';
+
+// .p {
+//   color: red;
+// }
+
+// .header {
+//   color: red;
+// }
+
+.btn {
+  display: inline-block;
+  line-height: 36px;
+  // background: $subColor;
+  background: $mainColor;
+  padding: 0.1em 0.8em;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+}
