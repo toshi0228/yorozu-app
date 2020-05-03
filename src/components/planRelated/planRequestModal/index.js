@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
-import { Modal, Button, Input } from 'antd';
-import FormButton from '../../formRelated/FormButton';
+import { connect } from 'react-redux';
+import { Modal, Button, Input, message } from 'antd';
+import { planRequest } from '../../../store/actions/plan';
 
-const PlanRequestModal = () => {
+// ====================================================================
+// プランリクエストのモーダル
+// ====================================================================
+
+const PlanRequestModal = (props) => {
+  console.log(props);
   const [isVisible, setIsVisible] = useState(false);
+  const [modalInputText, setModalInputText] = useState('');
   const showModal = () => {
     setIsVisible(true);
   };
 
-  const handleOk = () => {
+  const hundleSubmit = () => {
     setIsVisible(false);
+    props.planRequestEvent(modalInputText);
   };
 
   const handleCancel = () => {
@@ -20,14 +28,13 @@ const PlanRequestModal = () => {
       <Button type="primary" onClick={showModal}>
         リクエストを送る
       </Button>
-      {/* <FormButton /> */}
       <Modal
         title="リクエストの相談"
         visible={isVisible}
-        onOk={handleOk}
+        onOk={hundleSubmit}
         onCancel={handleCancel}
         footer={[
-          <Button key="submit" onClick={handleOk}>
+          <Button key="submit" onClick={hundleSubmit}>
             送信
           </Button>,
         ]}
@@ -40,6 +47,7 @@ const PlanRequestModal = () => {
         <Input.TextArea
           autoSize={{ minRows: 10, maxRows: 12 }}
           placeholder="契約を考えているので、承認をお願いいたします"
+          onChange={(e) => setModalInputText(e.target.value)}
         />
         <p style={{ marginBottom: 10 }}></p>
       </Modal>
@@ -47,4 +55,12 @@ const PlanRequestModal = () => {
   );
 };
 
-export default PlanRequestModal;
+const mapStateToProps = (state) => ({
+  data: state.profile,
+});
+
+const mapStateToDispatch = (dipatch) => ({
+  planRequestEvent: (requestMessage) => dipatch(planRequest(requestMessage)),
+});
+
+export default connect(mapStateToProps, mapStateToDispatch)(PlanRequestModal);

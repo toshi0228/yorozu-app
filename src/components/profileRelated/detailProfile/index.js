@@ -18,7 +18,7 @@ const DetailProfile = ({ data }) => {
 
   // タグリストを返す
   const tagList = data.profileDetail.tagList.map((tag, index) => {
-    return <Tag>{`#${tag}`}</Tag>;
+    return <Tag key={index}>{`#${tag}`}</Tag>;
   });
 
   return (
