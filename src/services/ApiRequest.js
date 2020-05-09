@@ -5,6 +5,12 @@ export const setAuthHeader = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'Bearer' + authToken.access;
 };
 
+// ログインを行った時に、yorozuIDを取得にいく
+export const getYorozuId = (userId) => {
+  // console.log(axios.get(`http://127.0.0.1:8000/api/account/${userId}`));
+  return axios.get(`http://127.0.0.1:8000/api/account/${userId}`);
+};
+
 // トップページ 万屋プロフィールリストの取得
 export const getProfileList = () => {
   return axios.get('http://127.0.0.1:8000/api/profile/');
@@ -22,39 +28,6 @@ export const feachTags = () => {
 // プラン登録
 export const postPlan = (params) => {
   const formData = new FormData();
-
-  // =====================================================================================
-  // ロダッシュは、オブジェクトの場合、第一引数にvalueが入る
-  // =====================================================================================
-  // params = {
-  //   title:"タイトル",
-  //   tags:["インスターグラマー"]
-  // }
-
-  // _.forEach(params, (value, key) => {
-  //   console.log(value);
-  //   console.log(Array.isArray(value));
-  //   // 配列なのか判断する
-  //   if (Array.isArray(value)) {
-  //     // ex) value :["記念日", "インスターグラマー"]
-  //     value.forEach((arrayElement) => {
-  //       // tags[] インスターグラマー
-  //       console.log(key + '[]', arrayElement);
-  //       // formData.append(key + '[]', arrayElement);
-  //       formData.append(key + '[]', arrayElement);
-  //     });
-  //   }
-  // });
-
-  // _.forEach(sendParams, (value, key) => {
-  //   if (Array.isArray(value)) {
-  //     _.forEach(value, (v, _) => {
-  //       formData.append(key + '[]', v);
-  //     });
-  //   } else {
-  //     formData.append(key, value);
-  //   }
-  // });
 
   // =====================================================================================
   // サーバーサイドのシリアライザと同じ名前にしないといけない

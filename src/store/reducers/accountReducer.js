@@ -4,7 +4,8 @@ import Account from '../../models/account';
 export const DEFAULT_STATE = {
   ...new Account({}),
   authToken: '',
-  isLoggedIn: false
+  yorozuId: '',
+  isLoggedIn: false,
 };
 
 const accountReducer = (state = DEFAULT_STATE, action) => {

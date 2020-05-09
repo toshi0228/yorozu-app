@@ -10,7 +10,7 @@ import styles from './index.module.scss';
 const ProfileCard = ({ data }) => {
   return (
     <>
-      <Link to={`/plan/detail/${data.id}`}>
+      <Link to={`/plan/detail/${data.yorozuId}`}>
         <Card
           cover={
             <img

@@ -92,14 +92,16 @@ const Router = (props) => {
         {/* <Route path="/create_plan" render={withMemberLayout(RequireAuth)} /> */}
 
         {/* プラン作成  */}
-        <Route
-          path={routes.createPlan()}
-          render={withMemberLayout(CreatePlanPage)}
-        />
+        {/* ログインチェックなし */}
         {/* <Route
           path={routes.createPlan()}
-          render={withMemberLayout(requireAuth(CreatePlanPage))}
+          render={withMemberLayout(CreatePlanPage)}
         /> */}
+        {/* ログインチェックあり */}
+        <Route
+          path={routes.createPlan()}
+          render={withMemberLayout(requireAuth(CreatePlanPage))}
+        />
 
         {/* マイページ */}
         <Route path={routes.myPage()} render={withMemberLayout(MyPage)} />

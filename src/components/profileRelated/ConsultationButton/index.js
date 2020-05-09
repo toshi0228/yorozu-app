@@ -8,7 +8,6 @@ import { sendMessage } from '../../../store/actions/message';
 // ====================================================================
 
 const ConsultationButton = (props) => {
-  console.log(props);
   const [isVisible, setIsVisible] = useState(false);
   const [modalInputText, setModalInputText] = useState('');
   const showModal = () => {
@@ -17,6 +16,8 @@ const ConsultationButton = (props) => {
 
   const hundleSubmit = () => {
     setIsVisible(false);
+    // 送り先ID
+    console.log(props.data.yorozuId);
     props.sendMessageEvent(modalInputText);
   };
 
@@ -27,12 +28,12 @@ const ConsultationButton = (props) => {
     <div>
       <Button onClick={showModal}>相談をする</Button>
       <Modal
-        title="やよずさんにメッセージで相談をする"
+        title={`${props.data.nickname}さんにメッセージで相談をする`}
         visible={isVisible}
         onOk={hundleSubmit}
         onCancel={handleCancel}
         footer={[
-          <Button key="submit" onClick={hundleSubmit}>
+          <Button key='submit' onClick={hundleSubmit}>
             送信
           </Button>,
         ]}
@@ -46,7 +47,7 @@ const ConsultationButton = (props) => {
         </p>
         <Input.TextArea
           autoSize={{ minRows: 10, maxRows: 12 }}
-          placeholder="もう少し具体的にどんなことをするか教えてください！"
+          placeholder='もう少し具体的にどんなことをするか教えてください！'
           onChange={(e) => setModalInputText(e.target.value)}
         />
         <p style={{ marginBottom: 10 }}></p>
@@ -56,7 +57,7 @@ const ConsultationButton = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  data: state.profile,
+  data: state.profile.profileDetail,
 });
 
 const mapStateToDispatch = (dipatch) => ({

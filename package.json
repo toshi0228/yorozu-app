@@ -16,6 +16,8 @@
     "axios": "^0.19.2",
     "connected-react-router": "^6.6.1",
     "font-awesome": "^4.7.0",
+    "jwt-decode": "^2.2.0",
+    "jwt-js-decode": "^1.4.1",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
