@@ -25,6 +25,11 @@ export const feachTags = () => {
   return axios.get('http://127.0.0.1:8000/api/tag/');
 };
 
+export const postMessage = (messageContent) => {
+  console.log(axios.post('http://127.0.0.1:8000/api/message/', messageContent));
+  return axios.post('http://127.0.0.1:8000/api/message/', messageContent);
+};
+
 // プラン登録
 export const postPlan = (params) => {
   const formData = new FormData();
@@ -55,16 +60,3 @@ export const postPlan = (params) => {
       console.log(error);
     });
 };
-
-// 'http://127.0.0.1:8000/api/entry
-// const res = axios.post('http://127.0.0.1:8000/api/plan/', planContent);
-// const res = axios.post('http://127.0.0.1:8000/api/entry', planContent);
-
-// export const postSignUp = params => {
-//   return axios.post('http://127.0.0.1:8000/account/register/', params);
-// };
-
-//   // APIリクエストであると明示するために、接頭辞にリクエストのタイプを付ける
-//   // Account
-//   export const getMyAccount = () => axios.get(`${API_ROOT}/accounts/me`)
-//   export const patchMyAccount = params => axios.patch(`${API_ROOT}/accounts/me`, params)

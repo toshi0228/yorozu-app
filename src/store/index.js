@@ -8,6 +8,7 @@ import accountReducer from './reducers/accountReducer';
 import planReducer from './reducers/planReducer';
 import tagReducer from './reducers/tagReducer';
 import profileReducer from './reducers/profileReducer';
+import messageReducer from './reducers/messageReducer';
 
 // creatStoreをするときにcreateRootReducerは引数として、historyを受け取る
 export const createRootReducer = (history) =>
@@ -17,6 +18,7 @@ export const createRootReducer = (history) =>
     plan: planReducer,
     tag: tagReducer,
     profile: profileReducer,
+    message: messageReducer,
   });
 
 export const history = createBrowserHistory();

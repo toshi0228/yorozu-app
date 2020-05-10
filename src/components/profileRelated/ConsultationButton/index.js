@@ -8,19 +8,31 @@ import { sendMessage } from '../../../store/actions/message';
 // ====================================================================
 
 const ConsultationButton = (props) => {
+  // isVisibleがfalseだとモーダルが非表示になる
   const [isVisible, setIsVisible] = useState(false);
   const [modalInputText, setModalInputText] = useState('');
+
+  // 相談するボタンを押した時の処理
   const showModal = () => {
     setIsVisible(true);
   };
 
+  // モーダルで送信ボタンを押した時の処理
   const hundleSubmit = () => {
     setIsVisible(false);
-    // 送り先ID
-    console.log(props.data.yorozuId);
-    props.sendMessageEvent(modalInputText);
+
+    // keyの値ははdjangoのモデル名と一緒にしないといけない
+    // keyは、djangoでキャメルケースから、自動でスネークケースに変換してくれる
+    const messageData = {
+      senderYorozuId: props.loginUser.yorozuId,
+      receiverYorozyId: props.data.yorozuId,
+      messageContent: modalInputText,
+    };
+    console.log(messageData);
+    props.sendMessageEvent(messageData);
   };
 
+  // モーダルでキャンセルボタンを押した時の処理
   const handleCancel = () => {
     setIsVisible(false);
   };
@@ -58,6 +70,7 @@ const ConsultationButton = (props) => {
 
 const mapStateToProps = (state) => ({
   data: state.profile.profileDetail,
+  loginUser: state.account,
 });
 
 const mapStateToDispatch = (dipatch) => ({

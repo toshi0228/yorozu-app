@@ -2,10 +2,10 @@ import { SET_ACCOUNT, SIGN_IN_ACCOUNT } from '../actionTypes';
 import Account from '../../models/account';
 
 export const DEFAULT_STATE = {
-  ...new Account({}),
   authToken: '',
   yorozuId: '',
   isLoggedIn: false,
+  // ...new Account({}),
 };
 
 const accountReducer = (state = DEFAULT_STATE, action) => {
