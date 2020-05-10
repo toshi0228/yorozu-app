@@ -1,4 +1,4 @@
-import { SET_ACCOUNT, SIGN_IN_ACCOUNT } from '../actionTypes';
+import { SIGN_IN_ACCOUNT } from '../actionTypes';
 import { postSignIn, postSignUp } from '../../services/authApiRequest';
 import { push } from 'connected-react-router';
 import { setAuthHeader, getYorozuId } from '../../services/ApiRequest';

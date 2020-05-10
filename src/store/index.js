@@ -1,20 +1,35 @@
 import { applyMiddleware, createStore, combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+
 // アカウント取得など非同期の処理を行うのでreduxThunkを読み込み
 import reduxThunk from 'redux-thunk';
 import { routerMiddleware } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
+
+// localStorageにデータを保存するために必要
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
+import { persistStore } from 'redux-persist';
+
+// reducer
 import accountReducer from './reducers/accountReducer';
 import planReducer from './reducers/planReducer';
 import tagReducer from './reducers/tagReducer';
 import profileReducer from './reducers/profileReducer';
 import messageReducer from './reducers/messageReducer';
 
+// 永続化の設定
+const authPersistConfig = {
+  key: 'auth', // Storageに保存されるキー名を指定する
+  storage: storage, // 保存先としてlocalStorageがここで設定される
+  whitelist: ['authToken', 'yorozuId'],
+};
+
 // creatStoreをするときにcreateRootReducerは引数として、historyを受け取る
 export const createRootReducer = (history) =>
   combineReducers({
     router: connectRouter(history),
-    account: accountReducer,
+    account: persistReducer(authPersistConfig, accountReducer), // accountReducerは永続化設定するReducerとして定義
     plan: planReducer,
     tag: tagReducer,
     profile: profileReducer,
@@ -32,7 +47,9 @@ export default function configureStore() {
     )
   );
 
-  return store;
+  const persistor = persistStore(store);
+
+  return { store, persistor };
 }
 
 // =====================================================================================
@@ -63,3 +80,12 @@ export default function configureStore() {
 // dispatchの内部で、actionがtypeプロパティを持ったプレーンなオブジェクトか判断する
 // Middlewareは、dispatch and getStateを引数として受け取る
 // =====================================================================================
+
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// データの永続化に関して
+// データをリロードした時に、データが消えなようにpersistを設定
+// importするもの
+// import storage from 'redux-persist/lib/storage'
+// import { persistReducer } from 'redux-persist';
+// persistReducer(設定, 指定したreducer),
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝

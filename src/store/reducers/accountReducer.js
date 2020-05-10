@@ -1,5 +1,5 @@
-import { SET_ACCOUNT, SIGN_IN_ACCOUNT } from '../actionTypes';
-import Account from '../../models/account';
+import { SIGN_IN_ACCOUNT } from '../actionTypes';
+// import Account from '../../models/account';
 
 export const DEFAULT_STATE = {
   authToken: '',
@@ -10,9 +10,6 @@ export const DEFAULT_STATE = {
 
 const accountReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case SET_ACCOUNT:
-      return state;
-
     case SIGN_IN_ACCOUNT:
       return { ...state, ...action.payload };
 

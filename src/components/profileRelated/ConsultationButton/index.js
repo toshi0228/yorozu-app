@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button, Input, message } from 'antd';
+import { Modal, Button, Input } from 'antd';
 import { sendMessage } from '../../../store/actions/message';
 
 // ====================================================================
@@ -25,7 +25,7 @@ const ConsultationButton = (props) => {
     // keyは、djangoでキャメルケースから、自動でスネークケースに変換してくれる
     const messageData = {
       senderYorozuId: props.loginUser.yorozuId,
-      receiverYorozyId: props.data.yorozuId,
+      receiverYorozuId: props.data.yorozuId,
       messageContent: modalInputText,
     };
     console.log(messageData);
