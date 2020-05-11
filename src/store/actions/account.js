@@ -16,13 +16,14 @@ import routes from '../../routes';
 // jwt(token)で,jwtの中身がデコードされる
 // =====================================================================================
 
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// ログイン処理
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 export const signIn = (formProps) => (dispatch) => {
   // postSignInでJWTを受け取るため,サーバーと通信する
+  // データベースにないアカウントなら、失敗する。うまくいけば、JWTが帰ってくる
   return postSignIn(formProps)
     .then((token) => {
-      // res.dataには、tokenが入っており、ここで変なトークンがなければ、サーバから弾かれる
-      setAuthHeader(token.data);
-
       // dajngo rest framework からは{regresh:"",acccess:""}という形でjwtが返ってくる
       const decodeJwt = jwt(token.data.access);
 
@@ -56,6 +57,9 @@ const signInAccount = (user) => {
   };
 };
 
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// 新規登録処理
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 export const signUp = (formProps) => (dispatch) => {
   // 新規登録を行う
   postSignUp(formProps).then((res) => {

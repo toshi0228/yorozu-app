@@ -54,6 +54,13 @@ const Router = (props) => {
           component={withGuestLayout(ProfileListPage)}
         />
 
+        {/* tokenがある時のトップページ */}
+        <Route
+          exact
+          path={routes.memberTop()}
+          component={withMemberLayout(requireAuth(ProfileListPage))}
+        />
+
         {/* プロフィール詳細ページ */}
         <Route
           path={routes.profileDetail()}
@@ -107,7 +114,7 @@ const Router = (props) => {
         <Route path={routes.myPage()} render={withMemberLayout(MyPage)} />
 
         {/* ボツページ（トップページ） */}
-        <Route exact path="/plan" component={withGuestLayout(FormPage)} />
+        <Route exact path='/plan' component={withGuestLayout(FormPage)} />
 
         {/* ボツページ（トップページ） */}
         <Route

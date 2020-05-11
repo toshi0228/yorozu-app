@@ -1,5 +1,6 @@
 const UrlList = {
   top: () => '/',
+  memberTop: () => '/member',
   siginIn: () => '/sign_in',
   signUp: () => '/sign_up',
   profileDetail: () => '/plan/detail/:id',
@@ -12,11 +13,3 @@ const UrlList = {
 };
 
 export default UrlList;
-
-// export default {
-//   top: () => '/',
-//   signIn: () => '/sign_in',
-//   signUp: () => '/sign_up',
-//   home: () => '/home',
-//   myPage: () => '/my_page',
-// }

@@ -1,7 +1,12 @@
 import { READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT } from '../actionTypes';
+import { push } from 'connected-react-router';
 import { getProfileList } from '../../services/ApiRequest';
 import { getProfileDetail } from '../../services/ApiRequest';
 // import { postPlan } from '../../services/ApiRequest';
+import { postTokenVerify } from '../../services/authApiRequest';
+import routes from '../../routes';
+
+// import routes from '../routes'
 
 // プロフィールリストの読み込み
 export const fetchProfileList = () => (dispatch) => {
@@ -16,6 +21,15 @@ export const readProfileList = (fetchProfileListData) => {
     type: READ_PROFILE_EVENTS,
     payload: fetchProfileListData,
   };
+};
+
+// トークンの確認して、あればmemberのtopページに飛ばす
+// tokenがデータベースにあるaccountと一致したときのみ以下の処理が行われる
+// thenはうまく行った時しか発動しない
+export const tokenVerify = (token) => (dispatch) => {
+  postTokenVerify(token).then(() => {
+    dispatch(push(routes.memberTop()));
+  });
 };
 
 // プラン登録  これはあとで登録画面の時修正したい

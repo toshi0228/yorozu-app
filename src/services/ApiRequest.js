@@ -1,5 +1,4 @@
 import axios from 'axios';
-import _ from 'lodash';
 
 export const setAuthHeader = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'Bearer' + authToken.access;

@@ -1,7 +1,6 @@
 import React from 'react';
-import { Col, Row, Button } from 'antd';
-import { Link } from 'react-router-dom';
-import data from '../../../Data/dummyData.json';
+import { Col, Row } from 'antd';
+// import { Link } from 'react-router-dom';
 import PlanRequestModal from '../planRequestModal';
 
 // ====================================================================
@@ -14,7 +13,7 @@ const DetailPlanSection = ({ planData }) => {
   return (
     <>
       <img
-        alt="example"
+        alt='example'
         src={`http://127.0.0.1:8000${planData.image}`}
         style={{ width: '100%', height: 360, borderRadius: 8 }}
       />
@@ -54,9 +53,9 @@ const DetailPlanSection = ({ planData }) => {
         {/* プランリクエストボタン */}
         <Row
           gutter={[32, 32]}
-          type="flex"
+          type='flex'
           style={{ marginTop: 20 }}
-          justify="end"
+          justify='end'
         >
           {/* <Col offset={2}> */}
           <Col style={{ marginBottom: 20 }}>
