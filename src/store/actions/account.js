@@ -1,4 +1,4 @@
-import { SIGN_IN_ACCOUNT } from '../actionTypes'
+import { SIGN_IN_ACCOUNT, SIGN_OUT } from '../actionTypes'
 import { postSignIn, postSignUp, postTokenVerify } from '../../services/authApiRequest'
 import { push } from 'connected-react-router'
 import { setAuthHeader, getYorozuId } from '../../services/ApiRequest'
@@ -6,12 +6,15 @@ import jwt from 'jwt-decode'
 import routes from '../../routes'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-// tokenがあるか判断
+// token検証 データベースにあるアカウントか確認
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
-export const isToken = (token) => (dispatch) => {
-  console.log('トークンをチェックします')
-  postTokenVerify(token)
+export const tokenVerify = (token) => (dispatch) => {
+  // トークンの検証に失敗したら,ログアウトさせる
+  postTokenVerify(token).catch(() => {
+    console.log('トークン切れコード')
+    dispatch(signOut())
+  })
 }
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -40,7 +43,7 @@ export const signIn = (formProps) => (dispatch) => {
         )
       })
 
-      dispatch(push(routes.memberTop()))
+      dispatch(push(routes.top()))
     })
     .catch((e) => {
       console.log(`${e} ログイン失敗`)
@@ -52,6 +55,16 @@ const signInAccount = (user) => {
   return {
     type: SIGN_IN_ACCOUNT,
     payload: { ...user, isLoggedIn: true },
+  }
+}
+
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// サインアウトの処理
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+export const signOut = () => {
+  return {
+    type: SIGN_OUT,
+    payload: { isLoggedIn: false },
   }
 }
 

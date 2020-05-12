@@ -1,6 +1,5 @@
 const UrlList = {
   top: () => '/',
-  memberTop: () => '/member',
   siginIn: () => '/sign_in',
   signUp: () => '/sign_up',
   profileDetail: () => '/plan/detail/:id',
@@ -13,6 +12,6 @@ const UrlList = {
   dashboard: () => '/project',
   contracting: () => '/contracting',
   myPage: () => '/my_page',
-};
+}
 
-export default UrlList;
+export default UrlList

@@ -1,27 +1,13 @@
 import React from 'react'
-// import Headerr from './Headerr';
 import ToggleHeader from './ToggleHeader'
-import GuestHeader from './GuestHeader'
-import MemberHeader from './MemberHeader'
 import Footer from './Footer'
 
 // 以下のporpsは、profileListのカードを押した時に、どのカードを押したで必要
-export const withGuestLayout = (Container) => (props) => {
+export const withLayout = (Container) => (props) => {
   return (
     <>
-      {/* <GuestHeader /> */}
       <ToggleHeader />
       <Container params={props} />
-      <Footer />
-    </>
-  )
-}
-
-export const withMemberLayout = (Container) => () => {
-  return (
-    <>
-      <MemberHeader />
-      <Container />
       <Footer />
     </>
   )

@@ -8,7 +8,6 @@ export const postSignIn = (params) => {
 
 // トークン検証  トークンを送信して、dajngo側でそのトークンに当てはまるアカウントがあるかチェックしてくれる
 export const postTokenVerify = (token) => {
-  console.log(axios.post('http://localhost:8000/api/auth/jwt/verify', { token: token.access }))
   return axios.post('http://localhost:8000/api/auth/jwt/verify', { token: token.access })
 }
 

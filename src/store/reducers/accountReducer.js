@@ -1,9 +1,8 @@
-import { SIGN_IN_ACCOUNT } from '../actionTypes'
+import { SIGN_IN_ACCOUNT, SIGN_OUT } from '../actionTypes'
 // import Account from '../../models/account';
 
 export const DEFAULT_STATE = {
   authToken: '',
-  // authToken: { refresh: '', access: 'a' },
   yorozuId: '',
   isLoggedIn: false,
   // ...new Account({}),
@@ -16,6 +15,9 @@ const accountReducer = (state = DEFAULT_STATE, action) => {
 
     case 'CREATE_ACCOUNT':
       return { ...state, ...action.res }
+
+    case SIGN_OUT:
+      return DEFAULT_STATE
 
     default:
       return state

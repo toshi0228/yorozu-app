@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import ProfileList from '../../components/profileRelated/ProfileList/index'
 import { Col, Row, Pagination } from 'antd'
+import { fetchProfileList } from '../../store/actions/profile'
 import '../../styles/PlanListPage.scss'
-import { fetchProfileList, tokenVerify } from '../../store/actions/profile'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // YOROZUのトップページ
@@ -11,8 +11,6 @@ import { fetchProfileList, tokenVerify } from '../../store/actions/profile'
 
 const ProfileListPage = (props) => {
   useEffect(() => {
-    // トークンがあれば、menbereページに遷移させる
-    props.memberPageTransitionEvent(props.token)
     props.readProfileListEvents()
   }, [])
 
@@ -36,11 +34,9 @@ const ProfileListPage = (props) => {
 
 const mapStateToprops = (state) => ({
   data: state.profile,
-  token: state.account.authToken,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  memberPageTransitionEvent: (token) => dispatch(tokenVerify(token)),
   readProfileListEvents: () => dispatch(fetchProfileList()),
 })
 

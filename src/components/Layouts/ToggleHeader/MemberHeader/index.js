@@ -1,11 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'antd'
 import styles from './index.module.scss'
 import routes from '../../../../routes'
-// const { Header } = Layout;
-
-const MemberHeader = () => {
+import { signOut } from '../../../../store/actions/account'
+const MemberHeader = (props) => {
   return (
     <>
       <header>
@@ -41,8 +41,10 @@ const MemberHeader = () => {
           <Col span={5} className={styles.right}>
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
-                <Link to="/sign_in">
-                  <div className={styles.btn}>ログアウト</div>
+                <Link to={routes.top}>
+                  <div className={styles.btn} onClick={() => props.singOutEvent()}>
+                    ログアウト
+                  </div>
                 </Link>
               </Col>
               <Col>
@@ -58,4 +60,26 @@ const MemberHeader = () => {
   )
 }
 
-export default MemberHeader
+const mapDispathcToProps = (dispatch) => ({
+  singOutEvent: () => dispatch(signOut()),
+})
+
+export default connect(null, mapDispathcToProps)(MemberHeader)
+
+// ============================================================================
+// dispatchに関して 2020 5/11
+
+// singOutEvent: () => dispatch(signOut()),
+
+// アクションクリエーターをsignOut()を実行すると以下のオブジェクトが返ってくる
+// このオブジェクトがdispatchによって、storeに渡される
+// {type: SIGN_OUT,payload: { isLoggedIn: false }}
+
+// export const signOut = () => {
+//   return {
+//     type: SIGN_OUT,
+//     payload: { isLoggedIn: false },
+//   }
+// }
+
+// ============================================================================

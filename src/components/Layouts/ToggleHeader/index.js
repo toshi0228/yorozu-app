@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { isToken } from '../../../store/actions/account'
 import GuestHeader from './GuestHeader'
 import MemberHeader from './MemberHeader'
+import { tokenVerify } from '../../../store/actions/account'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // tokenがあるかないかで、ログイン済みアカウン済みのヘッダーか判断
 // tokenがあれば、ログイン済み
+// tokenがあるが、古いトークンもあるので検証とリフレッシュを行う
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 const ToggleHeader = (props) => {
   useEffect(() => {
-    console.log(props)
-    console.log(props.isTokenEvent(props.token))
-  })
+    // トークンはあるが、ログイン状態がoffの場合、トークンの検証を行う
+    // トークンがあったとしても、リロードした時は呼ばれる
+    if (props.token && props.isLoggedIn === false) {
+      props.tokenVerifyEvent(props.token)
+    }
+  }, [])
 
   if (props.token) {
     return <MemberHeader />
@@ -21,10 +25,13 @@ const ToggleHeader = (props) => {
   }
 }
 
-const mapStateToProps = (state) => ({ token: state.account.authToken })
+const mapStateToProps = (state) => ({
+  token: state.account.authToken,
+  isLoggedIn: state.account.isLoggedIn,
+})
 
 const mapDispatchToProps = (dispatch) => ({
-  isTokenEvent: (token) => dispatch(isToken(token)),
+  tokenVerifyEvent: (token) => dispatch(tokenVerify(token)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToggleHeader)
