@@ -1,20 +1,15 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Col, Row } from 'antd';
-import styles from './index.module.scss';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import { Col, Row } from 'antd'
+import styles from './index.module.scss'
 // const { Header } = Layout;
-import routes from '../../../routes'
+import routes from '../../../../routes'
 
 const GuestHeader = () => {
   return (
     <>
       <header>
-        <Row
-          className={styles.headerContainer}
-          type="flex"
-          justify="center"
-          align="middle"
-        >
+        <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
           <Col span={3} className={styles.left}>
             <Link to="/">Yorozu</Link>
           </Col>
@@ -57,7 +52,7 @@ const GuestHeader = () => {
         </Row>
       </header>
     </>
-  );
-};
+  )
+}
 
-export default GuestHeader;
+export default GuestHeader
