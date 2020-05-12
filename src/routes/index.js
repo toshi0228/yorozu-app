@@ -9,7 +9,7 @@ const UrlList = {
   createPlan: () => '/create_plan',
   messageList: () => '/message',
   messageRoom: () => '/message/rooms/:id',
-  dashboard: () => '/project',
+  dashboard: () => '/dashboard',
   contracting: () => '/contracting',
   myPage: () => '/my_page',
 }
