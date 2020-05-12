@@ -42,7 +42,7 @@ export const signIn = (formProps) => (dispatch) => {
         );
       });
 
-      dispatch(push(routes.top()));
+      dispatch(push(routes.memberTop()));
     })
     .catch((e) => {
       console.log(`${e} ログイン失敗`);
