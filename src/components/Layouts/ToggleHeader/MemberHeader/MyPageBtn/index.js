@@ -15,12 +15,18 @@ const MyPageBtn = (props) => {
         <Link to={routes.createPlan}>プラン作成</Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link to={routes.dashboard}>ダッシュボード</Link>
+        <Link to={routes.contracting}>依頼した万屋</Link>
       </Menu.Item>
       <Menu.Item key="4">
-        <Link to={routes.messageList}>メッセージ</Link>
+        <Link to={routes.clientList}>顧客リスト</Link>
       </Menu.Item>
       <Menu.Item key="5">
+        <Link to={routes.dashboard}>ダッシュボード</Link>
+      </Menu.Item>
+      <Menu.Item key="6">
+        <Link to={routes.messageList}>メッセージ</Link>
+      </Menu.Item>
+      <Menu.Item key="7">
         <Link to={routes.top}>
           <div onClick={() => props.singOutEvent()}>ログアウト</div>
         </Link>
@@ -28,11 +34,6 @@ const MyPageBtn = (props) => {
     </Menu>
   )
 
-  // {/* <Link to={routes.top}>
-  //   <div className={styles.btn} onClick={() => props.singOutEvent()}>
-  //     ログアウト
-  //   </div>
-  // </Link> */}
   return (
     <>
       <Dropdown overlay={menu} trigger={['click']}>
@@ -43,11 +44,3 @@ const MyPageBtn = (props) => {
 }
 
 export default MyPageBtn
-
-{
-  /* <Dropdown overlay={menu} trigger={['click']}>
-<a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-  Click me <DownOutlined />
-</a>
-</Dropdown>, */
-}

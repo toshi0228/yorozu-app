@@ -1,17 +1,17 @@
-import React from 'react';
-import { Row, Col, Tabs } from 'antd';
-import DashboardSale from '../../components/dashboardRelated/dashboardSale/index';
-import DashboardCarge from '../../components/dashboardRelated/dashboardCharge';
+import React from 'react'
+import { Row, Col, Tabs } from 'antd'
+import DashboardSale from '../../components/dashboardRelated/dashboardSale/index'
+import DashboardCarge from '../../components/dashboardRelated/dashboardCharge'
 
-const Dashboard = () => {
+const ClientListPage = () => {
   function callback(key) {
-    console.log(key);
+    console.log(key)
   }
   return (
     <>
       {/* タイトル */}
       <Row type="flex" justify="center">
-        <Col style={{ fontSize: 18 }}>ダッシュボード</Col>
+        <Col style={{ fontSize: 18 }}>顧客リスト</Col>
       </Row>
 
       {/* タブ */}
@@ -19,19 +19,19 @@ const Dashboard = () => {
         <Col span={18}>
           <Tabs type="card" onChange={callback}>
             {/* 売り上げタブのコンテント */}
-            <Tabs.TabPane tab="売上" key="1">
+            <Tabs.TabPane tab="契約中" key="1">
               <DashboardSale />
             </Tabs.TabPane>
 
             {/* 課金タブのコンテント */}
-            <Tabs.TabPane tab="課金" key="2">
+            <Tabs.TabPane tab="契約履歴" key="2">
               <DashboardCarge></DashboardCarge>
             </Tabs.TabPane>
           </Tabs>
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default ClientListPage

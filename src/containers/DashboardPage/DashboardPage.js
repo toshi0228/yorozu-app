@@ -1,11 +1,11 @@
-import React from 'react';
-import { Row, Col, Tabs } from 'antd';
-import DashboardSale from '../../components/dashboardRelated/dashboardSale/index';
-import DashboardCarge from '../../components/dashboardRelated/dashboardCharge';
+import React from 'react'
+import { Row, Col, Tabs } from 'antd'
+import DashboardSale from '../../components/dashboardRelated/dashboardSale/index'
+import DashboardCarge from '../../components/dashboardRelated/dashboardCharge'
 
 const Dashboard = () => {
   function callback(key) {
-    console.log(key);
+    console.log(key)
   }
   return (
     <>
@@ -31,7 +31,7 @@ const Dashboard = () => {
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

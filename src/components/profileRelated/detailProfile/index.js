@@ -1,8 +1,8 @@
-import React from 'react';
-import { Row, Col, Button, Rate, Tag, Icon } from 'antd';
-import styles from './index.module.scss';
-import DetailPlanSection from '../../planRelated/detailPlanSection/index';
-import ConsultationButton from '../ConsultationButton';
+import React from 'react'
+import { Row, Col, Rate, Tag, Icon } from 'antd'
+import styles from './index.module.scss'
+import DetailPlanSection from '../../planRelated/detailPlanSection/index'
+import ConsultationButton from '../ConsultationButton'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、profileの詳細ページ
@@ -14,13 +14,13 @@ import ConsultationButton from '../ConsultationButton';
 const DetailProfile = ({ data }) => {
   // プランリストを返す
   const planList = data.profileDetail.planList.map((planData, index) => {
-    return <DetailPlanSection key={index} planData={planData} />;
-  });
+    return <DetailPlanSection key={index} planData={planData} />
+  })
 
   // タグリストを返す
   const tagList = data.profileDetail.tagList.map((tag, index) => {
-    return <Tag key={index}>{`#${tag}`}</Tag>;
-  });
+    return <Tag key={index}>{`#${tag}`}</Tag>
+  })
 
   return (
     <>
@@ -55,11 +55,7 @@ const DetailProfile = ({ data }) => {
           {/* プロフィール画像 */}
           <Row type="flex" justify="center">
             <Col style={{ paddingTop: 40 }}>
-              <img
-                className={styles.circle}
-                alt="画像"
-                src={data.profileDetail.profileImage}
-              />
+              <img className={styles.circle} alt="画像" src={data.profileDetail.profileImage} />
             </Col>
           </Row>
           <Row type="flex" justify="center" style={{ marginTop: 25 }}>
@@ -86,15 +82,13 @@ const DetailProfile = ({ data }) => {
           {/* プロフィールの説明 */}
           <Row type="flex" justify="center" style={{ marginTop: 40 }}>
             <Col span={18}>
-              <div style={{ paddding: 20 }}>
-                {data.profileDetail.profileDescription}
-              </div>
+              <div style={{ paddding: 20 }}>{data.profileDetail.profileDescription}</div>
             </Col>
           </Row>
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default DetailProfile;
+export default DetailProfile

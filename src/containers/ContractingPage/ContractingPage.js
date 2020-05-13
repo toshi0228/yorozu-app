@@ -1,20 +1,37 @@
-import React from 'react';
-import { Row, Col } from 'antd';
-import Contracting from '../../components/contracting';
+import React from 'react'
+import { Row, Col, Tabs } from 'antd'
+import DashboardSale from '../../components/dashboardRelated/dashboardSale/index'
+import DashboardCarge from '../../components/dashboardRelated/dashboardCharge'
 
-const ContractingPage = () => {
+const Dashboard = () => {
+  function callback(key) {
+    console.log(key)
+  }
   return (
     <>
+      {/* タイトル */}
       <Row type="flex" justify="center">
-        <Col style={{ fontSize: 18 }}>契約の履歴</Col>
+        <Col style={{ fontSize: 18 }}>依頼した万屋のリスト</Col>
       </Row>
-      <Row type="flex" justify="center">
+
+      {/* タブ */}
+      <Row type="flex" justify="center" style={{ marginTop: 20 }}>
         <Col span={18}>
-          <Contracting />
+          <Tabs type="card" onChange={callback}>
+            {/* 売り上げタブのコンテント */}
+            <Tabs.TabPane tab="依頼中" key="1">
+              <DashboardSale />
+            </Tabs.TabPane>
+
+            {/* 課金タブのコンテント */}
+            <Tabs.TabPane tab="依頼履歴" key="2">
+              <DashboardCarge></DashboardCarge>
+            </Tabs.TabPane>
+          </Tabs>
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default ContractingPage;
+export default Dashboard

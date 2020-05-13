@@ -2,7 +2,8 @@ const UrlList = {
   top: () => '/',
   siginIn: () => '/sign_in',
   signUp: () => '/sign_up',
-  profileDetail: () => '/plan/detail/:id',
+  // profileDetail: () => '/plan/detail/:id',
+  profileDetail: () => '/plan/:id',
   // profileDetail: (data) => {
   //   return `/plan/detail/${data.yorozuId}`;
   // },
@@ -11,6 +12,7 @@ const UrlList = {
   messageRoom: () => '/message/rooms/:id',
   dashboard: () => '/dashboard',
   contracting: () => '/contracting',
+  clientList: () => '/client_list',
   myPage: () => '/my_page',
 }
 

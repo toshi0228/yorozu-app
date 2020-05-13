@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 const ProfileCard = ({ data }) => {
   return (
     <>
-      <Link to={`/plan/detail/${data.yorozuId}`}>
+      <Link to={`/plan/${data.yorozuId}`}>
         <Card
           cover={<img alt="example" src={data.yorozuMainImage} style={{ height: 200 }} />}
           hoverable

@@ -6,17 +6,26 @@ import styles from './index.module.scss'
 import routes from '../../../../routes'
 import { signOut } from '../../../../store/actions/account'
 import MyPageBtn from './MyPageBtn'
+
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// よろず、ヘッダーの詳細ページ
+// 24分割で,左空白3 ロゴ3、真ん中10,右サイド5 右空白3
+// Rowの最大24で、その中でcolを決める
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
 const MemberHeader = (props) => {
   return (
     <>
       <header>
         <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
+          {/* ロゴスペース */}
           <Col span={3} className={styles.left}>
-            <Link to="/">
+            <Link to={routes.top}>
               <h2>Yorozu</h2>
             </Link>
           </Col>
 
+          {/* 検索のスペース */}
           <Col span={10} className={styles.center}>
             <Row type="flex" className={styles.box1} justify="start">
               <Col>
@@ -29,20 +38,11 @@ const MemberHeader = (props) => {
             </Row>
           </Col>
 
+          {/* マイページボタン */}
           <Col span={5} className={styles.right}>
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
-                {/* <Link to={routes.top}>
-                  <div className={styles.btn} onClick={() => props.singOutEvent()}>
-                    ログアウト
-                  </div>
-                </Link> */}
-              </Col>
-              <Col>
-                <Link to="/sign_up">
-                  {/* <div className={styles.btn}>マイページ</div> */}
-                  <MyPageBtn singOutEvent={props.singOutEvent} />
-                </Link>
+                <MyPageBtn singOutEvent={props.singOutEvent} />
               </Col>
             </Row>
           </Col>
