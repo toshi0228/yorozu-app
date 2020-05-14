@@ -1,6 +1,6 @@
-import React from 'react';
-import { Col, Row, List, Avatar } from 'antd';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { Col, Row, List, Avatar } from 'antd'
+import { Link } from 'react-router-dom'
 
 const data = [
   {
@@ -15,7 +15,7 @@ const data = [
   {
     title: 'Ant Design Title 4',
   },
-];
+]
 
 const MessagePage = ({ id }) => {
   return (
@@ -23,7 +23,7 @@ const MessagePage = ({ id }) => {
       <Row type="flex" style={{ marginBottom: 10 }}>
         <Col offset={3} span={18}>
           <p>メッセージ</p>
-          <hr />
+          {/* <hr /> */}
         </Col>
       </Row>
       <Row type="flex" style={{ marginTop: 40 }}>
@@ -34,15 +34,11 @@ const MessagePage = ({ id }) => {
             renderItem={(item) => (
               <List.Item>
                 <List.Item.Meta
-                  avatar={
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                  }
+                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                   title={
                     <Link to="/message/rooms/1111">
                       {item.title}
-                      <span style={{ marginLeft: 40, fontSize: 12 }}>
-                        2021年10月23日
-                      </span>
+                      <span style={{ marginLeft: 40, fontSize: 12 }}>2021年10月23日</span>
                     </Link>
                   }
                   description="ここから、slackを登録してくださいねああああああああああああああああああああ"
@@ -53,10 +49,10 @@ const MessagePage = ({ id }) => {
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default MessagePage;
+export default MessagePage
 
 // const MessagePage = ({ id }) => {
 //   return (

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import DetailPlan from '../../components/profileRelated/detailProfile'
+import DetailPlan from '../../components/profile/detailProfile'
 import { feachProfileDetail } from '../../store/actions/profile'
 
 const ProfileDetailPage = (props) => {

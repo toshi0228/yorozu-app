@@ -9,6 +9,7 @@ const UrlList = {
   // },
   createPlan: () => '/create_plan',
   messageList: () => '/message',
+  createMessageList: () => '/message_list',
   messageRoom: () => '/message/rooms/:id',
   dashboard: () => '/dashboard',
   contracting: () => '/contracting',

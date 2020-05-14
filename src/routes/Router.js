@@ -7,19 +7,18 @@ import { ConnectedRouter } from 'connected-react-router'
 import routes from '../routes'
 
 // プロフィール関連(トップページ)
-import ProfileListPage from '../containers/ProfileRelatedPages/ProfileListPage'
-import ProfileDetailPage from '../containers/ProfileRelatedPages/ProfileDetailPage'
+import ProfileListPage from '../containers/ProfilePages/ProfileListPage'
+import ProfileDetailPage from '../containers/ProfilePages/ProfileDetailPage'
 
 // アカウント関連
-import SignInPage from '../containers/AccountRelatedPages/SignInPage'
-import SignUpPage from '../containers/AccountRelatedPages/SignUpPage'
+import SignInPage from '../containers/AccountPages/SignInPage'
+import SignUpPage from '../containers/AccountPages/SignUpPage'
 
 // プラン関連
-import CreatePlanPage from '../containers/PlanRelatedPages/CreatePlanPage'
+import CreatePlanPage from '../containers/PlanPages/CreatePlanPage'
 
 // メッセージ関連
-import MessagePage from '../containers/MessageRelatedPages/MessageListPage'
-import MessageRoomPage from '../containers/MessageRelatedPages/MessageRoomPage'
+import MessagePage from '../containers/MessagePages/MessagePage'
 
 // ゲストヘッダーとメンバーヘッダーでレイアウトを変更する
 import { withLayout } from '../components/Layouts/RouteWithLayout'
@@ -66,11 +65,6 @@ const Router = (props) => {
 
         {/* メッセージのトップページ */}
         <Route exact path={routes.messageList()} render={withLayout(MessagePage)} />
-
-        {/* メッセージ詳細ページ */}
-        <Route path={routes.messageRoom()} render={withLayout(MessageRoomPage)} />
-
-        {/* <Route path="/create_plan" render={withMemberLayout(RequireAuth)} /> */}
 
         {/* プラン作成  */}
         {/* ログインチェックなし */}

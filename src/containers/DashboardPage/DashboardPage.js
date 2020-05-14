@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Tabs } from 'antd'
-import DashboardSale from '../../components/dashboardRelated/dashboardSale/index'
-import DashboardCarge from '../../components/dashboardRelated/dashboardCharge'
+import DashboardSale from '../../components/dashboard/dashboardSale/index'
+import DashboardCarge from '../../components/dashboard/dashboardCharge'
 
 const Dashboard = () => {
   function callback(key) {

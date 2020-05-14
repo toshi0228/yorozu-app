@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col, Rate, Tag, Icon } from 'antd'
 import styles from './index.module.scss'
-import DetailPlanSection from '../../planRelated/detailPlanSection/index'
+import DetailPlanSection from '../../plan/detailPlanSection/index'
 import ConsultationButton from '../ConsultationButton'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝

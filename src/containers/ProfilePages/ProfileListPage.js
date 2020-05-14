@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import ProfileList from '../../components/profileRelated/ProfileList/index'
+import ProfileList from '../../components/profile/ProfileList/index'
 import { Col, Row, Pagination } from 'antd'
 import { fetchProfileList } from '../../store/actions/profile'
 import '../../styles/PlanListPage.scss'
