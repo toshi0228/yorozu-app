@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col, Input, Tabs, Button } from 'antd';
-import ImageForm from '../../components/formRelated/ImageForm';
-import InputTag from '../../components/formRelated/tagForm';
+import ImageForm from '../../components/formRelated/ImageForm/index'
+import InputTag from '../../components/formRelated/tagForm/index';
 
 const MyPage = () => {
   const [nickname, setNickname] = useState('');

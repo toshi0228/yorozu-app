@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Input, Row, Col, Button } from 'antd';
-import InputTag from '../../components/formRelated/tagForm';
+import InputTag from '../../components/formRelated/tagForm/index';
 import { postPlanEvent } from '../../store/actions/plan';
-import ImageForm from '../../components/formRelated/ImageForm';
+import ImageForm from '../../components/formRelated/ImageForm/index'
 
 const { TextArea } = Input;
 

@@ -13,7 +13,7 @@ const ProfileCard = ({ data }) => {
     <>
       <Link to={`/plan/${data.yorozuId}`}>
         <Card
-          cover={<img alt="example" src={data.yorozuMainImage} style={{ height: 200 }} />}
+          cover={<img alt="example" src={`http://127.0.0.1:8000${data.yorozuMainImage}`} style={{ height: 200 }} />}
           hoverable
           actions={[<Icon type="twitter" />, <Icon type="instagram" />, <Icon type="facebook" />]}
         >

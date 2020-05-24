@@ -4,5 +4,7 @@ export const sendMessage = (messageData) => (dispatch) => {
   console.log(`メッセージ内容:${messageData}`);
   postMessage(messageData).then((res) => {
     console.log(res);
+  }).catch((error)=>{
+    console.log(error)
   });
 };

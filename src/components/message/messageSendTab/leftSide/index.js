@@ -1,7 +1,6 @@
 import React from 'react'
 import { Comment, List, Row, Col } from 'antd'
-import MessageForm from '../../../formRelated/messageForm'
-
+import MessageForm from '../../../formRelated/messageForm/index'
 // メッセージ作成中
 
 const RightSide = () => {

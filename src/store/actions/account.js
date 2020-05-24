@@ -29,16 +29,16 @@ export const signIn = (formProps) => (dispatch) => {
       const decodeJwt = jwt(token.data.access)
 
       // jwtをデコードしたあと、ユーザーIDを取り出す
-      const userId = decodeJwt.user_id
+      const accoutId = decodeJwt.user_id
 
       // よろずIDを取得するため。サーバーと通信
       // ユーザーIDで情報管理すれば、便利かもしれないが、yorozuIdでprofile情報などを管理する
-      getYorozuId(userId).then((res) => {
+      getYorozuId(accoutId).then((yorozuId) => {
         // accountReducerにセットする
         dispatch(
           signInAccount({
             authToken: { ...token.data },
-            yorozuId: res.data.yorozuId,
+            yorozuId: yorozuId.data,
           })
         )
       })

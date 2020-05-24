@@ -5,9 +5,9 @@ export const setAuthHeader = (authToken) => {
 };
 
 // ログインを行った時に、yorozuIDを取得にいく
-export const getYorozuId = (userId) => {
+export const getYorozuId = (accoutId) => {
   // console.log(axios.get(`http://127.0.0.1:8000/api/account/${userId}`));
-  return axios.get(`http://127.0.0.1:8000/api/account/${userId}`);
+  return axios.get(`http://127.0.0.1:8000/api/account/${accoutId}`);
 };
 
 // トップページ 万屋プロフィールリストの取得
@@ -25,7 +25,6 @@ export const feachTags = () => {
 };
 
 export const postMessage = (messageContent) => {
-  console.log(axios.post('http://127.0.0.1:8000/api/message/', messageContent));
   return axios.post('http://127.0.0.1:8000/api/message/', messageContent);
 };
 

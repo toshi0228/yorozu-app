@@ -55,7 +55,7 @@ const DetailProfile = ({ data }) => {
           {/* プロフィール画像 */}
           <Row type="flex" justify="center">
             <Col style={{ paddingTop: 40 }}>
-              <img className={styles.circle} alt="画像" src={data.profileDetail.profileImage} />
+              <img className={styles.circle} alt="画像" src={`http://127.0.0.1:8000${data.profileDetail.profileImage}`} />
             </Col>
           </Row>
           <Row type="flex" justify="center" style={{ marginTop: 25 }}>
