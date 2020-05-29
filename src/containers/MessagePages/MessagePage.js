@@ -1,18 +1,22 @@
-import React from 'react'
-// import { Link } from 'react-router-dom'
-// import { push } from 'connected-react-router'
-// import routes from '../../routes'
+import React, {useEffect} from 'react'
+import  {connect} from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
-// import DashboardSale from '../../components/dashboardRelated/dashboardSale/index'
 import DashboardCarge from '../../components/dashboard/dashboardCharge'
 import MessageSendTab from '../../components/message/messageSendTab'
 import MessageTable from '../../components/message/messageTable'
+import {feachMessageList} from '../../store/actions/message'
 
 // ========================================================================
 // メッセージを返信するボタンを押すと、メッセージを編集するボタンが出てくる
 // ========================================================================
 
-const CreateMessageList = () => {
+const MessagePage = (props) => {
+  console.log(props)
+
+  useEffect(()=>{
+    props.readMessageEvents(props.authToken)
+  },[])
+
   function callback(key) {
     console.log(key)
   }
@@ -56,4 +60,14 @@ const CreateMessageList = () => {
   )
 }
 
-export default CreateMessageList
+const mapStateToProps = (state) =>({
+  message: state.message,
+  authToken: state.account.authToken.access
+})
+
+const mapDispatchToProps = (dispatch)=>({
+  readMessageEvents:(authToken) => dispatch(feachMessageList(authToken))
+})
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(MessagePage)

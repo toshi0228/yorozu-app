@@ -1,17 +1,17 @@
 import axios from 'axios'
-import JwtDecode from 'jwt-decode'
+import host from '../constants/url'
 
 // jwtのトークンを取ってくる データベースにないemail.passwordを送ったらトークンは帰ってこない
 export const postSignIn = (params) => {
-  return axios.post('http://127.0.0.1:8000/api/auth/jwt/create', params)
+  return axios.post(`${host.localhost()}/api/auth/jwt/create`, params)
 }
 
 // トークン検証  トークンを送信して、dajngo側でそのトークンに当てはまるアカウントがあるかチェックしてくれる
 export const postTokenVerify = (token) => {
-  return axios.post('http://localhost:8000/api/auth/jwt/verify', { token: token.access })
+  return axios.post(`${host.localhost()}/api/auth/jwt/verify`, { token: token.access })
 }
 
 // アカウントを作成
 export const postSignUp = (params) => {
-  return axios.post('http://localhost:8000/api/account/', params)
+  return axios.post(`${host.localhost()}/api/account/`, params)
 }

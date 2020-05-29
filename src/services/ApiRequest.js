@@ -25,6 +25,13 @@ export const feachTags = () => {
   return axios.get(`${host.localhost()}/api/tag/`);
 };
 
+// メッセージリストの取得
+export const getMessageList = (authToken) =>{
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/messagebox/`)
+}
+
+// メッセージの送信
 export const postMessage = (messageContent) => {
   return axios.post(`${host.localhost()}/api/message/`, messageContent);
 };
@@ -33,10 +40,10 @@ export const postMessage = (messageContent) => {
 export const postPlan = (params) => {
   const formData = new FormData();
 
-  // =====================================================================================
-  // サーバーサイドのシリアライザと同じ名前にしないといけない
-  // 第3引数は、Content-Dispositionヘッダに含めるファイル名を渡すことができる
-  // =====================================================================================
+// =====================================================================================
+// サーバーサイドのシリアライザと同じ名前にしないといけない
+// 第3引数は、Content-Dispositionヘッダに含めるファイル名を渡すことができる
+// =====================================================================================
   formData.append('title', params.title);
   formData.append('description', params.description);
   formData.append('price', params.price);
