@@ -3,6 +3,7 @@ import { Row, Col, Rate, Tag, Icon } from 'antd'
 import styles from './index.module.scss'
 import DetailPlanSection from '../../plan/detailPlanSection/index'
 import ConsultationButton from '../ConsultationButton'
+import host from '../../../constants/url'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、profileの詳細ページ
@@ -55,7 +56,7 @@ const DetailProfile = ({ data }) => {
           {/* プロフィール画像 */}
           <Row type="flex" justify="center">
             <Col style={{ paddingTop: 40 }}>
-              <img className={styles.circle} alt="画像" src={`http://127.0.0.1:8000${data.profileDetail.profileImage}`} />
+              <img className={styles.circle} alt="画像" src={`${host.localhost()}${data.profileDetail.profileImage}`} />
             </Col>
           </Row>
           <Row type="flex" justify="center" style={{ marginTop: 25 }}>

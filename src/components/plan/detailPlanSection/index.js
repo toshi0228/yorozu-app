@@ -2,6 +2,7 @@ import React from 'react';
 import { Col, Row } from 'antd';
 // import { Link } from 'react-router-dom';
 import PlanRequestModal from '../planRequestModal';
+import host from '../../../constants/url'
 
 // ====================================================================
 // 詳細ページのプランのセクション
@@ -14,7 +15,7 @@ const DetailPlanSection = ({ planData }) => {
     <>
       <img
         alt='example'
-        src={`http://127.0.0.1:8000${planData.image}`}
+        src={`${host.localhost()}${planData.image}`}
         style={{ width: '100%', height: 360, borderRadius: 8 }}
       />
       {/* プランのタイトル */}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Icon, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
+import host from '../../../constants/url'
 // import routes from '../../../routes'
 // import styles from './index.module.scss';
 
@@ -13,7 +14,7 @@ const ProfileCard = ({ data }) => {
     <>
       <Link to={`/plan/${data.yorozuId}`}>
         <Card
-          cover={<img alt="example" src={`http://127.0.0.1:8000${data.yorozuMainImage}`} style={{ height: 200 }} />}
+          cover={<img alt="example" src={`${host.localhost()}${data.yorozuMainImage}`} style={{ height: 200 }} />}
           hoverable
           actions={[<Icon type="twitter" />, <Icon type="instagram" />, <Icon type="facebook" />]}
         >
