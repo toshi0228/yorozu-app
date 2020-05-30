@@ -13,6 +13,7 @@ const ProfileCard = ({ data }) => {
   return (
     <>
       <Link to={`/plan/${data.yorozuId}`}>
+        {/* <Link to={`${routes.profileDetail()}${data.yorozuId}`}> */}
         <Card
           cover={<img alt="example" src={`${host.localhost()}${data.yorozuMainImage}`} style={{ height: 200 }} />}
           hoverable

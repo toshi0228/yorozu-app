@@ -19,6 +19,7 @@ import CreatePlanPage from '../containers/PlanPages/CreatePlanPage'
 
 // メッセージ関連
 import MessagePage from '../containers/MessagePages/MessagePage'
+import CreateMessage from '../containers/MessagePages/CreateMessage'
 
 // ゲストヘッダーとメンバーヘッダーでレイアウトを変更する
 import { withLayout } from '../components/Layouts/RouteWithLayout'
@@ -65,6 +66,9 @@ const Router = (props) => {
 
         {/* メッセージのトップページ */}
         <Route exact path={routes.messageList()} render={withLayout(MessagePage)} />
+
+        {/* メッセージ作成ページ */}
+        <Route exact path={routes.createMessage()} render={withLayout(CreateMessage)} />
 
         {/* プラン作成  */}
         {/* ログインチェックなし */}

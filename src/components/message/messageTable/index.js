@@ -8,14 +8,13 @@ const MessageTable = (props) => {
   console.log(props)
   const [isShow, setIsShow] = useState(true)
   // const [data, setData] = useState([])
-  const columns = [
-    { title: 'ユーザー', dataIndex: 'profileImage', render: (text) => <Link to={routes.messageRoom}>{text}</Link> },
-    { title: '名前', dataIndex: 'user', render: (text) => <Link to={routes.messageRoom}>{text}</Link> },
-    { title: '日にち', dataIndex: 'day', render: (text) => <Link to={routes.messageRoom}>{text}</Link> },
-    { title: '内容', dataIndex: 'messageContent', render: (text) => <Link to={routes.messageRoom}>{text}</Link> },
-  ]
 
-  // 初回はデータがないのでデータがない場合forEachがエラーになるのでif文
+  const columns = [
+    { title: 'ユーザー', dataIndex: 'profileImage' },
+    { title: '名前', dataIndex: 'user' },
+    { title: '日にち', dataIndex: 'day' },
+    { title: '内容', dataIndex: 'messageContent' },
+  ]
 
   const data = [
     {
@@ -31,17 +30,21 @@ const MessageTable = (props) => {
     },
   ]
 
+  // 初回はデータがないのでデータがない場合forEachがエラーになるのでif文
   if (props.data != '') {
+    // メッセージデータのリストを取り出す
     props.data.forEach((message) => {
       const oneMessageData = {
         profileImage: (
-          <Badge dot={isShow}>
-            <Avatar src={`${host.localhost()}${message.senderProfile.profileImage}`} onClick={() => setIsShow(false)} />
-          </Badge>
+          <Link to={`/message/rooms/${message.senderYorozuId}`}>
+            <Badge dot={isShow}>
+              <Avatar src={`${host.localhost()}${message.senderProfile.profileImage}`} onClick={() => setIsShow(false)} />
+            </Badge>
+          </Link>
         ),
-        user: message.senderProfile.nickname,
-        day: message.createdAt.split('T')[0],
-        messageContent: message.messageContent,
+        user: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.senderProfile.nickname}</Link>,
+        day: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.createdAt.split('T')[0]}</Link>,
+        messageContent: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.messageContent}</Link>,
         key: message.createdAt,
       }
       data.push(oneMessageData)
