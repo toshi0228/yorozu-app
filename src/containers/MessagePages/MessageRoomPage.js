@@ -2,6 +2,8 @@ import React from 'react'
 import { Comment, List, Row, Col } from 'antd'
 import MessageForm from '../../components/formRelated/messageForm/index'
 
+// いらない可能せいあり
+
 const MessageRoomPage = () => {
   const data = [
     {

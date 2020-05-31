@@ -1,37 +1,11 @@
 import React from 'react'
-import { Comment, List, Row, Col } from 'antd'
-// import MessageForm from '../../formRelated/messageForm'
+import { Row, Col } from 'antd'
 import RightSide from './rightSide'
 import LeftSide from './leftSide'
 
 // メッセージ作成中
 
-const MessageSend = () => {
-  const data = [
-    {
-      author: 'Han Solo',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: (
-        <p>
-          We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create
-          their product prototypes beautifully and efficiently.
-        </p>
-      ),
-      datetime: '2021年10月23日',
-    },
-    {
-      author: 'Han Solo',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: (
-        <p>
-          We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create
-          their product prototypes beautifully and efficiently.
-        </p>
-      ),
-      datetime: '2021年10月23日',
-    },
-  ]
-
+const MessageSendTab = () => {
   return (
     <>
       <Row type="flex">
@@ -46,4 +20,4 @@ const MessageSend = () => {
   )
 }
 
-export default MessageSend
+export default MessageSendTab

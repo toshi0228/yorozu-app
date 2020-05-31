@@ -1,9 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Comment, List, Row, Col } from 'antd'
 import MessageForm from '../../../formRelated/messageForm/index'
-// メッセージ作成中
+import host from '../../../../constants/url'
 
-const RightSide = () => {
+const LeftSide = (props) => {
+  console.log('leftSide')
+
   const data = [
     {
       author: 'Han Solo',
@@ -16,16 +19,27 @@ const RightSide = () => {
       datetime: '2021年10月23日',
     },
     {
-      author: 'Han Solo',
+      author: 'Han Sssolo',
       avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
       content: (
         <p>
           未経験業種で培った「相手の知識レベルに合わせて言葉選びを変える」スキルとそのために自分から学んでいく姿勢をデザイン、イラストを掛け合わせた仕事はなんだろうかと考えた時、Webデザインにたどり着き、独学での勉強を始めました。
         </p>
       ),
-      datetime: '2021年10月23日',
+      datetime: '2021年10月29日',
     },
   ]
+
+  // 送信者のメッセージルームに合わせて,メッセージ内容を変える
+  props.roomMessage.forEach((message) => {
+    const messageObj = {
+      author: message.senderProfile.nickname,
+      avatar: `${host.localhost()}${message.senderProfile.profileImage}`,
+      content: <p>{message.messageContent}</p>,
+      datetime: message.createdAt,
+    }
+    data.push(messageObj)
+  })
 
   return (
     <>
@@ -59,4 +73,15 @@ const RightSide = () => {
   )
 }
 
-export default RightSide
+const mapStateToProps = (state) => ({
+  roomMessage: state.message.roomMessage,
+})
+
+// const mapDispatchToProps = (dispatch) => ({
+//   // 自分あてに送られたメッセージを取得する
+//   readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
+//   // senderのIDごとにメッセージを呼び出す
+//   readRoomMessageEvents: (senderYorozuId) => dispatch(readRoomMessage(senderYorozuId)),
+// })
+
+export default connect(mapStateToProps, null)(LeftSide)

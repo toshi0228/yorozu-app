@@ -1,57 +1,67 @@
-import axios from 'axios';
+import axios from 'axios'
 import host from '../constants/url'
 
 export const setAuthHeader = (authToken) => {
-  axios.defaults.headers.common['Authorization'] = 'Bearer' + authToken.access;
-};
+  axios.defaults.headers.common['Authorization'] = 'Bearer' + authToken.access
+}
 
 // ログインを行った時に、yorozuIDを取得にいく
 export const getYorozuId = (accoutId) => {
   // console.log(axios.get(`http://127.0.0.1:8000/api/account/${userId}`));
-  return axios.get(`${host.localhost()}/api/account/${accoutId}`);
-};
+  return axios.get(`${host.localhost()}/api/account/${accoutId}`)
+}
 
 // トップページ 万屋プロフィールリストの取得
 export const getProfileList = () => {
-  return axios.get(`${host.localhost()}/api/profile/`);
-};
+  return axios.get(`${host.localhost()}/api/profile/`)
+}
 
 // 万屋、詳細ページの取得
 export const getProfileDetail = (id) => {
-  return axios.get(`${host.localhost()}/api/profile/${id}`);
-};
+  return axios.get(`${host.localhost()}/api/profile/${id}`)
+}
 
 export const feachTags = () => {
-  return axios.get(`${host.localhost()}/api/tag/`);
-};
+  return axios.get(`${host.localhost()}/api/tag/`)
+}
 
-// メッセージリストの取得
-export const getMessageList = (authToken) =>{
+// =====================================================================================
+//自分あてに送られたメッセージを取得する
+// =====================================================================================
+export const getMessageList = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
   return axios.get(`${host.localhost()}/api/messagebox/`)
 }
 
+// =====================================================================================
+// 自分が送信したメッセージを取得する
+// =====================================================================================
+export const getSendMessageList = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/message/`)
+}
+
 // メッセージの送信
 export const postMessage = (messageContent) => {
-  return axios.post(`${host.localhost()}/api/message/`, messageContent);
-};
+  return axios.post(`${host.localhost()}/api/message/`, messageContent)
+}
 
 // プラン登録
 export const postPlan = (params) => {
-  const formData = new FormData();
+  const formData = new FormData()
 
-// =====================================================================================
-// サーバーサイドのシリアライザと同じ名前にしないといけない
-// 第3引数は、Content-Dispositionヘッダに含めるファイル名を渡すことができる
-// =====================================================================================
-  formData.append('title', params.title);
-  formData.append('description', params.description);
-  formData.append('price', params.price);
-  formData.append('image', params.image[0], params.image[0].name);
-  formData.append('tag', params.tags);
-  formData.append('profileDescription', 'プロフィール説明');
+  // =====================================================================================
+  // サーバーサイドのシリアライザと同じ名前にしないといけない
+  // 第3引数は、Content-Dispositionヘッダに含めるファイル名を渡すことができる
+  // =====================================================================================
+  formData.append('title', params.title)
+  formData.append('description', params.description)
+  formData.append('price', params.price)
+  formData.append('image', params.image[0], params.image[0].name)
+  formData.append('tag', params.tags)
+  formData.append('profileDescription', 'プロフィール説明')
   // "tags": [{"name":"try1"}]
-  console.log(...formData.entries());
+  console.log(...formData.entries())
 
   axios
     .post(`${host.localhost()}/api/entry`, formData, {
@@ -60,9 +70,9 @@ export const postPlan = (params) => {
       },
     })
     .then((res) => {
-      console.log(res);
+      console.log(res)
     })
     .catch((error) => {
-      console.log(error);
-    });
-};
+      console.log(error)
+    })
+}

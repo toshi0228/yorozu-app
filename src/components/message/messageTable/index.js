@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
 import { Row, Col, Table, Avatar, Badge } from 'antd'
 import { Link } from 'react-router-dom'
-import routes from '../../../routes'
 import host from '../../../constants/url'
 
 const MessageTable = (props) => {
-  console.log(props)
   const [isShow, setIsShow] = useState(true)
-  // const [data, setData] = useState([])
 
   const columns = [
     { title: 'ユーザー', dataIndex: 'profileImage' },
@@ -30,26 +27,23 @@ const MessageTable = (props) => {
     },
   ]
 
-  // 初回はデータがないのでデータがない場合forEachがエラーになるのでif文
-  if (props.data != '') {
-    // メッセージデータのリストを取り出す
-    props.data.forEach((message) => {
-      const oneMessageData = {
-        profileImage: (
-          <Link to={`/message/rooms/${message.senderYorozuId}`}>
-            <Badge dot={isShow}>
-              <Avatar src={`${host.localhost()}${message.senderProfile.profileImage}`} onClick={() => setIsShow(false)} />
-            </Badge>
-          </Link>
-        ),
-        user: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.senderProfile.nickname}</Link>,
-        day: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.createdAt.split('T')[0]}</Link>,
-        messageContent: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.messageContent}</Link>,
-        key: message.createdAt,
-      }
-      data.push(oneMessageData)
-    })
-  }
+  // メッセージデータのリストを取り出す
+  props.recieveMessage.forEach((message) => {
+    const oneMessageData = {
+      profileImage: (
+        <Link to={`/message/rooms/${message.senderYorozuId}`}>
+          <Badge dot={isShow}>
+            <Avatar src={`${host.localhost()}${message.senderProfile.profileImage}`} onClick={() => setIsShow(false)} />
+          </Badge>
+        </Link>
+      ),
+      user: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.senderProfile.nickname}</Link>,
+      day: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.createdAt.split('T')[0]}</Link>,
+      messageContent: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.messageContent}</Link>,
+      key: message.createdAt,
+    }
+    data.push(oneMessageData)
+  })
 
   return (
     <>

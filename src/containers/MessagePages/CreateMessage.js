@@ -3,17 +3,18 @@ import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
 import MessageSendTab from '../../components/message/messageSendTab'
 import MessageTable from '../../components/message/messageTable'
-import { feachMessageList } from '../../store/actions/message'
+import { readRoomMessage } from '../../store/actions/message'
 import routes from '../../routes/index'
 
 // ========================================================================
-// メッセージを返信するボタンを押すと、メッセージを編集するボタンが出てくる
+// メッセージ作成ページ
 // ========================================================================
 
 const CreateMessage = (props) => {
+  const senderYorozuId = props.params.match.params.id
   useEffect(() => {
-    // メッセージリストを呼んでくる
-    props.readMessageEvents(props.authToken)
+    // 自分宛に送ってくれたメッセージをyorozuIDを使ってメッセージを呼び出す
+    props.readRoomMessageEvents(senderYorozuId)
   }, [])
 
   function callback(key) {
@@ -34,12 +35,12 @@ const CreateMessage = (props) => {
       <Row type="flex" justify="center" style={{ marginTop: 20 }}>
         <Col span={18}>
           <Tabs type="card" onChange={callback} defaultActiveKey="4">
-            {/* 売り上げタブのコンテント */}
+            {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="2">
-              <MessageTable data={props.message} />
+              <MessageTable />
             </Tabs.TabPane>
 
-            {/* 編集タブの追加 */}
+            {/* メッセージ作成ページのタブ */}
             <Tabs.TabPane tab="メッセージを作成" key="4">
               <MessageSendTab />
             </Tabs.TabPane>
@@ -51,12 +52,14 @@ const CreateMessage = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  message: state.message,
+  // ルームメッセージには、送信者と受信者のメッセージのやり取りしたメールのリストが入っている。
+  roomMessage: state.message.roomMessage,
   authToken: state.account.authToken.access,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
+  // 自分宛にメッセージを送ってくれた送信者のYorozuIdから、全てのメッセージを取得する
+  readRoomMessageEvents: (senderYorozuId) => dispatch(readRoomMessage(senderYorozuId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateMessage)
