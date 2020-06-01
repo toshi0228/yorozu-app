@@ -29,7 +29,27 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
         message['createdAt'] = `${time[0]}年${time[1]}月${time[2]}`
         return message
       })
-      return { ...state, recieveMessage: recieveMessageList, rowDataRecieveMessage: rowDataRecieveMessage }
+
+      // メッセージ作成タブの右サイドのユーザーリストを作成する
+      const userList = _.map(recieveMessageList, (message) => {
+        return message.senderProfile.nickname
+      })
+
+      // ユーザーリストから、重複をなくす ["のびた", "しずかちゃん", "のびた"] -> ["のびた", "しずかちゃん"]
+      const _userList = _.union(userList)
+      console.log(_userList)
+
+      // ["のびた", "しずかちゃん"]から、ユーザーごとの最新のメッセージを取り出す
+      const _recieveMessageList = []
+      _userList.forEach((user) => {
+        const newMessage = _.find(recieveMessageList, (message) => {
+          return _.includes(message.senderProfile.nickname, user)
+        })
+        _recieveMessageList.push(newMessage)
+      })
+      // console.log(newMessageList)
+
+      return { ...state, recieveMessage: _recieveMessageList, rowDataRecieveMessage: rowDataRecieveMessage }
 
     // ==========================================================
     // ルームページごとに、メッセージを呼び出すときの処理
@@ -60,7 +80,7 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
       // 参照に関しての問題がおこる
 
       // ルームの中のメッセージをソートする
-      const sortRoomMessage = [...roomMessage].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      const sortRoomMessage = [...roomMessage].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 
       // 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23 16:27
       sortRoomMessage.map((message) => {
