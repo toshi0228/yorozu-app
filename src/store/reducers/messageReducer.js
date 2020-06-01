@@ -6,6 +6,9 @@ const DEFAULT_STATE = {
   rowDataRecieveMessage: [],
   senderMessage: [],
   roomMessage: [],
+  senderProfileImage: '',
+  // MessageRoomUser -> 誰に送信するか
+  messageRoomUser: '',
 }
 
 // rowDataRecieveMessageは、メッセージルームのページを開く時、送信したメールと、受信したメールをミックスして、
@@ -14,7 +17,7 @@ const DEFAULT_STATE = {
 const messageReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     // ==========================================================
-    // 全件のメッセージを送り出すときの処理
+    // 自分宛に届いた全てのメッセージの処理
     // ==========================================================
     case READ_MESSAGE_EVENTS:
       // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
@@ -33,6 +36,7 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     // ==========================================================
     case READ_ROOMMESSAGE_EVENTS:
       const roomMessage = []
+      const messageRoomUser = []
       // メッセージルームID(urlの一番最後(yozozo))は、送信者のyozozuIDでaction.payloadには、
       // 送信者のyozozuIDが入っている ex) http://localhost:3000/message/rooms/yozozo
       const roomMessageId = action.payload
@@ -41,8 +45,10 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
       _.map(state.rowDataRecieveMessage, (message) => {
         if (roomMessageId === message.senderYorozuId) {
           roomMessage.push(message)
+          messageRoomUser.push(message.senderProfile.nickname)
         }
       })
+
       // 自分が送信したメッセージリストから、トークルームのIDと受信者のyorozuIdが同じメッセージを抽出する
       _.map(state.senderMessage, (message) => {
         if (roomMessageId === message.receiverYorozuId) {
@@ -65,14 +71,13 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
         message['createdAt'] = `${_day[0]}年${_day[1]}月${_day[2]}　${_time[0]}:${_time[1]}`
         return message
       })
-
-      return { ...state, roomMessage: sortRoomMessage }
+      return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0] }
 
     // ==========================================================
     // 自分が送信したメッセージリストの処理
     // ==========================================================
     case READ_MY_SEND_MESSAGE_EVENTS:
-      return { ...state, senderMessage: action.payload.data }
+      return { ...state, senderMessage: action.payload.data, senderProfileImage: action.payload.data[0].senderProfile.profileImage }
 
     // ==========================================================
     // メッセージの送信したときの処理

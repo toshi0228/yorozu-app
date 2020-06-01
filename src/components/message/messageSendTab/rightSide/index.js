@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Table, Avatar, Badge } from 'antd'
+import { Table, Avatar, Badge } from 'antd'
 import { Link } from 'react-router-dom'
 import routes from '../../../../routes'
 

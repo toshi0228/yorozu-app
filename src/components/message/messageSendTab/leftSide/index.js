@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Comment, List, Row, Col } from 'antd'
 import MessageForm from '../../../formRelated/messageForm/index'
@@ -6,53 +6,43 @@ import host from '../../../../constants/url'
 
 const LeftSide = (props) => {
   console.log('leftSide')
+  console.log(props)
+  const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
 
-  const data = [
-    {
-      author: 'Han Solo',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: (
-        <p>
-          未経験業種で培った「相手の知識レベルに合わせて言葉選びを変える」スキルとそのために自分から学んでいく姿勢をデザイン、イラストを掛け合わせた仕事はなんだろうかと考えた時、Webデザインにたどり着き、独学での勉強を始めました。
-        </p>
-      ),
-      datetime: '2021年10月23日',
-    },
-    {
-      author: 'Han Sssolo',
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      content: (
-        <p>
-          未経験業種で培った「相手の知識レベルに合わせて言葉選びを変える」スキルとそのために自分から学んでいく姿勢をデザイン、イラストを掛け合わせた仕事はなんだろうかと考えた時、Webデザインにたどり着き、独学での勉強を始めました。
-        </p>
-      ),
-      datetime: '2021年10月29日',
-    },
-  ]
+  const data = []
+  if (props.messageRoomUser) {
+    console.log('ここに来た')
+    setExplanation(`${props.messageRoomUser}にメッセージを送ります`)
+  } else {
+    console.log('ここにこない')
+
+    const explanation = 'メッセージを送りたい相手を選んでね'
+  }
 
   // 送信者のメッセージルームに合わせて,メッセージ内容を変える
-  props.roomMessage.forEach((message) => {
+  props.roomMessage.forEach((message, index) => {
     const messageObj = {
       author: message.senderProfile.nickname,
       avatar: `${host.localhost()}${message.senderProfile.profileImage}`,
       content: <p>{message.messageContent}</p>,
       datetime: message.createdAt,
+      key: index,
     }
     data.push(messageObj)
   })
 
   return (
     <>
-      {/* <Row type="flex" style={{ marginBottom: 10 }}>
-        <Col span={24}>
-          <p>メッセージ</p>
-        </Col>
-      </Row> */}
+      <Row type="flex" style={{ marginTop: 10, paddingTop: 8 }}>
+        {/* <Col span={24}>{`${props.messageRoomUser}にメッセージを送ります`}</Col> */}
+        <Col span={24}>{explanation}</Col>
+      </Row>
 
       {/* メッセージフォーム */}
-      <Row style={{ marginTop: 10 }}>
+      {/* <Row style={{ marginTop: 10 }}> */}
+      <Row>
         <Col span={24}>
-          <MessageForm />
+          <MessageForm senderProfileImage={props.senderProfileImage} />
         </Col>
       </Row>
 
@@ -75,6 +65,9 @@ const LeftSide = (props) => {
 
 const mapStateToProps = (state) => ({
   roomMessage: state.message.roomMessage,
+  senderProfileImage: state.message.senderProfileImage,
+  senderProfileImage: state.message.senderProfileImage,
+  messageRoomUser: state.message.messageRoomUser,
 })
 
 // const mapDispatchToProps = (dispatch) => ({

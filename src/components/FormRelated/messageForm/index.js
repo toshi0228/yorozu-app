@@ -1,33 +1,25 @@
-import React, { useState } from 'react';
-import { Comment, Avatar, Form, Input, Button } from 'antd';
+import React, { useState } from 'react'
+import { Comment, Avatar, Form, Input, Button } from 'antd'
+import host from '../../../constants/url'
 
-const MessageForm = () => {
-  const [comment, setComment] = useState('');
+const MessageForm = (props) => {
+  const [comment, setComment] = useState('')
 
   const onSubmit = () => {
-    console.log(comment);
-    console.log('送信ボタンが押された');
-    setComment('');
-  };
+    console.log(comment)
+    console.log('送信ボタンが押された')
+    setComment('')
+  }
 
   return (
     <>
       <Comment
-        avatar={
-          <Avatar
-            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-            alt="Han Solo"
-          />
-        }
+        avatar={<Avatar src={`${host.localhost()}${props.senderProfileImage}`} alt="you" />}
         // contentを書くことによって、アバターの横にアイテムを書くことができる
         content={
           <>
             <Form.Item>
-              <Input.TextArea
-                rows={4}
-                onChange={e => setComment(e.target.value)}
-                value={comment}
-              />
+              <Input.TextArea rows={4} onChange={(e) => setComment(e.target.value)} value={comment} />
             </Form.Item>
             <Form.Item>
               <Button htmlType="submit" type="primary" onClick={onSubmit}>
@@ -38,7 +30,7 @@ const MessageForm = () => {
         }
       />
     </>
-  );
-};
+  )
+}
 
-export default MessageForm;
+export default MessageForm
