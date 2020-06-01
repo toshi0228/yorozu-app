@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 // import styles from './index.module.scss';
-import styles from './index.module.scss';
+import styles from './index.module.scss'
 
 const FormButton = () => {
   return (
@@ -11,7 +11,7 @@ const FormButton = () => {
         リクエストを送る
       </div>
     </>
-  );
-};
+  )
+}
 
-export default FormButton;
+export default FormButton

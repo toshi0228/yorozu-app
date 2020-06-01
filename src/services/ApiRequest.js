@@ -1,8 +1,11 @@
 import axios from 'axios'
 import host from '../constants/url'
 
+//=====================================================================================
+// ヘッダーにトークンをつける
+//=====================================================================================
 export const setAuthHeader = (authToken) => {
-  axios.defaults.headers.common['Authorization'] = 'Bearer' + authToken.access
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken.access
 }
 
 // ログインを行った時に、yorozuIDを取得にいく
@@ -25,9 +28,9 @@ export const feachTags = () => {
   return axios.get(`${host.localhost()}/api/tag/`)
 }
 
-// =====================================================================================
+//=====================================================================================
 //自分あてに送られたメッセージを取得する
-// =====================================================================================
+//=====================================================================================
 export const getMessageList = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
   return axios.get(`${host.localhost()}/api/messagebox/`)

@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Input, Row, Col, Button } from 'antd';
-import InputTag from '../../components/formRelated/tagForm/index';
-import { postPlanEvent } from '../../store/actions/plan';
-import ImageForm from '../../components/formRelated/ImageForm/index'
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Input, Row, Col, Button } from 'antd'
+import InputTag from '../../components/form/tagForm/index'
+import { postPlanEvent } from '../../store/actions/plan'
+// import ImageForm from '../../components/Form/ImageForm/index'
+import ImageForm from '../../components/form/ImageForm/index'
 
-const { TextArea } = Input;
+const { TextArea } = Input
 
 const CreatePlanPage = (props) => {
-  const [title, setTitle] = useState('');
-  const [image, setImage] = useState([]);
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState('')
+  const [image, setImage] = useState([])
+  const [description, setDescription] = useState('')
+  const [price, setPrice] = useState('')
+  const [tags, setTags] = useState([])
 
   const register = () => {
     const planContent = {
@@ -21,9 +22,9 @@ const CreatePlanPage = (props) => {
       image,
       price,
       tags,
-    };
-    props.postPlanEvent(planContent);
-  };
+    }
+    props.postPlanEvent(planContent)
+  }
 
   return (
     <>
@@ -68,11 +69,7 @@ const CreatePlanPage = (props) => {
 
       <Row style={{ marginBottom: 48 }}>
         <Col span={18} offset={3}>
-          <TextArea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            autoSize={{ minRows: 6, maxRows: 6 }}
-          />
+          <TextArea value={description} onChange={(e) => setDescription(e.target.value)} autoSize={{ minRows: 6, maxRows: 6 }} />
         </Col>
       </Row>
 
@@ -84,12 +81,7 @@ const CreatePlanPage = (props) => {
 
       <Row style={{ marginBottom: 48 }}>
         <Col span={7} offset={3}>
-          <Input
-            prefix="￥"
-            suffix="円"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+          <Input prefix="￥" suffix="円" value={price} onChange={(e) => setPrice(e.target.value)} />
         </Col>
       </Row>
 
@@ -105,30 +97,24 @@ const CreatePlanPage = (props) => {
       {/* 送信ボタン */}
       <Row type="flex" justify="center">
         <Col>
-          <Button
-            type="primary"
-            htmlType="submit"
-            size="large"
-            style={{ width: 200 }}
-            onClick={register}
-          >
+          <Button type="primary" htmlType="submit" size="large" style={{ width: 200 }} onClick={register}>
             送信
           </Button>
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => {
   return {
     plan: state.plan,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
   postPlanEvent: (planContent) => dispatch(postPlanEvent(planContent)),
-});
+})
 
 // const mapDispatchToProps = dispatch => {
 //   return {
@@ -138,4 +124,4 @@ const mapDispatchToProps = (dispatch) => ({
 //   };
 // };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePlanPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePlanPage)

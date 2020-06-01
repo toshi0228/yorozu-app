@@ -25,7 +25,11 @@ export const signIn = (formProps) => (dispatch) => {
   // データベースにないアカウントなら、失敗する。うまくいけば、JWTが帰ってくる
   return postSignIn(formProps)
     .then((token) => {
-      // dajngo rest framework からは{regresh:"",acccess:""}という形でjwtが返ってくる
+      // ログインしたあとは、全てHTPPリクエストした時に、headerにトークンがセットしてあるようにするため、
+      // このタイミングで、headerをセットする
+      setAuthHeader(token.data)
+
+      // dajngo rest framework からは{regresh:"",access:""}という形でjwtが返ってくる
       const decodeJwt = jwt(token.data.access)
 
       // jwtをデコードしたあと、ユーザーIDを取り出す

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import { Row, Col, Input, Tabs, Button } from 'antd';
-import ImageForm from '../../components/formRelated/ImageForm/index'
-import InputTag from '../../components/formRelated/tagForm/index';
+import React, { useState } from 'react'
+import { Row, Col, Input, Tabs, Button } from 'antd'
+import ImageForm from '../../components/form/ImageForm/index'
+import InputTag from '../../components/form/tagForm/index'
 
 const MyPage = () => {
-  const [nickname, setNickname] = useState('');
-  const [profileDescription, setProfileDescription] = useState('');
-  const [profileImage, setProfileImage] = useState([]);
-  const [tags, setTags] = useState([]);
+  const [nickname, setNickname] = useState('')
+  const [profileDescription, setProfileDescription] = useState('')
+  const [profileImage, setProfileImage] = useState([])
+  const [tags, setTags] = useState([])
 
   const register = () => {
-    console.log('登録');
+    console.log('登録')
     // const planContent = {
     //   title,
     //   description,
@@ -19,7 +19,7 @@ const MyPage = () => {
     //   tags,
     // };
     // props.postPlanEvent(planContent);
-  };
+  }
 
   return (
     <>
@@ -36,10 +36,7 @@ const MyPage = () => {
 
       <Row style={{ marginBottom: 48 }}>
         <Col span={10} offset={3}>
-          <Input
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
+          <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
         </Col>
       </Row>
 
@@ -65,11 +62,7 @@ const MyPage = () => {
 
       <Row style={{ marginBottom: 48 }}>
         <Col span={18} offset={3}>
-          <Input.TextArea
-            value={profileDescription}
-            onChange={(e) => setProfileDescription(e.target.value)}
-            autoSize={{ minRows: 6, maxRows: 6 }}
-          />
+          <Input.TextArea value={profileDescription} onChange={(e) => setProfileDescription(e.target.value)} autoSize={{ minRows: 6, maxRows: 6 }} />
         </Col>
       </Row>
 
@@ -85,19 +78,13 @@ const MyPage = () => {
       {/* 送信ボタン */}
       <Row type="flex" justify="center">
         <Col>
-          <Button
-            type="primary"
-            htmlType="submit"
-            size="large"
-            style={{ width: 200 }}
-            onClick={register}
-          >
+          <Button type="primary" htmlType="submit" size="large" style={{ width: 200 }} onClick={register}>
             登録
           </Button>
         </Col>
       </Row>
     </>
-  );
-};
+  )
+}
 
-export default MyPage;
+export default MyPage

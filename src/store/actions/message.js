@@ -50,6 +50,9 @@ export const readRoomMessage = (senderYorzuId) => {
   }
 }
 
+// =================================================================================
+// メッセージを送信する
+// =================================================================================
 export const sendMessage = (messageData) => (dispatch) => {
   console.log(`メッセージ内容:${messageData}`)
   postMessage(messageData)

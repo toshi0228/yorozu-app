@@ -77,7 +77,13 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     // 自分が送信したメッセージリストの処理
     // ==========================================================
     case READ_MY_SEND_MESSAGE_EVENTS:
-      return { ...state, senderMessage: action.payload.data, senderProfileImage: action.payload.data[0].senderProfile.profileImage }
+      // 自分でメッセージを送信していない時の処理 (#action.payload.data[0].senderProfile.profileImageでエラーになる)
+      if (action.payload.data.length === 0) {
+        return { ...state, senderMessage: action.payload.data, senderProfileImage: '' }
+      }
+
+      const senderProfileImage = action.payload.data[0].senderProfile.profileImage
+      return { ...state, senderMessage: action.payload.data, senderProfileImage: senderProfileImage }
 
     // ==========================================================
     // メッセージの送信したときの処理

@@ -1,23 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Comment, List, Row, Col } from 'antd'
-import MessageForm from '../../../formRelated/messageForm/index'
+import MessageForm from '../../../form/messageForm/index'
 import host from '../../../../constants/url'
 
 const LeftSide = (props) => {
-  console.log('leftSide')
-  console.log(props)
   const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
-
   const data = []
-  if (props.messageRoomUser) {
-    console.log('ここに来た')
-    setExplanation(`${props.messageRoomUser}にメッセージを送ります`)
-  } else {
-    console.log('ここにこない')
-
-    const explanation = 'メッセージを送りたい相手を選んでね'
-  }
 
   // 送信者のメッセージルームに合わせて,メッセージ内容を変える
   props.roomMessage.forEach((message, index) => {
@@ -30,6 +19,13 @@ const LeftSide = (props) => {
     }
     data.push(messageObj)
   })
+
+  // メッセージを送信するタブごとに、メッセージルームの説明を変更する
+  useEffect(() => {
+    if (props.messageRoomUser) {
+      setExplanation(`${props.messageRoomUser}さんにメッセージを送ります`)
+    }
+  }, [props.messageRoomUser])
 
   return (
     <>

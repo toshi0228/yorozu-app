@@ -1,17 +1,17 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
+import React from 'react'
+import { Form, Input, Button } from 'antd'
 
 const FormPage = () => {
-  const onFinish = values => {
-    console.log('Success:', values);
-  };
-  const handleSubmit = values => {
-    console.log('Success:', values);
-  };
+  const onFinish = (values) => {
+    console.log('Success:', values)
+  }
+  const handleSubmit = (values) => {
+    console.log('Success:', values)
+  }
 
-  const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo)
+  }
   return (
     <>
       <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
@@ -24,7 +24,7 @@ const FormPage = () => {
       </Form>
       <div>formPage</div>
     </>
-  );
-};
+  )
+}
 
-export default FormPage;
+export default FormPage

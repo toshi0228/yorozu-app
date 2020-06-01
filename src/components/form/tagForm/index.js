@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { Col, Row, Select } from 'antd';
-import { readTagEvent } from '../../../store/actions/tags';
-import _ from 'lodash';
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { Col, Row, Select } from 'antd'
+import { readTagEvent } from '../../../store/actions/tags'
+import _ from 'lodash'
 
-const { Option } = Select;
+const { Option } = Select
 
 const InputTag = ({ setTags, tagsData, readTagEvent }) => {
   // =====================================================================================
@@ -20,15 +20,15 @@ const InputTag = ({ setTags, tagsData, readTagEvent }) => {
   // タグを検索するときにデータベースから候補として表示させる
   // =====================================================================================
 
-  const optionTagList = [];
+  const optionTagList = []
 
-  _.map(tagsData, tag => {
-    optionTagList.push(<Option key={tag.name}>{tag.name}</Option>);
-  });
+  _.map(tagsData, (tag) => {
+    optionTagList.push(<Option key={tag.name}>{tag.name}</Option>)
+  })
 
   useEffect(() => {
-    readTagEvent();
-  }, []);
+    readTagEvent()
+  }, [])
 
   // =====================================================================================
   // OptionTagKeyListには、Optionタグの keyの値が入る
@@ -36,9 +36,9 @@ const InputTag = ({ setTags, tagsData, readTagEvent }) => {
   // setTagには、選択したタグと、新しく入力したタグが入る
   // =====================================================================================
 
-  const handleChange = OptionTagKeyList => {
-    setTags(OptionTagKeyList);
-  };
+  const handleChange = (OptionTagKeyList) => {
+    setTags(OptionTagKeyList)
+  }
 
   // =====================================================================================
   // onChange={handleChange}引数がどこから受け取ってるかわからないがantデザインの使用なんだろう
@@ -62,18 +62,18 @@ const InputTag = ({ setTags, tagsData, readTagEvent }) => {
         </Select>
       </Col>
     </Row>
-  );
-};
+  )
+}
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    tagsData: state.tag
-  };
-};
+    tagsData: state.tag,
+  }
+}
 
-const mapDispatchToProps = dispatch => ({
-  readTagEvent: () => dispatch(readTagEvent())
-});
+const mapDispatchToProps = (dispatch) => ({
+  readTagEvent: () => dispatch(readTagEvent()),
+})
 
 // const mapDispatchToProps = dispatch => {
 //   return {
@@ -91,4 +91,4 @@ const mapDispatchToProps = dispatch => ({
 // });
 // =====================================================================================
 
-export default connect(mapStateToProps, mapDispatchToProps)(InputTag);
+export default connect(mapStateToProps, mapDispatchToProps)(InputTag)
