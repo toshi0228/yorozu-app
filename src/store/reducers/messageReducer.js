@@ -37,7 +37,6 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
 
       // ユーザーリストから、重複をなくす ["のびた", "しずかちゃん", "のびた"] -> ["のびた", "しずかちゃん"]
       const _userList = _.union(userList)
-      console.log(_userList)
 
       // ["のびた", "しずかちゃん"]から、ユーザーごとの最新のメッセージを取り出す
       const _recieveMessageList = []
@@ -84,13 +83,20 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
 
       // 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23 16:27
       sortRoomMessage.map((message) => {
-        const day = message['createdAt'].split('T')[0]
-        const time = message['createdAt'].split('T')[1]
-        const _time = time.split(':')
-        const _day = day.split('-')
-        message['createdAt'] = `${_day[0]}年${_day[1]}月${_day[2]}　${_time[0]}:${_time[1]}`
-        return message
+        // 1度作成日を加工した場合、2回目はエラーになるので、try,catchを行う
+        try {
+          const day = message['createdAt'].split('T')[0]
+          const time = message['createdAt'].split('T')[1]
+          const _time = time.split(':')
+          const _day = day.split('-')
+          message['createdAt'] = `${_day[0]}年${_day[1]}月${_day[2]} ${_time[0]}:${_time[1]}`
+          return message
+        } catch {
+          // 加工されているものは、そのまま返す
+          return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0] }
+        }
       })
+      // tryのなかで、加工されたら加工済みの値を返す
       return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0] }
 
     // ==========================================================

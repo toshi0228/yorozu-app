@@ -13,22 +13,13 @@ const MessageTable = (props) => {
     { title: '内容', dataIndex: 'messageContent' },
   ]
 
-  const data = [
-    {
-      profileImage: (
-        <Badge dot={isShow}>
-          <Avatar src="https://pbs.twimg.com/profile_images/634661956226453504/voNBeTp9_400x400.jpg" onClick={() => setIsShow(false)} />
-        </Badge>
-      ),
-      user: '何でも屋',
-      day: '2021年10月24',
-      messageContent: 'ななななああああああああああああああああああああああ',
-      key: 'day',
-    },
-  ]
+  // メッセージのリストが入る
+  const data = []
 
   // メッセージデータのリストを取り出す
-  props.recieveMessage.forEach((message) => {
+  props.recieveMessage.forEach((message, index) => {
+    // メッセージが長い場合、文末を...で省略する
+    const messageText = message.messageContent.length > 20 ? message.messageContent.slice(0, 40) + '…' : message.messageContent
     const oneMessageData = {
       profileImage: (
         <Link to={`/message/rooms/${message.senderYorozuId}`}>
@@ -39,8 +30,9 @@ const MessageTable = (props) => {
       ),
       user: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.senderProfile.nickname}</Link>,
       day: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.createdAt.split('T')[0]}</Link>,
-      messageContent: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.messageContent}</Link>,
-      key: message.createdAt,
+      // messageContent: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.messageContent}</Link>,
+      messageContent: <Link to={`/message/rooms/${message.senderYorozuId}`}>{messageText}</Link>,
+      key: index,
     }
     data.push(oneMessageData)
   })

@@ -1,30 +1,40 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Table, Avatar, Badge } from 'antd'
 import { Link } from 'react-router-dom'
-import routes from '../../../../routes'
+import host from '../../../../constants/url'
+import { readRoomMessage } from '../../../../store/actions/message'
 
-const leftSide = () => {
+const RightSide = (props) => {
   const columns = [
-    { title: 'ユーザーリスト', dataIndex: 'user', render: (text) => <Link to={routes.messageRoom}>{text}</Link> },
-    { title: '', dataIndex: 'profileImage', render: (text) => <Link to={routes.messageRoom}>{text}</Link> },
+    { title: 'ユーザーリスト', dataIndex: 'user' },
+    { title: '', dataIndex: 'profileImage' },
   ]
 
-  const data = [
-    {
+  // ユーザーリストのデータをこの中に入れる
+  const data = []
+
+  props.userList.forEach((user, index) => {
+    const userData = {
       profileImage: (
-        <Badge>
-          <Avatar src="https://pbs.twimg.com/profile_images/634661956226453504/voNBeTp9_400x400.jpg" />
-        </Badge>
+        // プロフィールイメージを押した時に、メッセージルームの内容が変化するようにする
+        <Link to={`/message/rooms/${user.senderYorozuId}`} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
+          <Badge>
+            <Avatar src={`${host.localhost()}${user.senderProfile.profileImage}`} />
+          </Badge>
+        </Link>
       ),
-      user: 'aaaa',
-      key: 'user',
-    },
-    {
-      profileImage: <Avatar src="https://pbs.twimg.com/profile_images/634661956226453504/voNBeTp9_400x400.jpg" />,
-      user: '何でもももも屋',
-      key: 'user',
-    },
-  ]
+      user: (
+        // ユーザー名を押した時に、メッセージルームの内容が変化するようにする
+        <Link to={`/message/rooms/${user.senderYorozuId}`} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
+          {user.senderProfile.nickname}{' '}
+        </Link>
+      ),
+      key: index,
+    }
+    data.push(userData)
+  })
+
   return (
     <>
       {/* <p>ユーザー</p> */}
@@ -35,4 +45,13 @@ const leftSide = () => {
   )
 }
 
-export default leftSide
+const mapStateToProps = (state) => ({
+  userList: state.message.recieveMessage,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  // ユーザーリストからユーザーを押した時に、メッセージルームの内容が変化するようにする
+  readRoomMessageEvents: (yorozuId) => dispatch(readRoomMessage(yorozuId)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RightSide)

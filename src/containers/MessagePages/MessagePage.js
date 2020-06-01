@@ -17,10 +17,6 @@ const MessagePage = (props) => {
     props.readSendMessageEvents(props.authToken)
   }, [])
 
-  function callback(key) {
-    console.log(key)
-  }
-
   return (
     <>
       {/* タイトル */}
@@ -33,14 +29,14 @@ const MessagePage = (props) => {
       {/* タブ */}
       <Row type="flex" justify="center" style={{ marginTop: 20 }}>
         <Col span={18}>
-          <Tabs type="card" onChange={callback} defaultActiveKey="1">
+          <Tabs type="card" defaultActiveKey="1">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">
               <MessageTable recieveMessage={props.recieveMessage} />
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}
-            <Tabs.TabPane tab="メッセージを作成" key="4">
+            <Tabs.TabPane tab="メッセージを作成" key="2">
               <MessageSendTab />
             </Tabs.TabPane>
           </Tabs>
