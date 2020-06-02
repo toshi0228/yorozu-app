@@ -5,6 +5,7 @@ const DEFAULT_STATE = {
   recieveMessage: [],
   rowDataRecieveMessage: [],
   senderMessage: [],
+  rowDataSenderMessage: [],
   roomMessage: [],
   senderProfileImage: '',
   // MessageRoomUser -> 誰に送信するか
@@ -12,8 +13,8 @@ const DEFAULT_STATE = {
   roomUserYorozuId: '',
 }
 
-// rowDataRecieveMessageは、メッセージルームのページを開く時、送信したメールと、受信したメールをミックスして、
-// 送信時間ごとにリストするため、時間を加工していないデータを残しておく。
+// rowDataRecieveMessage、rowDataSenderMessageは、メッセージルームのページを開く時、
+// 送信したメールと、受信したメールをミックスして、送信時間ごとにリストするため、時間を加工していないデータを残しておく。
 
 const messageReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
@@ -58,9 +59,14 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
       const roomMessage = []
       const messageRoomUser = []
       const roomUserYorozuId = []
+
       // メッセージルームID(urlの一番最後(yozozo))は、送信者のyozozuIDでaction.payloadには、
       // 送信者のyozozuIDが入っている ex) http://localhost:3000/message/rooms/yozozo
       const roomMessageId = action.payload
+
+      // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
+      const _rowDataRecieveMessage = _.cloneDeep(state.rowDataRecieveMessage)
+      const _rowDataSenderMessage = _.cloneDeep(state.rowDataSenderMessage)
 
       // 自分あてに送信してくれた人のメッセージリストから、トークルームのIDと送信者のyorozuIdが同じメッセージを抽出する
       _.map(state.rowDataRecieveMessage, (message) => {
@@ -74,7 +80,7 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
       })
 
       // 自分が送信したメッセージリストから、トークルームのIDと受信者のyorozuIdが同じメッセージを抽出する
-      _.map(state.senderMessage, (message) => {
+      _.map(state.rowDataSenderMessage, (message) => {
         if (roomMessageId === message.receiverYorozuId) {
           roomMessage.push(message)
         }
@@ -102,7 +108,14 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
         }
       })
       // tryのなかで、加工されたら加工済みの値を返す
-      return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0], roomUserYorozuId: roomUserYorozuId[0] }
+      return {
+        ...state,
+        roomMessage: sortRoomMessage,
+        messageRoomUser: messageRoomUser[0],
+        roomUserYorozuId: roomUserYorozuId[0],
+        rowDataRecieveMessage: _rowDataRecieveMessage,
+        rowDataSenderMessage: _rowDataSenderMessage,
+      }
 
     // ==========================================================
     // 自分が送信したメッセージリストの処理
@@ -113,8 +126,11 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
         return { ...state, senderMessage: action.payload.data, senderProfileImage: '' }
       }
 
+      // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
+      const rowDataSenderMessage = _.cloneDeep(action.payload.data)
+
       const senderProfileImage = action.payload.data[0].senderProfile.profileImage
-      return { ...state, senderMessage: action.payload.data, senderProfileImage: senderProfileImage }
+      return { ...state, senderMessage: action.payload.data, senderProfileImage: senderProfileImage, rowDataSenderMessage: rowDataSenderMessage }
 
     // ==========================================================
     // メッセージの送信したときの処理
@@ -127,3 +143,14 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
 }
 
 export default messageReducer
+
+// ===================================================================================
+// 忘れそうなこと rowDataを作って理由 2020 6/2
+// rowDataRecieveMessage: [],
+// senderMessage: [],
+// 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23
+// 上記のような作成日を加工すると、"2020年10月23"のような形になり、
+// このデータを使いまわすとき、メッセージルームページでソートできないので
+// const rowDataRecieveMessage = _.cloneDeep(action.payload.data)のような形で
+// rowDataを作っておく。
+// ===================================================================================

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
 import MessageSendTab from '../../components/message/messageSendTab'
 import MessageTable from '../../components/message/messageTable'
-import { readRoomMessage } from '../../store/actions/message'
+import { readRoomMessage, feachMessageList, feachSendMessageList } from '../../store/actions/message'
 import routes from '../../routes/index'
 
 // ========================================================================
@@ -12,7 +12,13 @@ import routes from '../../routes/index'
 
 const CreateMessage = (props) => {
   const senderYorozuId = props.params.match.params.id
+
+  // メッセージリストから繊維して来た時、URLを変更する
   useEffect(() => {
+    // 自分あてに送られたメッセージを取得する
+    props.readMessageEvents(props.authToken)
+    // 自分が送信したメッセージを取得する
+    props.readSendMessageEvents(props.authToken)
     // 自分宛に送ってくれたメッセージをyorozuIDを使ってメッセージを呼び出す
     props.readRoomMessageEvents(senderYorozuId)
   }, [])
@@ -58,8 +64,13 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  // 自分宛にメッセージを送ってくれた送信者のYorozuIdから、全てのメッセージを取得する
+  // メッセージルームユーザーのYorozuIdから、メッセージを取得する
+  // (自分が送信しメッセージとメッセージルームユーザーのメッセージが一緒になってくる)
   readRoomMessageEvents: (senderYorozuId) => dispatch(readRoomMessage(senderYorozuId)),
+  // 自分あてに送られたメッセージを取得する
+  readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
+  // 自分が送信したメッセージを取得する
+  readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateMessage)
