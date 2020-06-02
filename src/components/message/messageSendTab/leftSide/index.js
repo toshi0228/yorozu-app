@@ -62,7 +62,6 @@ const LeftSide = (props) => {
 const mapStateToProps = (state) => ({
   roomMessage: state.message.roomMessage,
   senderProfileImage: state.message.senderProfileImage,
-  senderProfileImage: state.message.senderProfileImage,
   messageRoomUser: state.message.messageRoomUser,
 })
 

@@ -9,6 +9,7 @@ const DEFAULT_STATE = {
   senderProfileImage: '',
   // MessageRoomUser -> 誰に送信するか
   messageRoomUser: '',
+  roomUserYorozuId: '',
 }
 
 // rowDataRecieveMessageは、メッセージルームのページを開く時、送信したメールと、受信したメールをミックスして、
@@ -56,15 +57,19 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     case READ_ROOMMESSAGE_EVENTS:
       const roomMessage = []
       const messageRoomUser = []
+      const roomUserYorozuId = []
       // メッセージルームID(urlの一番最後(yozozo))は、送信者のyozozuIDでaction.payloadには、
       // 送信者のyozozuIDが入っている ex) http://localhost:3000/message/rooms/yozozo
       const roomMessageId = action.payload
 
-      // 自分に送信してくれた人のメッセージリストから、トークルームのIDと送信者のyorozuIdが同じメッセージを抽出する
+      // 自分あてに送信してくれた人のメッセージリストから、トークルームのIDと送信者のyorozuIdが同じメッセージを抽出する
       _.map(state.rowDataRecieveMessage, (message) => {
         if (roomMessageId === message.senderYorozuId) {
           roomMessage.push(message)
+          // ルームユーザのニックネームを抽出する
           messageRoomUser.push(message.senderProfile.nickname)
+          // ルームユーザーのyorozuIdを抽出する
+          roomUserYorozuId.push(message.senderYorozuId)
         }
       })
 
@@ -93,11 +98,11 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
           return message
         } catch {
           // 加工されているものは、そのまま返す
-          return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0] }
+          return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0], roomUserYorozuId: roomUserYorozuId[0] }
         }
       })
       // tryのなかで、加工されたら加工済みの値を返す
-      return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0] }
+      return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0], roomUserYorozuId: roomUserYorozuId[0] }
 
     // ==========================================================
     // 自分が送信したメッセージリストの処理
