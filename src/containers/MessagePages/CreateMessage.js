@@ -11,7 +11,7 @@ import routes from '../../routes/index'
 // ========================================================================
 
 const CreateMessage = (props) => {
-  const senderYorozuId = props.params.match.params.id
+  const roomUserYorozuId = props.params.match.params.id
 
   // メッセージリストから繊維して来た時、URLを変更する
   useEffect(() => {
@@ -20,7 +20,7 @@ const CreateMessage = (props) => {
     // 自分が送信したメッセージを取得する
     props.readSendMessageEvents(props.authToken)
     // 自分宛に送ってくれたメッセージをyorozuIDを使ってメッセージを呼び出す
-    props.readRoomMessageEvents(senderYorozuId)
+    props.readRoomMessageEvents(roomUserYorozuId)
   }, [])
 
   function callback(key) {
@@ -66,7 +66,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   // メッセージルームユーザーのYorozuIdから、メッセージを取得する
   // (自分が送信しメッセージとメッセージルームユーザーのメッセージが一緒になってくる)
-  readRoomMessageEvents: (senderYorozuId) => dispatch(readRoomMessage(senderYorozuId)),
+  readRoomMessageEvents: (roomUserYorozuId) => dispatch(readRoomMessage(roomUserYorozuId)),
   // 自分あてに送られたメッセージを取得する
   readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
   // 自分が送信したメッセージを取得する

@@ -1,5 +1,5 @@
 import { getMessageList, getSendMessageList, postMessage } from '../../services/ApiRequest'
-import { READ_MESSAGE_EVENTS, READ_ROOMMESSAGE_EVENTS, READ_MY_SEND_MESSAGE_EVENTS } from '../actionTypes'
+import { READ_MESSAGE_EVENTS, READ_ROOMMESSAGE_EVENTS, READ_MY_SEND_MESSAGE_EVENTS, SEND_MESSAGE_EVENT } from '../actionTypes'
 
 // =================================================================================
 //自分あてに送られたメッセージを取得する
@@ -41,25 +41,36 @@ export const readMySendMessageList = (MysendMessageList) => {
 }
 
 // =================================================================================
-// メッセージルームのメッセージを読むときのアクションクリエーター
+// メッセージルームのメッセージを呼び出すときのアクションクリエーター
+// (roomUserYorozuId == senderYorzuId(メール送信者))
 // =================================================================================
-export const readRoomMessage = (senderYorzuId) => {
+export const readRoomMessage = (roomUserYorozuId) => {
   return {
     type: READ_ROOMMESSAGE_EVENTS,
-    payload: senderYorzuId,
+    payload: roomUserYorozuId,
   }
 }
 
 // =================================================================================
-// メッセージを送信する
+// メッセージを送信する (メッセージ送信は、planページからと、メッセージルームページでの2通りある)
 // =================================================================================
 export const sendMessage = (messageData) => (dispatch) => {
-  console.log(`メッセージ内容:${messageData}`)
   postMessage(messageData)
     .then((res) => {
-      console.log(res)
+      //res.dataの中 ->{senderYorozuId: "aaa", receiverYorozuId: "jaian", messageContent: "新しいメッセージを送信" …}
+      dispatch(sendMessageLoginUser(res.data))
+      // 以下の処理は、メッセージルームからメッセージした時に役立つ処理
+      dispatch(readRoomMessage(res.data.receiverYorozuId))
     })
     .catch((error) => {
       console.log(error)
     })
 }
+
+// =================================================================================
+// メッセージを送信した時のアクションクリエーター (メッセージルームからメッセージした時に使う処理)
+// =================================================================================
+export const sendMessageLoginUser = (sendMessageData) => ({
+  type: SEND_MESSAGE_EVENT,
+  payload: sendMessageData,
+})

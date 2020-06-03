@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Comment, Avatar, Form, Input, Button } from 'antd'
 import host from '../../../constants/url'
-import { sendMessage, feachMessageList, feachSendMessageList, readRoomMessage } from '../../../store/actions/message'
+import { sendMessage } from '../../../store/actions/message'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // メッセージルームのメッセージフォーム
@@ -27,11 +27,10 @@ const MessageForm = (props) => {
     // メッセージの送信
     props.sendMessageEvent(messageData)
 
-    console.log(props)
-    // メッセージのリロード
-
-    // メッセージを送信したあと、メッセージルームの情報をリロードする
-    props.readRoomMessageEvents(props.roomUserYorozuId)
+    // console.log('親のコンポ')
+    // props.readMessageEvents(props.authToken)
+    // props.readSendMessageEvents(props.authToken)
+    // props.readRoomMessageEvents(props.roomUserYorozuId)
 
     setComment('')
     setSubmitting(false)
@@ -65,12 +64,13 @@ const mapStateToProps = (state) => ({
   loginUserYorozuId: state.account.yorozuId,
   // メッセージの送り先のユーザー
   roomUserYorozuId: state.message.roomUserYorozuId,
+  authToken: state.account.authToken.access,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   sendMessageEvent: (messageData) => dispatch(sendMessage(messageData)),
-  // 自分宛にメッセージを送ってくれたルームユーザーのYorozuIdから、全てのメッセージを取得する(メッセージを送ったあとリーロードする)
-  readRoomMessageEvents: (roomUserYorozuId) => dispatch(readRoomMessage(roomUserYorozuId)),
+  // // 自分宛にメッセージを送ってくれたルームユーザーのYorozuIdから、全てのメッセージを取得する(メッセージを送ったあとリーロードする)
+  // readRoomMessageEvents: (roomUserYorozuId) => dispatch(readRoomMessage(roomUserYorozuId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageForm)

@@ -3,8 +3,11 @@ import { connect } from 'react-redux'
 import { Comment, List, Row, Col } from 'antd'
 import MessageForm from '../../../form/messageForm/index'
 import host from '../../../../constants/url'
+import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../store/actions/message'
 
 const LeftSide = (props) => {
+  console.log('LeftSideが呼ばれた')
+  // console.log(props)
   const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
   const data = []
 
@@ -38,7 +41,12 @@ const LeftSide = (props) => {
       {/* <Row style={{ marginTop: 10 }}> */}
       <Row>
         <Col span={24}>
-          <MessageForm senderProfileImage={props.senderProfileImage} />
+          <MessageForm
+            senderProfileImage={props.senderProfileImage}
+            readRoomMessageEvents={props.readRoomMessageEvents}
+            readMessageEvents={props.readMessageEvents}
+            readSendMessageEvents={props.readSendMessageEvents}
+          />
         </Col>
       </Row>
 
@@ -65,11 +73,13 @@ const mapStateToProps = (state) => ({
   messageRoomUser: state.message.messageRoomUser,
 })
 
-// const mapDispatchToProps = (dispatch) => ({
-//   // 自分あてに送られたメッセージを取得する
-//   readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
-//   // senderのIDごとにメッセージを呼び出す
-//   readRoomMessageEvents: (senderYorozuId) => dispatch(readRoomMessage(senderYorozuId)),
-// })
+const mapDispatchToProps = (dispatch) => ({
+  // メッセージルームのよろずIDごとにメッセージを呼び出す
+  readRoomMessageEvents: (roomUserYorozuId) => dispatch(readRoomMessage(roomUserYorozuId)),
+  // 自分あてに送られたメッセージを取得する
+  readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
+  // 自分が送信したメッセージを取得する
+  readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
+})
 
-export default connect(mapStateToProps, null)(LeftSide)
+export default connect(mapStateToProps, mapDispatchToProps)(LeftSide)
