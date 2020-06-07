@@ -1,11 +1,16 @@
-import { READ_PLAN_EVENTS, CREATE_PLAN_EVENT } from '../actionTypes';
-import { postPlan } from '../../services/ApiRequest';
-// import { getPlanList } from '../../services/ApiRequest';
+import { READ_PLAN_EVENTS, CREATE_PLAN_EVENT } from '../actionTypes'
+import { postPlan } from '../../services/ApiRequest'
+import { postPlanRequest } from '../../services/ApiRequest'
 
 // プランの承認
-export const planRequest = (requestMessage) => (dispatch) => {
-  console.log(`acttionがよばれた:${requestMessage}`);
-};
+export const planRequest = (requestData) => (dispatch) => {
+  console.log(`acttionがよばれた:${requestData}`)
+  console.log(requestData)
+  postPlanRequest(requestData).then((res) => {
+    console.log('プランのリクエスト完了')
+    console.log(res)
+  })
+}
 // export const postPlan = () => (dispatch) {
 //   postRequestRequest()
 // };
@@ -29,5 +34,5 @@ export const planRequest = (requestMessage) => (dispatch) => {
 export const postPlanEvent = (planContent) => (dispatch) => {
   // const submitData = new FormData();
   // submitData.append('planConten', planConten);
-  return postPlan(planContent);
-};
+  return postPlan(planContent)
+}

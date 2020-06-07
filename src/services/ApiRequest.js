@@ -44,9 +44,19 @@ export const getSendMessageList = (authToken) => {
   return axios.get(`${host.localhost()}/api/message/`)
 }
 
+// =====================================================================================
 // メッセージの送信
+// =====================================================================================
+
 export const postMessage = (messageContent) => {
   return axios.post(`${host.localhost()}/api/message/`, messageContent)
+}
+
+// =====================================================================================
+// プラン画面から、プランのリクエスト
+// =====================================================================================
+export const postPlanRequest = (requestData) => {
+  return axios.post(`${host.localhost()}/api/request/`, requestData)
 }
 
 // プラン登録

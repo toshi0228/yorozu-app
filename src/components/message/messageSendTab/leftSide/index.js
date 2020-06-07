@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Comment, List, Row, Col } from 'antd'
+import { Popconfirm, Comment, List, Row, Col, Modal } from 'antd'
 import MessageForm from '../../../form/messageForm/index'
 import host from '../../../../constants/url'
 import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../store/actions/message'
+import styles from './index.module.scss'
 
 const LeftSide = (props) => {
   console.log('LeftSideが呼ばれた')
@@ -23,6 +24,20 @@ const LeftSide = (props) => {
     data.push(messageObj)
   })
 
+  const showConfirm = () => {
+    Modal.confirm({
+      title: 'のび太さんのプランリクエストを承諾しますか',
+      // icon: <ExclamationCircleOutlined />,
+      content: '承諾することによって、プランを登録することができます',
+      onOk() {
+        console.log('OK')
+      },
+      onCancel() {
+        console.log('Cancel')
+      },
+    })
+  }
+
   // メッセージを送信するタブごとに、メッセージルームの説明を変更する
   useEffect(() => {
     if (props.messageRoomUser) {
@@ -35,6 +50,22 @@ const LeftSide = (props) => {
       <Row type="flex" style={{ marginTop: 10, paddingTop: 8 }}>
         {/* <Col span={24}>{`${props.messageRoomUser}にメッセージを送ります`}</Col> */}
         <Col span={24}>{explanation}</Col>
+      </Row>
+
+      <Row style={{ marginTop: 8 }}>
+        <Col span={24}>
+          <div style={{ color: 'red', fontSize: 10 }}>
+            のびaaa太さんから、プランリクエストが来ています(※まだ本契約ではありません)。承認することによってのび太さんは、
+            <br />
+            本契約のリクエストができるようになります。承認する場合は、「承認する」を押してください
+            {/* <span style={{ fontSize: 10 }} onClick={showConfirm}> */}
+            <span className={styles.btn}>
+              <Popconfirm placement="bottom" title={`${props.messageRoomUser}さんのリクエストを承認しますか`} okText="はい" cancelText="いいえ">
+                承認する
+              </Popconfirm>
+            </span>
+          </div>
+        </Col>
       </Row>
 
       {/* メッセージフォーム */}
@@ -52,6 +83,7 @@ const LeftSide = (props) => {
 
       <Row type="flex">
         {/* <Col offset={3} span={16}> */}
+
         <Col span={24}>
           <List
             dataSource={data}

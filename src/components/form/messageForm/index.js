@@ -64,7 +64,7 @@ const mapStateToProps = (state) => ({
   loginUserYorozuId: state.account.yorozuId,
   // メッセージの送り先のユーザー
   roomUserYorozuId: state.message.roomUserYorozuId,
-  authToken: state.account.authToken.access,
+  // authToken: state.account.authToken.access,
 })
 
 const mapDispatchToProps = (dispatch) => ({
