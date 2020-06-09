@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button, Input, message } from 'antd'
+import { Modal, Button, Input } from 'antd'
 import { planRequest } from '../../../store/actions/plan'
 import { sendMessage } from '../../../store/actions/message'
 
@@ -37,9 +37,12 @@ const PlanRequestModal = (props) => {
     }
 
     setIsVisible(false)
-    // props.planRequestEvent(modalInputText)
+    // プランのリクエストの処理
     props.planRequestEvent(requestData)
+    // プランのリクエストした時のメッセージをプランオーナーに送信
     props.sendMessageEvent(requestMessageData)
+    // 送信したら、メッセージのデータを初期化する
+    setRequestMessage('')
   }
 
   const handleCancel = () => {

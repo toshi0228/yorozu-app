@@ -53,10 +53,25 @@ export const postMessage = (messageContent) => {
 }
 
 // =====================================================================================
+// 自分宛に届いた、プランリクエスト一覧を取得する
+// =====================================================================================
+export const getPlanRequestList = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/request/`)
+}
+
+// =====================================================================================
 // プラン画面から、プランのリクエスト
 // =====================================================================================
 export const postPlanRequest = (requestData) => {
   return axios.post(`${host.localhost()}/api/request/`, requestData)
+}
+
+// =====================================================================================
+// お客さんからの、プランリクエストの承認処理
+// =====================================================================================
+export const patchPlanApprovalStatus = () => {
+  return axios.patch(`${host.localhost()}/api/request/`)
 }
 
 // プラン登録

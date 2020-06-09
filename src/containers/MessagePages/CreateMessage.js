@@ -4,6 +4,7 @@ import { Row, Col, Tabs } from 'antd'
 import MessageSendTab from '../../components/message/messageSendTab'
 import MessageTable from '../../components/message/messageTable'
 import { readRoomMessage, feachMessageList, feachSendMessageList } from '../../store/actions/message'
+import { feachPlanRequest } from '../../store/actions/request'
 import routes from '../../routes/index'
 
 // ========================================================================
@@ -21,6 +22,8 @@ const CreateMessage = (props) => {
     props.readSendMessageEvents(props.authToken)
     // 自分宛に送ってくれたメッセージをyorozuIDを使ってメッセージを呼び出す
     props.readRoomMessageEvents(roomUserYorozuId)
+    // 自分宛に届いたプランリクエスト一覧を取得する
+    props.readPlanRequestEvent(props.authToken)
   }, [])
 
   function callback(key) {
@@ -71,6 +74,8 @@ const mapDispatchToProps = (dispatch) => ({
   readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
   // 自分が送信したメッセージを取得する
   readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
+  // 自分宛に届いたプランリクエスト一覧を取得する
+  readPlanRequestEvent: (authToken) => dispatch(feachPlanRequest(authToken)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateMessage)

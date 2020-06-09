@@ -1,29 +1,30 @@
-import { applyMiddleware, createStore, combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
+import { applyMiddleware, createStore, combineReducers } from 'redux'
+import { connectRouter } from 'connected-react-router'
 
 // アカウント取得など非同期の処理を行うのでreduxThunkを読み込み
-import reduxThunk from 'redux-thunk';
-import { routerMiddleware } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
+import reduxThunk from 'redux-thunk'
+import { routerMiddleware } from 'connected-react-router'
+import { createBrowserHistory } from 'history'
 
 // localStorageにデータを保存するために必要
-import storage from 'redux-persist/lib/storage';
-import { persistReducer } from 'redux-persist';
-import { persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'
+import { persistReducer } from 'redux-persist'
+import { persistStore } from 'redux-persist'
 
 // reducer
-import accountReducer from './reducers/accountReducer';
-import planReducer from './reducers/planReducer';
-import tagReducer from './reducers/tagReducer';
-import profileReducer from './reducers/profileReducer';
-import messageReducer from './reducers/messageReducer';
+import accountReducer from './reducers/accountReducer'
+import planReducer from './reducers/planReducer'
+import tagReducer from './reducers/tagReducer'
+import profileReducer from './reducers/profileReducer'
+import messageReducer from './reducers/messageReducer'
+import planRequestReducer from './reducers/planRequestReducer'
 
 // 永続化の設定
 const authPersistConfig = {
   key: 'auth', // Storageに保存されるキー名を指定する
   storage: storage, // 保存先としてlocalStorageがここで設定される
   whitelist: ['authToken', 'yorozuId'],
-};
+}
 
 // creatStoreをするときにcreateRootReducerは引数として、historyを受け取る
 export const createRootReducer = (history) =>
@@ -34,9 +35,10 @@ export const createRootReducer = (history) =>
     tag: tagReducer,
     profile: profileReducer,
     message: messageReducer,
-  });
+    planRequest: planRequestReducer,
+  })
 
-export const history = createBrowserHistory();
+export const history = createBrowserHistory()
 
 export default function configureStore() {
   const store = createStore(
@@ -45,11 +47,11 @@ export default function configureStore() {
       reduxThunk,
       routerMiddleware(history) // for dispatching history actions
     )
-  );
+  )
 
-  const persistor = persistStore(store);
+  const persistor = persistStore(store)
 
-  return { store, persistor };
+  return { store, persistor }
 }
 
 // =====================================================================================

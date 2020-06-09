@@ -22,7 +22,6 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     // 自分宛に届いた全てのメッセージの処理
     // ==========================================================
     case READ_MESSAGE_EVENTS:
-      console.log('自分宛に届いた全てのメッセージの処理')
       // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
       const rowDataRecieveMessage = _.cloneDeep(action.payload.data)
       // 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23
@@ -49,7 +48,6 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
         })
         _recieveMessageList.push(newMessage)
       })
-      // console.log(newMessageList)
 
       return { ...state, recieveMessage: _recieveMessageList, rowDataRecieveMessage: rowDataRecieveMessage }
 
@@ -57,7 +55,6 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     // ルームページごとに、メッセージを呼び出すときの処理
     // ==========================================================
     case READ_ROOMMESSAGE_EVENTS:
-      console.log('ルームページごとに、メッセージを呼び出すときの処理')
       const roomMessage = []
       const messageRoomUser = []
       const roomUserYorozuId = []
@@ -85,12 +82,9 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
       _.map(state.rowDataSenderMessage, (message) => {
         if (roomMessageId === message.receiverYorozuId) {
           roomMessage.push(message)
-        } else {
-          console.log('中身チェック')
         }
       })
 
-      // console.log(roomUserYorozuId)
       // pushの注意
       // state.roomMessage.push(message)見たな感じで直接pushは上手く行かない
       // 参照に関しての問題がおこる

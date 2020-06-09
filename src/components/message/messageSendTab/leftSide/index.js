@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Popconfirm, Comment, List, Row, Col, Modal } from 'antd'
+import { Comment, List, Row, Col, Modal } from 'antd'
 import MessageForm from '../../../form/messageForm/index'
 import host from '../../../../constants/url'
 import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../store/actions/message'
+import { patchPlanApproval } from '../../../../store/actions/request'
 import styles from './index.module.scss'
 
 const LeftSide = (props) => {
   console.log('LeftSideが呼ばれた')
-  // console.log(props)
+  console.log(props)
   const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
   const data = []
 
@@ -26,11 +27,11 @@ const LeftSide = (props) => {
 
   const showConfirm = () => {
     Modal.confirm({
-      title: 'のび太さんのプランリクエストを承諾しますか',
-      // icon: <ExclamationCircleOutlined />,
-      content: '承諾することによって、プランを登録することができます',
+      title: `${props.messageRoomUser}のプランリクエストを承諾しますか?`,
+      content: `承諾することによって、${props.messageRoomUser}さんは、プランに関して、本契約のリクエストを送ることができるようになります!`,
       onOk() {
         console.log('OK')
+        props.planRequestApprovalEvent()
       },
       onCancel() {
         console.log('Cancel')
@@ -58,11 +59,9 @@ const LeftSide = (props) => {
             のびaaa太さんから、プランリクエストが来ています(※まだ本契約ではありません)。承認することによってのび太さんは、
             <br />
             本契約のリクエストができるようになります。承認する場合は、「承認する」を押してください
-            {/* <span style={{ fontSize: 10 }} onClick={showConfirm}> */}
-            <span className={styles.btn}>
-              <Popconfirm placement="bottom" title={`${props.messageRoomUser}さんのリクエストを承認しますか`} okText="はい" cancelText="いいえ">
-                承認する
-              </Popconfirm>
+            <span className={styles.btn} onClick={showConfirm}>
+              {/* <div title={`${props.messageRoomUser}さんのリクエストを承認しますか`} okText="はい" cancelText="いいえ"> */}
+              承認する
             </span>
           </div>
         </Col>
@@ -101,6 +100,7 @@ const LeftSide = (props) => {
 
 const mapStateToProps = (state) => ({
   roomMessage: state.message.roomMessage,
+  // よろずやのメッセージフォームのアイコン画像
   senderProfileImage: state.message.senderProfileImage,
   messageRoomUser: state.message.messageRoomUser,
 })
@@ -112,6 +112,8 @@ const mapDispatchToProps = (dispatch) => ({
   readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
   // 自分が送信したメッセージを取得する
   readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
+  // お客さんのプランリクエストの承認の処理
+  planRequestApprovalEvent: (planRequestUser) => dispatch(patchPlanApproval(planRequestUser)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftSide)
