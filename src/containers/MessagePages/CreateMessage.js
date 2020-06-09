@@ -80,3 +80,6 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateMessage)
+
+// Todo
+// 承認の後、dispatch
