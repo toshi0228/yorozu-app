@@ -1,5 +1,5 @@
 import { getPlanRequestList, patchPlanApprovalStatus } from '../../services/ApiRequest'
-import { READ_PLAN_REQUEST_EVENT } from '../actionTypes'
+import { READ_PLAN_REQUEST_EVENTS, READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT } from '../actionTypes'
 
 // =================================================================================
 // 自分宛に届いたプランリクエストを取得する
@@ -16,8 +16,19 @@ export const feachPlanRequest = (authToken) => (dispatch) => {
 
 export const readPlanRequest = (planRequestList) => {
   return {
-    type: READ_PLAN_REQUEST_EVENT,
+    type: READ_PLAN_REQUEST_EVENTS,
     payload: planRequestList.data,
+  }
+}
+
+// =================================================================================
+// メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
+// =================================================================================
+
+export const readRoomMessageUserPlanRequest = (roomMessageUserYorozuId) => {
+  return {
+    type: READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT,
+    payload: roomMessageUserYorozuId,
   }
 }
 

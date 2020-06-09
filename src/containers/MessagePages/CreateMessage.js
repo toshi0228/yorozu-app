@@ -64,6 +64,7 @@ const mapStateToProps = (state) => ({
   // ルームメッセージには、送信者と受信者のメッセージのやり取りしたメールのリストが入っている。
   roomMessage: state.message.roomMessage,
   authToken: state.account.authToken.access,
+  planRequest: state.planRequest,
 })
 
 const mapDispatchToProps = (dispatch) => ({

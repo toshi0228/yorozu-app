@@ -45,6 +45,8 @@ export const SEND_MESSAGE_EVENT = 'SEND_MESSAGE_EVENT'
 // request
 // ============================================================
 // 自分宛に届いたプランリクエストの一覧を取得する
-export const READ_PLAN_REQUEST_EVENT = 'READ_PLAN_REQUEST_EVENT'
+export const READ_PLAN_REQUEST_EVENTS = 'READ_PLAN_REQUEST_EVENTS'
 // よろず屋が、お客さんのプランリクエストの承認を行う
 export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
+// メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
+export const READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT = 'PLAN_APPROVAL_EVENT'

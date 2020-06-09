@@ -4,13 +4,19 @@ import { Comment, List, Row, Col, Modal } from 'antd'
 import MessageForm from '../../../form/messageForm/index'
 import host from '../../../../constants/url'
 import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../store/actions/message'
-import { patchPlanApproval } from '../../../../store/actions/request'
+import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/request'
 import styles from './index.module.scss'
+
+// ====================================================================================
+// メッセージルームの左側のページ
+// ユーザーを変更するたびに処理が動く つまり、ユーザーごとにする処理がある場合は、ここに書く
+// ====================================================================================
 
 const LeftSide = (props) => {
   console.log('LeftSideが呼ばれた')
   console.log(props)
   const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
+  const [isPlanRequest, setIsPlanRequest] = useState(false)
   const data = []
 
   // 送信者のメッセージルームに合わせて,メッセージ内容を変える
@@ -25,10 +31,10 @@ const LeftSide = (props) => {
     data.push(messageObj)
   })
 
+  // プランリクエストの承認ボタンを押した時のアクション
   const showConfirm = () => {
     Modal.confirm({
-      title: `${props.messageRoomUser}のプランリクエストを承諾しますか?`,
-      content: `承諾することによって、${props.messageRoomUser}さんは、プランに関して、本契約のリクエストを送ることができるようになります!`,
+      title: `${props.messageRoomUser}さんのプランリクエストを承諾しますか?`,
       onOk() {
         console.log('OK')
         props.planRequestApprovalEvent()
@@ -44,7 +50,18 @@ const LeftSide = (props) => {
     if (props.messageRoomUser) {
       setExplanation(`${props.messageRoomUser}さんにメッセージを送ります`)
     }
+    // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
+    props.readRoomUserPlanRequestEvent(props.roomUserYorozuId)
   }, [props.messageRoomUser])
+
+  // ルームユーザーにプランのリクエストがあれば、アラートを表示させる
+  useEffect(() => {
+    if (props.roomUserplanRequest) {
+      setIsPlanRequest(true)
+    } else {
+      setIsPlanRequest(false)
+    }
+  }, [props.roomUserplanRequest])
 
   return (
     <>
@@ -53,19 +70,22 @@ const LeftSide = (props) => {
         <Col span={24}>{explanation}</Col>
       </Row>
 
-      <Row style={{ marginTop: 8 }}>
-        <Col span={24}>
-          <div style={{ color: 'red', fontSize: 10 }}>
-            のびaaa太さんから、プランリクエストが来ています(※まだ本契約ではありません)。承認することによってのび太さんは、
-            <br />
-            本契約のリクエストができるようになります。承認する場合は、「承認する」を押してください
-            <span className={styles.btn} onClick={showConfirm}>
-              {/* <div title={`${props.messageRoomUser}さんのリクエストを承認しますか`} okText="はい" cancelText="いいえ"> */}
-              承認する
-            </span>
-          </div>
-        </Col>
-      </Row>
+      {/* プランリクエストがきた場合のアラート */}
+      {/* isPlanRequestが, trueの時だけコンポーネントが表示される */}
+      {isPlanRequest && (
+        <Row style={{ marginTop: 8 }}>
+          <Col span={24}>
+            <div style={{ color: 'red', fontSize: 10 }}>
+              {`${props.messageRoomUser}さんから、プランリクエストが来ています(※まだ本契約ではありません)。承認された後に${props.messageRoomUser}さんは、`}
+              <br />
+              本契約のプランリクエストを送ることができるようになります。承認する場合は、「承認する」を押してくださいね
+              <span className={styles.btn} onClick={showConfirm}>
+                承認する
+              </span>
+            </div>
+          </Col>
+        </Row>
+      )}
 
       {/* メッセージフォーム */}
       {/* <Row style={{ marginTop: 10 }}> */}
@@ -102,7 +122,12 @@ const mapStateToProps = (state) => ({
   roomMessage: state.message.roomMessage,
   // よろずやのメッセージフォームのアイコン画像
   senderProfileImage: state.message.senderProfileImage,
+  // メッセールームユーザーのyorozuId
+  roomUserYorozuId: state.message.roomUserYorozuId,
+  // メッセールームユーザーの名前
   messageRoomUser: state.message.messageRoomUser,
+  // メッセージルームルームユーザーのプランリクエストに関して
+  roomUserplanRequest: state.planRequest.roomMessageUserPlanRequest,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -114,6 +139,8 @@ const mapDispatchToProps = (dispatch) => ({
   readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
   // お客さんのプランリクエストの承認の処理
   planRequestApprovalEvent: (planRequestUser) => dispatch(patchPlanApproval(planRequestUser)),
+  // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
+  readRoomUserPlanRequestEvent: (roomUserYorozuId) => dispatch(readRoomMessageUserPlanRequest(roomUserYorozuId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftSide)
