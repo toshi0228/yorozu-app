@@ -4,7 +4,7 @@ import { Row, Col, Tabs } from 'antd'
 import MessageSendTab from '../../components/message/messageSendTab'
 import MessageTable from '../../components/message/messageTable'
 import { feachMessageList, feachSendMessageList } from '../../store/actions/message'
-import { feachPlanRequest } from '../../store/actions/request'
+import { feachPlanRequest } from '../../store/actions/planRequest'
 
 // ========================================================================
 // メッセージを返信するボタンを押すと、メッセージを編集するボタンが出てくる

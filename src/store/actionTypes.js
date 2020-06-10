@@ -46,7 +46,12 @@ export const SEND_MESSAGE_EVENT = 'SEND_MESSAGE_EVENT'
 // ============================================================
 // 自分宛に届いたプランリクエストの一覧を取得する
 export const READ_PLAN_REQUEST_EVENTS = 'READ_PLAN_REQUEST_EVENTS'
+// 自分が送信したプランリクエストの一覧を取得する
+export const READ_MY_PLAN_REQUEST_EVENTS = 'READ_MY_PLAN_REQUEST_EVENTS'
 // よろず屋が、お客さんのプランリクエストの承認を行う
 export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
 // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
 export const READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT = 'READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT'
+// プランページに移動した時に、ログインユーザーがプランリクエストを送信した事がある万屋か確認する
+// (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
+export const IS_SENT_PLAN_REQUEST_USER = 'IS_SEND_PLAN_REQUEST_USER'

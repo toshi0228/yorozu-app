@@ -1,5 +1,11 @@
-import { getPlanRequestList, patchPlanApprovalStatus } from '../../services/ApiRequest'
-import { READ_PLAN_REQUEST_EVENTS, READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT, PLAN_APPROVAL_EVENT } from '../actionTypes'
+import { getPlanRequestList, patchPlanApprovalStatus, getMyPlanRequestList } from '../../services/ApiRequest'
+import {
+  READ_PLAN_REQUEST_EVENTS,
+  READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT,
+  PLAN_APPROVAL_EVENT,
+  READ_MY_PLAN_REQUEST_EVENTS,
+  IS_SENT_PLAN_REQUEST_USER,
+} from '../actionTypes'
 
 // =================================================================================
 // 自分宛に届いたプランリクエストを取得する
@@ -22,6 +28,26 @@ export const readPlanRequest = (planRequestList) => {
 }
 
 // =================================================================================
+// 自分が送信したプランリクエストの一覧を取得する
+// =================================================================================
+export const feachMyPlanRequest = (authToken) => (dispatch) => {
+  getMyPlanRequestList(authToken).then((myPlanRequestList) => {
+    dispatch(readMyPlanRequest(myPlanRequestList))
+  })
+}
+
+// =================================================================================
+// 自分が送信したプランリクエストの一覧を取得する時に、使うアクションクリエーター
+// =================================================================================
+
+export const readMyPlanRequest = (myPlanRequestList) => {
+  return {
+    type: READ_MY_PLAN_REQUEST_EVENTS,
+    payload: myPlanRequestList.data,
+  }
+}
+
+// =================================================================================
 // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
 // =================================================================================
 
@@ -29,6 +55,17 @@ export const readRoomMessageUserPlanRequest = (roomMessageUserYorozuId) => {
   return {
     type: READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT,
     payload: roomMessageUserYorozuId,
+  }
+}
+// =================================================================================
+// プランページに移動した時に、ログインユーザーがプランリクエストを送信した事がある万屋か確認する
+// (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
+// =================================================================================
+
+export const isSentPlanRequest = (planOwnerYorozuId) => {
+  return {
+    type: IS_SENT_PLAN_REQUEST_USER,
+    payload: planOwnerYorozuId,
   }
 }
 

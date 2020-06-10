@@ -67,6 +67,15 @@ export const getPlanRequestList = (authToken) => {
 }
 
 // =====================================================================================
+// 自分が送信したプランリクエストの一覧を取得する
+// =====================================================================================
+
+export const getMyPlanRequestList = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/request/me/`)
+}
+
+// =====================================================================================
 // プラン画面から、プランのリクエスト
 // =====================================================================================
 export const postPlanRequest = (requestData) => {

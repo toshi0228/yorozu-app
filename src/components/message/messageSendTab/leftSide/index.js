@@ -4,7 +4,7 @@ import { Comment, List, Row, Col, Modal } from 'antd'
 import MessageForm from '../../../form/messageForm/index'
 import host from '../../../../constants/url'
 import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../store/actions/message'
-import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/request'
+import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/planRequest'
 import styles from './index.module.scss'
 
 // ====================================================================================
