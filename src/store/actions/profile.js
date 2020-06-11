@@ -1,4 +1,4 @@
-import { READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT } from '../actionTypes'
+import { READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT, PROFILE_DETAIL_INITIALIZE_EVENT } from '../actionTypes'
 import { getProfileList } from '../../services/ApiRequest'
 import { getProfileDetail } from '../../services/ApiRequest'
 
@@ -36,6 +36,16 @@ export const readProfile = (fetchProfileData) => {
   return {
     type: READ_PROFILE_DETAIL_EVENT,
     payload: fetchProfileData,
+  }
+}
+
+// =====================================================================================
+// プランページに移動した時に、前のプランプロフィールデータやプランデータが残っている可能性があるので
+// プランリストページに移動したら初期化する
+// =====================================================================================
+export const profileDetailInitialize = () => {
+  return {
+    type: PROFILE_DETAIL_INITIALIZE_EVENT,
   }
 }
 

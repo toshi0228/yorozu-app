@@ -8,7 +8,7 @@ import {
 
 const DEFAULT_STATE = {
   // 自分宛に届いたいプランリクエスストの一覧
-  planRequestList: [],
+  receivePlanRequestList: [],
   // 自分が送信したプランリクエスト
   mySendPlanRequestList: [],
   //メッセージルームのユーザープランリクエスト(自分宛に送ってくれたプランリクエスト)
@@ -20,10 +20,10 @@ const DEFAULT_STATE = {
 const planRequestReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     // =========================================================================================
-    // 自分宛の届いた、プランリクエストのデータを処理
+    // 自分宛に届いた、プランリクエストのデータを処理
     // =========================================================================================
     case READ_PLAN_REQUEST_EVENTS:
-      return { ...state, planRequestList: action.payload }
+      return { ...state, receivePlanRequestList: action.payload }
 
     // =========================================================================================
     // 自分が送信したプランリクエストの一覧を取得する
@@ -33,13 +33,13 @@ const planRequestReducer = (state = DEFAULT_STATE, action) => {
       return { ...state, mySendPlanRequestList: action.payload }
 
     // =========================================================================================
-    // プランリクエストリストの中から、メッセージルームユーザーのプランリクエストを取得する
+    // 自分宛に届いたプランリクエストリストの中から、メッセージルームユーザーのプランリクエストを取得する
     // =========================================================================================
     case READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT:
       console.log('プランリクエストリストの中から、メッセージルームユーザーのプランリクエストを取得する')
       // action.payloadには、メッセージルームユーザーのよろずIDが入っている
-      const planRequestUser = state.planRequestList.find((planRequest) => {
-        return planRequest.senderYorozuId === action.payload
+      const planRequestUser = state.receivePlanRequestList.find((receivePlanRequest) => {
+        return receivePlanRequest.senderYorozuId === action.payload
       })
 
       return { ...state, roomMessageUserPlanRequest: planRequestUser }

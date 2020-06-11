@@ -116,12 +116,4 @@ const mapDispatchToProps = (dispatch) => ({
   postPlanEvent: (planContent) => dispatch(postPlanEvent(planContent)),
 })
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     postPlanEvent: planContent => {
-//       return dispatch(postPlanEvent(planContent));
-//     }
-//   };
-// };
-
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePlanPage)

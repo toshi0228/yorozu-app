@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import ProfileList from '../../components/profile/ProfileList/index'
 import { Col, Row, Pagination } from 'antd'
-import { fetchProfileList } from '../../store/actions/profile'
+import { fetchProfileList, profileDetailInitialize } from '../../store/actions/profile'
 import '../../styles/PlanListPage.scss'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -12,6 +12,8 @@ import '../../styles/PlanListPage.scss'
 const ProfileListPage = (props) => {
   useEffect(() => {
     props.readProfileListEvents()
+    // プランページに移動した時に、前のプランプロフィールデータやプランデータが残っている可能性があるので初期化
+    props.profileDetailInitializeEvent()
   }, [])
 
   return (
@@ -38,6 +40,9 @@ const mapStateToprops = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   readProfileListEvents: () => dispatch(fetchProfileList()),
+  // プランページに移動した時に、前のプランプロフィールデータやプランデータが残っている可能性があるので
+  // プランリストページに移動したら初期化する
+  profileDetailInitializeEvent: () => dispatch(profileDetailInitialize()),
 })
 
 export default connect(mapStateToprops, mapDispatchToProps)(ProfileListPage)

@@ -25,6 +25,8 @@ export const READ_TAG_EVENTS = 'READ_TAG_EVENTS'
 // ============================================================
 // Profile
 // ============================================================
+// プランページに移動した時に、前のデータが残っていることがあるので初期化する
+export const PROFILE_DETAIL_INITIALIZE_EVENT = 'PROFILE_DETAIL_INITIALIZE_EVENT'
 export const READ_PROFILE_EVENTS = 'READ_PROFILE_EVENTS'
 export const READ_PROFILE_DETAIL_EVENT = 'READ_PROFILE_DETAIL_EVENT'
 export const CREATE_PROFILE_EVENTS = 'CREATE_PROFILE_EVENTS'
