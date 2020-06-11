@@ -52,6 +52,7 @@ export const READ_MY_PLAN_REQUEST_EVENTS = 'READ_MY_PLAN_REQUEST_EVENTS'
 export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
 // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
 export const READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT = 'READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT'
-// プランページに移動した時に、ログインユーザーがプランリクエストを送信した事がある万屋か確認する
+// プランページに移動した時に、ログインユーザーがプランリクエストの状態を確認する
 // (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
-export const IS_SENT_PLAN_REQUEST_USER = 'IS_SEND_PLAN_REQUEST_USER'
+// 自分が送ったプランリクエストの状態 1. プランリクエストを送信してない 2.承認されていない 3.承認された
+export const CHECK_MY_SENT_PLAN_REQUEST_STATUS = 'CHECK_MY_SENT_PLAN_REQUEST_STATUS'

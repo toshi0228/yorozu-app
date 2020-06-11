@@ -3,7 +3,7 @@ import {
   READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT,
   PLAN_APPROVAL_EVENT,
   READ_MY_PLAN_REQUEST_EVENTS,
-  IS_SENT_PLAN_REQUEST_USER,
+  CHECK_MY_SENT_PLAN_REQUEST_STATUS,
 } from '../actionTypes'
 
 const DEFAULT_STATE = {
@@ -11,12 +11,10 @@ const DEFAULT_STATE = {
   planRequestList: [],
   // 自分が送信したプランリクエスト
   mySendPlanRequestList: [],
-  //メッセージルームのユーザープランリクエスト
+  //メッセージルームのユーザープランリクエスト(自分宛に送ってくれたプランリクエスト)
   roomMessageUserPlanRequest: {},
-  // よろずやのプランページごとのプランリクエスト状況
-  planRequestStatus: {},
-  // よろずやのプランに、プランリクエストを送信した事があるか
-  isSentPlanRequest: false,
+  // ステータスは、３つある (1)プランリクエストを送っていない (2)プランリクエストを送って承認待ち (3)プランリクエストを送って承認あり
+  mySentPlanRequestStatus: 'notSentPlanRequest',
 }
 
 const planRequestReducer = (state = DEFAULT_STATE, action) => {
@@ -25,7 +23,6 @@ const planRequestReducer = (state = DEFAULT_STATE, action) => {
     // 自分宛の届いた、プランリクエストのデータを処理
     // =========================================================================================
     case READ_PLAN_REQUEST_EVENTS:
-      console.log(action.payload)
       return { ...state, planRequestList: action.payload }
 
     // =========================================================================================
@@ -58,20 +55,32 @@ const planRequestReducer = (state = DEFAULT_STATE, action) => {
     // プランページに移動した時に、ログインユーザーがプランリクエストを送信した事がある万屋か確認する
     // (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
     // =========================================================================================
-    case IS_SENT_PLAN_REQUEST_USER:
+    case CHECK_MY_SENT_PLAN_REQUEST_STATUS:
       console.log('ろグインユーザーがプランリクエストを送信した事がある万屋か確認する')
       // action.payload => プランオーナーのID
       // mySendPlanRequest.receiverYorozuId => 自分がプランリクエストを送ったよろずやのID
-      const isSentPlanRequest = state.mySendPlanRequestList.find((mySentPlanRequest) => {
+      const mySentPlanRequest = state.mySendPlanRequestList.find((mySentPlanRequest) => {
         return mySentPlanRequest.receiverYorozuId === action.payload
       })
 
-      // もし、プランリクエストを送った事があるならisSentPlanRequesの中身は、プランリクエストのデータが入っている
-      // もし送った事がなければ、isSentPlanRequesはundifindになり、falseになる
-      if (isSentPlanRequest) {
-        return { ...state, isSentPlanRequest: true, planRequestStatus: isSentPlanRequest }
-      } else {
-        return { ...state, isSentPlanRequest: false, planRequestStatus: {} }
+      // プランリクエストがある場合
+      // mySentPlanRequest => {senderYorozuId: "nobita", receiverYorozuId: "shizuka", isApproval: true,....}
+      // プランリクエストがない場合
+      // mySentPlanRequest => undifind
+
+      // もし、プランリクエストを送った事があるならisSentPlanRequesの中身は、プランリクエストのデータが入っている(tryの方に行く)
+      // もし送った事がなければ、isSentPlanRequesはundifindになり、catchの方に行く
+      try {
+        if (mySentPlanRequest.isApproval) {
+          // プランリクエストを送って承認あり
+          return { ...state, mySentPlanRequestStatus: 'planRequestApproved' }
+        } else {
+          // プランリクエストを送っているが承認なし
+          return { ...state, mySentPlanRequestStatus: 'planRequestNotApproved' }
+        }
+      } catch {
+        // プランリクエスト送っていない
+        return { ...state, mySentPlanRequestStatus: 'notSentPlanRequest' }
       }
 
     default:

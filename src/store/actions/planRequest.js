@@ -4,7 +4,7 @@ import {
   READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT,
   PLAN_APPROVAL_EVENT,
   READ_MY_PLAN_REQUEST_EVENTS,
-  IS_SENT_PLAN_REQUEST_USER,
+  CHECK_MY_SENT_PLAN_REQUEST_STATUS,
 } from '../actionTypes'
 
 // =================================================================================
@@ -58,13 +58,14 @@ export const readRoomMessageUserPlanRequest = (roomMessageUserYorozuId) => {
   }
 }
 // =================================================================================
-// プランページに移動した時に、ログインユーザーがプランリクエストを送信した事がある万屋か確認する
+// プランページに移動した時に、ログインユーザーのプランリクエストの状態を確認する
 // (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
+// 自分が送ったプランリクエストの状態 1. プランリクエストを送信してない 2.承認されていない 3.承認された
 // =================================================================================
 
-export const isSentPlanRequest = (planOwnerYorozuId) => {
+export const checkMySentPlanRequestStatus = (planOwnerYorozuId) => {
   return {
-    type: IS_SENT_PLAN_REQUEST_USER,
+    type: CHECK_MY_SENT_PLAN_REQUEST_STATUS,
     payload: planOwnerYorozuId,
   }
 }
