@@ -4,15 +4,13 @@ import { Modal, Button, Input } from 'antd'
 import { planRequest } from '../../../store/actions/plan'
 import { sendMessage } from '../../../store/actions/message'
 
-import PlanRequestBtn from './planRequestBtn'
-
 // ====================================================================
 // プランリクエストのモーダル
 // ====================================================================
 
 const PlanRequestModal = (props) => {
-  // isVisibleがtrueの時に、モーダルが現れる
-  const [isVisible, setIsVisible] = useState(false)
+  console.log('PlanRequestModal')
+  console.log(props)
   // プランリクエストする時のメッセージ
   const [requestMessage, setRequestMessage] = useState('')
 
@@ -48,25 +46,22 @@ const PlanRequestModal = (props) => {
     // 送信したら、メッセージのデータを初期化する
     setRequestMessage('')
     // 送信ボタンを押したらモダールを閉じる
-    setIsVisible(false)
+    props.setIsPlanRequestModalVisible(false)
   }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // モーダルの中でのキャンセルボタンを押した時の処理
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const handleCancel = () => {
-    setIsVisible(false)
+    props.setIsPlanRequestModalVisible(false)
   }
 
   return (
     <div>
-      {/* リクエストボタンを押した時に、モーダルが表示されるように、setIsVisibleを渡す。 */}
-      {/* この値がtrueなら、モーダルが表示される */}
-      <PlanRequestBtn setIsVisible={setIsVisible} />
-
       <Modal
         title="リクエスト"
-        visible={isVisible}
+        // visiblがtrueなら、モーダルが表示される
+        visible={props.isPlanRequestModalVisible}
         onOk={hundleSubmit}
         onCancel={handleCancel}
         footer={[

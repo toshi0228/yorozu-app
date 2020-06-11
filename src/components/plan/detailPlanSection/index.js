@@ -1,7 +1,8 @@
-import React from 'react';
-import { Col, Row } from 'antd';
+import React from 'react'
+import { Col, Row } from 'antd'
 // import { Link } from 'react-router-dom';
-import PlanRequestModal from '../planRequestModal';
+// import PlanRequestModal from '../planRequestModal'
+import TogglePlanRequestBtn from '../TogglePlanRequestBtn'
 import host from '../../../constants/url'
 
 // ====================================================================
@@ -13,11 +14,7 @@ import host from '../../../constants/url'
 const DetailPlanSection = ({ planData }) => {
   return (
     <>
-      <img
-        alt='example'
-        src={`${host.localhost()}${planData.image}`}
-        style={{ width: '100%', height: 360, borderRadius: 8 }}
-      />
+      <img alt="example" src={`${host.localhost()}${planData.image}`} style={{ width: '100%', height: 360, borderRadius: 8 }} />
       {/* プランのタイトル */}
       <div style={{ marginBottom: 48 }}>
         {/* タイトル */}
@@ -52,15 +49,11 @@ const DetailPlanSection = ({ planData }) => {
         </Row>
 
         {/* プランリクエストボタン */}
-        <Row
-          gutter={[32, 32]}
-          type='flex'
-          style={{ marginTop: 20 }}
-          justify='end'
-        >
+        <Row gutter={[32, 32]} type="flex" style={{ marginTop: 20 }} justify="end">
           {/* <Col offset={2}> */}
           <Col style={{ marginBottom: 20 }}>
-            <PlanRequestModal />
+            {/* <PlanRequestModal /> */}
+            <TogglePlanRequestBtn />
           </Col>
 
           {/* <Col style={{ marginBottom: 20 }}>
@@ -75,7 +68,7 @@ const DetailPlanSection = ({ planData }) => {
         </Row>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default DetailPlanSection;
+export default DetailPlanSection

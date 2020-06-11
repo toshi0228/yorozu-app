@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'antd'
-import { checkMySentPlanRequestStatus } from '../../../../store/actions/planRequest'
+import { checkMySentPlanRequestStatus } from '../../../store/actions/planRequest'
+import PlanRequestModal from '../planRequestModal'
 
-const PlanRequestBtn = (props) => {
-  console.log('PlanRequestBtn')
-  console.log(props)
+const TogglePlanRequestBtn = (props) => {
+  // isVisibleがtrueの時に、モーダルが現れる
+  const [isPlanRequestModalVisible, setIsPlanRequestModalVisible] = useState(false)
 
   // リクエストを送るボタンを押した時のアクション
-  // setIsVisibleをの値がtureになると、モーダルが表示される
-  const showModal = () => {
-    props.setIsVisible(true)
+  // isPlanRequestModalVisibleをの値がtureになると、モーダルが表示される
+  const showPlanRequestModal = () => {
+    setIsPlanRequestModalVisible(true)
   }
 
   // プランページに移動した時に、ログインユーザーのプランリクエストの状態を確認する
@@ -29,11 +30,7 @@ const PlanRequestBtn = (props) => {
       // ログインしているユーザーがプランリクエストを送っていて、さらによろず屋から承認を受けている場合
       // ================================================================================
       case 'planRequestApproved':
-        return (
-          <Button type="primary" onClick={showModal}>
-            契約をする
-          </Button>
-        )
+        return <Button type="primary">契約をする</Button>
 
       // ================================================================================
       // ログインしているユーザーがプランリクエストを送ったが、まだよろずやから承認を受けていない場合
@@ -49,9 +46,12 @@ const PlanRequestBtn = (props) => {
       // ================================================================================
       case 'notSentPlanRequest':
         return (
-          <Button type="primary" onClick={showModal}>
-            リクエストを送る
-          </Button>
+          <>
+            <Button type="primary" onClick={showPlanRequestModal}>
+              リクエストを送る
+            </Button>
+            <PlanRequestModal isPlanRequestModalVisible={isPlanRequestModalVisible} setIsPlanRequestModalVisible={setIsPlanRequestModalVisible} />
+          </>
         )
     }
   }
@@ -74,4 +74,4 @@ const mapStateToDispatch = (dispatch) => ({
   checkMySentPlanRequestStatusEvent: (planOwnerYorozuId) => dispatch(checkMySentPlanRequestStatus(planOwnerYorozuId)),
 })
 
-export default connect(mapStateToProps, mapStateToDispatch)(PlanRequestBtn)
+export default connect(mapStateToProps, mapStateToDispatch)(TogglePlanRequestBtn)
