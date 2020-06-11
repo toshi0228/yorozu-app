@@ -8,18 +8,24 @@ export const setAuthHeader = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken.access
 }
 
+//=====================================================================================
 // ログインを行った時に、yorozuIDを取得にいく
+//=====================================================================================
 export const getYorozuId = (accoutId) => {
   // console.log(axios.get(`http://127.0.0.1:8000/api/account/${userId}`));
   return axios.get(`${host.localhost()}/api/account/${accoutId}`)
 }
 
+//=====================================================================================
 // トップページ 万屋プロフィールリストの取得
+//=====================================================================================
 export const getProfileList = () => {
   return axios.get(`${host.localhost()}/api/profile/`)
 }
 
+//=====================================================================================
 // 万屋、詳細ページの取得
+//=====================================================================================
 export const getProfileDetail = (id) => {
   return axios.get(`${host.localhost()}/api/profile/${id}`)
 }
@@ -61,6 +67,15 @@ export const getPlanRequestList = (authToken) => {
 }
 
 // =====================================================================================
+// 自分が送信したプランリクエストの一覧を取得する
+// =====================================================================================
+
+export const getMyPlanRequestList = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/request/me/`)
+}
+
+// =====================================================================================
 // プラン画面から、プランのリクエスト
 // =====================================================================================
 export const postPlanRequest = (requestData) => {
@@ -70,11 +85,13 @@ export const postPlanRequest = (requestData) => {
 // =====================================================================================
 // お客さんからの、プランリクエストの承認処理
 // =====================================================================================
-export const patchPlanApprovalStatus = () => {
-  return axios.patch(`${host.localhost()}/api/request/`)
+export const patchPlanApprovalStatus = (planRequestUserYorozuId) => {
+  // プランリクエストユーザーのよろずIDと,承認状態をtrueにするため、isApproval: trueを送る
+  return axios.patch(`${host.localhost()}/api/request/`, { senderYorozuId: planRequestUserYorozuId, isApproval: true })
 }
-
+//=====================================================================================
 // プラン登録
+//=====================================================================================
 export const postPlan = (params) => {
   const formData = new FormData()
 

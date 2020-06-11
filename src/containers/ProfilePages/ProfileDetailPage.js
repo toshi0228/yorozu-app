@@ -2,12 +2,15 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import DetailPlan from '../../components/profile/detailProfile'
 import { feachProfileDetail } from '../../store/actions/profile'
+import { feachMyPlanRequest } from '../../store/actions/planRequest'
 
 const ProfileDetailPage = (props) => {
   useEffect(() => {
     // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
     const { id } = props.params.match.params
     props.readProfileDetailEvent(id)
+    // 自分宛に届いたプランリクエスト一覧を取得する
+    props.readMyPlanRequestEvent(props.authToken)
   }, [])
 
   return (
@@ -19,10 +22,15 @@ const ProfileDetailPage = (props) => {
 
 const mapStateToProps = (state) => ({
   data: state.profile,
+  authToken: state.account.authToken.access,
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  // 万屋の詳細ページを取得する(プランや、よろずやユーザーの情報等)
   readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
+  // 自分が送信したプランリクエスト一覧を取得する
+  // 自分がプランリクエストを送ったよろず屋なら、プランリクエストを送らないようにする
+  readMyPlanRequestEvent: (authToken) => dispatch(feachMyPlanRequest(authToken)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetailPage)
@@ -42,7 +50,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetailPage)
 // connect()()に関して
 // connect()を実行したら、wrapWithConnectという関数を返す。のでそれを実行するためにもう一度関数を
 // 実行するので()()
-// let wrapWithConnect = connect();
+// let wrapWithConnect = connect(); => storeから、stateとdispatchの値を持った関数
 // App = wrapWithConnect(PlanDetailPage);
 // =====================================================================================
 

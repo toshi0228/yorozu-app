@@ -1,58 +1,69 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Input } from 'antd'
 import { planRequest } from '../../../store/actions/plan'
 import { sendMessage } from '../../../store/actions/message'
+
+import PlanRequestBtn from './planRequestBtn'
 
 // ====================================================================
 // プランリクエストのモーダル
 // ====================================================================
 
 const PlanRequestModal = (props) => {
-  console.log('PlanRequestModal')
-  console.log(props)
+  // isVisibleがtrueの時に、モーダルが現れる
   const [isVisible, setIsVisible] = useState(false)
+  // プランリクエストする時のメッセージ
   const [requestMessage, setRequestMessage] = useState('')
-  const showModal = () => {
-    setIsVisible(true)
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // requestDataは、プランのリクエストの時に必要な情報
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  const requestData = {
+    // リクエストの送り主(ログインしているユーザー)
+    senderYorozuId: props.loginUserYorozuId,
+    // リクエストの送り先のユーザー(プランオーナーのyorozuId)
+    receiverYorozuId: props.planOwnerYorozuId,
+  }
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // requestMessageDataは、モーダルに書き込んだテキストメッセージをプランオーナーに送る
+  // ※プランオーナーは、メッセージをメッセージルームで確認することができる
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  const requestMessageData = {
+    // リクエストの送り主(ログインしているユーザー)
+    senderYorozuId: props.loginUserYorozuId,
+    // リクエストの送り先のユーザー(プランオーナーのyorozuId)
+    receiverYorozuId: props.planOwnerYorozuId,
+    messageContent: requestMessage,
   }
 
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // モーダルの中での送信ボタンを押した時の処理
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const hundleSubmit = () => {
-    // requestDataは、プランのリクエストの時に必要な情報
-    const requestData = {
-      // リクエストの送り主(ログインしているユーザー)
-      senderYorozuId: props.loginUserYorozuId,
-      // リクエストの送り先のユーザー(プランオーナーのyorozuId)
-      receiverYorozuId: props.planOwnerYorozuId,
-    }
-
-    // requestMessageDataは、モーダルに書き込んだテキストメッセージをプランオーナーに送る
-    // ※プランオーナーは、メッセージをメッセージルームで確認することができる
-    const requestMessageData = {
-      // リクエストの送り主(ログインしているユーザー)
-      senderYorozuId: props.loginUserYorozuId,
-      // リクエストの送り先のユーザー(プランオーナーのyorozuId)
-      receiverYorozuId: props.planOwnerYorozuId,
-      messageContent: requestMessage,
-    }
-
-    setIsVisible(false)
     // プランのリクエストの処理
     props.planRequestEvent(requestData)
     // プランのリクエストした時のメッセージをプランオーナーに送信
     props.sendMessageEvent(requestMessageData)
     // 送信したら、メッセージのデータを初期化する
     setRequestMessage('')
+    // 送信ボタンを押したらモダールを閉じる
+    setIsVisible(false)
   }
 
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // モーダルの中でのキャンセルボタンを押した時の処理
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const handleCancel = () => {
     setIsVisible(false)
   }
+
   return (
     <div>
-      <Button type="primary" onClick={showModal}>
-        リクエストを送る
-      </Button>
+      {/* リクエストボタンを押した時に、モーダルが表示されるように、setIsVisibleを渡す。 */}
+      {/* この値がtrueなら、モーダルが表示される */}
+      <PlanRequestBtn setIsVisible={setIsVisible} />
+
       <Modal
         title="リクエスト"
         visible={isVisible}
@@ -80,7 +91,6 @@ const PlanRequestModal = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.profile,
   // リクエストの送り主(ログインしているユーザー)
   loginUserYorozuId: state.account.yorozuId,
   // リクエストの送り先のユーザー(プランオーナーのyorozuId)

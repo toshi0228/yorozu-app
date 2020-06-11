@@ -4,7 +4,7 @@ import { Comment, List, Row, Col, Modal } from 'antd'
 import MessageForm from '../../../form/messageForm/index'
 import host from '../../../../constants/url'
 import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../store/actions/message'
-import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/request'
+import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/planRequest'
 import styles from './index.module.scss'
 
 // ====================================================================================
@@ -13,8 +13,6 @@ import styles from './index.module.scss'
 // ====================================================================================
 
 const LeftSide = (props) => {
-  console.log('LeftSideが呼ばれた')
-  console.log(props)
   const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
   const [isPlanRequest, setIsPlanRequest] = useState(false)
   const data = []
@@ -37,7 +35,7 @@ const LeftSide = (props) => {
       title: `${props.messageRoomUser}さんのプランリクエストを承諾しますか?`,
       onOk() {
         console.log('OK')
-        props.planRequestApprovalEvent()
+        props.planRequestApprovalEvent(props.roomUserYorozuId)
       },
       onCancel() {
         console.log('Cancel')
@@ -54,14 +52,18 @@ const LeftSide = (props) => {
     props.readRoomUserPlanRequestEvent(props.roomUserYorozuId)
   }, [props.messageRoomUser])
 
-  // ルームユーザーにプランのリクエストがあれば、アラートを表示させる
+  // ルームユーザーにプランのリクエストがあり、なおかつまだリクエストを承認していなければ、アラートを表示させる
   useEffect(() => {
-    if (props.roomUserplanRequest) {
+    // console.log('承認確認')
+    // console.log(props.roomUserPlanRequest)
+
+    // props.roomUserPlanRequest.isApproval => プランリクエストの承認状態 falseなら承認されていない
+    if (props.roomUserPlanRequest && props.roomUserPlanRequest.isApproval === false) {
       setIsPlanRequest(true)
     } else {
       setIsPlanRequest(false)
     }
-  }, [props.roomUserplanRequest])
+  }, [props.roomUserPlanRequest])
 
   return (
     <>
@@ -127,7 +129,7 @@ const mapStateToProps = (state) => ({
   // メッセールームユーザーの名前
   messageRoomUser: state.message.messageRoomUser,
   // メッセージルームルームユーザーのプランリクエストに関して
-  roomUserplanRequest: state.planRequest.roomMessageUserPlanRequest,
+  roomUserPlanRequest: state.planRequest.roomMessageUserPlanRequest,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -138,7 +140,7 @@ const mapDispatchToProps = (dispatch) => ({
   // 自分が送信したメッセージを取得する
   readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
   // お客さんのプランリクエストの承認の処理
-  planRequestApprovalEvent: (planRequestUser) => dispatch(patchPlanApproval(planRequestUser)),
+  planRequestApprovalEvent: (roomUserYorozuId) => dispatch(patchPlanApproval(roomUserYorozuId)),
   // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
   readRoomUserPlanRequestEvent: (roomUserYorozuId) => dispatch(readRoomMessageUserPlanRequest(roomUserYorozuId)),
 })
