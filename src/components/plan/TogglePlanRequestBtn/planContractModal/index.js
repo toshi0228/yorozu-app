@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Input } from 'antd'
-import { planRequest } from '../../../store/actions/plan'
-import { sendMessage } from '../../../store/actions/message'
+import { planRequest } from '../../../../store/actions/plan'
+import { sendMessage } from '../../../../store/actions/message'
 
 // ====================================================================
 // プランリクエストのモーダル
 // ====================================================================
 
-const PlanRequestModal = (props) => {
-  console.log('PlanRequestModal')
+const PlanContractModal = (props) => {
+  console.log('planContractModal')
   console.log(props)
   // プランリクエストする時のメッセージ
   const [requestMessage, setRequestMessage] = useState('')
@@ -46,27 +46,27 @@ const PlanRequestModal = (props) => {
     // 送信したら、メッセージのデータを初期化する
     setRequestMessage('')
     // 送信ボタンを押したらモダールを閉じる
-    props.setIsPlanRequestModalVisible(false)
+    props.setIsPlanContractModalVisible(false)
   }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // モーダルの中でのキャンセルボタンを押した時の処理
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const handleCancel = () => {
-    props.setIsPlanRequestModalVisible(false)
+    props.setIsPlanContractModalVisible(false)
   }
 
   return (
     <div>
       <Modal
-        title="リクエスト"
+        title="お支払い方法の選択"
         // visiblがtrueなら、モーダルが表示される
-        visible={props.isPlanRequestModalVisible}
+        visible={props.isPlanContractModalVisible}
         onOk={hundleSubmit}
         onCancel={handleCancel}
         footer={[
           <Button key="submit" onClick={hundleSubmit}>
-            送信
+            クレジットカードで決済
           </Button>,
         ]}
       >
@@ -99,4 +99,4 @@ const mapStateToDispatch = (dispatch) => ({
   sendMessageEvent: (messageData) => dispatch(sendMessage(messageData)),
 })
 
-export default connect(mapStateToProps, mapStateToDispatch)(PlanRequestModal)
+export default connect(mapStateToProps, mapStateToDispatch)(PlanContractModal)

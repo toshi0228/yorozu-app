@@ -46,8 +46,8 @@ const Router = (props) => {
         {/* トップページ */}
         <Route exact path={routes.top()} component={withLayout(ProfileListPage)} />
 
-        {/* プロフィール詳細ページ */}
-        <Route path={routes.profileDetail()} render={withLayout(ProfileDetailPage)} />
+        {/* プロフィール詳細ページ(プランページ) */}
+        <Route path={routes.profileDetail(':id')} render={withLayout(ProfileDetailPage)} />
 
         {/* ログインページ */}
         <Route path={routes.siginIn()} component={withLayout(SignInPage)} />

@@ -2,16 +2,24 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'antd'
 import { checkMySentPlanRequestStatus } from '../../../store/actions/planRequest'
-import PlanRequestModal from '../planRequestModal'
+import PlanRequestModal from './planRequestModal'
+import PlanContractModal from './planContractModal'
 
 const TogglePlanRequestBtn = (props) => {
-  // isVisibleがtrueの時に、モーダルが現れる
+  // 「リクエストを送るボタン」を押したときのモーダルの制御
   const [isPlanRequestModalVisible, setIsPlanRequestModalVisible] = useState(false)
+  // 「契約をする」ボタンを押した時のモーダルの制御
+  const [isPlanContractModalVisible, setIsPlanContractModalVisible] = useState(false)
 
-  // リクエストを送るボタンを押した時のアクション
+  // 「リクエストを送るボタン」を押した時のアクション
   // isPlanRequestModalVisibleをの値がtureになると、モーダルが表示される
   const showPlanRequestModal = () => {
     setIsPlanRequestModalVisible(true)
+  }
+
+  // 「契約をする」ボタンを押した時のアクション
+  const showPlanContractModal = () => {
+    setIsPlanContractModalVisible(true)
   }
 
   // プランページに移動した時に、ログインユーザーのプランリクエストの状態を確認する
@@ -30,7 +38,17 @@ const TogglePlanRequestBtn = (props) => {
       // ログインしているユーザーがプランリクエストを送っていて、さらによろず屋から承認を受けている場合
       // ================================================================================
       case 'planRequestApproved':
-        return <Button type="primary">契約をする</Button>
+        return (
+          <>
+            <Button type="primary" onClick={showPlanContractModal}>
+              契約をする
+            </Button>
+            <PlanContractModal
+              isPlanContractModalVisible={isPlanContractModalVisible}
+              setIsPlanContractModalVisible={setIsPlanContractModalVisible}
+            />
+          </>
+        )
 
       // ================================================================================
       // ログインしているユーザーがプランリクエストを送ったが、まだよろずやから承認を受けていない場合
@@ -50,7 +68,10 @@ const TogglePlanRequestBtn = (props) => {
             <Button type="primary" onClick={showPlanRequestModal}>
               リクエストを送る
             </Button>
-            <PlanRequestModal isPlanRequestModalVisible={isPlanRequestModalVisible} setIsPlanRequestModalVisible={setIsPlanRequestModalVisible} />
+            <PlanRequestModal
+              isPlanRequestModalVisible={isPlanRequestModalVisible}
+              setIsPlanRequestModalVisible={setIsPlanRequestModalVisible}
+            />
           </>
         )
     }
