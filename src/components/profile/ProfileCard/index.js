@@ -12,8 +12,6 @@ import routes from '../../../routes'
 const ProfileCard = ({ data }) => {
   return (
     <>
-      {/* http://localhost:3000/plan/shizuka */}
-      {/* <Link to={`/plan/${data.yorozuId}`}> */}
       <Link to={`${routes.profileDetail(data.yorozuId)}`}>
         <Card
           cover={<img alt="example" src={`${host.localhost()}${data.yorozuMainImage}`} style={{ height: 200 }} />}

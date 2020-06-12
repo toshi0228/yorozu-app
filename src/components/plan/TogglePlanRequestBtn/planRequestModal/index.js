@@ -9,8 +9,6 @@ import { sendMessage } from '../../../../store/actions/message'
 // ====================================================================
 
 const PlanRequestModal = (props) => {
-  console.log('PlanRequestModal')
-  console.log(props)
   // プランリクエストする時のメッセージ
   const [requestMessage, setRequestMessage] = useState('')
 

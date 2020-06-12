@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Input } from 'antd'
 import { planRequest } from '../../../../store/actions/plan'
 import { sendMessage } from '../../../../store/actions/message'
+import styles from './index.module.scss'
 
 // ====================================================================
 // プランリクエストのモーダル
@@ -10,7 +11,7 @@ import { sendMessage } from '../../../../store/actions/message'
 
 const PlanContractModal = (props) => {
   console.log('planContractModal')
-  console.log(props)
+  console.log(props.planData)
   // プランリクエストする時のメッセージ
   const [requestMessage, setRequestMessage] = useState('')
 
@@ -70,15 +71,31 @@ const PlanContractModal = (props) => {
           </Button>,
         ]}
       >
-        <p style={{ marginBottom: 20 }}>
-          よろず屋がプランリクエストを承認した後に、契約ができるように <br />
-          なります。 相談内容を記入した上でよろず屋と契約が可能かどうか確認しましょう。
-        </p>
-        <Input.TextArea
-          autoSize={{ minRows: 10, maxRows: 12 }}
-          placeholder="契約を考えているので、承認をお願いいたします"
-          onChange={(e) => setRequestMessage(e.target.value)}
-        />
+        <h3>タイトル</h3>
+        <p>{props.planData.title}</p>
+        <h3>料金</h3>
+        <p>{`${props.planData.price} 円`}</p>
+
+        <h3>決済方法</h3>
+        <p>クレジットカード</p>
+
+        <h3>注意事項</h3>
+        {/* <div style={{ marginBottom: 20 }} className={styles.attention}> */}
+        <div style={{ marginBottom: 20 }}>
+          <ul>
+            <li>解約は自由に行なえますが、課金後の返金は行っておりません。</li>
+          </ul>
+          <ul>
+            <li>毎月の契約は契約日から1ヶ月となります。例えば5/20に契約すると次回は6/20の更新となります。</li>
+          </ul>
+          <ul>
+            <li>契約がつづく限り、毎月自動で課金が行われます。</li>
+          </ul>
+          <ul>
+            <li>初回契約にかぎり、48時間以内によろずやから返答がない場合は自動キャンセル・返金となります。</li>
+          </ul>
+        </div>
+
         <p style={{ marginBottom: 10 }}></p>
       </Modal>
     </div>

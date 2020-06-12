@@ -46,6 +46,7 @@ const TogglePlanRequestBtn = (props) => {
             <PlanContractModal
               isPlanContractModalVisible={isPlanContractModalVisible}
               setIsPlanContractModalVisible={setIsPlanContractModalVisible}
+              planData={props.planData}
             />
           </>
         )

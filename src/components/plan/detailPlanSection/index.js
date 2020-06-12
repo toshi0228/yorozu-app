@@ -50,10 +50,8 @@ const DetailPlanSection = ({ planData }) => {
 
         {/* プランリクエストボタン */}
         <Row gutter={[32, 32]} type="flex" style={{ marginTop: 20 }} justify="end">
-          {/* <Col offset={2}> */}
           <Col style={{ marginBottom: 20 }}>
-            {/* <PlanRequestModal /> */}
-            <TogglePlanRequestBtn />
+            <TogglePlanRequestBtn planData={planData} />
           </Col>
 
           {/* <Col style={{ marginBottom: 20 }}>
