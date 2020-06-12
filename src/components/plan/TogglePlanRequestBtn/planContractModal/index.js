@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button, Input } from 'antd'
+import { Modal, Button, Row, Col } from 'antd'
 import { planRequest } from '../../../../store/actions/plan'
 import { sendMessage } from '../../../../store/actions/message'
+import host from '../../../../constants/url'
 import styles from './index.module.scss'
 
 // ====================================================================
@@ -71,17 +72,27 @@ const PlanContractModal = (props) => {
           </Button>,
         ]}
       >
-        <h3>タイトル</h3>
-        <p>{props.planData.title}</p>
-        <h3>料金</h3>
-        <p>{`${props.planData.price} 円`}</p>
+        <Row>
+          {/* 説明 */}
+          <Col span={14}>
+            <h3>タイトル</h3>
+            <p>{props.planData.title}</p>
+            <h3>料金</h3>
+            <p>{`￥${props.planData.price} 円`}</p>
+            <h3>決済方法</h3>
+            <p>
+              クレジットカード<span style={{ padding: 30, color: '#1890ff', cursor: 'pointer', fontSize: 10 }}>変更する</span>
+            </p>
+          </Col>
 
-        <h3>決済方法</h3>
-        <p>クレジットカード</p>
+          {/* 画像 */}
+          <Col span={8} offset={2} style={{ background: '#ff7d6e' }}>
+            <img alt="example" src={`${host.localhost()}${props.planData.image}`} style={{ width: '100%', height: 110, borderRadius: 8 }} />
+          </Col>
+        </Row>
 
-        <h3>注意事項</h3>
-        {/* <div style={{ marginBottom: 20 }} className={styles.attention}> */}
-        <div style={{ marginBottom: 20 }}>
+        <h3 style={{ color: '#ff7d6e' }}>注意事項</h3>
+        <div style={{ marginBottom: 20 }} className={styles.attention}>
           <ul>
             <li>解約は自由に行なえますが、課金後の返金は行っておりません。</li>
           </ul>
@@ -95,7 +106,6 @@ const PlanContractModal = (props) => {
             <li>初回契約にかぎり、48時間以内によろずやから返答がない場合は自動キャンセル・返金となります。</li>
           </ul>
         </div>
-
         <p style={{ marginBottom: 10 }}></p>
       </Modal>
     </div>

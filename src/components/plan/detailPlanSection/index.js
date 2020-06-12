@@ -29,7 +29,7 @@ const DetailPlanSection = ({ planData }) => {
         <Row>
           {/* <Col offset={2}> */}
           <Col>
-            <h3>{planData.price}円</h3>
+            <h3>￥{planData.price}円</h3>
           </Col>
         </Row>
 
