@@ -1,8 +1,7 @@
 import React from 'react'
 import { Col, Row } from 'antd'
 // import { Link } from 'react-router-dom';
-// import PlanRequestModal from '../planRequestModal'
-import TogglePlanRequestBtn from '../TogglePlanRequestBtn'
+import TogglePlanBtn from '../TogglePlanBtn'
 import host from '../../../constants/url'
 
 // ====================================================================
@@ -48,10 +47,10 @@ const DetailPlanSection = ({ planData }) => {
           </Col>
         </Row>
 
-        {/* プランリクエストボタン */}
+        {/* プラン(リクエスト・契約)ボタン */}
         <Row gutter={[32, 32]} type="flex" style={{ marginTop: 20 }} justify="end">
           <Col style={{ marginBottom: 20 }}>
-            <TogglePlanRequestBtn planData={planData} />
+            <TogglePlanBtn planData={planData} />
           </Col>
 
           {/* <Col style={{ marginBottom: 20 }}>

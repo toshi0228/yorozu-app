@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Row, Col } from 'antd'
-import { planRequest } from '../../../../store/actions/plan'
-import { sendMessage } from '../../../../store/actions/message'
+import { planContract } from '../../../../store/actions/planContract'
+
 import host from '../../../../constants/url'
 import styles from './index.module.scss'
 
@@ -11,30 +11,19 @@ import styles from './index.module.scss'
 // ====================================================================
 
 const PlanContractModal = (props) => {
-  console.log('planContractModal')
-  console.log(props.planData)
   // プランリクエストする時のメッセージ
   const [requestMessage, setRequestMessage] = useState('')
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // requestDataは、プランのリクエストの時に必要な情報
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const requestData = {
+  const ContractData = {
     // リクエストの送り主(ログインしているユーザー)
     senderYorozuId: props.loginUserYorozuId,
     // リクエストの送り先のユーザー(プランオーナーのyorozuId)
     receiverYorozuId: props.planOwnerYorozuId,
-  }
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // requestMessageDataは、モーダルに書き込んだテキストメッセージをプランオーナーに送る
-  // ※プランオーナーは、メッセージをメッセージルームで確認することができる
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const requestMessageData = {
-    // リクエストの送り主(ログインしているユーザー)
-    senderYorozuId: props.loginUserYorozuId,
-    // リクエストの送り先のユーザー(プランオーナーのyorozuId)
-    receiverYorozuId: props.planOwnerYorozuId,
-    messageContent: requestMessage,
+    // 契約するプランのID
+    contractPlan: props.planData.id,
   }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -42,9 +31,7 @@ const PlanContractModal = (props) => {
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const hundleSubmit = () => {
     // プランのリクエストの処理
-    props.planRequestEvent(requestData)
-    // プランのリクエストした時のメッセージをプランオーナーに送信
-    props.sendMessageEvent(requestMessageData)
+    props.planContractEvent(ContractData)
     // 送信したら、メッセージのデータを初期化する
     setRequestMessage('')
     // 送信ボタンを押したらモダールを閉じる
@@ -120,10 +107,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapStateToDispatch = (dispatch) => ({
-  // プランのリクエストを送るアクション
-  planRequestEvent: (requestData) => dispatch(planRequest(requestData)),
-  // プランリクエストのメッセージを送る処理
-  sendMessageEvent: (messageData) => dispatch(sendMessage(messageData)),
+  // プランの契約をするときアクション
+  planContractEvent: (contractData) => dispatch(planContract(contractData)),
 })
 
 export default connect(mapStateToProps, mapStateToDispatch)(PlanContractModal)

@@ -1,4 +1,4 @@
-import { getPlanRequestList, patchPlanApprovalStatus, getMyPlanRequestList } from '../../services/ApiRequest'
+import { postPlanRequest, getPlanRequestList, patchPlanApprovalStatus, getMySentPlanRequestList } from '../../services/ApiRequest'
 import {
   READ_PLAN_REQUEST_EVENTS,
   READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT,
@@ -6,6 +6,17 @@ import {
   READ_MY_PLAN_REQUEST_EVENTS,
   CHECK_MY_SENT_PLAN_REQUEST_STATUS,
 } from '../actionTypes'
+
+// =================================================================================
+// ログインユーザーがよろずやに届いたプランリクエストを送信
+// =================================================================================
+
+export const planRequest = (requestData) => (dispatch) => {
+  postPlanRequest(requestData).then((res) => {
+    console.log('プランのリクエスト完了')
+    console.log(res)
+  })
+}
 
 // =================================================================================
 // 自分宛に届いたプランリクエストを取得する
@@ -30,8 +41,8 @@ export const readPlanRequest = (planRequestList) => {
 // =================================================================================
 // 自分が送信したプランリクエストの一覧を取得する
 // =================================================================================
-export const feachMyPlanRequest = (authToken) => (dispatch) => {
-  getMyPlanRequestList(authToken).then((myPlanRequestList) => {
+export const feachMySentPlanRequest = (authToken) => (dispatch) => {
+  getMySentPlanRequestList(authToken).then((myPlanRequestList) => {
     dispatch(readMyPlanRequest(myPlanRequestList))
   })
 }

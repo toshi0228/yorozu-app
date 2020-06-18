@@ -58,3 +58,14 @@ export const READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT = 'READ_ROOMMESSAGE_USER_P
 // (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
 // 自分が送ったプランリクエストの状態 1. プランリクエストを送信してない 2.承認されていない 3.承認された
 export const CHECK_MY_SENT_PLAN_REQUEST_STATUS = 'CHECK_MY_SENT_PLAN_REQUEST_STATUS'
+
+// ============================================================
+// contract
+// ============================================================
+// プランの契約を送信
+export const PLAN_CONTRACT_EVENT = 'PLAN_CONTRACT_EVENT'
+// 自分が送信したプランリクエストの一覧を取得する
+export const READ_MY_SENT_PLAN_CONTRACT_EVENTS = 'READ_MY_SENT_PLAN_CONTRACT_EVENTS'
+// プランページに移動した時に、ログインユーザーがプランリクエストの状態を確認する
+// 自分が送ったプラン契約の申請状態 1. 契約送信を送信してない 2.承認されていない 3.承認された
+export const CHECK_MY_SENT_PLAN_CONTRACT_STATUS = 'CHECK_MY_SENT_PLAN_CONTRACT_STATUS'

@@ -11,25 +11,6 @@ export const planRequest = (requestData) => (dispatch) => {
     console.log(res)
   })
 }
-// export const postPlan = () => (dispatch) {
-//   postRequestRequest()
-// };
-
-// // プランリストの読み込み
-// export const fetchPlanList = () => (dispatch) => {
-//   getPlanList().then((res) => {
-//     dispatch(readPlanList(res.data));
-//   });
-// };
-
-// // プランリストのアクションクリエーター
-// export const readPlanList = (fetchPlanListData) => {
-//   return {
-//     type: READ_PLAN_EVENTS,
-//     payload: fetchPlanListData,
-//   };
-// };
-
 // プラン登録
 export const postPlanEvent = (planContent) => (dispatch) => {
   // const submitData = new FormData();

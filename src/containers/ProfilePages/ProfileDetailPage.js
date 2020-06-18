@@ -2,15 +2,18 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import DetailPlan from '../../components/profile/detailProfile'
 import { feachProfileDetail } from '../../store/actions/profile'
-import { feachMyPlanRequest } from '../../store/actions/planRequest'
+import { feachMySentPlanRequest } from '../../store/actions/planRequest'
+import { feachMySentPlanContract } from '../../store/actions/planContract'
 
 const ProfileDetailPage = (props) => {
   useEffect(() => {
     // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
     const { id } = props.params.match.params
     props.readProfileDetailEvent(id)
-    // 自分宛に届いたプランリクエスト一覧を取得する
-    props.readMyPlanRequestEvent(props.authToken)
+    // 自分が送信したプランリクエスト(仮契約)一覧を取得する
+    props.readMySentPlanRequestEvent(props.authToken)
+    // 自分が送信したプラン契約申請(本契約)一覧を取得する
+    props.readMySentPlanContractEvent(props.authToken)
   }, [])
 
   return (
@@ -30,7 +33,9 @@ const mapDispatchToProps = (dispatch) => ({
   readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
   // 自分が送信したプランリクエスト一覧を取得する
   // 自分がプランリクエストを送ったよろず屋なら、プランリクエストを送らないようにする
-  readMyPlanRequestEvent: (authToken) => dispatch(feachMyPlanRequest(authToken)),
+  readMySentPlanRequestEvent: (authToken) => dispatch(feachMySentPlanRequest(authToken)),
+  // 自分が送信したプラン契約の申請一覧を取得する
+  readMySentPlanContractEvent: (authToken) => dispatch(feachMySentPlanContract(authToken)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetailPage)

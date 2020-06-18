@@ -70,13 +70,13 @@ export const getPlanRequestList = (authToken) => {
 // 自分が送信したプランリクエストの一覧を取得する
 // =====================================================================================
 
-export const getMyPlanRequestList = (authToken) => {
+export const getMySentPlanRequestList = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
   return axios.get(`${host.localhost()}/api/request/me/`)
 }
 
 // =====================================================================================
-// プラン画面から、プランのリクエスト
+// プラン画面から、プランのリクエスト(仮契約)
 // =====================================================================================
 export const postPlanRequest = (requestData) => {
   return axios.post(`${host.localhost()}/api/request/`, requestData)
@@ -89,6 +89,23 @@ export const patchPlanApprovalStatus = (planRequestUserYorozuId) => {
   // プランリクエストユーザーのよろずIDと,承認状態をtrueにするため、isApproval: trueを送る
   return axios.patch(`${host.localhost()}/api/request/`, { senderYorozuId: planRequestUserYorozuId, isApproval: true })
 }
+
+//=====================================================================================
+// プラン画面から、プラン契約のリクエスト(本契約)
+//=====================================================================================
+export const postPlanContract = (contractData) => {
+  return axios.post(`${host.localhost()}/api/contract/`, contractData)
+}
+
+// =====================================================================================
+// 自分が送信したプランの契約申請一覧を取得する
+// =====================================================================================
+
+export const getMySentPlanContractList = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/contract/me/`)
+}
+
 //=====================================================================================
 // プラン登録
 //=====================================================================================

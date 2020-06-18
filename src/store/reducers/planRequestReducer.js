@@ -10,7 +10,7 @@ const DEFAULT_STATE = {
   // 自分宛に届いたいプランリクエスストの一覧
   receivePlanRequestList: [],
   // 自分が送信したプランリクエスト
-  mySendPlanRequestList: [],
+  mySentPlanRequestList: [],
   //メッセージルームのユーザープランリクエスト(自分宛に送ってくれたプランリクエスト)
   roomMessageUserPlanRequest: {},
   // ステータスは、３つある (1)プランリクエストを送っていない (2)プランリクエストを送って承認待ち (3)プランリクエストを送って承認あり
@@ -29,14 +29,12 @@ const planRequestReducer = (state = DEFAULT_STATE, action) => {
     // 自分が送信したプランリクエストの一覧を取得する
     // =========================================================================================
     case READ_MY_PLAN_REQUEST_EVENTS:
-      console.log('自分が送信したプランリクエストの一覧を取得する')
-      return { ...state, mySendPlanRequestList: action.payload }
+      return { ...state, mySentPlanRequestList: action.payload }
 
     // =========================================================================================
     // 自分宛に届いたプランリクエストリストの中から、メッセージルームユーザーのプランリクエストを取得する
     // =========================================================================================
     case READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT:
-      console.log('プランリクエストリストの中から、メッセージルームユーザーのプランリクエストを取得する')
       // action.payloadには、メッセージルームユーザーのよろずIDが入っている
       const planRequestUser = state.receivePlanRequestList.find((receivePlanRequest) => {
         return receivePlanRequest.senderYorozuId === action.payload
@@ -56,10 +54,9 @@ const planRequestReducer = (state = DEFAULT_STATE, action) => {
     // (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
     // =========================================================================================
     case CHECK_MY_SENT_PLAN_REQUEST_STATUS:
-      console.log('ろグインユーザーがプランリクエストを送信した事がある万屋か確認する')
       // action.payload => プランオーナーのID
       // mySendPlanRequest.receiverYorozuId => 自分がプランリクエストを送ったよろずやのID
-      const mySentPlanRequest = state.mySendPlanRequestList.find((mySentPlanRequest) => {
+      const mySentPlanRequest = state.mySentPlanRequestList.find((mySentPlanRequest) => {
         return mySentPlanRequest.receiverYorozuId === action.payload
       })
 

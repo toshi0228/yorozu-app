@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Input } from 'antd'
-import { planRequest } from '../../../../store/actions/plan'
+import { planRequest } from '../../../../store/actions/planRequest'
 import { sendMessage } from '../../../../store/actions/message'
 
 // ====================================================================
