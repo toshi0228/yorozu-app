@@ -4,7 +4,7 @@ const DEFAULT_STATE = {
   // 自分宛に届いたいプランリクエスストの一覧
   // receivePlanRequestList: [],
 
-  // 自分が送信したプランリクエスト
+  // 自分が送信した契約申請リスト
   mySentPlanContractList: [],
   // プランIdと契約申請の状態
   // 自分が送信した契約申請を送ったプランごとに、ステータスは、３つある (1)契約申請を送っている (2)契約申請を送って承認待ち (3)契約申請を送って承認あり
@@ -18,7 +18,14 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
     // ログインユーザーがよろずやに届いたプラン契約の申請を行う
     // =================================================================================
     case PLAN_CONTRACT_EVENT:
-      return { ...state, mySentPlanContractList: [{ ...action.payload }] }
+      // 送信した後にサーバーから返ってくる契約申請したプランは.mySentPlanContractListの中にあるプランと少し形が違うので変更する
+      //contractPlan: "d15e70f8-4610-4ab8-acf1-a32f717ca23d" -> contractPlan: {id: "d15e70f8-4610-4ab8-acf1-a32f717ca23d"}
+      const planId = { id: action.payload.contractPlan }
+      const newContractPlan = { ...action.payload, contractPlan: planId }
+
+      // 自分が送信した契約申請リストに新しく送った契約したプランを追加する
+      return { ...state, mySentPlanContractList: [...state.mySentPlanContractList, newContractPlan] }
+
     // =================================================================================
     // 自分が送信したプラン申請を取得する
     // =================================================================================
@@ -40,7 +47,7 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
       })
 
       // mySentPlanContractStatusAndPlanIdListの中身例
-      // {planId: "d15ed", status: "planContractNotApproved"},{planId: "993", status: "planContractApproved"}
+      // [{planId: "d15ed", status: "planContractNotApproved"},{planId: "993", status: "planContractApproved"}]
       const mySentPlanContractStatusAndPlanIdList = []
 
       // 契約してあるプランごとにステータスを確認する
@@ -50,49 +57,22 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
             // 契約申請を送って承認あり
             const planStatusAndPlanId = { planId: mySentPlanContract.contractPlan['id'], status: 'planContractApproved' }
             mySentPlanContractStatusAndPlanIdList.push(planStatusAndPlanId)
-            // return { ...state, mySentPlanContractStatusAndPlanId: planStatusAndPlanId }
           } else {
             // 契約申請を送っているが承認なし
             const planStatusAndPlanId = { planId: mySentPlanContract.contractPlan['id'], status: 'planContractNotApproved' }
             mySentPlanContractStatusAndPlanIdList.push(planStatusAndPlanId)
-            // return { ...state, mySentPlanContractStatusAndPlanId: planStatusAndPlanId }
           }
         } catch {
           // 契約申請送っていない
           const planStatusAndPlanId = { planId: mySentPlanContract.contractPlan['id'], status: 'notSentPlanContract' }
           mySentPlanContractStatusAndPlanIdList.push(planStatusAndPlanId)
-          // return { ...state, mySentPlanContractStatusAndPlanId: 'notSentPlanContract' }
         }
       }
 
+      // プランごとのプランに対して、ステータスをつける
       mySentPlanContractListOnPlanPage.forEach((mySentPlanContract) => {
         mySentPlanContractCheck(mySentPlanContract)
       })
-      // console.log('----------')
-      // console.log(mySentPlanContractStatusAndPlanIdList)
-
-      // 契約申請がある場合
-      // mySentPlanContract => {senderYorozuId: "nobita", receiverYorozuId: "shizuka", isApproval: true,....}
-      // 契約申請がない場合
-      // mySentPlanContract => undifind
-
-      // もし、契約申請を送った事があるならisSentPlanRequesの中身は、契約申請のデータが入っている(tryの方に行く)
-      // もし送った事がなければ、isSentPlanRequesはundifindになり、catchの方に行く
-
-      // try {
-      //   if (mySentPlanContract.isApproval) {
-      //     // 契約申請を送って承認あり
-      //     const planStatusAndPlanId = { planId: mySentPlanContract.contractPlan['id'], status: 'planContractApproved' }
-      //     return { ...state, mySentPlanContractStatusAndPlanId: planStatusAndPlanId }
-      //   } else {
-      //     // 契約申請を送っているが承認なし
-      //     const planStatusAndPlanId = { planId: mySentPlanContract.contractPlan['id'], status: 'planContractNotApproved' }
-      //     return { ...state, mySentPlanContractStatusAndPlanId: planStatusAndPlanId }
-      //   }
-      // } catch {
-      //   // 契約申請送っていない
-      //   return { ...state, mySentPlanContractStatusAndPlanId: 'notSentPlanContract' }
-      // }
 
       return { ...state, mySentPlanContractStatusAndPlanId: mySentPlanContractStatusAndPlanIdList }
 

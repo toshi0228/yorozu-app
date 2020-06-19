@@ -6,9 +6,9 @@ import { checkMySentPlanContractStatus } from '../../../store/actions/planContra
 import PlanRequestModal from './planRequestModal'
 import PlanContractModal from './planContractModal'
 
-const TogglePlanBtn = (props) => {
-  console.log('TogglePlanBtn')
+// todo 送信したとの処理
 
+const TogglePlanBtn = (props) => {
   // mySentPlanContractStatusAndPlanIdListはplanページのよろずやと契約しているプランが入っている
   // props.planDataで渡ってきたプランのidと契約したプランのIDが同じものを抽出する
   const loginUserContractPlan = props.mySentPlanContractStatusAndPlanIdList.find((ContractPlan) => {
@@ -18,8 +18,6 @@ const TogglePlanBtn = (props) => {
   const [isPlanRequestModalVisible, setIsPlanRequestModalVisible] = useState(false)
   // 「契約をする」ボタンを押した時のモーダルの制御
   const [isPlanContractModalVisible, setIsPlanContractModalVisible] = useState(false)
-
-  // const [isPlanContractApproved, setIsPlanContractApproved] = useState(false)
 
   // 「リクエストを送るボタン」を押した時のアクション
   // isPlanRequestModalVisibleをの値がtureになると、モーダルが表示される
