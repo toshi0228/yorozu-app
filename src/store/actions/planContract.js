@@ -1,5 +1,10 @@
 import { postPlanContract, getMySentPlanContractList } from '../../services/ApiRequest'
-import { PLAN_CONTRACT_EVENT, READ_MY_SENT_PLAN_CONTRACT_EVENTS, CHECK_MY_SENT_PLAN_CONTRACT_STATUS } from '../actionTypes'
+import {
+  PLAN_CONTRACT_EVENT,
+  READ_MY_SENT_PLAN_CONTRACT_EVENTS,
+  CHECK_MY_SENT_PLAN_CONTRACT_STATUS,
+  READ_CONTRACT_PLAN_LIST_EVENTS,
+} from '../actionTypes'
 
 // =================================================================================
 // プランの契約申請のイベント
@@ -36,6 +41,16 @@ export const readMyPlanContract = (myPlanContractList) => {
   return {
     type: READ_MY_SENT_PLAN_CONTRACT_EVENTS,
     payload: myPlanContractList.data,
+  }
+}
+
+// =================================================================================
+// 自分が契約しているプラン一覧を取得する
+// =================================================================================
+
+export const readContractPlanList = () => {
+  return {
+    type: READ_CONTRACT_PLAN_LIST_EVENTS,
   }
 }
 

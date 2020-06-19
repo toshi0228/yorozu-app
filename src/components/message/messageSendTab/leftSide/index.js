@@ -54,9 +54,6 @@ const LeftSide = (props) => {
 
   // ルームユーザーにプランのリクエストがあり、なおかつまだリクエストを承認していなければ、アラートを表示させる
   useEffect(() => {
-    // console.log('承認確認')
-    // console.log(props.roomUserPlanRequest)
-
     // props.roomUserPlanRequest.isApproval => プランリクエストの承認状態 falseなら承認されていない
     if (props.roomUserPlanRequest && props.roomUserPlanRequest.isApproval === false) {
       setIsPlanRequest(true)
@@ -103,8 +100,6 @@ const LeftSide = (props) => {
       </Row>
 
       <Row type="flex">
-        {/* <Col offset={3} span={16}> */}
-
         <Col span={24}>
           <List
             dataSource={data}

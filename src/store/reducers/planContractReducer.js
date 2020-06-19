@@ -1,8 +1,16 @@
-import { PLAN_CONTRACT_EVENT, CHECK_MY_SENT_PLAN_CONTRACT_STATUS, READ_MY_SENT_PLAN_CONTRACT_EVENTS } from '../actionTypes'
+import {
+  PLAN_CONTRACT_EVENT,
+  CHECK_MY_SENT_PLAN_CONTRACT_STATUS,
+  READ_MY_SENT_PLAN_CONTRACT_EVENTS,
+  READ_CONTRACT_PLAN_LIST_EVENTS,
+} from '../actionTypes'
 
 const DEFAULT_STATE = {
   // 自分宛に届いたいプランリクエスストの一覧
   // receivePlanRequestList: [],
+
+  // 自分が契約しているプラン
+  contractPlanList: [],
 
   // 自分が送信した契約申請リスト
   mySentPlanContractList: [],
@@ -31,6 +39,24 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
     // =================================================================================
     case READ_MY_SENT_PLAN_CONTRACT_EVENTS:
       return { ...state, mySentPlanContractList: action.payload }
+
+    // =================================================================================
+    // 自分が契約しているプラン一覧を取得する
+    // =================================================================================
+    case READ_CONTRACT_PLAN_LIST_EVENTS:
+      const contractPlanList = state.mySentPlanContractList.filter((mySentPlanContract) => {
+        return mySentPlanContract.isApproval === true
+      })
+
+      // 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23
+      const _contractPlanList = contractPlanList.map((contractPlan) => {
+        contractPlan['createdAt'] = contractPlan.createdAt.split('T')[0]
+        const time = contractPlan['createdAt'].split('-')
+        contractPlan['createdAt'] = `${time[0]}年${time[1]}月${time[2]}`
+        return contractPlan
+      })
+
+      return { ...state, contractPlanList: _contractPlanList }
 
     // =================================================================================
     // プランページに移動した時に、ログインユーザーがプラン契約の申請を送信した事がある万屋か確認する

@@ -1,42 +1,40 @@
-import React from 'react';
-import { Row, Col, Table } from 'antd';
+import React from 'react'
+import { Row, Col, Table } from 'antd'
 
 // const columns
 
-const DashboardSales = () => {
+// todo 課金のところから
+const dashboardCharge = (props) => {
+  console.log('dashboardCharge')
+  console.log(props.contractPlanlist)
+
   const columns = [
     { title: '日にち', dataIndex: 'day' },
     { title: 'ユーザー', dataIndex: 'user' },
     { title: 'プラン名', dataIndex: 'planTitle' },
-    { title: '金額', dataIndex: 'planPrice' }
-  ];
+    { title: '金額', dataIndex: 'planPrice' },
+  ]
 
-  const data = [
-    {
-      day: '2021年10月24',
-      user: 'ああああああああ',
-      planTitle: 'ななななああああああああああああああああああああああ',
-      planPrice: '2000円'
-    },
-    {
-      day: '2021年10月24',
-      user: 'ああああああああ',
-      planTitle: 'ななななああああああああああああああああああああああ',
-      planPrice: '11000円'
+  const data = []
+
+  // 送信者のメッセージルームに合わせて,メッセージ内容を変える
+  props.contractPlanlist.forEach((contractPlan, index) => {
+    const contractPlanObj = {
+      day: contractPlan.createdAt,
+      user: contractPlan.contractYorozuyaProfile,
+      planTitle: contractPlan.contractPlan.title,
+      planPrice: `${contractPlan.contractPlan.price} 円`,
+      key: index,
     }
-  ];
+    data.push(contractPlanObj)
+  })
+
   return (
     <>
-      <div>今月のお支払い</div>
-      <Row type="flex" justify="end">
-        <Col>
-          <p>{`総額:15000円`}</p>
-        </Col>
-      </Row>
-
+      <div style={{ marginBottom: 32 }}>支払履歴</div>
       <Table columns={columns} dataSource={data}></Table>
     </>
-  );
-};
+  )
+}
 
-export default DashboardSales;
+export default dashboardCharge
