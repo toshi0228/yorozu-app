@@ -30,12 +30,6 @@ import requireAuth from '../components/requireAuth'
 // ダッシュボード
 import DashboardPage from '../containers/DashboardPage/DashboardPage'
 
-// 依頼した万屋のリストページ
-import ContractingPage from '../containers/ContractingPage/ContractingPage'
-
-// 顧客リストのページ
-import ClientListPage from '../containers/ClientListPage/ClientListPage'
-
 import MyPage from '../containers/MyPage/MyPage'
 
 // 引数をpropsにして,historyを受け取る
@@ -57,12 +51,6 @@ const Router = (props) => {
 
         {/* ダッシュボードページ */}
         <Route exact path={routes.dashboard()} component={withLayout(DashboardPage)} />
-
-        {/* 依頼した万屋のリストページ */}
-        <Route exact path={routes.contracting()} component={withLayout(ContractingPage)} />
-
-        {/* 顧客リストページ */}
-        <Route exact path={routes.clientList()} component={withLayout(ClientListPage)} />
 
         {/* メッセージのトップページ */}
         <Route exact path={routes.messageList()} render={withLayout(MessagePage)} />

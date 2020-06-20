@@ -1,39 +1,36 @@
 import React from 'react'
-import { Row, Col, Table } from 'antd'
+import { Table } from 'antd'
 
 // const columns
 
 const DashboardSale = (props) => {
+  console.log('DashboardSale')
+  console.log(props)
+
   const columns = [
     { title: '日にち', dataIndex: 'day' },
-    { title: 'ユーザー', dataIndex: 'user' },
+    { title: 'ユーザー', dataIndex: 'purchaserUser' },
     { title: 'プラン名', dataIndex: 'planTitle' },
     { title: '金額', dataIndex: 'planPrice' },
   ]
 
-  const data = [
-    {
-      day: '2021年10月24',
-      user: 'ああああああああ',
-      planTitle: 'ななななああああああああああああああああああああああ',
-      planPrice: '2000円',
-    },
-    {
-      day: '2021年10月24',
-      user: 'ああああああああ',
-      planTitle: 'ななななああああああああああああああああああああああ',
-      planPrice: '11000円',
-    },
-  ]
+  const data = []
+
+  // 自分のプランを購入してくれた人のデータを抽出する
+  props.purchasersList.forEach((purchaser, index) => {
+    const purchaserObj = {
+      day: purchaser.createdAt,
+      purchaserUser: purchaser.purchaserUserName,
+      planTitle: purchaser.contractPlan.title,
+      planPrice: `${purchaser.contractPlan.price} 円`,
+      key: index,
+    }
+    data.push(purchaserObj)
+  })
+
   return (
     <>
-      <div>今月の売り上げ</div>
-      <Row type="flex" justify="end">
-        <Col>
-          <p>{`総額:20000円`}</p>
-        </Col>
-      </Row>
-
+      <div style={{ marginBottom: 32 }}>売上履歴</div>
       <Table columns={columns} dataSource={data}></Table>
     </>
   )

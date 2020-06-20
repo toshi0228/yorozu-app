@@ -3,14 +3,12 @@ import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
 import DashboardSale from '../../components/dashboard/dashboardSale/index'
 import DashboardCarge from '../../components/dashboard/dashboardCharge'
-import { feachMySentPlanContract, readContractPlanList } from '../../store/actions/planContract'
+import { feachMySentPlanContract, readContractPlanList, feachPurchasersList } from '../../store/actions/planContract'
 
 const Dashboard = (props) => {
-  // console.log('Dashbord')
-  // console.log(props)
-
   useEffect(() => {
     props.readMySentPlanContractEvent(props.authToken)
+    props.readPurchasersListEvent(props.authToken)
   }, [])
 
   // props.mySentPlanContractListは、httpメソッドで処理をするから遅いので、かっこに値を入れる
@@ -31,10 +29,10 @@ const Dashboard = (props) => {
       {/* タブ */}
       <Row type="flex" justify="center" style={{ marginTop: 20 }}>
         <Col span={18}>
-          <Tabs type="card" onChange={callback} defaultActiveKey="2">
+          <Tabs type="card" onChange={callback} defaultActiveKey="1">
             {/* 売り上げタブのコンテント */}
             <Tabs.TabPane tab="売上" key="1">
-              <DashboardSale contractPlanlist={props.contractPlanlist} />
+              <DashboardSale purchasersList={props.purchasersList} />
             </Tabs.TabPane>
 
             {/* 課金タブのコンテント */}
@@ -49,7 +47,11 @@ const Dashboard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
+  // 自分が契約しているプランのリスト(課金)
   contractPlanlist: state.planContract.contractPlanList,
+  // 自分のプランを購入してくれた人のリスト
+  purchasersList: state.planContract.purchasersList,
+  // 自分が契約申請を送っている人のリスト(相手からプラン契約の申請を承認されていないものを入る)
   mySentPlanContractList: state.planContract.mySentPlanContractList,
   authToken: state.account.authToken.access,
 })
@@ -57,6 +59,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   // 自分が送信したプラン契約の申請一覧を取得する
   readMySentPlanContractEvent: (authToken) => dispatch(feachMySentPlanContract(authToken)),
+  // 自分のプランを購入してくれた人のリストを取得する
+  readPurchasersListEvent: (authToken) => dispatch(feachPurchasersList(authToken)),
   // 自分が契約しているプランの一覧を取得する
   readContractPlanListEvent: () => dispatch(readContractPlanList()),
 })

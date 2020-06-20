@@ -1,9 +1,10 @@
-import { postPlanContract, getMySentPlanContractList } from '../../services/ApiRequest'
+import { postPlanContract, getMySentPlanContractList, getPurchasersList } from '../../services/ApiRequest'
 import {
   PLAN_CONTRACT_EVENT,
   READ_MY_SENT_PLAN_CONTRACT_EVENTS,
   CHECK_MY_SENT_PLAN_CONTRACT_STATUS,
   READ_CONTRACT_PLAN_LIST_EVENTS,
+  READ_PURCHASERS_LIST_EVENT,
 } from '../actionTypes'
 
 // =================================================================================
@@ -51,6 +52,26 @@ export const readMyPlanContract = (myPlanContractList) => {
 export const readContractPlanList = () => {
   return {
     type: READ_CONTRACT_PLAN_LIST_EVENTS,
+  }
+}
+
+// =================================================================================
+// 自分のプランを購入してくれた人のリストを取得する
+// =================================================================================
+
+export const feachPurchasersList = (authToken) => (dispatch) => {
+  getPurchasersList(authToken).then((res) => {
+    dispatch(readPurchasersList(res))
+  })
+}
+
+// =================================================================================
+// 自分のプランを購入してくれた人のリストを取得した後のアクションクリエーター
+// =================================================================================
+export const readPurchasersList = (purchasersList) => {
+  return {
+    type: READ_PURCHASERS_LIST_EVENT,
+    payload: purchasersList.data,
   }
 }
 

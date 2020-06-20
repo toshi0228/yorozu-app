@@ -71,3 +71,5 @@ export const READ_CONTRACT_PLAN_LIST_EVENTS = 'READ_CONTRACT_PLAN_LIST_EVENTS'
 // プランページに移動した時に、ログインユーザーがプランリクエストの状態を確認する
 // 自分が送ったプラン契約の申請状態 1. 契約送信を送信してない 2.承認されていない 3.承認された
 export const CHECK_MY_SENT_PLAN_CONTRACT_STATUS = 'CHECK_MY_SENT_PLAN_CONTRACT_STATUS'
+// 自分NOプランを購入してくれた人のリスト
+export const READ_PURCHASERS_LIST_EVENT = 'READ_PURCHASERS_LIST_EVENT'

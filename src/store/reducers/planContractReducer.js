@@ -3,11 +3,14 @@ import {
   CHECK_MY_SENT_PLAN_CONTRACT_STATUS,
   READ_MY_SENT_PLAN_CONTRACT_EVENTS,
   READ_CONTRACT_PLAN_LIST_EVENTS,
+  READ_PURCHASERS_LIST_EVENT,
 } from '../actionTypes'
 
+// todo purchaserを取り出す
+
 const DEFAULT_STATE = {
-  // 自分宛に届いたいプランリクエスストの一覧
-  // receivePlanRequestList: [],
+  // 自分のプランを購入した人の一覧
+  purchasersList: [],
 
   // 自分が契約しているプラン
   contractPlanList: [],
@@ -57,6 +60,22 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
       })
 
       return { ...state, contractPlanList: _contractPlanList }
+
+    // =================================================================================
+    // 自分のプランを購入してくれた人のリスト
+    // =================================================================================
+    case READ_PURCHASERS_LIST_EVENT:
+      console.log('READ_PURCHASERS_LIST_EVENT')
+
+      // 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23
+      const purchasersList = action.payload.map((purchaser) => {
+        purchaser['createdAt'] = purchaser.createdAt.split('T')[0]
+        const time = purchaser['createdAt'].split('-')
+        purchaser['createdAt'] = `${time[0]}年${time[1]}月${time[2]}`
+        return purchaser
+      })
+
+      return { ...state, purchasersList: purchasersList }
 
     // =================================================================================
     // プランページに移動した時に、ログインユーザーがプラン契約の申請を送信した事がある万屋か確認する

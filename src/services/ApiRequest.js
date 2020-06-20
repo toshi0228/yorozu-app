@@ -106,6 +106,14 @@ export const getMySentPlanContractList = (authToken) => {
   return axios.get(`${host.localhost()}/api/contract/me/`)
 }
 
+// =====================================================================================
+// 自分のプランを購入してくれた人のリスト
+// =====================================================================================
+export const getPurchasersList = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/contract/`)
+}
+
 //=====================================================================================
 // プラン登録
 //=====================================================================================

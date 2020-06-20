@@ -15,21 +15,15 @@ const MyPageBtn = (props) => {
         <Link to={routes.createPlan}>プラン作成</Link>
       </Menu.Item>
       <Menu.Item key="3">
-        <Link to={routes.contracting}>依頼した万屋</Link>
+        <Link to={routes.messageList}>メッセージ</Link>
       </Menu.Item>
       <Menu.Item key="4">
-        <Link to={routes.clientList}>顧客リスト</Link>
-      </Menu.Item>
-      <Menu.Item key="5">
         <Link to={routes.dashboard}>ダッシュボード</Link>
-      </Menu.Item>
-      <Menu.Item key="6">
-        <Link to={routes.messageList}>メッセージ</Link>
       </Menu.Item>
       {/* <Menu.Item key="7">
         <Link to={routes.createMessageList}>作成中メッセージ</Link>
       </Menu.Item> */}
-      <Menu.Item key="7">
+      <Menu.Item key="5">
         <Link to={routes.top}>
           <div onClick={() => props.singOutEvent()}>ログアウト</div>
         </Link>
