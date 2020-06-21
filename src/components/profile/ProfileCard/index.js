@@ -14,7 +14,7 @@ const ProfileCard = ({ data }) => {
     <>
       <Link to={`${routes.profileDetail(data.yorozuId)}`}>
         <Card
-          cover={<img alt="example" src={`${host.localhost()}${data.yorozuMainImage}`} style={{ height: 200 }} />}
+          cover={<img alt="example" src={`${host.localhost()}${data.planThumbnailImage}`} style={{ height: 200 }} />}
           hoverable
           actions={[<Icon type="twitter" />, <Icon type="instagram" />, <Icon type="facebook" />]}
         >

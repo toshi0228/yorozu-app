@@ -3,11 +3,11 @@ const UrlList = {
   siginIn: () => '/sign_in',
   signUp: () => '/sign_up',
   profileDetail: (yorozuId) => `/plan/${yorozuId}`,
-  createPlan: () => '/create_plan',
   messageList: () => '/message',
   createMessage: () => '/message/rooms/:id',
   dashboard: () => '/dashboard',
-  myPage: () => '/my_page',
+  createPlan: () => '/member/plan/edit',
+  createProfile: () => '/member/profile/edit',
 }
 
 export default UrlList

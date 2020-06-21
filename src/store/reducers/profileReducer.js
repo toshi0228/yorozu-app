@@ -1,5 +1,11 @@
 import _ from 'lodash'
-import { PROFILE_DETAIL_INITIALIZE_EVENT, READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT } from '../actionTypes'
+import {
+  PROFILE_DETAIL_INITIALIZE_EVENT,
+  READ_PROFILE_EVENTS,
+  READ_PROFILE_DETAIL_EVENT,
+  CREATE_PROFILE_EVENT,
+  READ_ACCOUNT_ID_EVENT,
+} from '../actionTypes'
 // import Profile from '../../models/profile';
 
 const DEFAULT_STATE = {
@@ -8,6 +14,8 @@ const DEFAULT_STATE = {
   profileList: [],
   // profileDetailページのデータ。planListとtagListは最初にmapで作業があるので先に初期値を入れる
   profileDetail: { planList: [], tagList: [] },
+  // アカウントのid profileを作成の時に必要 サーバー側でaccountとprofileでリレーションしているので、accountIdが必要
+  accountId: '',
 }
 
 const profileReducer = (state = DEFAULT_STATE, action) => {
@@ -56,6 +64,19 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
       state.profileDetail = { ...state.profileDetail, ...action.payload }
 
       return { ...state, isLoading: true }
+
+    // =========================================================================================
+    // ログインユーザーのアカウントIDを調べる
+    // =========================================================================================
+    case READ_ACCOUNT_ID_EVENT:
+      return { ...state, accountId: action.payload }
+
+    // =========================================================================================
+    // プロフィールを作成する
+    // =========================================================================================
+    case CREATE_PROFILE_EVENT:
+      console.log('CREATE_PROFILE_EVENT')
+      return state
 
     default:
       return state

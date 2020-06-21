@@ -15,3 +15,9 @@ export const postTokenVerify = (token) => {
 export const postSignUp = (params) => {
   return axios.post(`${host.localhost()}/api/account/`, params)
 }
+
+// アカウントIDを調べる処理
+export const checkAccountId = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/auth/users/me/`)
+}

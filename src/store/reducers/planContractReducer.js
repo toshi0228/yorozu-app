@@ -65,8 +65,6 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
     // 自分のプランを購入してくれた人のリスト
     // =================================================================================
     case READ_PURCHASERS_LIST_EVENT:
-      console.log('READ_PURCHASERS_LIST_EVENT')
-
       // 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23
       const purchasersList = action.payload.map((purchaser) => {
         purchaser['createdAt'] = purchaser.createdAt.split('T')[0]
@@ -82,8 +80,6 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
     // (リクエストを送信した事がある万屋ならには、契約申請ができないようにしたい)
     // =================================================================================
     case CHECK_MY_SENT_PLAN_CONTRACT_STATUS:
-      console.log('CHECK_MY_SENT_PLAN_CONTRACT_STATUSまできた')
-
       // action.payload => プランオーナーのID
       // planContract.receiverYorozuId => 自分が契約申請を送ったよろずやのID
       // プランページごとの、自分が契約しているプランを取り出す

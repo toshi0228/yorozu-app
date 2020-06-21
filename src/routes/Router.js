@@ -14,9 +14,6 @@ import ProfileDetailPage from '../containers/ProfilePages/ProfileDetailPage'
 import SignInPage from '../containers/AccountPages/SignInPage'
 import SignUpPage from '../containers/AccountPages/SignUpPage'
 
-// プラン関連
-import CreatePlanPage from '../containers/PlanPages/CreatePlanPage'
-
 // メッセージ関連
 import MessagePage from '../containers/MessagePages/MessagePage'
 import CreateMessage from '../containers/MessagePages/CreateMessage'
@@ -30,7 +27,9 @@ import requireAuth from '../components/requireAuth'
 // ダッシュボード
 import DashboardPage from '../containers/DashboardPage/DashboardPage'
 
-import MyPage from '../containers/MyPage/MyPage'
+//管理画面ページ
+import CreatePlanPage from '../containers/ManagementPages/CreatePlanPage'
+import CreateProfilePage from '../containers/ManagementPages/CreateProfilePage'
 
 // 引数をpropsにして,historyを受け取る
 const Router = (props) => {
@@ -66,7 +65,7 @@ const Router = (props) => {
         <Route path={routes.createPlan()} render={withLayout(requireAuth(CreatePlanPage))} />
 
         {/* マイページ */}
-        <Route path={routes.myPage()} render={withLayout(MyPage)} />
+        <Route path={routes.createProfile()} render={withLayout(CreateProfilePage)} />
       </Switch>
     </ConnectedRouter>
   )

@@ -4,9 +4,6 @@ import { Table } from 'antd'
 // const columns
 
 const DashboardSale = (props) => {
-  console.log('DashboardSale')
-  console.log(props)
-
   const columns = [
     { title: '日にち', dataIndex: 'day' },
     { title: 'ユーザー', dataIndex: 'purchaserUser' },

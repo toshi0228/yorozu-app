@@ -146,3 +146,23 @@ export const postPlan = (params) => {
       console.log(error)
     })
 }
+
+//=====================================================================================
+// profileを登録
+//=====================================================================================
+
+export const postProfile = (profile) => {
+  return axios.post(`${host.localhost()}/api/profile/`, profile, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  })
+}
+
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// formDataに関して 2020 6 21
+// 画像を送信する時、headerに「Content-Type: multipart/form-data」をつけないと以下のようなえエラーが返ってくる
+// profileImage: ["添付されたデータはファイルではありません。フォームのエンコーディングタイプを確認してください。"]
+// なので、画像を使う時はheaderに「Content-Type: multipart/form-data」つけ、そしてFormData()を使わないといけない
+// ちなみに、axiosは通常「Content-Type: application/json」でデータを送信している
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝

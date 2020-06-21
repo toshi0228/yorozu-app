@@ -1,6 +1,6 @@
-import { READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT, PROFILE_DETAIL_INITIALIZE_EVENT } from '../actionTypes'
-import { getProfileList } from '../../services/ApiRequest'
-import { getProfileDetail } from '../../services/ApiRequest'
+import { READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT, PROFILE_DETAIL_INITIALIZE_EVENT, READ_ACCOUNT_ID_EVENT } from '../actionTypes'
+import { getProfileList, postProfile, getProfileDetail } from '../../services/ApiRequest'
+import { checkAccountId } from '../../services/authApiRequest'
 
 // =====================================================================================
 // プロフィールリストの読み込み(トップページでの処理)
@@ -47,6 +47,46 @@ export const profileDetailInitialize = () => {
   return {
     type: PROFILE_DETAIL_INITIALIZE_EVENT,
   }
+}
+
+// =====================================================================================
+// アカウントIDを調べる
+// =====================================================================================
+export const feachAccountId = (authtoken) => (dispatch) => {
+  checkAccountId(authtoken).then((account) => {
+    dispatch(readAccountId(account.data.id))
+  })
+}
+
+export const readAccountId = (accountId) => {
+  return {
+    type: READ_ACCOUNT_ID_EVENT,
+    payload: accountId,
+  }
+}
+
+// =====================================================================================
+// プロフィールの作成
+// =====================================================================================
+export const createProfile = (profile) => (dispatch) => {
+  // 画像を送信する時は、「Content-Type: multipart/form-data」をheaderにつけるので,
+  // formオブジェクトを作成しないといけない
+  const formData = new FormData()
+  formData.append('accountId', profile.accountId)
+  formData.append('nickname', profile.nickname)
+  formData.append('yorozuyaName', profile.yorozuyaName)
+  formData.append('yorozuId', profile.yorozuId)
+  // 省略可能な第3引数を使用して、Content-Dispositionヘッダに含めるファイル名を渡すことができる
+  formData.append('profileImage', profile.profileImage[0], profile.profileImage[0].name)
+  formData.append('profileDescription', profile.profileDescription)
+  formData.append('planThumbnailImage', profile.planThumbnailImage[0], profile.planThumbnailImage[0].name)
+  formData.append('twitterAccount', profile.twitterAccount)
+  formData.append('facebookAccount', profile.facebookAccount)
+  formData.append('instagramAccount', profile.instagramAccount)
+
+  postProfile(formData).then((res) => {
+    console.log(res)
+  })
 }
 
 // =====================================================================================
