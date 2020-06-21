@@ -21,6 +21,9 @@ const MyPageBtn = (props) => {
         <Link to={routes.dashboard()}>ダッシュボード</Link>
       </Menu.Item>
       <Menu.Item key="5">
+        <Link to={routes.settingsTop()}>作成中</Link>
+      </Menu.Item>
+      <Menu.Item key="6">
         <Link to={routes.top}>
           <div onClick={() => props.singOutEvent()}>ログアウト</div>
         </Link>

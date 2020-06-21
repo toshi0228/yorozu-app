@@ -30,6 +30,7 @@ import DashboardPage from '../containers/DashboardPage/DashboardPage'
 //管理画面ページ
 import CreatePlanPage from '../containers/ManagementPages/CreatePlanPage'
 import CreateProfilePage from '../containers/ManagementPages/CreateProfilePage'
+import ManagementTopPage from '../containers/ManagementPages/ManagementTopPage'
 
 // 引数をpropsにして,historyを受け取る
 const Router = (props) => {
@@ -60,6 +61,8 @@ const Router = (props) => {
         {/* プラン作成  */}
         {/* ログインチェックなし */}
         {/* <Route path={routes.createPlan()} render={withMemberLayout(CreatePlanPage)}/> */}
+
+        <Route path={routes.settingsTop()} render={withLayout(requireAuth(ManagementTopPage))} />
 
         {/* ログインチェックあり */}
         <Route path={routes.createPlan()} render={withLayout(requireAuth(CreatePlanPage))} />

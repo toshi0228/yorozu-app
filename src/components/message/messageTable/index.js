@@ -39,7 +39,6 @@ const MessageTable = (props) => {
 
   return (
     <>
-      <div>メッセージ</div>
       <Row type="flex" justify="end">
         <Col>
           <p>{`未読メッセージ3件`}</p>
