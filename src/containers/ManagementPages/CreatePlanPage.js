@@ -2,28 +2,30 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Input, Row, Col, Button } from 'antd'
 import InputTag from '../../components/form/tagForm/index'
-import { postPlanEvent } from '../../store/actions/plan'
-// import ImageForm from '../../components/Form/ImageForm/index'
+import { createPlan } from '../../store/actions/plan'
 import ImageForm from '../../components/form/ImageForm/index'
 
 const { TextArea } = Input
 
 const CreatePlanPage = (props) => {
+  console.log(props)
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [tags, setTags] = useState([])
 
+  // 登録ボタンを押した時のアクション
   const register = () => {
-    const planContent = {
+    const plan = {
       title,
       description,
       image,
       price,
       tags,
+      yorozuId: props.yorozuId,
     }
-    props.postPlanEvent(planContent)
+    props.createPlanEvent(plan)
   }
 
   return (
@@ -109,11 +111,13 @@ const CreatePlanPage = (props) => {
 const mapStateToProps = (state) => {
   return {
     plan: state.plan,
+    authToken: state.account.authToken.access,
+    yorozuId: state.account.yorozuId,
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  postPlanEvent: (planContent) => dispatch(postPlanEvent(planContent)),
+  createPlanEvent: (planContent) => dispatch(createPlan(planContent)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePlanPage)

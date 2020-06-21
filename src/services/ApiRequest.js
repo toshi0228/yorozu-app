@@ -66,6 +66,17 @@ export const getPlanRequestList = (authToken) => {
   return axios.get(`${host.localhost()}/api/request/`)
 }
 
+//=====================================================================================
+// プラン登録
+//=====================================================================================
+export const postPlan = (plan) => {
+  return axios.post(`${host.localhost()}/api/plan/`, plan, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  })
+}
+
 // =====================================================================================
 // 自分が送信したプランリクエストの一覧を取得する
 // =====================================================================================
@@ -112,39 +123,6 @@ export const getMySentPlanContractList = (authToken) => {
 export const getPurchasersList = (authToken) => {
   axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
   return axios.get(`${host.localhost()}/api/contract/`)
-}
-
-//=====================================================================================
-// プラン登録
-//=====================================================================================
-export const postPlan = (params) => {
-  const formData = new FormData()
-
-  // =====================================================================================
-  // サーバーサイドのシリアライザと同じ名前にしないといけない
-  // 第3引数は、Content-Dispositionヘッダに含めるファイル名を渡すことができる
-  // =====================================================================================
-  formData.append('title', params.title)
-  formData.append('description', params.description)
-  formData.append('price', params.price)
-  formData.append('image', params.image[0], params.image[0].name)
-  formData.append('tag', params.tags)
-  formData.append('profileDescription', 'プロフィール説明')
-  // "tags": [{"name":"try1"}]
-  console.log(...formData.entries())
-
-  axios
-    .post(`${host.localhost()}/api/entry`, formData, {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    })
-    .then((res) => {
-      console.log(res)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
 }
 
 //=====================================================================================
