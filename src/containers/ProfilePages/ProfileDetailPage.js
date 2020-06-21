@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import DetailPlan from '../../components/profile/detailProfile'
+import { Row, Col } from 'antd'
+
+import LeftSide from '../../components/profile/detailProfile/LeftSide'
+import RightSide from '../../components/profile/detailProfile/RightSide'
 import { feachProfileDetail } from '../../store/actions/profile'
 import { feachMySentPlanRequest } from '../../store/actions/planRequest'
 import { feachMySentPlanContract } from '../../store/actions/planContract'
@@ -18,7 +21,22 @@ const ProfileDetailPage = (props) => {
 
   return (
     <>
-      <DetailPlan data={props.data} />
+      <Row>
+        <Col offset={3}>
+          <h2>詳細ページ</h2>
+        </Col>
+      </Row>
+
+      <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
+        {/* 右サイド プラン一覧  割合12/24*/}
+        <Col span={12} md={12}>
+          <LeftSide data={props.data} />
+        </Col>
+        {/* 右サイドバー 割合6/24 */}
+        <Col span={6}>
+          <RightSide data={props.data} />
+        </Col>
+      </Row>
     </>
   )
 }
