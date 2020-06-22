@@ -41,74 +41,64 @@ const CreateProfilePage = (props) => {
   return (
     <>
       {/* プロフィール画面 */}
-      {/* <Row type="flex" justify="center" style={{ marginBottom: 48 }}> */}
-      <Row style={{ marginBottom: 32 }}>
-        <Col offset={3}>
-          <h2>よろず屋の情報</h2>
+
+      <Row style={{ marginTop: 20, marginBottom: 32 }}>
+        <Col>
+          <h4>どんなよろず屋なのか教えてください!!</h4>
         </Col>
       </Row>
 
       {/*  ニックネーム */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={4} offset={3}>
-          ニックネーム
-        </Col>
+        <Col span={4}>ニックネーム</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={10} offset={3}>
+        <Col span={10}>
           <Input value={nickname} onChange={(e) => setNickname(e.target.value)} />
         </Col>
       </Row>
 
       {/*  ニックネーム */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={4} offset={3}>
-          よろず屋名
-        </Col>
+        <Col span={4}>よろず屋名</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={10} offset={3}>
+        <Col span={10}>
           <Input value={yorozuyaName} onChange={(e) => setYorozuyaName(e.target.value)} />
         </Col>
       </Row>
 
       {/*  yorozuId */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={10} offset={3}>
-          よろずやのURL(※一度決めたら変更できません)
-        </Col>
+        <Col span={10}>よろずやのURL(※一度決めたら変更できません)</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={10} offset={3}>
+        <Col span={10}>
           <Input value={yorozuId} onChange={(e) => setYorozuId(e.target.value)} />
         </Col>
       </Row>
 
       {/* プロフィール画像 */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={18} offset={3}>
-          プロフィール画像の登録
-        </Col>
+        <Col span={18}>プロフィール画像の登録</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={9} offset={3}>
+        <Col span={9}>
           <ImageForm image={profileImage} setImage={setProfileImage} />
         </Col>
       </Row>
 
       {/* プロフィール説明 */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={18} offset={3}>
-          プロフィール説明
-        </Col>
+        <Col span={18}>プロフィール説明</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={18} offset={3}>
+        <Col span={18}>
           <Input.TextArea
             value={profileDescription}
             onChange={(e) => setProfileDescription(e.target.value)}
@@ -119,52 +109,44 @@ const CreateProfilePage = (props) => {
 
       {/* プランのサムネール画像 */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={18} offset={3}>
-          よろずやのサムネール画像
-        </Col>
+        <Col span={18}>よろずやのサムネール画像</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={9} offset={3}>
+        <Col span={9}>
           <ImageForm image={planThumbnailImage} setImage={setPlanThumbnailImage} />
         </Col>
       </Row>
 
       {/*  twiterアカウント */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={4} offset={3}>
-          twiterアカウント
-        </Col>
+        <Col span={4}>twiterアカウント</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={10} offset={3}>
+        <Col span={10}>
           <Input value={twitterAccount} onChange={(e) => setTwitterAccount(e.target.value)} />
         </Col>
       </Row>
 
       {/*  facebookアカウント */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={4} offset={3}>
-          facebookアカウント
-        </Col>
+        <Col span={4}>facebookアカウント</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={10} offset={3}>
+        <Col span={10}>
           <Input value={facebookAccount} onChange={(e) => setFacebookAccount(e.target.value)} />
         </Col>
       </Row>
 
       {/*  instagramアカウント */}
       <Row style={{ marginBottom: 8 }}>
-        <Col span={4} offset={3}>
-          instagramアカウント
-        </Col>
+        <Col span={4}>instagramアカウント</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={10} offset={3}>
+        <Col span={10}>
           <Input value={instagramAccount} onChange={(e) => setInstagramAccount(e.target.value)} />
         </Col>
       </Row>

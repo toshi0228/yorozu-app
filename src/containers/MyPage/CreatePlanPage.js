@@ -32,65 +32,55 @@ const CreatePlanPage = (props) => {
     <>
       <div>{props.title}</div>
 
-      <Row style={{ marginBottom: 32 }}>
-        <Col span={8} offset={3}>
-          <h2>プラン作成画面</h2>
+      <Row style={{ marginTop: 32, marginBottom: 32 }}>
+        <Col span={8}>
+          <h4>どんなプランがあるのか、教えてください</h4>
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 8 }}>
-        <Col span={4} offset={3}>
-          タイトル
-        </Col>
+        <Col span={4}>タイトル</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={10} offset={3}>
+        <Col span={10}>
           <Input value={title} onChange={(e) => setTitle(e.target.value)} />
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 8 }}>
-        <Col span={18} offset={3}>
-          イメージ画像の登録
-        </Col>
+        <Col span={18}>イメージ画像の登録</Col>
       </Row>
 
       {/* 画像登録 */}
       <Row style={{ marginBottom: 48 }}>
-        <Col span={9} offset={3}>
+        <Col span={9}>
           <ImageForm image={image} setImage={setImage} />
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 8 }}>
-        <Col span={18} offset={3}>
-          プラン説明
-        </Col>
+        <Col span={18}>プラン説明</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={18} offset={3}>
+        <Col span={18}>
           <TextArea value={description} onChange={(e) => setDescription(e.target.value)} autoSize={{ minRows: 6, maxRows: 6 }} />
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 8 }}>
-        <Col span={18} offset={3}>
-          料金
-        </Col>
+        <Col span={18}>料金</Col>
       </Row>
 
       <Row style={{ marginBottom: 48 }}>
-        <Col span={7} offset={3}>
+        <Col span={7}>
           <Input prefix="￥" suffix="円" value={price} onChange={(e) => setPrice(e.target.value)} />
         </Col>
       </Row>
 
       <Row style={{ marginBottom: 8 }}>
-        <Col span={18} offset={3}>
-          タグ
-        </Col>
+        <Col span={18}>タグ</Col>
       </Row>
 
       {/* タグ入力 */}

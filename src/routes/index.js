@@ -6,9 +6,7 @@ const UrlList = {
   messageList: () => '/message',
   createMessage: () => '/message/rooms/:id',
   dashboard: () => '/dashboard',
-  settingsTop: () => '/channel/featured',
-  createPlan: () => '/channel/plan/edit',
-  createProfile: () => '/channel/profile/edit',
+  myPage: () => '/channel/featured',
 }
 
 export default UrlList

@@ -9,22 +9,16 @@ const MyPageBtn = (props) => {
   const menu = (
     <Menu>
       <Menu.Item key="1">
-        <Link to={routes.createProfile()}>プロフィール作成</Link>
+        <Link to={routes.myPage()}>マイページ</Link>
       </Menu.Item>
       <Menu.Item key="2">
-        <Link to={routes.createPlan()}>プラン作成</Link>
-      </Menu.Item>
-      <Menu.Item key="3">
         <Link to={routes.messageList()}>メッセージ</Link>
       </Menu.Item>
-      <Menu.Item key="4">
+      <Menu.Item key="3">
         <Link to={routes.dashboard()}>ダッシュボード</Link>
       </Menu.Item>
-      <Menu.Item key="5">
-        <Link to={routes.settingsTop()}>作成中</Link>
-      </Menu.Item>
-      <Menu.Item key="6">
-        <Link to={routes.top}>
+      <Menu.Item key="4">
+        <Link to={routes.top()}>
           <div onClick={() => props.singOutEvent()}>ログアウト</div>
         </Link>
       </Menu.Item>

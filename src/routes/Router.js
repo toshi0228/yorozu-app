@@ -27,10 +27,10 @@ import requireAuth from '../components/requireAuth'
 // ダッシュボード
 import DashboardPage from '../containers/DashboardPage/DashboardPage'
 
-//管理画面ページ
-import CreatePlanPage from '../containers/ManagementPages/CreatePlanPage'
-import CreateProfilePage from '../containers/ManagementPages/CreateProfilePage'
-import ManagementTopPage from '../containers/ManagementPages/ManagementTopPage'
+//管理画面ページ(マイー)
+// import CreatePlanPage from '../containers/ManagementPages/CreatePlanPage'
+// import CreateProfilePage from '../containers/ManagementPages/CreateProfilePage'
+import MyPage from '../containers/MyPage'
 
 // 引数をpropsにして,historyを受け取る
 const Router = (props) => {
@@ -62,13 +62,14 @@ const Router = (props) => {
         {/* ログインチェックなし */}
         {/* <Route path={routes.createPlan()} render={withMemberLayout(CreatePlanPage)}/> */}
 
-        <Route path={routes.settingsTop()} render={withLayout(requireAuth(ManagementTopPage))} />
+        {/* マイページ(プランやプロフィール作成) */}
+        <Route path={routes.myPage()} render={withLayout(requireAuth(MyPage))} />
 
         {/* ログインチェックあり */}
-        <Route path={routes.createPlan()} render={withLayout(requireAuth(CreatePlanPage))} />
+        {/* <Route path={routes.createPlan()} render={withLayout(requireAuth(CreatePlanPage))} /> */}
 
         {/* マイページ */}
-        <Route path={routes.createProfile()} render={withLayout(CreateProfilePage)} />
+        {/* <Route path={routes.createProfile()} render={withLayout(CreateProfilePage)} /> */}
       </Switch>
     </ConnectedRouter>
   )
