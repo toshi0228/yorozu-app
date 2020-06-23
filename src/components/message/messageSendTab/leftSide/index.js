@@ -4,7 +4,8 @@ import { Comment, List, Row, Col, Modal } from 'antd'
 import MessageForm from '../../../form/messageForm/index'
 import host from '../../../../constants/url'
 import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../store/actions/message'
-import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/planRequest'
+// import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/planRequest'
+import { checkPurchasePlan, planRequestApproval } from '../../../../store/actions/planContract'
 import styles from './index.module.scss'
 
 // ====================================================================================
@@ -32,10 +33,16 @@ const LeftSide = (props) => {
   // プランリクエストの承認ボタンを押した時のアクション
   const showConfirm = () => {
     Modal.confirm({
-      title: `${props.messageRoomUser}さんのプランリクエストを承諾しますか?`,
+      title: `${props.messageRoomUser}さんの契約申請を承諾しますか?`,
       onOk() {
         console.log('OK')
-        props.planRequestApprovalEvent(props.roomUserYorozuId)
+        console.log(props.clientPurchasePlan.contractPlan.id)
+        const contractPlanId = props.clientPurchasePlan.contractPlan.id
+        const contractPlan = {
+          purchaser: props.roomUserYorozuId,
+          contractPlanId,
+        }
+        props.planRequestApprovalEvent(contractPlan)
       },
       onCancel() {
         console.log('Cancel')
@@ -45,22 +52,23 @@ const LeftSide = (props) => {
 
   // メッセージを送信するタブごとに、メッセージルームの説明を変更する
   useEffect(() => {
+    console.log('メッセージを送信するタブごとに、メッセージルームの説明を変更する')
     if (props.messageRoomUser) {
       setExplanation(`${props.messageRoomUser}さんにメッセージを送ります`)
     }
-    // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
-    props.readRoomUserPlanRequestEvent(props.roomUserYorozuId)
-  }, [props.messageRoomUser])
+    // 自分宛に届いたプランリクエストリストの中から、messageRoomUserが契約してくれたプランがあるか確認
+    props.checkPurchasePlanEvent(props.roomUserYorozuId)
+  }, [props.messageRoomUser, props.purchasersList])
 
   // ルームユーザーにプランのリクエストがあり、なおかつまだリクエストを承認していなければ、アラートを表示させる
   useEffect(() => {
-    // props.roomUserPlanRequest.isApproval => プランリクエストの承認状態 falseなら承認されていない
-    if (props.roomUserPlanRequest && props.roomUserPlanRequest.isApproval === false) {
+    // props.clientPurchasePlan.isApproval => プランリクエストの承認状態 falseなら承認されていない
+    if (props.clientPurchasePlan && props.clientPurchasePlan.isApproval === false) {
       setIsPlanRequest(true)
     } else {
       setIsPlanRequest(false)
     }
-  }, [props.roomUserPlanRequest])
+  }, [props.clientPurchasePlan])
 
   return (
     <>
@@ -75,9 +83,8 @@ const LeftSide = (props) => {
         <Row style={{ marginTop: 8 }}>
           <Col span={24}>
             <div style={{ color: 'red', fontSize: 10 }}>
-              {`${props.messageRoomUser}さんから、プランリクエストが来ています(※まだ本契約ではありません)。承認された後に${props.messageRoomUser}さんは、`}
-              <br />
-              本契約のプランリクエストを送ることができるようになります。承認する場合は、「承認する」を押してくださいね
+              {`${props.messageRoomUser}さんから、プラン契約の申請が来ています。`}
+              承認する場合は、「承認する」を押してくださいね
               <span className={styles.btn} onClick={showConfirm}>
                 承認する
               </span>
@@ -87,7 +94,6 @@ const LeftSide = (props) => {
       )}
 
       {/* メッセージフォーム */}
-      {/* <Row style={{ marginTop: 10 }}> */}
       <Row>
         <Col span={24}>
           <MessageForm
@@ -123,8 +129,8 @@ const mapStateToProps = (state) => ({
   roomUserYorozuId: state.message.roomUserYorozuId,
   // メッセールームユーザーの名前
   messageRoomUser: state.message.messageRoomUser,
-  // メッセージルームルームユーザーのプランリクエストに関して
-  roomUserPlanRequest: state.planRequest.roomMessageUserPlanRequest,
+  // メッセールームユーザーが購入してくれたプラン
+  clientPurchasePlan: state.planContract.clientPurchasePlan,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -132,12 +138,15 @@ const mapDispatchToProps = (dispatch) => ({
   readRoomMessageEvents: (roomUserYorozuId) => dispatch(readRoomMessage(roomUserYorozuId)),
   // 自分あてに送られたメッセージを取得する
   readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
+
   // 自分が送信したメッセージを取得する
   readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
   // お客さんのプランリクエストの承認の処理
-  planRequestApprovalEvent: (roomUserYorozuId) => dispatch(patchPlanApproval(roomUserYorozuId)),
-  // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
-  readRoomUserPlanRequestEvent: (roomUserYorozuId) => dispatch(readRoomMessageUserPlanRequest(roomUserYorozuId)),
+  planRequestApprovalEvent: (contractPlan) => dispatch(planRequestApproval(contractPlan)),
+
+  // 自分宛に届いたプランリクエストリストの中から、messageRoomUserが契約してくれたプランがあるか確認
+  // checkClientPlanRequestEvent: (roomUserYorozuId) => dispatch(checkClientPlanRequest(roomUserYorozuId)),
+  checkPurchasePlanEvent: (roomUserYorozuId) => dispatch(checkPurchasePlan(roomUserYorozuId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftSide)

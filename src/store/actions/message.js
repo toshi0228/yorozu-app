@@ -1,5 +1,11 @@
 import { getMessageList, getSendMessageList, postMessage } from '../../services/ApiRequest'
-import { READ_MESSAGE_EVENTS, READ_ROOMMESSAGE_EVENTS, READ_MY_SEND_MESSAGE_EVENTS, SEND_MESSAGE_EVENT } from '../actionTypes'
+import {
+  READ_MESSAGE_EVENTS,
+  READ_ROOMMESSAGE_EVENTS,
+  READ_MY_SEND_MESSAGE_EVENTS,
+  SEND_MESSAGE_EVENT,
+  READ_MESSAGE_ROOM_USER_YOROZUID_EVENT,
+} from '../actionTypes'
 
 // =================================================================================
 //自分あてに送られたメッセージを取得する
@@ -17,6 +23,17 @@ export const readMessageList = (fetchMessageListData) => {
   return {
     type: READ_MESSAGE_EVENTS,
     payload: fetchMessageListData,
+  }
+}
+
+// =================================================================================
+// /message/rooms/●●●/のパスに来た時に、この●●●のyorozuIdを取得する
+// =================================================================================
+
+export const readMessageRoomUserYorozuId = (yorozuId) => {
+  return {
+    type: READ_MESSAGE_ROOM_USER_YOROZUID_EVENT,
+    payload: yorozuId,
   }
 }
 

@@ -30,7 +30,6 @@ const MessageTable = (props) => {
       ),
       user: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.senderProfile.nickname}</Link>,
       day: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.createdAt.split('T')[0]}</Link>,
-      // messageContent: <Link to={`/message/rooms/${message.senderYorozuId}`}>{message.messageContent}</Link>,
       messageContent: <Link to={`/message/rooms/${message.senderYorozuId}`}>{messageText}</Link>,
       key: index,
     }

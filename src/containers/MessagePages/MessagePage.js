@@ -4,7 +4,8 @@ import { Row, Col, Tabs } from 'antd'
 import MessageSendTab from '../../components/message/messageSendTab'
 import MessageTable from '../../components/message/messageTable'
 import { feachMessageList, feachSendMessageList } from '../../store/actions/message'
-import { feachPlanRequest } from '../../store/actions/planRequest'
+
+import { feachPurchasersList } from '../../store/actions/planContract'
 
 // ========================================================================
 // メッセージを返信するボタンを押すと、メッセージを編集するボタンが出てくる
@@ -16,8 +17,8 @@ const MessagePage = (props) => {
     props.readMessageEvents(props.authToken)
     // 自分が送信したメッセージを取得する
     props.readSendMessageEvents(props.authToken)
-    // 自分宛に届いたプランリクエスト一覧を取得する
-    props.readPlanRequestEvent(props.authToken)
+    // 自分のプラン購入者、一覧を取得する
+    props.readPurchasersEvent(props.authToken)
   }, [])
 
   return (
@@ -59,9 +60,9 @@ const mapDispatchToProps = (dispatch) => ({
   readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
   // 自分が送信したメッセージを取得する
   readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
-  // 自分宛に届いたプランリクエスト一覧を取得する
+  // 自分宛に届いたプランリクエスト一覧を取得する(契約済みのプランも入る)
   // ※ここで取得しておかないと、メッセージルームページに移動した時に、承認アラートのところでエラーになる
-  readPlanRequestEvent: (authToken) => dispatch(feachPlanRequest(authToken)),
+  readPurchasersEvent: (authToken) => dispatch(feachPurchasersList(authToken)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessagePage)

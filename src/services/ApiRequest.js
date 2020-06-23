@@ -94,11 +94,16 @@ export const postPlanRequest = (requestData) => {
 }
 
 // =====================================================================================
-// お客さんからの、プランリクエストの承認処理
+// お客さんからの、プランリクエストの承認処理(メッセージページでの処理)
 // =====================================================================================
-export const patchPlanApprovalStatus = (planRequestUserYorozuId) => {
+export const patchPlanApprovalStatus = (contractPlan) => {
   // プランリクエストユーザーのよろずIDと,承認状態をtrueにするため、isApproval: trueを送る
-  return axios.patch(`${host.localhost()}/api/request/`, { senderYorozuId: planRequestUserYorozuId, isApproval: true })
+  // return axios.patch(`${host.localhost()}/api/request/`, { senderYorozuId: planRequestUserYorozuId, isApproval: true })
+  return axios.patch(`${host.localhost()}/api/contract/`, {
+    senderYorozuId: contractPlan.purchaser,
+    contractPlan: contractPlan.contractPlanId,
+    isApproval: true,
+  })
 }
 
 //=====================================================================================

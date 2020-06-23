@@ -4,16 +4,21 @@ import {
   READ_MY_SENT_PLAN_CONTRACT_EVENTS,
   READ_CONTRACT_PLAN_LIST_EVENTS,
   READ_PURCHASERS_LIST_EVENT,
+  CHECK_CLIENT_PURCHASE_PLAN_EVENT,
+  PLAN_APPROVAL_EVENT,
 } from '../actionTypes'
 
 // todo purchaserを取り出す
 
 const DEFAULT_STATE = {
-  // 自分のプランを購入した人の一覧
+  // 自分のプランを購入した人の一覧(契約したい人)
   purchasersList: [],
 
   // 自分が契約しているプラン
   contractPlanList: [],
+
+  //メッセージルームに移動した時に、自分宛に送ってくれた契約してくれたプランを確認する
+  clientPurchasePlan: [],
 
   // 自分が送信した契約申請リスト
   mySentPlanContractList: [],
@@ -74,6 +79,24 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
       })
 
       return { ...state, purchasersList: purchasersList }
+
+    // =========================================================================================
+    // よろず屋が、お客さんのプランリクエストの承認を行う
+    // =========================================================================================
+    case PLAN_APPROVAL_EVENT:
+      // action.payload => 承認の変数,isApprovalがfalseからtrueに変化した値が入っている
+      return { ...state, clientPurchasePlan: action.payload }
+
+    // =========================================================================================
+    // ログインユーザーのプランを購入してくれた人のリストから、messageRoomUserが契約してくれたプランがあるか確認
+    // =========================================================================================
+    case CHECK_CLIENT_PURCHASE_PLAN_EVENT:
+      // action.payloadには、メッセージルームユーザーのよろずIDが入っている
+      const clientPurchasePlan = state.purchasersList.find((purchaser) => {
+        return purchaser.senderYorozuId === action.payload
+      })
+
+      return { ...state, clientPurchasePlan: clientPurchasePlan }
 
     // =================================================================================
     // プランページに移動した時に、ログインユーザーがプラン契約の申請を送信した事がある万屋か確認する

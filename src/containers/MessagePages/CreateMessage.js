@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
 import MessageSendTab from '../../components/message/messageSendTab'
 import MessageTable from '../../components/message/messageTable'
-import { readRoomMessage, feachMessageList, feachSendMessageList } from '../../store/actions/message'
-import { feachPlanRequest } from '../../store/actions/planRequest'
+import { readRoomMessage, feachMessageList, feachSendMessageList, readMessageRoomUserYorozuId } from '../../store/actions/message'
+import { feachPurchasersList } from '../../store/actions/planContract'
+
 import routes from '../../routes/index'
 
 // ========================================================================
@@ -23,7 +24,14 @@ const CreateMessage = (props) => {
     // 自分宛に送ってくれたメッセージをyorozuIDを使ってメッセージを呼び出す
     props.readRoomMessageEvents(roomUserYorozuId)
     // 自分宛に届いたプランリクエスト一覧を取得する
-    props.readPlanRequestEvent(props.authToken)
+    props.readPurchasersEvent(props.authToken)
+  }, [])
+
+  // /message/rooms/●●●/のパスに来た時に、この●●●のyorozuIdを取得する
+  // MessageSendTabでリロードした時に,yorozuIdを取得できないでエラーになるので最初に取得する
+  // messageSendTabのleftSideでyorozuIdを取得することができる
+  useEffect(() => {
+    props.readMessageRoomUserYorozuIdEvent(roomUserYorozuId)
   }, [])
 
   function callback(key) {
@@ -65,6 +73,8 @@ const mapStateToProps = (state) => ({
   roomMessage: state.message.roomMessage,
   authToken: state.account.authToken.access,
   planRequest: state.planRequest,
+  // メッセールームユーザーのyorozuId(試し)
+  roomUserYorozuId: state.message.roomUserYorozuId,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -75,8 +85,10 @@ const mapDispatchToProps = (dispatch) => ({
   readMessageEvents: (authToken) => dispatch(feachMessageList(authToken)),
   // 自分が送信したメッセージを取得する
   readSendMessageEvents: (authToken) => dispatch(feachSendMessageList(authToken)),
-  // 自分宛に届いたプランリクエスト一覧を取得する
-  readPlanRequestEvent: (authToken) => dispatch(feachPlanRequest(authToken)),
+  // 自分宛に届いプランリクエストの一覧を取得する
+  readPurchasersEvent: (authToken) => dispatch(feachPurchasersList(authToken)),
+  // /message/rooms/●●●/のパスに来た時に、この●●●のyorozuIdを取得する(必要ないかしれない)
+  readMessageRoomUserYorozuIdEvent: (yorozuId) => dispatch(readMessageRoomUserYorozuId(yorozuId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateMessage)

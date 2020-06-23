@@ -11,11 +11,8 @@ import styles from './index.module.scss'
 // ====================================================================
 
 const PlanContractModal = (props) => {
-  // プランリクエストする時のメッセージ
-  const [requestMessage, setRequestMessage] = useState('')
-
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // requestDataは、プランのリクエストの時に必要な情報
+  // ContractDataは、プランのリクエストの時に必要な情報
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const ContractData = {
     // リクエストの送り主(ログインしているユーザー)
@@ -32,8 +29,7 @@ const PlanContractModal = (props) => {
   const hundleSubmit = () => {
     // プランのリクエストの処理
     props.planContractEvent(ContractData)
-    // 送信したら、メッセージのデータを初期化する
-    setRequestMessage('')
+
     // 送信ボタンを押したらモダールを閉じる
     props.setIsPlanContractModalVisible(false)
   }

@@ -1,4 +1,10 @@
-import { READ_MESSAGE_EVENTS, READ_ROOMMESSAGE_EVENTS, SEND_MESSAGE_EVENT, READ_MY_SEND_MESSAGE_EVENTS } from '../actionTypes'
+import {
+  READ_MESSAGE_EVENTS,
+  READ_ROOMMESSAGE_EVENTS,
+  SEND_MESSAGE_EVENT,
+  READ_MY_SEND_MESSAGE_EVENTS,
+  READ_MESSAGE_ROOM_USER_YOROZUID_EVENT,
+} from '../actionTypes'
 import _ from 'lodash'
 
 const DEFAULT_STATE = {
@@ -10,6 +16,7 @@ const DEFAULT_STATE = {
   senderProfileImage: '',
   // MessageRoomUser -> 誰に送信するか
   messageRoomUser: '',
+  // メッセージルームのyorozuId
   roomUserYorozuId: '',
 }
 
@@ -50,6 +57,12 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
       })
 
       return { ...state, recieveMessage: _recieveMessageList, rowDataRecieveMessage: rowDataRecieveMessage }
+
+    // ==========================================================
+    // /message/rooms/●●●/のパスに来た時に、この●●●のyorozuIdを取得する
+    // ==========================================================
+    case READ_MESSAGE_ROOM_USER_YOROZUID_EVENT:
+      return { ...state, roomUserYorozuId: action.payload }
 
     // ==========================================================
     // ルームページごとに、メッセージを呼び出すときの処理
@@ -131,7 +144,12 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
       const rowDataSenderMessage = _.cloneDeep(action.payload.data)
 
       const senderProfileImage = action.payload.data[0].senderProfile.profileImage
-      return { ...state, senderMessage: action.payload.data, senderProfileImage: senderProfileImage, rowDataSenderMessage: rowDataSenderMessage }
+      return {
+        ...state,
+        senderMessage: action.payload.data,
+        senderProfileImage: senderProfileImage,
+        rowDataSenderMessage: rowDataSenderMessage,
+      }
 
     // ==========================================================
     // メッセージの送信したときの処理

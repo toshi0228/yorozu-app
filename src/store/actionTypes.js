@@ -43,6 +43,8 @@ export const READ_ROOMMESSAGE_EVENTS = 'READ_ROOMMESSAGE_EVENTS'
 export const READ_MY_SEND_MESSAGE_EVENTS = 'READ_MY_SEND_MESSAGE_EVENTS'
 // メッセージルームでメールを送信した時の処理
 export const SEND_MESSAGE_EVENT = 'SEND_MESSAGE_EVENT'
+// /message/rooms/●●●/のパスに来た時に、この●●●のyorozuIdを取得する
+export const READ_MESSAGE_ROOM_USER_YOROZUID_EVENT = 'READ_MESSAGE_ROOM_USER_YOROZUID_EVENT  '
 
 // ============================================================
 // request
@@ -52,7 +54,8 @@ export const READ_PLAN_REQUEST_EVENTS = 'READ_PLAN_REQUEST_EVENTS'
 // 自分が送信したプランリクエストの一覧を取得する
 export const READ_MY_PLAN_REQUEST_EVENTS = 'READ_MY_PLAN_REQUEST_EVENTS'
 // よろず屋が、お客さんのプランリクエストの承認を行う
-export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
+// export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
+
 // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
 export const READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT = 'READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT'
 // プランページに移動した時に、ログインユーザーがプランリクエストの状態を確認する
@@ -74,3 +77,7 @@ export const READ_CONTRACT_PLAN_LIST_EVENTS = 'READ_CONTRACT_PLAN_LIST_EVENTS'
 export const CHECK_MY_SENT_PLAN_CONTRACT_STATUS = 'CHECK_MY_SENT_PLAN_CONTRACT_STATUS'
 // 自分NOプランを購入してくれた人のリスト
 export const READ_PURCHASERS_LIST_EVENT = 'READ_PURCHASERS_LIST_EVENT'
+// ログインユーザーのプランを購入してくれた人のリストから、messageRoomUserが契約してくれたプランがあるか確認
+export const CHECK_CLIENT_PURCHASE_PLAN_EVENT = 'CHECK_CLIENT_PURCHASE_PLAN_EVENT'
+// よろず屋が、お客さんのプランリクエストの承認を行う
+export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
