@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Modal, Button, Input } from 'antd';
-import { sendMessage } from '../../../store/actions/message';
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Modal, Button, Input } from 'antd'
+import { sendMessage } from '../../../store/actions/message'
 
 // ====================================================================
 // 相談ボタンとクリックした時に起動するモーダル
@@ -9,17 +9,17 @@ import { sendMessage } from '../../../store/actions/message';
 
 const ConsultationButton = (props) => {
   // isVisibleがfalseだとモーダルが非表示になる
-  const [isVisible, setIsVisible] = useState(false);
-  const [modalInputText, setModalInputText] = useState('');
+  const [isVisible, setIsVisible] = useState(false)
+  const [modalInputText, setModalInputText] = useState('')
 
   // 相談するボタンを押した時の処理
   const showModal = () => {
-    setIsVisible(true);
-  };
+    setIsVisible(true)
+  }
 
   // モーダルで送信ボタンを押した時の処理
   const hundleSubmit = () => {
-    setIsVisible(false);
+    setIsVisible(false)
 
     // keyの値ははdjangoのモデル名と一緒にしないといけない
     // keyは、djangoでキャメルケースから、自動でスネークケースに変換してくれる
@@ -27,15 +27,15 @@ const ConsultationButton = (props) => {
       senderYorozuId: props.loginUser.yorozuId,
       receiverYorozuId: props.data.yorozuId,
       messageContent: modalInputText,
-    };
-    console.log(messageData);
-    props.sendMessageEvent(messageData);
-  };
+    }
+    console.log(messageData)
+    props.sendMessageEvent(messageData)
+  }
 
   // モーダルでキャンセルボタンを押した時の処理
   const handleCancel = () => {
-    setIsVisible(false);
-  };
+    setIsVisible(false)
+  }
   return (
     <div>
       <Button onClick={showModal}>相談をする</Button>
@@ -45,7 +45,7 @@ const ConsultationButton = (props) => {
         onOk={hundleSubmit}
         onCancel={handleCancel}
         footer={[
-          <Button key='submit' onClick={hundleSubmit}>
+          <Button key="submit" onClick={hundleSubmit}>
             送信
           </Button>,
         ]}
@@ -59,22 +59,22 @@ const ConsultationButton = (props) => {
         </p>
         <Input.TextArea
           autoSize={{ minRows: 10, maxRows: 12 }}
-          placeholder='もう少し具体的にどんなことをするか教えてください！'
+          placeholder="もう少し具体的にどんなことをするか教えてください！"
           onChange={(e) => setModalInputText(e.target.value)}
         />
         <p style={{ marginBottom: 10 }}></p>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
 const mapStateToProps = (state) => ({
   data: state.profile.profileDetail,
   loginUser: state.account,
-});
+})
 
 const mapStateToDispatch = (dipatch) => ({
   sendMessageEvent: (message) => dipatch(sendMessage(message)),
-});
+})
 
-export default connect(mapStateToProps, mapStateToDispatch)(ConsultationButton);
+export default connect(mapStateToProps, mapStateToDispatch)(ConsultationButton)

@@ -17,7 +17,6 @@ import planReducer from './reducers/planReducer'
 import tagReducer from './reducers/tagReducer'
 import profileReducer from './reducers/profileReducer'
 import messageReducer from './reducers/messageReducer'
-import planRequestReducer from './reducers/planRequestReducer'
 import planContractReducer from './reducers/planContractReducer'
 
 // 永続化の設定
@@ -36,7 +35,6 @@ export const createRootReducer = (history) =>
     tag: tagReducer,
     profile: profileReducer,
     message: messageReducer,
-    planRequest: planRequestReducer,
     planContract: planContractReducer,
   })
 

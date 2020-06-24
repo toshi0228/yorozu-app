@@ -1,6 +1,6 @@
 import React from 'react'
 import { Col, Row } from 'antd'
-// import { Link } from 'react-router-dom';
+import { HeartTwoTone } from '@ant-design/icons'
 import TogglePlanBtn from '../TogglePlanBtn'
 import host from '../../../constants/url'
 
@@ -52,10 +52,6 @@ const DetailPlanSection = ({ planData }) => {
           <Col style={{ marginBottom: 20 }}>
             <TogglePlanBtn planData={planData} />
           </Col>
-
-          {/* <Col style={{ marginBottom: 20 }}>
-            <Button type="primary">契約する</Button>
-          </Col> */}
         </Row>
 
         <Row>

@@ -6,7 +6,6 @@ import LeftSide from '../../components/profile/detailProfile/LeftSide'
 import RightSide from '../../components/profile/detailProfile/RightSide'
 
 import { feachProfileDetail } from '../../store/actions/profile'
-import { feachMySentPlanRequest } from '../../store/actions/planRequest'
 import { feachMySentPlanContract } from '../../store/actions/planContract'
 
 const PreviewYorozuPage = (props) => {
@@ -16,8 +15,7 @@ const PreviewYorozuPage = (props) => {
     // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
     // const { id } = props.params.match.params
     props.readProfileDetailEvent(props.yorozuId)
-    // 自分が送信したプランリクエスト(仮契約)一覧を取得する
-    props.readMySentPlanRequestEvent(props.authToken)
+
     // 自分が送信したプラン契約申請(本契約)一覧を取得する
     props.readMySentPlanContractEvent(props.authToken)
   }, [])
@@ -47,9 +45,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   // 万屋の詳細ページを取得する(プランや、よろずやユーザーの情報等)
   readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
-  // 自分が送信したプランリクエスト一覧を取得する
-  // 自分がプランリクエストを送ったよろず屋なら、プランリクエストを送らないようにする
-  readMySentPlanRequestEvent: (authToken) => dispatch(feachMySentPlanRequest(authToken)),
   // 自分が送信したプラン契約の申請一覧を取得する
   readMySentPlanContractEvent: (authToken) => dispatch(feachMySentPlanContract(authToken)),
 })

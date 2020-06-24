@@ -35,8 +35,6 @@ const LeftSide = (props) => {
     Modal.confirm({
       title: `${props.messageRoomUser}さんの契約申請を承諾しますか?`,
       onOk() {
-        console.log('OK')
-        console.log(props.clientPurchasePlan.contractPlan.id)
         const contractPlanId = props.clientPurchasePlan.contractPlan.id
         const contractPlan = {
           purchaser: props.roomUserYorozuId,
@@ -52,7 +50,6 @@ const LeftSide = (props) => {
 
   // メッセージを送信するタブごとに、メッセージルームの説明を変更する
   useEffect(() => {
-    console.log('メッセージを送信するタブごとに、メッセージルームの説明を変更する')
     if (props.messageRoomUser) {
       setExplanation(`${props.messageRoomUser}さんにメッセージを送ります`)
     }
@@ -83,7 +80,7 @@ const LeftSide = (props) => {
         <Row style={{ marginTop: 8 }}>
           <Col span={24}>
             <div style={{ color: 'red', fontSize: 10 }}>
-              {`${props.messageRoomUser}さんから、プラン契約の申請が来ています。`}
+              {`${props.messageRoomUser}さんから、「${props.clientPurchasePlan.contractPlan.title}」プランの契約リクエストが来ています。`}
               承認する場合は、「承認する」を押してくださいね
               <span className={styles.btn} onClick={showConfirm}>
                 承認する
@@ -145,7 +142,6 @@ const mapDispatchToProps = (dispatch) => ({
   planRequestApprovalEvent: (contractPlan) => dispatch(planRequestApproval(contractPlan)),
 
   // 自分宛に届いたプランリクエストリストの中から、messageRoomUserが契約してくれたプランがあるか確認
-  // checkClientPlanRequestEvent: (roomUserYorozuId) => dispatch(checkClientPlanRequest(roomUserYorozuId)),
   checkPurchasePlanEvent: (roomUserYorozuId) => dispatch(checkPurchasePlan(roomUserYorozuId)),
 })
 

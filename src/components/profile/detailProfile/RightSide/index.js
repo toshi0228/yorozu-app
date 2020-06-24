@@ -1,6 +1,8 @@
 import React from 'react'
-import { Row, Col, Rate, Tag, Icon } from 'antd'
+import { Row, Col, Rate, Tag, Icon, Button } from 'antd'
+import { SmileTwoTone, FrownOutlined } from '@ant-design/icons'
 import styles from './index.module.scss'
+
 // import DetailPlanSection from '../../plan/detailPlanSection/index'
 import ConsultationButton from '../../ConsultationButton'
 import host from '../../../../constants/url'
@@ -32,6 +34,7 @@ const RightSide = ({ data }) => {
           {tagList}
         </Col>
       </Row>
+
       {/* プロフィール画像 */}
       <Row type="flex" justify="center">
         <Col style={{ paddingTop: 40 }}>
@@ -45,17 +48,28 @@ const RightSide = ({ data }) => {
       </Row>
 
       {/* 評価 */}
-      <Row type="flex" justify="center" style={{ marginTop: 5 }}>
+      {/* <Row type="flex" justify="center" style={{ marginTop: 5 }}>
         <Col>
           <Rate disabled defaultValue={5} />
         </Col>
-      </Row>
-      <Icon type="icon-facebook" />
+      </Row> */}
 
       {/* 相談ボタン */}
-      <Row type="flex" justify="center">
+      <Row type="flex" justify="center" style={{ marginTop: 24 }}>
         <Col>
           <ConsultationButton />
+        </Col>
+      </Row>
+
+      {/* 評価 */}
+      <Row type="flex" justify="center" style={{ marginTop: 16 }}>
+        <Col>
+          <SmileTwoTone twoToneColor="#ff7d6e" style={{ fontSize: 16 }} />
+          <span style={{ marginLeft: 8, fontSize: 16 }}>255</span>
+        </Col>
+        <Col offset={3}>
+          <FrownOutlined twoToneColor="#1890ff" style={{ color: '#1890ff', fontSize: 16 }} />
+          <span style={{ marginLeft: 8, fontSize: 16 }}>13</span>
         </Col>
       </Row>
 
