@@ -5,6 +5,8 @@ import {
   READ_PROFILE_DETAIL_EVENT,
   CREATE_PROFILE_EVENT,
   READ_ACCOUNT_ID_EVENT,
+  SEARCH_PROFILE_EVENT,
+  PROFILE_RRESET_EVENT,
 } from '../actionTypes'
 // import Profile from '../../models/profile';
 
@@ -13,7 +15,8 @@ const DEFAULT_STATE = {
   // トップページのprofileListのデータ
   profileList: [],
   // profileDetailページのデータ。planListとtagListは最初にmapで作業があるので先に初期値を入れる
-  profileDetail: { planList: [], tagList: [] },
+  profileDetail: { planList: [], tagList: [], score: { positiveScore: 0, negativeScore: 0 } },
+
   // アカウントのid profileを作成の時に必要 サーバー側でaccountとprofileでリレーションしているので、accountIdが必要
   accountId: '',
 }
@@ -25,7 +28,7 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     // トップページに移動した時に初期化する
     // =========================================================================================
     case PROFILE_DETAIL_INITIALIZE_EVENT:
-      return { ...state, profileDetail: { planList: [], tagList: [] } }
+      return { ...state, profileDetail: { planList: [], tagList: [], score: { positiveScore: 0, negativeScore: 0 } } }
 
     // =========================================================================================
     // トップページのプロフィールリストを読み込む
@@ -41,29 +44,52 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
       return { ...state, isLoading: true }
 
     // =========================================================================================
+    // プロフィールの検索の時、topページ以外から遷移する時に、前のデータが残っているので検索前にリセットする
+    // =========================================================================================
+    case PROFILE_RRESET_EVENT:
+      console.log('PROFILE_RRESET_EVENT')
+      return { ...state, profileList: [] }
+
+    // =========================================================================================
+    // よろず屋(profile)の検索
+    // =========================================================================================
+    case SEARCH_PROFILE_EVENT:
+      console.log('SEARCH_PROFILE_EVENT')
+
+      if (action.payload.data === '検索条件にマッチしたものがありませんでした') {
+        return { ...state, profileList: [] }
+      }
+      return { ...state, profileList: action.payload.data }
+
+    // =========================================================================================
     // プロフィールの詳細ページを読み込む
     // =========================================================================================
     case READ_PROFILE_DETAIL_EVENT:
-      // action.payLoadには、idに紐づいたオブジェクトが入っている:{id:"1"...}
+      // アカウント登録した時は、action.payload.planListは,undifinedになるのでif
+      if (action.payload.planList) {
+        // action.payLoadには、idに紐づいたオブジェクトが入っている:{id:"1"...}
 
-      // タグのみそれぞれのプランに紐づいているの,それぞれのタグを取り出す
-      // ex) tagList:["企画", "インスターグラマー", "インスターグラマー"]
+        // タグのみそれぞれのプランに紐づいているの,それぞれのタグを取り出す
+        // ex) tagList:["企画", "インスターグラマー", "インスターグラマー"]
 
-      // tags:[[],[]]
-      const tags = action.payload.planList.map((plan) => {
-        // タグのみ取り出す
-        // [{ id: '', name: '' }, {}] -> ["インスターグラマー", "企画"]
-        return _.map(plan.tags, (tag) => tag.name)
-      })
+        // tags:[[],[]]
+        const tags = action.payload.planList.map((plan) => {
+          // タグのみ取り出す
+          // [{ id: '', name: '' }, {}] -> ["インスターグラマー", "企画"]
+          return _.map(plan.tags, (tag) => tag.name)
+        })
 
-      // _.unionはリストの重複を無くしてくれる
-      // ex) _.union([2], [1, 2]) => [2, 1]
-      state.profileDetail.tagList = _.union(...tags)
+        // _.unionはリストの重複を無くしてくれる
+        // ex) _.union([2], [1, 2]) => [2, 1]
+        state.profileDetail.tagList = _.union(...tags)
 
-      // state.profileDetailにgetリクエストで受け取ったオブジェクトを入れる
-      state.profileDetail = { ...state.profileDetail, ...action.payload }
+        // state.profileDetailにgetリクエストで受け取ったオブジェクトを入れる
+        state.profileDetail = { ...state.profileDetail, ...action.payload }
 
-      return { ...state, isLoading: true }
+        return { ...state, isLoading: true }
+      } else {
+        return { ...state, isLoading: false }
+      }
 
     // =========================================================================================
     // ログインユーザーのアカウントIDを調べる

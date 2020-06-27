@@ -103,7 +103,6 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
     // (リクエストを送信した事がある万屋ならには、契約申請ができないようにしたい)
     // =================================================================================
     case CHECK_MY_SENT_PLAN_CONTRACT_STATUS:
-      // action.payload => プランオーナーのID
       // planContract.receiverYorozuId => 自分が契約申請を送ったよろずやのID
       // プランページごとの、自分が契約しているプランを取り出す
       const mySentPlanContractListOnPlanPage = state.mySentPlanContractList.filter((planContract) => {

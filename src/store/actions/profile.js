@@ -1,6 +1,17 @@
-import { READ_PROFILE_EVENTS, READ_PROFILE_DETAIL_EVENT, PROFILE_DETAIL_INITIALIZE_EVENT, READ_ACCOUNT_ID_EVENT } from '../actionTypes'
-import { getProfileList, postProfile, getProfileDetail } from '../../services/ApiRequest'
+import {
+  READ_PROFILE_EVENTS,
+  READ_PROFILE_DETAIL_EVENT,
+  PROFILE_DETAIL_INITIALIZE_EVENT,
+  READ_ACCOUNT_ID_EVENT,
+  SEARCH_PROFILE_EVENT,
+  PROFILE_RRESET_EVENT,
+} from '../actionTypes'
+import { getProfileList, postProfile, getProfileDetail, postSerach } from '../../services/ApiRequest'
 import { checkAccountId } from '../../services/authApiRequest'
+import { push } from 'connected-react-router'
+import routes from '../../routes/index'
+
+// import { push } from 'connected-react-router'
 
 // =====================================================================================
 // プロフィールリストの読み込み(トップページでの処理)
@@ -64,6 +75,32 @@ export const readAccountId = (accountId) => {
     payload: accountId,
   }
 }
+// =====================================================================================
+// よろず屋(profile)の検索
+// =====================================================================================
+export const search = (keyword) => (dispatch) => {
+  // 検索した後のページを表示する前に、今あるデータをリセットする
+  // dispatch(profileListReset())
+  postSerach(keyword).then((res) => {
+    console.log(res)
+    dispatch(searchProfile(res))
+    dispatch(push(routes.top()))
+  })
+}
+
+// profileのトップページ以外で、ページ遷移をした場合に、前のデータが残っているので最初にデータリセットする
+export const profileListReset = () => {
+  return {
+    type: PROFILE_RRESET_EVENT,
+  }
+}
+
+export const searchProfile = (searchResult) => {
+  return {
+    type: SEARCH_PROFILE_EVENT,
+    payload: searchResult,
+  }
+}
 
 // =====================================================================================
 // プロフィールの作成
@@ -80,9 +117,9 @@ export const createProfile = (profile) => (dispatch) => {
   formData.append('profileImage', profile.profileImage[0], profile.profileImage[0].name)
   formData.append('profileDescription', profile.profileDescription)
   formData.append('planThumbnailImage', profile.planThumbnailImage[0], profile.planThumbnailImage[0].name)
-  formData.append('twitterAccount', profile.twitterAccount)
-  formData.append('facebookAccount', profile.facebookAccount)
-  formData.append('instagramAccount', profile.instagramAccount)
+  // formData.append('twitterAccount', profile.twitterAccount)
+  // formData.append('facebookAccount', profile.facebookAccount)
+  // formData.append('instagramAccount', profile.instagramAccount)
 
   postProfile(formData).then((res) => {
     console.log(res)

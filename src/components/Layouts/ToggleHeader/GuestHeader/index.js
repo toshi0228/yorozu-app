@@ -4,6 +4,7 @@ import { Col, Row } from 'antd'
 import styles from './index.module.scss'
 import { Input } from 'antd'
 // import routes from '../../../../routes'
+import SearchForm from '../../../form/searchForm'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ
@@ -27,7 +28,7 @@ const GuestHeader = () => {
               <Col>
                 <Row type="flex" className="menu" gutter={24}>
                   <Col>
-                    <Input.Search placeholder="検索" style={{ width: 480 }}></Input.Search>
+                    <SearchForm />
                   </Col>
                 </Row>
               </Col>

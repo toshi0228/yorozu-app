@@ -84,7 +84,7 @@ export const signUp = (formProps) => (dispatch) => {
       setAuthHeader(res.data)
       // accountReducerにトークンをセットする
       dispatch(signInAccount({ authToken: { ...res.data } }))
-      dispatch(push('/create_plan'))
+      dispatch(push(routes.myPage()))
     })
   })
 }

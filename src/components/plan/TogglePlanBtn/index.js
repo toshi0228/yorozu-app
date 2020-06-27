@@ -5,6 +5,17 @@ import { checkMySentPlanContractStatus } from '../../../store/actions/planContra
 import PlanContractModal from './planContractModal'
 
 const TogglePlanBtn = (props) => {
+  console.log('TogglePlanBtn')
+  console.log(props)
+  // ログインユーザーのプランだった場合、「契約する」ボタンを押せないようにしたい
+  const [isloginUserPlan, setIsLoginUserPlan] = useState(false)
+  useEffect(() => {
+    if (props.planOwnerYorozuId === props.loginUserYorozuId) {
+      console.log('同じ')
+      setIsLoginUserPlan(true)
+    }
+  }, [])
+
   // mySentPlanContractStatusAndPlanIdListはplanページのよろずやと契約しているプランが入っている
   // props.planDataで渡ってきたプランのidと契約したプランのIDが同じものを抽出する
   const loginUserContractPlan = props.mySentPlanContractStatusAndPlanIdList.find((ContractPlan) => {
@@ -29,6 +40,16 @@ const TogglePlanBtn = (props) => {
 
   //   ログインユーザーが送ったプランの契約状態と、プランリクエストの状態でボタンを変える
   const togglePlanRequestBtn = () => {
+    if (isloginUserPlan) {
+      return (
+        <>
+          <Button type="primary" onClick={showPlanContractModal} disabled>
+            ご自身のプランです
+          </Button>
+        </>
+      )
+    }
+
     // loginUserContractPlan.statusが最初,undifindでエラーになるので、try,catchを使う
     try {
       switch (loginUserContractPlan.status) {
@@ -88,6 +109,7 @@ const TogglePlanBtn = (props) => {
 }
 
 const mapStateToProps = (state) => ({
+  loginUserYorozuId: state.account.yorozuId,
   // リクエストの送り先のユーザー(プランオーナーのyorozuId)
   planOwnerYorozuId: state.profile.profileDetail.yorozuId,
   // 自分が送った契約申請(本契約)の状態とplanId 1. 契約申請を送信してない 2.承認されていない 3.承認された

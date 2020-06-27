@@ -31,6 +31,8 @@ export const READ_PROFILE_EVENTS = 'READ_PROFILE_EVENTS'
 export const READ_PROFILE_DETAIL_EVENT = 'READ_PROFILE_DETAIL_EVENT'
 export const CREATE_PROFILE_EVENT = 'CREATE_PROFILE_EVENT'
 export const READ_ACCOUNT_ID_EVENT = 'READ_ACCOUNT_ID_EVENT'
+export const SEARCH_PROFILE_EVENT = 'SEARCH_PROFILE_EVENT'
+export const PROFILE_RRESET_EVENT = 'PROFILE_RRESET_EVENT'
 
 // ============================================================
 // message
@@ -49,19 +51,19 @@ export const READ_MESSAGE_ROOM_USER_YOROZUID_EVENT = 'READ_MESSAGE_ROOM_USER_YOR
 // ============================================================
 // request
 // ============================================================
-// 自分宛に届いたプランリクエストの一覧を取得する
-export const READ_PLAN_REQUEST_EVENTS = 'READ_PLAN_REQUEST_EVENTS'
-// 自分が送信したプランリクエストの一覧を取得する
-export const READ_MY_PLAN_REQUEST_EVENTS = 'READ_MY_PLAN_REQUEST_EVENTS'
-// よろず屋が、お客さんのプランリクエストの承認を行う
-// export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
+// // 自分宛に届いたプランリクエストの一覧を取得する
+// export const READ_PLAN_REQUEST_EVENTS = 'READ_PLAN_REQUEST_EVENTS'
+// // 自分が送信したプランリクエストの一覧を取得する
+// export const READ_MY_PLAN_REQUEST_EVENTS = 'READ_MY_PLAN_REQUEST_EVENTS'
+// // よろず屋が、お客さんのプランリクエストの承認を行う
+// // export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
 
-// メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
-export const READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT = 'READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT'
-// プランページに移動した時に、ログインユーザーがプランリクエストの状態を確認する
-// (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
-// 自分が送ったプランリクエストの状態 1. プランリクエストを送信してない 2.承認されていない 3.承認された
-export const CHECK_MY_SENT_PLAN_REQUEST_STATUS = 'CHECK_MY_SENT_PLAN_REQUEST_STATUS'
+// // メッセージルームページのユーザーよって、プランリクエストのユーザーを取得する
+// export const READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT = 'READ_ROOMMESSAGE_USER_PLAN_REQUEST_EVENT'
+// // プランページに移動した時に、ログインユーザーがプランリクエストの状態を確認する
+// // (リクエストを送信した事がある万屋ならには、プランリクエストをできないようにしたい)
+// // 自分が送ったプランリクエストの状態 1. プランリクエストを送信してない 2.承認されていない 3.承認された
+// export const CHECK_MY_SENT_PLAN_REQUEST_STATUS = 'CHECK_MY_SENT_PLAN_REQUEST_STATUS'
 
 // ============================================================
 // contract

@@ -20,7 +20,17 @@ export const getYorozuId = (accoutId) => {
 // トップページ 万屋プロフィールリストの取得
 //=====================================================================================
 export const getProfileList = () => {
+  delete axios.defaults.headers.common['Authorization']
   return axios.get(`${host.localhost()}/api/profile/`)
+}
+
+//=====================================================================================
+// よろず屋(profile)の検索
+//=====================================================================================
+
+export const postSerach = (keyword) => {
+  delete axios.defaults.headers.common['Authorization']
+  return axios.post(`${host.localhost()}/api/search/profile/`, keyword)
 }
 
 //=====================================================================================
@@ -61,10 +71,10 @@ export const postMessage = (messageContent) => {
 // =====================================================================================
 // 自分宛に届いた、プランリクエスト一覧を取得する
 // =====================================================================================
-export const getPlanRequestList = (authToken) => {
-  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
-  return axios.get(`${host.localhost()}/api/request/`)
-}
+// export const getPlanRequestList = (authToken) => {
+//   axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+//   return axios.get(`${host.localhost()}/api/request/`)
+// }
 
 //=====================================================================================
 // プラン登録
@@ -81,24 +91,23 @@ export const postPlan = (plan) => {
 // 自分が送信したプランリクエストの一覧を取得する
 // =====================================================================================
 
-export const getMySentPlanRequestList = (authToken) => {
-  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
-  return axios.get(`${host.localhost()}/api/request/me/`)
-}
+// export const getMySentPlanRequestList = (authToken) => {
+//   axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+//   return axios.get(`${host.localhost()}/api/request/me/`)
+// }
 
 // =====================================================================================
 // プラン画面から、プランのリクエスト(仮契約)
 // =====================================================================================
-export const postPlanRequest = (requestData) => {
-  return axios.post(`${host.localhost()}/api/request/`, requestData)
-}
+// export const postPlanRequest = (requestData) => {
+//   return axios.post(`${host.localhost()}/api/request/`, requestData)
+// }
 
 // =====================================================================================
 // お客さんからの、プランリクエストの承認処理(メッセージページでの処理)
 // =====================================================================================
 export const patchPlanApprovalStatus = (contractPlan) => {
   // プランリクエストユーザーのよろずIDと,承認状態をtrueにするため、isApproval: trueを送る
-  // return axios.patch(`${host.localhost()}/api/request/`, { senderYorozuId: planRequestUserYorozuId, isApproval: true })
   return axios.patch(`${host.localhost()}/api/contract/`, {
     senderYorozuId: contractPlan.purchaser,
     contractPlan: contractPlan.contractPlanId,

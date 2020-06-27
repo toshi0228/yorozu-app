@@ -7,6 +7,8 @@ import routes from '../../../../routes'
 import { signOut } from '../../../../store/actions/account'
 import MyPageBtn from './MyPageBtn'
 
+import SearchForm from '../../../form/searchForm'
+
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ
 // 24分割で,左空白3 ロゴ3、真ん中10,右サイド5 右空白3
@@ -31,7 +33,7 @@ const MemberHeader = (props) => {
               <Col>
                 <Row type="flex" className="menu" gutter={24}>
                   <Col>
-                    <Input.Search placeholder="検索" style={{ width: 480 }}></Input.Search>
+                    <SearchForm />
                   </Col>
                 </Row>
               </Col>
