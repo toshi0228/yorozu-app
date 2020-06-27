@@ -81,7 +81,7 @@ const LeftSide = (props) => {
           <Col span={24}>
             <div style={{ color: 'red', fontSize: 10 }}>
               {`${props.messageRoomUser}さんから、「${props.clientPurchasePlan.contractPlan.title}」プランの契約リクエストが来ています。`}
-              承認する場合は、「承認する」を押してくださいね
+              承認する場合は、「承認する」を押してくださいね。承認してからが、契約が成立になります。
               <span className={styles.btn} onClick={showConfirm}>
                 承認する
               </span>

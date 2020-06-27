@@ -7,11 +7,11 @@ import PlanContractModal from './planContractModal'
 const TogglePlanBtn = (props) => {
   console.log('TogglePlanBtn')
   console.log(props)
+
   // ログインユーザーのプランだった場合、「契約する」ボタンを押せないようにしたい
   const [isloginUserPlan, setIsLoginUserPlan] = useState(false)
   useEffect(() => {
     if (props.planOwnerYorozuId === props.loginUserYorozuId) {
-      console.log('同じ')
       setIsLoginUserPlan(true)
     }
   }, [])

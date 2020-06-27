@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Row, Col } from 'antd'
 import { planContract } from '../../../../store/actions/planContract'
+import { sendMessage } from '../../../../store/actions/message'
 
 import host from '../../../../constants/url'
 import styles from './index.module.scss'
@@ -32,6 +33,14 @@ const PlanContractModal = (props) => {
 
     // 送信ボタンを押したらモダールを閉じる
     props.setIsPlanContractModalVisible(false)
+
+    const messageData = {
+      senderYorozuId: props.loginUserYorozuId,
+      receiverYorozuId: props.planOwnerYorozuId,
+      messageContent: '契約の承認をお願いします(クライアントが契約を申請した時に、自動で送信されるメッセージです)',
+    }
+    // 契約を押した時に、プランオーナーにメッセージも送る。相手は、メッセージ画面からプランの承認を押すことができる
+    props.sendMessageEvent(messageData)
   }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -105,6 +114,8 @@ const mapStateToProps = (state) => ({
 const mapStateToDispatch = (dispatch) => ({
   // プランの契約をするときアクション
   planContractEvent: (contractData) => dispatch(planContract(contractData)),
+  // プラン契約したきに、をプランオーナーにメールも送信する
+  sendMessageEvent: (message) => dispatch(sendMessage(message)),
 })
 
 export default connect(mapStateToProps, mapStateToDispatch)(PlanContractModal)

@@ -73,8 +73,8 @@ const mapStateToProps = (state) => ({
   loginUser: state.account,
 })
 
-const mapStateToDispatch = (dipatch) => ({
-  sendMessageEvent: (message) => dipatch(sendMessage(message)),
+const mapStateToDispatch = (dispatch) => ({
+  sendMessageEvent: (message) => dispatch(sendMessage(message)),
 })
 
 export default connect(mapStateToProps, mapStateToDispatch)(ConsultationButton)
