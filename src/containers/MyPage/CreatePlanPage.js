@@ -8,6 +8,7 @@ import ImageForm from '../../components/form/ImageForm/index'
 const { TextArea } = Input
 
 const CreatePlanPage = (props) => {
+  console.log('CreatePlanPage')
   console.log(props)
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
@@ -26,6 +27,32 @@ const CreatePlanPage = (props) => {
       yorozuId: props.yorozuId,
     }
     props.createPlanEvent(plan)
+  }
+
+  const toggleRegisterBtn = () => {
+    if (props.yorozuId) {
+      // よろずIDがあれば、作成できる(プロフィールを作成済みの場合)
+      return (
+        <Row type="flex" justify="center">
+          <Col>
+            <Button type="primary" htmlType="submit" size="large" style={{ width: 200 }} onClick={register}>
+              送信
+            </Button>
+          </Col>
+        </Row>
+      )
+    } else {
+      // よろずIDがなければ、作成できない(プロフィールを作成をしていない場合)
+      return (
+        <Row type="flex" justify="center">
+          <Col>
+            <Button type="primary" htmlType="submit" size="large" style={{ width: 400 }} onClick={register} disabled>
+              プロフィールから作成をお願いします
+            </Button>
+          </Col>
+        </Row>
+      )
+    }
   }
 
   return (
@@ -87,13 +114,7 @@ const CreatePlanPage = (props) => {
       <InputTag setTags={setTags} />
 
       {/* 送信ボタン */}
-      <Row type="flex" justify="center">
-        <Col>
-          <Button type="primary" htmlType="submit" size="large" style={{ width: 200 }} onClick={register}>
-            送信
-          </Button>
-        </Col>
-      </Row>
+      {toggleRegisterBtn()}
     </>
   )
 }

@@ -5,9 +5,6 @@ import { checkMySentPlanContractStatus } from '../../../store/actions/planContra
 import PlanContractModal from './planContractModal'
 
 const TogglePlanBtn = (props) => {
-  console.log('TogglePlanBtn')
-  console.log(props)
-
   // ログインユーザーのプランだった場合、「契約する」ボタンを押せないようにしたい
   const [isloginUserPlan, setIsLoginUserPlan] = useState(false)
   useEffect(() => {

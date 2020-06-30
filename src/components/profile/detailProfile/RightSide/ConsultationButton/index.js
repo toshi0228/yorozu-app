@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Modal, Button, Input } from 'antd'
-import { sendMessage } from '../../../store/actions/message'
+import { sendMessage } from '../../../../../store/actions/message'
 
 // ====================================================================
 // 相談ボタンとクリックした時に起動するモーダル
@@ -28,7 +28,6 @@ const ConsultationButton = (props) => {
       receiverYorozuId: props.data.yorozuId,
       messageContent: modalInputText,
     }
-    console.log(messageData)
     props.sendMessageEvent(messageData)
   }
 

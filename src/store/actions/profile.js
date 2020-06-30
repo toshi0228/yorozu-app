@@ -5,6 +5,8 @@ import {
   READ_ACCOUNT_ID_EVENT,
   SEARCH_PROFILE_EVENT,
   PROFILE_RRESET_EVENT,
+  PLUS_REVIEW_EVENT,
+  MINUS_REVIEW_EVENT,
 } from '../actionTypes'
 import { getProfileList, postProfile, getProfileDetail, postSerach } from '../../services/ApiRequest'
 import { checkAccountId } from '../../services/authApiRequest'
@@ -117,13 +119,27 @@ export const createProfile = (profile) => (dispatch) => {
   formData.append('profileImage', profile.profileImage[0], profile.profileImage[0].name)
   formData.append('profileDescription', profile.profileDescription)
   formData.append('planThumbnailImage', profile.planThumbnailImage[0], profile.planThumbnailImage[0].name)
-  // formData.append('twitterAccount', profile.twitterAccount)
-  // formData.append('facebookAccount', profile.facebookAccount)
-  // formData.append('instagramAccount', profile.instagramAccount)
 
   postProfile(formData).then((res) => {
     console.log(res)
   })
+}
+
+// =====================================================================================
+// 契約したことがある人がレビューをプラスにする
+// =====================================================================================
+export const plusReview = (num) => {
+  return {
+    type: PLUS_REVIEW_EVENT,
+    payload: num,
+  }
+}
+
+export const minusReview = (num) => {
+  return {
+    type: MINUS_REVIEW_EVENT,
+    payload: num,
+  }
 }
 
 // =====================================================================================

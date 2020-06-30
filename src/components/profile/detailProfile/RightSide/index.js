@@ -1,11 +1,10 @@
 import React from 'react'
 import { Row, Col, Tag } from 'antd'
-import { SmileTwoTone, FrownOutlined } from '@ant-design/icons'
 import styles from './index.module.scss'
 
-// import DetailPlanSection from '../../plan/detailPlanSection/index'
-import ConsultationButton from '../../ConsultationButton'
+import ConsultationButton from './ConsultationButton'
 import host from '../../../../constants/url'
+import ReviewButton from './ReviewButton'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、profileの詳細ページ
@@ -15,8 +14,6 @@ import host from '../../../../constants/url'
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 const RightSide = ({ data }) => {
-  console.log(data)
-
   // タグリストを返す
   const tagList = data.profileDetail.tagList.map((tag, index) => {
     return <Tag key={index}>{`#${tag}`}</Tag>
@@ -49,13 +46,6 @@ const RightSide = ({ data }) => {
         </Col>
       </Row>
 
-      {/* 評価 */}
-      {/* <Row type="flex" justify="center" style={{ marginTop: 5 }}>
-        <Col>
-          <Rate disabled defaultValue={5} />
-        </Col>
-      </Row> */}
-
       {/* 相談ボタン */}
       <Row type="flex" justify="center" style={{ marginTop: 24 }}>
         <Col>
@@ -65,14 +55,7 @@ const RightSide = ({ data }) => {
 
       {/* 評価 */}
       <Row type="flex" justify="center" style={{ marginTop: 16 }}>
-        <Col>
-          <SmileTwoTone twoToneColor="#ff7d6e" style={{ fontSize: 16 }} />
-          <span style={{ marginLeft: 8, fontSize: 16 }}>{data.profileDetail.score['positiveScore']}</span>
-        </Col>
-        <Col offset={3}>
-          <FrownOutlined twoToneColor="#1890ff" style={{ color: '#1890ff', fontSize: 16 }} />
-          <span style={{ marginLeft: 8, fontSize: 16 }}>{data.profileDetail.score['negativeScore']}</span>
-        </Col>
+        <ReviewButton data={data} />
       </Row>
 
       {/* プロフィールの説明 */}

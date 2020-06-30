@@ -7,6 +7,8 @@ import {
   READ_ACCOUNT_ID_EVENT,
   SEARCH_PROFILE_EVENT,
   PROFILE_RRESET_EVENT,
+  PLUS_REVIEW_EVENT,
+  MINUS_REVIEW_EVENT,
 } from '../actionTypes'
 // import Profile from '../../models/profile';
 
@@ -103,6 +105,28 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     case CREATE_PROFILE_EVENT:
       console.log('CREATE_PROFILE_EVENT')
       return state
+
+    // =========================================================================================
+    // プランを買ってくれた人がプラスの評価をする
+    // =========================================================================================
+    case PLUS_REVIEW_EVENT:
+      const _negativeScore = state.profileDetail.score['negativeScore']
+      const _positiveScore = state.profileDetail.score['positiveScore'] + action.payload
+      return {
+        ...state,
+        profileDetail: { ...state.profileDetail, score: { positiveScore: _positiveScore, negativeScore: _negativeScore } },
+      }
+
+    // =========================================================================================
+    // プランを買ってくれた人がマイナスの評価をする
+    // =========================================================================================
+    case MINUS_REVIEW_EVENT:
+      const __negativeScore = state.profileDetail.score['negativeScore'] + action.payload
+      const __positiveScore = state.profileDetail.score['positiveScore']
+      return {
+        ...state,
+        profileDetail: { ...state.profileDetail, score: { positiveScore: __positiveScore, negativeScore: __negativeScore } },
+      }
 
     default:
       return state

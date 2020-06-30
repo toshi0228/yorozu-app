@@ -12,9 +12,9 @@ const CreateProfilePage = (props) => {
   const [profileImage, setProfileImage] = useState([])
   const [profileDescription, setProfileDescription] = useState('')
   const [planThumbnailImage, setPlanThumbnailImage] = useState([])
-  const [twitterAccount, setTwitterAccount] = useState('')
-  const [facebookAccount, setFacebookAccount] = useState('')
-  const [instagramAccount, setInstagramAccount] = useState('')
+  // const [twitterAccount, setTwitterAccount] = useState('')
+  // const [facebookAccount, setFacebookAccount] = useState('')
+  // const [instagramAccount, setInstagramAccount] = useState('')
 
   // プロフィール作成の時は、アカウントIDが必要になるので、最初に取得するs
   useEffect(() => {
@@ -31,9 +31,9 @@ const CreateProfilePage = (props) => {
       profileImage,
       profileDescription,
       planThumbnailImage,
-      twitterAccount,
-      facebookAccount,
-      instagramAccount,
+      // twitterAccount,
+      // facebookAccount,
+      // instagramAccount,
     }
     props.createProfileEvent(profile)
   }
@@ -119,7 +119,7 @@ const CreateProfilePage = (props) => {
       </Row>
 
       {/*  twiterアカウント */}
-      <Row style={{ marginBottom: 8 }}>
+      {/* <Row style={{ marginBottom: 8 }}>
         <Col span={4}>twiterアカウント</Col>
       </Row>
 
@@ -127,10 +127,10 @@ const CreateProfilePage = (props) => {
         <Col span={10}>
           <Input value={twitterAccount} onChange={(e) => setTwitterAccount(e.target.value)} />
         </Col>
-      </Row>
+      </Row> */}
 
       {/*  facebookアカウント */}
-      <Row style={{ marginBottom: 8 }}>
+      {/* <Row style={{ marginBottom: 8 }}>
         <Col span={4}>facebookアカウント</Col>
       </Row>
 
@@ -138,10 +138,10 @@ const CreateProfilePage = (props) => {
         <Col span={10}>
           <Input value={facebookAccount} onChange={(e) => setFacebookAccount(e.target.value)} />
         </Col>
-      </Row>
+      </Row> */}
 
       {/*  instagramアカウント */}
-      <Row style={{ marginBottom: 8 }}>
+      {/* <Row style={{ marginBottom: 8 }}>
         <Col span={4}>instagramアカウント</Col>
       </Row>
 
@@ -149,10 +149,11 @@ const CreateProfilePage = (props) => {
         <Col span={10}>
           <Input value={instagramAccount} onChange={(e) => setInstagramAccount(e.target.value)} />
         </Col>
-      </Row>
+      </Row> */}
 
       {/* 送信ボタン */}
-      <Row type="flex" justify="center">
+      {/* <Row type="flex" justify="center"> */}
+      <Row>
         <Col>
           <Button type="primary" htmlType="submit" size="large" style={{ width: 200 }} onClick={register}>
             登録
