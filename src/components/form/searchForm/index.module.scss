@@ -1,0 +1,17 @@
+// .searchForm {
+//   display: none !important;
+// }
+
+// 992
+// 768以上の時の設定
+// @media screen and (min-width: 768px) {
+// @media screen and (min-width: 992px) {
+
+@media screen and (min-width: 1200px) {
+  .searchForm {
+    width: 480px !important;
+  }
+  // .searchForm {
+  //   display: block !important;
+  // }
+}

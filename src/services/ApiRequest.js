@@ -15,6 +15,12 @@ export const getYorozuId = (accoutId) => {
   // console.log(axios.get(`http://127.0.0.1:8000/api/account/${userId}`));
   return axios.get(`${host.localhost()}/api/account/${accoutId}`)
 }
+//=====================================================================================
+// ログインした時に、ログインユーザーのプロフィールを取得する
+//=====================================================================================
+export const getLoginUserProfile = (yorozuId) => {
+  return axios.get(`${host.localhost()}/api/profile/${yorozuId}`)
+}
 
 //=====================================================================================
 // トップページ 万屋プロフィールリストの取得

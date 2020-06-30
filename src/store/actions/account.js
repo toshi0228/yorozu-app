@@ -1,7 +1,7 @@
-import { SIGN_IN_ACCOUNT, SIGN_OUT } from '../actionTypes'
+import { SIGN_IN_ACCOUNT, SIGN_OUT, READ_LOGIN_USER_PROFILE_EVENT } from '../actionTypes'
 import { postSignIn, postSignUp, postTokenVerify } from '../../services/authApiRequest'
 import { push } from 'connected-react-router'
-import { setAuthHeader, getYorozuId } from '../../services/ApiRequest'
+import { setAuthHeader, getYorozuId, getLoginUserProfile } from '../../services/ApiRequest'
 import jwt from 'jwt-decode'
 import routes from '../../routes'
 
@@ -45,6 +45,11 @@ export const signIn = (formProps) => (dispatch) => {
             yorozuId: yorozuId.data,
           })
         )
+
+        // 取得したyorozuIdからログインユーザーのプロフィールを取得する
+        getLoginUserProfile(yorozuId.data).then((res) => {
+          dispatch(loginUserProfile(res))
+        })
       })
 
       dispatch(push(routes.top()))
@@ -59,6 +64,14 @@ const signInAccount = (user) => {
   return {
     type: SIGN_IN_ACCOUNT,
     payload: { ...user, isLoggedIn: true },
+  }
+}
+
+// ログインユーザーのプロフィールを取得した後の、アクションクリエータ
+const loginUserProfile = (profile) => {
+  return {
+    type: READ_LOGIN_USER_PROFILE_EVENT,
+    payload: profile,
   }
 }
 

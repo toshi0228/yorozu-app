@@ -3,6 +3,7 @@ import { Card, Icon, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
 import host from '../../../constants/url'
 import routes from '../../../routes'
+import { SmileTwoTone, FrownOutlined } from '@ant-design/icons'
 // import styles from './index.module.scss';
 
 // ============================================================
@@ -16,9 +17,14 @@ const ProfileCard = ({ data }) => {
         <Card
           cover={<img alt="example" src={`${host.localhost()}${data.planThumbnailImage}`} style={{ height: 200 }} />}
           hoverable
-          actions={[<Icon type="twitter" />, <Icon type="instagram" />, <Icon type="facebook" />]}
+          // actions={[<Icon type="twitter" />, <Icon type="instagram" />, <Icon type="facebook" />]}
         >
-          <Card.Meta title={data.yorozuyaName} description={data.profileDescription} style={{ height: 100, overflow: 'hidden' }} />
+          <Card.Meta
+            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+            title={data.yorozuyaName}
+            description={data.profileDescription}
+            style={{ height: 100, overflow: 'hidden' }}
+          />
         </Card>
       </Link>
     </>

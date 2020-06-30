@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Input } from 'antd'
 
 import { search } from '../../../store/actions/profile'
+import styles from './index.module.scss'
 
 const SearchForm = (props) => {
   console.log(props)
@@ -13,7 +14,7 @@ const SearchForm = (props) => {
 
   return (
     <>
-      <Input.Search placeholder="検索" style={{ width: 480 }} onSearch={(keyword) => search(keyword)}></Input.Search>
+      <Input.Search placeholder="検索" className={styles.searchForm} onSearch={(keyword) => search(keyword)}></Input.Search>
     </>
   )
 }

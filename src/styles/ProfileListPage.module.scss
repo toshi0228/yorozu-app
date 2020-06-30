@@ -1,0 +1,16 @@
+.mobileProfileList {
+  margin-bottom: 70px;
+}
+.pcProfileList {
+  display: none;
+}
+
+// 768以上の時は、ボタンがある
+@media screen and (min-width: 768px) {
+  .pcProfileList {
+    display: block;
+  }
+  .mobileProfileList {
+    display: none;
+  }
+}

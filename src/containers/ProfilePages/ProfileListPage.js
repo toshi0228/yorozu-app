@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import ProfileList from '../../components/profile/ProfileList/index'
 import { Col, Row, Pagination } from 'antd'
 import { fetchProfileList, profileDetailInitialize } from '../../store/actions/profile'
-import '../../styles/PlanListPage.scss'
+
+import styles from '../../styles/ProfileListPage.module.scss'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // YOROZUのトップページ
@@ -18,11 +19,23 @@ const ProfileListPage = (props) => {
 
   return (
     <>
-      <Row type="flex" justify="center" style={{ marginBottom: 70 }}>
-        <Col span={18}>
-          <ProfileList data={props.data} />
-        </Col>
-      </Row>
+      {/* モバイル用 */}
+      <div className={styles.mobileProfileList}>
+        <Row type="flex" justify="center">
+          <Col span={24}>
+            <ProfileList data={props.data} />
+          </Col>
+        </Row>
+      </div>
+
+      {/* デスクトップ用 */}
+      <div className={styles.pcProfileList}>
+        <Row type="flex" justify="center" className={styles.profileList}>
+          <Col span={18}>
+            <ProfileList data={props.data} />
+          </Col>
+        </Row>
+      </div>
 
       {/* ページの項目 */}
       <Row type="flex" justify="center">

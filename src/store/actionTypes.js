@@ -5,6 +5,7 @@ export const SIGN_IN_ACCOUNT = 'SIGN_IN_ACCOUNT'
 export const SIGN_OUT = 'SIGN_OUT'
 export const SET_ACCOUNT = 'SET_ACCOUNT'
 export const SET_ACCOUNT_ERRORS = 'SET_ACCOUNT_ERRORS'
+export const READ_LOGIN_USER_PROFILE_EVENT = 'READ_LOGIN_USER_PROFILE_EVENT'
 
 // ============================================================
 // Application
