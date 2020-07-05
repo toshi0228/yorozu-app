@@ -3,9 +3,11 @@
 // ============================================================
 export const SIGN_IN_ACCOUNT = 'SIGN_IN_ACCOUNT'
 export const SIGN_OUT = 'SIGN_OUT'
-export const SET_ACCOUNT = 'SET_ACCOUNT'
-export const SET_ACCOUNT_ERRORS = 'SET_ACCOUNT_ERRORS'
 export const READ_LOGIN_USER_PROFILE_EVENT = 'READ_LOGIN_USER_PROFILE_EVENT'
+export const FAILURE_SIGIN_IN_EVENT = 'FAILURE_SIGIN_IN_EVENT'
+export const FAILURE_SIGIN_UP_EVENT = 'FAILURE_SIGIN_UP_EVENT'
+// ログインページや新規登録ページを開いたときに、isSignInFailureをfalseにする
+export const RESET_ERROR_MESSAGE_EVENT = 'RESET_ERROR_MESSAGE_EVENT'
 
 // ============================================================
 // Application

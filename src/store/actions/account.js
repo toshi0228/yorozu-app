@@ -1,4 +1,11 @@
-import { SIGN_IN_ACCOUNT, SIGN_OUT, READ_LOGIN_USER_PROFILE_EVENT } from '../actionTypes'
+import {
+  SIGN_IN_ACCOUNT,
+  SIGN_OUT,
+  READ_LOGIN_USER_PROFILE_EVENT,
+  FAILURE_SIGIN_IN_EVENT,
+  FAILURE_SIGIN_UP_EVENT,
+  RESET_ERROR_MESSAGE_EVENT,
+} from '../actionTypes'
 import { postSignIn, postSignUp, postTokenVerify } from '../../services/authApiRequest'
 import { push } from 'connected-react-router'
 import { setAuthHeader, getYorozuId, getLoginUserProfile } from '../../services/ApiRequest'
@@ -56,6 +63,7 @@ export const signIn = (formProps) => (dispatch) => {
     })
     .catch((e) => {
       console.log(`${e} ログイン失敗`)
+      dispatch(failureSiginIn(e))
     })
 }
 
@@ -75,6 +83,13 @@ const loginUserProfile = (profile) => {
   }
 }
 
+const failureSiginIn = (error) => {
+  return {
+    type: FAILURE_SIGIN_IN_EVENT,
+    payload: error,
+  }
+}
+
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // サインアウトの処理
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -90,16 +105,39 @@ export const signOut = () => {
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 export const signUp = (formProps) => (dispatch) => {
   // 新規登録を行う
-  postSignUp(formProps).then((res) => {
-    // 新規登録が完了したら、アクセストークンをもらいにいく
-    postSignIn(formProps).then((res) => {
-      // リクエストをするときにアクセストークンをヘッダーにセットする
-      setAuthHeader(res.data)
-      // accountReducerにトークンをセットする
-      dispatch(signInAccount({ authToken: { ...res.data } }))
-      dispatch(push(routes.myPage()))
+  postSignUp(formProps)
+    .then((res) => {
+      // 新規登録が完了したら、アクセストークンをもらいにいく
+      postSignIn(formProps).then((res) => {
+        // リクエストをするときにアクセストークンをヘッダーにセットする
+        setAuthHeader(res.data)
+        // accountReducerにトークンをセットする
+        dispatch(signInAccount({ authToken: { ...res.data } }))
+        dispatch(push(routes.myPage()))
+      })
     })
-  })
+    .catch((e) => {
+      console.log('失敗')
+      dispatch(failureSiginUp(e))
+    })
+}
+
+// 新規登録が失敗し時の処理
+export const failureSiginUp = (error) => {
+  return {
+    type: FAILURE_SIGIN_UP_EVENT,
+    payload: error,
+  }
+}
+
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// ログインや新規登録で失敗した時に、エラーメッセージを消す処理
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// RESET_ERROR_MESSAGE_EVENT
+export const resetErrorMessage = () => {
+  return {
+    type: RESET_ERROR_MESSAGE_EVENT,
+  }
 }
 
 // =====================================================================================

@@ -46,7 +46,6 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     // ロゴを押したときに、isLoadingをfalseにする
     // =========================================================================================
     case RESET_PROFILE_LIST_EVENT:
-      console.log('PROFILE_RRESET_EVENT')
       return { ...state, isLoading: false }
 
     // =========================================================================================
