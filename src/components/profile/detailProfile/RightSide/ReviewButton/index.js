@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Col } from 'antd'
 import { SmileTwoTone, FrownOutlined } from '@ant-design/icons'
 
-import { plusReview, minusReview } from '../../../../../store/actions/profile'
+import { changeReviewScore } from '../../../../../store/actions/review'
 import { patchReviewEvent, checkMySentReview } from '../../../../../store/actions/review'
 import styles from './index.module.scss'
 
@@ -13,17 +13,17 @@ const ReviewButton = ({
   loginUserYorozuId,
   planOwnerYorozuId,
   patchReviewEvent,
-  plusReviewEvent,
-  minusReviewEvent,
+  changeScoreEvent,
   checkMysentReviewEvent,
   mySentContract,
-
+  reviewScore,
   reviewStatus,
 }) => {
   // 自分がplanOwnerに送ったreviewに関して確認する
   useEffect(() => {
-    const ownerYorozuId = planOwnerYorozuId.yorozuId
-    checkMysentReviewEvent(ownerYorozuId)
+    const loginUserId = loginUserYorozuId
+    const ownerId = planOwnerYorozuId.yorozuId
+    checkMysentReviewEvent({ ownerId, loginUserId })
   }, [planOwnerYorozuId.yorozuId])
 
   // 元に戻す時のreview情報
@@ -53,19 +53,19 @@ const ReviewButton = ({
     switch (reviewStatus) {
       // 一度プラスのレビューを押してる場合 (1, 0) => (0, 0)
       case 'positive':
-        plusReviewEvent({ positiveScore: -1, negativeScore: 0 })
+        changeScoreEvent({ positiveScore: -1, negativeScore: 0 })
         patchReviewEvent(resetReviewInfo)
         return
 
       // 一度プラスマイナスのレビュー押してる場合 (0, 1) => (1, 0)
       case 'negative':
-        plusReviewEvent({ positiveScore: 1, negativeScore: -1 })
+        changeScoreEvent({ positiveScore: 1, negativeScore: -1 })
         patchReviewEvent(positiveReviewInfo)
         return
 
       // まだレビュー押してない場合 (0, 0) => (1, 0)
       case 'default':
-        plusReviewEvent({ positiveScore: 1, negativeScore: 0 })
+        changeScoreEvent({ positiveScore: 1, negativeScore: 0 })
         patchReviewEvent(positiveReviewInfo)
         return
     }
@@ -76,19 +76,19 @@ const ReviewButton = ({
     switch (reviewStatus) {
       // 一度プラスのレビューを押してる場合 (1, 0) => (0, 1)
       case 'positive':
-        plusReviewEvent({ positiveScore: -1, negativeScore: 1 })
+        changeScoreEvent({ positiveScore: -1, negativeScore: 1 })
         patchReviewEvent(negativeReviewInfo)
         return
 
       // 一度プラスマイナスのレビュー押してる場合 (0, 1) => (0, 0)
       case 'negative':
-        plusReviewEvent({ positiveScore: 0, negativeScore: -1 })
+        changeScoreEvent({ positiveScore: 0, negativeScore: -1 })
         patchReviewEvent(resetReviewInfo)
         return
 
       // まだレビュー押してない場合 (0, 0) => (0, 1)
       case 'default':
-        plusReviewEvent({ positiveScore: 0, negativeScore: 1 })
+        changeScoreEvent({ positiveScore: 0, negativeScore: 1 })
         patchReviewEvent(negativeReviewInfo)
         return
     }
@@ -106,11 +106,12 @@ const ReviewButton = ({
         <>
           <Col>
             <SmileTwoTone twoToneColor="#ff7d6e" style={{ fontSize: 16 }} onClick={() => plusScore()} />
-            <span style={{ marginLeft: 8, fontSize: 16, userSelect: 'none' }}>{data.profileDetail.score['positiveScore']}</span>
+            {/* <span style={{ marginLeft: 8, fontSize: 16, userSelect: 'none' }}>{data.profileDetail.score['positiveScore']}</span> */}
+            <span style={{ marginLeft: 8, fontSize: 16, userSelect: 'none' }}>{reviewScore.positiveScore}</span>
           </Col>
           <Col offset={3}>
             <FrownOutlined twoToneColor="#1890ff" style={{ color: '#1890ff', fontSize: 16 }} onClick={() => minusScore()} />
-            <span style={{ marginLeft: 8, fontSize: 16, userSelect: 'none' }}>{data.profileDetail.score['negativeScore']}</span>
+            <span style={{ marginLeft: 8, fontSize: 16, userSelect: 'none' }}>{reviewScore.negativeScore}</span>
           </Col>
         </>
       )
@@ -136,24 +137,27 @@ const ReviewButton = ({
 }
 
 const mapStateToProps = (state) => ({
+  // 万屋のID
+  planOwnerYorozuId: state.profile.profileDetail,
+  // ログインユーザーのID
+  loginUserYorozuId: state.account.yorozuId,
   // プランページのよろずやに、契約申請を送ったことがあるか確認する
   mySentContract: state.planContract.mySentPlanContractStatusAndPlanId,
-  loginUserYorozuId: state.account.yorozuId,
-  planOwnerYorozuId: state.profile.profileDetail,
   // reviewStatusは、loginuserが高評価,低評価、評価ていないの3パターンある
   reviewStatus: state.review.reviewStatus,
+  // レビューの点数
+  reviewScore: state.review.score,
 })
 
 // todo名前変更から 2020 7 3
 
 const mapDispatchToProps = (dispatch) => ({
-  plusReviewEvent: (num) => dispatch(plusReview(num)),
-  minusReviewEvent: (num) => dispatch(minusReview(num)),
+  changeScoreEvent: (num) => dispatch(changeReviewScore(num)),
   // reviewの送信または上書きをする
   patchReviewEvent: (reviewData) => dispatch(patchReviewEvent(reviewData)),
   // ログインユーザーがplanOwnerに送ったreviewの状況を確認
   // idはloginUsetとplanownerのYorozuIDのオブジェクト
-  checkMysentReviewEvent: (planOwnerYorozuId) => dispatch(checkMySentReview(planOwnerYorozuId)),
+  checkMysentReviewEvent: (yorozuIdInfo) => dispatch(checkMySentReview(yorozuIdInfo)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewButton)

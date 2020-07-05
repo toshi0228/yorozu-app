@@ -1,5 +1,11 @@
-import { getMySentReview, patchReview } from '../../services/ApiRequest'
-import { READ_MY_SENT_REVIEW, PATCH_REVIEW_EVENT, CHECK_MY_SENT_REVIEW_EVENT } from '../actionTypes'
+import { getMySentReview, patchReview, getReviewScore } from '../../services/ApiRequest'
+import {
+  READ_MY_SENT_REVIEW,
+  PATCH_REVIEW_EVENT,
+  CHECK_MY_SENT_REVIEW_EVENT,
+  READ_REVIEW_SCORE_EVENT,
+  CHANGE_REVIEW_SCORE_EVENT,
+} from '../actionTypes'
 
 // =====================================================================================
 // 自分が送信したレビューを取得する
@@ -14,6 +20,33 @@ export const mySentReview = (mySentReview) => {
   return {
     type: READ_MY_SENT_REVIEW,
     payload: mySentReview,
+  }
+}
+
+// =====================================================================================
+// プランページに移動した時に、万屋のreviewScoreを取得する
+// =====================================================================================
+
+export const fetchReviewScore = (yorozuId) => (dispatch) => {
+  getReviewScore(yorozuId).then((res) => {
+    dispatch(reviewScore(res))
+  })
+}
+
+export const reviewScore = (reviewScoreData) => {
+  return {
+    type: READ_REVIEW_SCORE_EVENT,
+    payload: reviewScoreData,
+  }
+}
+
+// =====================================================================================
+// 契約したことがある人がレビューして点数を変更する
+// =====================================================================================
+export const changeReviewScore = (num) => {
+  return {
+    type: CHANGE_REVIEW_SCORE_EVENT,
+    payload: num,
   }
 }
 
@@ -37,9 +70,9 @@ export const changeReviewInfo = (newReviewInfo) => {
 // プランページに移動した時に、自分が送ったreviewを確認する
 // =====================================================================================
 // idはloginUsetとplanownerのYorozuIDのオブジェクト
-export const checkMySentReview = (planOwnerYorozuId) => {
+export const checkMySentReview = (yorozuIdInfo) => {
   return {
     type: CHECK_MY_SENT_REVIEW_EVENT,
-    payload: planOwnerYorozuId,
+    payload: yorozuIdInfo,
   }
 }

@@ -34,8 +34,6 @@ export const CREATE_PROFILE_EVENT = 'CREATE_PROFILE_EVENT'
 export const READ_ACCOUNT_ID_EVENT = 'READ_ACCOUNT_ID_EVENT'
 export const SEARCH_PROFILE_EVENT = 'SEARCH_PROFILE_EVENT'
 export const PROFILE_RRESET_EVENT = 'PROFILE_RRESET_EVENT'
-export const PLUS_REVIEW_EVENT = 'PLUS_REVIEW_EVENT'
-export const MINUS_REVIEW_EVENT = 'MINUS_REVIEW_EVENT'
 
 // ============================================================
 // message
@@ -62,6 +60,10 @@ export const SEND_REVIEW_EVENT = 'SEND_REVIEW_EVENT'
 export const PATCH_REVIEW_EVENT = 'PATCH_REVIEW_EVENT'
 // プランページに移動した時、プランオーナーに送ったreviewを確認する
 export const CHECK_MY_SENT_REVIEW_EVENT = 'CHECK_MY_SENT_REVIEW_EVENT'
+// プランページに移動した時に、よろずやのreviewの点数を取得する
+export const READ_REVIEW_SCORE_EVENT = 'READ_REVIEW_SCORE_EVENT'
+// reviewの点数の変更
+export const CHANGE_REVIEW_SCORE_EVENT = 'CHANGE_REVIEW_SCORE_EVENT'
 
 // ============================================================
 // contract

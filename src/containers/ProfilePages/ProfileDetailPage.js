@@ -6,13 +6,14 @@ import LeftSide from '../../components/profile/detailProfile/LeftSide'
 import RightSide from '../../components/profile/detailProfile/RightSide'
 import { feachProfileDetail } from '../../store/actions/profile'
 import { feachMySentPlanContract } from '../../store/actions/planContract'
-import { readMysentReview } from '../../store/actions/review'
+import { readMysentReview, fetchReviewScore } from '../../store/actions/review'
 
 const ProfileDetailPage = (props) => {
   useEffect(() => {
     // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
     const { id } = props.params.match.params
     props.readProfileDetailEvent(id)
+    props.readReviewScoreEvent(id)
     // トークンがない場合は、エラーになるので取得しない
     if (props.authToken) {
       // 自分が送信したプラン契約申請(本契約)一覧を取得する
@@ -63,6 +64,8 @@ const mapDispatchToProps = (dispatch) => ({
   readMySentPlanContractEvent: (authToken) => dispatch(feachMySentPlanContract(authToken)),
   // 自分が送信したreviewを取得する
   readMysentReviewEvent: (authToken) => dispatch(readMysentReview(authToken)),
+  // 万屋のreviewScoreを取得する
+  readReviewScoreEvent: (yorozuId) => dispatch(fetchReviewScore(yorozuId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetailPage)
