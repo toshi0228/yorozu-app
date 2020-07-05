@@ -43,6 +43,7 @@ export const postSerach = (keyword) => {
 // 万屋、詳細ページの取得
 //=====================================================================================
 export const getProfileDetail = (id) => {
+  delete axios.defaults.headers.common['Authorization']
   return axios.get(`${host.localhost()}/api/profile/${id}`)
 }
 
@@ -155,6 +156,23 @@ export const postProfile = (profile) => {
       'content-type': 'multipart/form-data',
     },
   })
+}
+
+//=====================================================================================
+// 自分が送信したreviewを取得する
+//=====================================================================================
+
+export const getMySentReview = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/review/`)
+}
+
+//=====================================================================================
+// reviewを送信 or 上書きする
+//=====================================================================================
+
+export const patchReview = (reviewInfo) => {
+  return axios.patch(`${host.localhost()}/api/review/`, reviewInfo)
 }
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝

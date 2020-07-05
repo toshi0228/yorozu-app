@@ -110,8 +110,8 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     // プランを買ってくれた人がプラスの評価をする
     // =========================================================================================
     case PLUS_REVIEW_EVENT:
-      const _negativeScore = state.profileDetail.score['negativeScore']
-      const _positiveScore = state.profileDetail.score['positiveScore'] + action.payload
+      const _positiveScore = state.profileDetail.score['positiveScore'] + action.payload.positiveScore
+      const _negativeScore = state.profileDetail.score['negativeScore'] + action.payload.negativeScore
       return {
         ...state,
         profileDetail: { ...state.profileDetail, score: { positiveScore: _positiveScore, negativeScore: _negativeScore } },

@@ -6,14 +6,26 @@ import LeftSide from '../../components/profile/detailProfile/LeftSide'
 import RightSide from '../../components/profile/detailProfile/RightSide'
 import { feachProfileDetail } from '../../store/actions/profile'
 import { feachMySentPlanContract } from '../../store/actions/planContract'
+import { readMysentReview } from '../../store/actions/review'
 
 const ProfileDetailPage = (props) => {
   useEffect(() => {
     // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
     const { id } = props.params.match.params
     props.readProfileDetailEvent(id)
-    // 自分が送信したプラン契約申請(本契約)一覧を取得する
-    props.readMySentPlanContractEvent(props.authToken)
+    // トークンがない場合は、エラーになるので取得しない
+    if (props.authToken) {
+      // 自分が送信したプラン契約申請(本契約)一覧を取得する
+      props.readMySentPlanContractEvent(props.authToken)
+    }
+  }, [])
+
+  // 自分が送信したレビューを取得する
+  useEffect(() => {
+    // トークンがり、なおかつまだレビューを取得していなければ、取得する
+    if (props.authToken && props.mySentReview.isLoading != true) {
+      props.readMysentReviewEvent(props.authToken)
+    }
   }, [])
 
   return (
@@ -41,6 +53,7 @@ const ProfileDetailPage = (props) => {
 const mapStateToProps = (state) => ({
   data: state.profile,
   authToken: state.account.authToken.access,
+  mySentReview: state.review,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -48,6 +61,8 @@ const mapDispatchToProps = (dispatch) => ({
   readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
   // 自分が送信したプラン契約の申請一覧を取得する
   readMySentPlanContractEvent: (authToken) => dispatch(feachMySentPlanContract(authToken)),
+  // 自分が送信したreviewを取得する
+  readMysentReviewEvent: (authToken) => dispatch(readMysentReview(authToken)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetailPage)

@@ -6,8 +6,6 @@ import { search } from '../../../store/actions/profile'
 import styles from './index.module.scss'
 
 const SearchForm = (props) => {
-  console.log(props)
-
   const search = (keyword) => {
     props.searchEvent({ keyword })
   }

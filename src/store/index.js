@@ -18,6 +18,7 @@ import tagReducer from './reducers/tagReducer'
 import profileReducer from './reducers/profileReducer'
 import messageReducer from './reducers/messageReducer'
 import planContractReducer from './reducers/planContractReducer'
+import reviewReducer from './reducers/reviewReducer'
 
 // 永続化の設定
 const authPersistConfig = {
@@ -36,6 +37,7 @@ export const createRootReducer = (history) =>
     profile: profileReducer,
     message: messageReducer,
     planContract: planContractReducer,
+    review: reviewReducer,
   })
 
 export const history = createBrowserHistory()
