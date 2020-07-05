@@ -4,8 +4,7 @@ import {
   PROFILE_DETAIL_INITIALIZE_EVENT,
   READ_ACCOUNT_ID_EVENT,
   SEARCH_PROFILE_EVENT,
-  PROFILE_RRESET_EVENT,
-  PLUS_REVIEW_EVENT,
+  RESET_PROFILE_LIST_EVENT,
   // MINUS_REVIEW_EVENT,
 } from '../actionTypes'
 import { getProfileList, postProfile, getProfileDetail, postSerach } from '../../services/ApiRequest'
@@ -77,24 +76,25 @@ export const readAccountId = (accountId) => {
     payload: accountId,
   }
 }
+
+// =====================================================================================
+// ロゴボタンを押したときに、profileのisLoadingをfalseにする
+// =====================================================================================
+
+export const resetProfileList = () => {
+  return {
+    type: RESET_PROFILE_LIST_EVENT,
+  }
+}
+
 // =====================================================================================
 // よろず屋(profile)の検索
 // =====================================================================================
 export const search = (keyword) => (dispatch) => {
-  // 検索した後のページを表示する前に、今あるデータをリセットする
-  // dispatch(profileListReset())
   postSerach(keyword).then((res) => {
-    console.log(res)
     dispatch(searchProfile(res))
     dispatch(push(routes.top()))
   })
-}
-
-// profileのトップページ以外で、ページ遷移をした場合に、前のデータが残っているので最初にデータリセットする
-export const profileListReset = () => {
-  return {
-    type: PROFILE_RRESET_EVENT,
-  }
 }
 
 export const searchProfile = (searchResult) => {

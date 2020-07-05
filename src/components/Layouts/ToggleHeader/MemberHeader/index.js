@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { Col, Row, Input } from 'antd'
+
+import { Col, Row } from 'antd'
 import styles from './index.module.scss'
-import routes from '../../../../routes'
+
 import { signOut } from '../../../../store/actions/account'
 import MyPageBtn from './MyPageBtn'
 
+import HeaderLogo from '../HeaderLogo'
 import SearchForm from '../../../form/searchForm'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -22,9 +23,7 @@ const MemberHeader = (props) => {
         <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
           {/* ロゴスペース */}
           <Col span={3} className={styles.left}>
-            <Link to={routes.top}>
-              <h2>Yorozu</h2>
-            </Link>
+            <HeaderLogo />
           </Col>
 
           {/* 検索のスペース */}

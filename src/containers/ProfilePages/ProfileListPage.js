@@ -11,9 +11,15 @@ import styles from '../../styles/ProfileListPage.module.scss'
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 const ProfileListPage = (props) => {
+  // まだプロフィールリストを読み込んでなければ、読み込む
   useEffect(() => {
-    props.readProfileListEvents()
-    // プランページに移動した時に、前のプランプロフィールデータやプランデータが残っている可能性があるので初期化
+    if (props.isLoading == false) {
+      props.readProfileListEvents()
+    }
+  }, [props.isLoading])
+
+  // プランページに移動した時に、前のプランプロフィールデータやプランデータが残っている可能性があるので初期化
+  useEffect(() => {
     props.profileDetailInitializeEvent()
   }, [])
 
@@ -49,6 +55,8 @@ const ProfileListPage = (props) => {
 
 const mapStateToprops = (state) => ({
   data: state.profile,
+  // プロフィールリストを読み込んだか
+  isLoading: state.profile.isLoading,
 })
 
 const mapDispatchToProps = (dispatch) => ({

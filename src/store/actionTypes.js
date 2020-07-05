@@ -33,7 +33,7 @@ export const READ_PROFILE_DETAIL_EVENT = 'READ_PROFILE_DETAIL_EVENT'
 export const CREATE_PROFILE_EVENT = 'CREATE_PROFILE_EVENT'
 export const READ_ACCOUNT_ID_EVENT = 'READ_ACCOUNT_ID_EVENT'
 export const SEARCH_PROFILE_EVENT = 'SEARCH_PROFILE_EVENT'
-export const PROFILE_RRESET_EVENT = 'PROFILE_RRESET_EVENT'
+export const RESET_PROFILE_LIST_EVENT = 'RESET_PROFILE_LIST_EVENT'
 
 // ============================================================
 // message

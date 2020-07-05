@@ -6,7 +6,7 @@ import {
   CREATE_PROFILE_EVENT,
   READ_ACCOUNT_ID_EVENT,
   SEARCH_PROFILE_EVENT,
-  PROFILE_RRESET_EVENT,
+  RESET_PROFILE_LIST_EVENT,
 } from '../actionTypes'
 
 const DEFAULT_STATE = {
@@ -43,11 +43,11 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
       return { ...state, isLoading: true }
 
     // =========================================================================================
-    // プロフィールの検索の時、topページ以外から遷移する時に、前のデータが残っているので検索前にリセットする
+    // ロゴを押したときに、isLoadingをfalseにする
     // =========================================================================================
-    case PROFILE_RRESET_EVENT:
+    case RESET_PROFILE_LIST_EVENT:
       console.log('PROFILE_RRESET_EVENT')
-      return { ...state, profileList: [] }
+      return { ...state, isLoading: false }
 
     // =========================================================================================
     // よろず屋(profile)の検索

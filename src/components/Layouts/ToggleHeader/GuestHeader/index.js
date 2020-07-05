@@ -6,6 +6,7 @@ import styles from './index.module.scss'
 
 // import routes from '../../../../routes'
 import SearchForm from '../../../form/searchForm'
+import HeaderLogo from '../HeaderLogo'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ
@@ -20,9 +21,7 @@ const GuestHeader = () => {
         {/* ロゴ */}
         <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
           <Col span={3} xs={16} md={3}>
-            <Link to="/">
-              <h2 className={styles.logoArea}>Yorozu</h2>
-            </Link>
+            <HeaderLogo />
           </Col>
 
           {/* 検索 */}
