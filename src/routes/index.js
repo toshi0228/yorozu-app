@@ -4,7 +4,8 @@ const UrlList = {
   signUp: () => '/sign_up',
   profileDetail: (yorozuId) => `/plan/${yorozuId}`,
   messageList: () => '/message',
-  createMessage: () => '/message/rooms/:id',
+  // createMessage: () => '/message/rooms/:id',
+  createMessage: (yorozuId) => `/message/rooms/${yorozuId}`,
   dashboard: () => '/dashboard',
   myPage: () => '/channel/featured',
 }

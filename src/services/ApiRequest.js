@@ -1,5 +1,6 @@
 import axios from 'axios'
 import host from '../constants/url'
+import { message } from 'antd'
 
 //=====================================================================================
 // ヘッダーにトークンをつける
@@ -73,6 +74,14 @@ export const getSendMessageList = (authToken) => {
 
 export const postMessage = (messageContent) => {
   return axios.post(`${host.localhost()}/api/message/`, messageContent)
+}
+
+// =====================================================================================
+// メッセージに関して、未読から既読に変更する
+// =====================================================================================
+
+export const patchMessage = (message) => {
+  return axios.patch(`${host.localhost()}/api/message/`, message)
 }
 
 // =====================================================================================

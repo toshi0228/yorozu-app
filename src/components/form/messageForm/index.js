@@ -10,8 +10,6 @@ import { fetchLoginUserImage } from '../../../store/actions/account'
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 const MessageForm = (props) => {
-  console.log('messageForm')
-  console.log(props.loginUserImage['image'])
   const [comment, setComment] = useState('')
   // 送信中の時にtrueになり、ロードマークが出る
   const [submitting, setSubmitting] = useState(false)

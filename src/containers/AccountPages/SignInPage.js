@@ -4,8 +4,6 @@ import { signIn, resetErrorMessage } from '../../store/actions/account'
 import { Button, Form, Input, Icon } from 'antd'
 
 const SignInPage = (props) => {
-  console.log(props)
-
   // ページ遷移しても、エラーメッセージが残っている場合があるので最初に消す
   useEffect(() => {
     props.resetErrorMessage()

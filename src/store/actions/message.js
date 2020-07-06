@@ -1,4 +1,4 @@
-import { getMessageList, getSendMessageList, postMessage } from '../../services/ApiRequest'
+import { getMessageList, getSendMessageList, postMessage, patchMessage } from '../../services/ApiRequest'
 import {
   READ_MESSAGE_EVENTS,
   READ_ROOMMESSAGE_EVENTS,
@@ -91,3 +91,13 @@ export const sendMessageLoginUser = (sendMessageData) => ({
   type: SEND_MESSAGE_EVENT,
   payload: sendMessageData,
 })
+
+// =================================================================================
+// メッセージを未読から既読にする
+// =================================================================================
+
+export const alreadyRead = (message) => (dispatch) => {
+  // createAtがreactで加工されたデータで、そのまま送るとエラーになるので、idと上書きするunread:falseだけにする
+  const _message = { id: message['id'], unread: false }
+  patchMessage(_message)
+}

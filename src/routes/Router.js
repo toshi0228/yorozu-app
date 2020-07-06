@@ -56,7 +56,7 @@ const Router = (props) => {
         <Route exact path={routes.messageList()} render={withLayout(MessagePage)} />
 
         {/* メッセージ作成ページ */}
-        <Route exact path={routes.createMessage()} render={withLayout(CreateMessage)} />
+        <Route exact path={routes.createMessage(':id')} render={withLayout(CreateMessage)} />
 
         {/* プラン作成  */}
         {/* ログインチェックなし */}
