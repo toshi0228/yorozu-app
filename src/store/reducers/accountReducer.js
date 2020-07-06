@@ -14,7 +14,8 @@ export const DEFAULT_STATE = {
   isLoggedIn: false,
   isSignInFailure: false,
   isSignUpFailure: false,
-  // ...new Account({}),
+  //// ユーザーイメージを取得しているかどうかと、 ログインユーザーの画像
+  userImage: { isUserImage: false, image: '' },
 }
 
 const accountReducer = (state = DEFAULT_STATE, action) => {
@@ -29,18 +30,16 @@ const accountReducer = (state = DEFAULT_STATE, action) => {
     // ログインした時に失敗した時の処理
     // ============================================================================
     case FAILURE_SIGIN_IN_EVENT:
-      console.log('FAILURE_SIGIN_IN_EVENT')
       return { ...state, isSignInFailure: true }
 
     // ============================================================================
     // ログインした時に,プロフィールを取得する
     // ============================================================================
     case READ_LOGIN_USER_PROFILE_EVENT:
-      console.log('READ_LOGIN_USER_PROFILE_EVENT')
-      console.log(action.payload)
-
-      // todo プロフィールをうまく処理
-
+      const profileImage = action.payload.data['profileImage']
+      if (profileImage) {
+        return { ...state, userImage: { isUserImage: true, image: profileImage } }
+      }
       return state
 
     // ============================================================================

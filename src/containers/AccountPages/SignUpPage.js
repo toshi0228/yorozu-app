@@ -38,7 +38,7 @@ const SignUpPage = (props) => {
       <p style={{ textAlign: 'center', marginTop: 40 }}>メールアドレスとパスワードを入力してください。</p>
       {props.isSignUpFailure && (
         <p style={{ textAlign: 'center', color: 'red', fontSize: 8 }}>
-          既に使われているメールアドレスか、または登録できない文字が含まれています
+          既に使われているメールアドレス、もしくは登録できない文字が含まれています
         </p>
       )}
 

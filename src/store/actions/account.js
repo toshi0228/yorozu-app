@@ -117,7 +117,6 @@ export const signUp = (formProps) => (dispatch) => {
       })
     })
     .catch((e) => {
-      console.log('失敗')
       dispatch(failureSiginUp(e))
     })
 }
@@ -138,6 +137,15 @@ export const resetErrorMessage = () => {
   return {
     type: RESET_ERROR_MESSAGE_EVENT,
   }
+}
+
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// ログインユーザーのプロフィールを取得する
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+export const fetchLoginUserImage = (yorozuId) => (dispatch) => {
+  getLoginUserProfile(yorozuId).then((res) => {
+    dispatch(loginUserProfile(res))
+  })
 }
 
 // =====================================================================================
