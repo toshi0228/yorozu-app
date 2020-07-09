@@ -6,18 +6,21 @@ import LeftSide from '../../components/profile/detailProfile/LeftSide'
 import RightSide from '../../components/profile/detailProfile/RightSide'
 
 import { feachProfileDetail } from '../../store/actions/profile'
-import { feachMySentPlanContract } from '../../store/actions/planContract'
+import { fetchYorozuId } from '../../store/actions/account'
+import { fetchReviewScore } from '../../store/actions/review'
 
 const PreviewYorozuPage = (props) => {
-  console.log('PreviewYorozuPage')
-  console.log(props)
+  // よろずIDを取得する (※プロフィールを登録した後に、リロードした時に、エラーになるので)
   useEffect(() => {
-    // propsの中のpropsからidが渡ってきて、そこから受け取ったidによって画像を変える
-    // const { id } = props.params.match.params
-    props.readProfileDetailEvent(props.yorozuId)
+    props.readYorozuIdEvent(props.authToken)
+  }, [])
 
-    // 自分が送信したプラン契約申請(本契約)一覧を取得する
-    props.readMySentPlanContractEvent(props.authToken)
+  // プロフィールを取得する
+  useEffect(() => {
+    if (props.yorozuId) {
+      props.readProfileDetailEvent(props.yorozuId)
+      props.readReviewScoreEvent(props.yorozuId)
+    }
   }, [])
 
   return (
@@ -25,11 +28,11 @@ const PreviewYorozuPage = (props) => {
       <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
         {/* 右サイド プラン一覧  割合12/24*/}
         <Col span={16}>
-          <LeftSide data={props.data} />
+          <LeftSide data={props.profile} />
         </Col>
         {/* 右サイドバー 割合6/24 */}
         <Col span={8}>
-          <RightSide data={props.data} />
+          <RightSide data={props.profile} />
         </Col>
       </Row>
     </>
@@ -37,16 +40,22 @@ const PreviewYorozuPage = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  data: state.profile,
+  profile: state.profile,
   authToken: state.account.authToken.access,
   yorozuId: state.account.yorozuId,
+  // porfileを更新したら,trueになり、再レンダリングさせる
+  // isRegisterProfile: state.profile.isRegisterProfile,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   // 万屋の詳細ページを取得する(プランや、よろずやユーザーの情報等)
   readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
-  // 自分が送信したプラン契約の申請一覧を取得する
-  readMySentPlanContractEvent: (authToken) => dispatch(feachMySentPlanContract(authToken)),
+
+  // よろずIDを取得する
+  readYorozuIdEvent: (authToken) => dispatch(fetchYorozuId(authToken)),
+
+  // 万屋のreviewScoreを取得する
+  readReviewScoreEvent: (yorozuId) => dispatch(fetchReviewScore(yorozuId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PreviewYorozuPage)

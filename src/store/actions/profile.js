@@ -5,14 +5,12 @@ import {
   READ_ACCOUNT_ID_EVENT,
   SEARCH_PROFILE_EVENT,
   RESET_PROFILE_LIST_EVENT,
-  // MINUS_REVIEW_EVENT,
+  // CREATE_PROFILE_EVENT,
 } from '../actionTypes'
 import { getProfileList, postProfile, getProfileDetail, postSerach } from '../../services/ApiRequest'
 import { checkAccountId } from '../../services/authApiRequest'
 import { push } from 'connected-react-router'
 import routes from '../../routes/index'
-
-// import { push } from 'connected-react-router'
 
 // =====================================================================================
 // プロフィールリストの読み込み(トップページでの処理)
@@ -118,12 +116,26 @@ export const createProfile = (profile) => (dispatch) => {
   // 省略可能な第3引数を使用して、Content-Dispositionヘッダに含めるファイル名を渡すことができる
   formData.append('profileImage', profile.profileImage[0], profile.profileImage[0].name)
   formData.append('profileDescription', profile.profileDescription)
-  formData.append('planThumbnailImage', profile.planThumbnailImage[0], profile.planThumbnailImage[0].name)
-
+  formData.append('yorozuyaThumbnailImage', profile.yorozuyaThumbnailImage[0], profile.yorozuyaThumbnailImage[0].name)
   postProfile(formData).then((res) => {
-    console.log(res)
+    // dispatch(registerProfile(res))
+    // console.log()
+    // console.log(res)
+
+    // プロフィールを登録した後に、登録したprofileデータの詳細を取得する(プランデータやscoreデータも取得できる)
+    const yorozuId = res.data.yorozuId
+    getProfileDetail(yorozuId).then((res) => {
+      dispatch(readProfile(res.data))
+    })
   })
 }
+
+// export const registerProfile = (profile) => {
+//   return {
+//     type: CREATE_PROFILE_EVENT,
+//     payload: profile,
+//   }
+// }
 
 // =====================================================================================
 // 2020 4 28

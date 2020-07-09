@@ -5,6 +5,7 @@ import {
   FAILURE_SIGIN_IN_EVENT,
   FAILURE_SIGIN_UP_EVENT,
   RESET_ERROR_MESSAGE_EVENT,
+  READ_YOROZUID_EVENT,
 } from '../actionTypes'
 // import Account from '../../models/account';
 
@@ -31,6 +32,13 @@ const accountReducer = (state = DEFAULT_STATE, action) => {
     // ============================================================================
     case FAILURE_SIGIN_IN_EVENT:
       return { ...state, isSignInFailure: true }
+
+    // ============================================================================
+    // よろずIDの読み込み
+    // ============================================================================
+    case READ_YOROZUID_EVENT:
+      const yorozuId = action.payload.data
+      return { ...state, yorozuId: yorozuId }
 
     // ============================================================================
     // ログインした時に,プロフィールを取得する

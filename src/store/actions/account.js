@@ -5,9 +5,10 @@ import {
   FAILURE_SIGIN_IN_EVENT,
   FAILURE_SIGIN_UP_EVENT,
   RESET_ERROR_MESSAGE_EVENT,
+  READ_YOROZUID_EVENT,
 } from '../actionTypes'
-import { postSignIn, postSignUp, postTokenVerify } from '../../services/authApiRequest'
 import { push } from 'connected-react-router'
+import { postSignIn, postSignUp, postTokenVerify, checkAccountId } from '../../services/authApiRequest'
 import { setAuthHeader, getYorozuId, getLoginUserProfile } from '../../services/ApiRequest'
 import jwt from 'jwt-decode'
 import routes from '../../routes'
@@ -146,6 +147,31 @@ export const fetchLoginUserImage = (yorozuId) => (dispatch) => {
   getLoginUserProfile(yorozuId).then((res) => {
     dispatch(loginUserProfile(res))
   })
+}
+
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// よろずIDを取得する
+// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
+export const fetchYorozuId = (authToken) => (dispatch) => {
+  checkAccountId(authToken).then((res) => {
+    // api側モデル側で、accountIdとyoroziIdは、リレーションされている
+    const accountId = res.data['id']
+    getYorozuId(accountId)
+      .then((res) => {
+        dispatch(readYorozuId(res))
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  })
+}
+
+export const readYorozuId = (yorozuId) => {
+  return {
+    type: READ_YOROZUID_EVENT,
+    payload: yorozuId,
+  }
 }
 
 // =====================================================================================

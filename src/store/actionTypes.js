@@ -8,6 +8,8 @@ export const FAILURE_SIGIN_IN_EVENT = 'FAILURE_SIGIN_IN_EVENT'
 export const FAILURE_SIGIN_UP_EVENT = 'FAILURE_SIGIN_UP_EVENT'
 // ログインページや新規登録ページを開いたときに、isSignInFailureをfalseにする
 export const RESET_ERROR_MESSAGE_EVENT = 'RESET_ERROR_MESSAGE_EVENT'
+// yorozuIdの読み込み
+export const READ_YOROZUID_EVENT = 'READ_YOROZUID_EVENT'
 
 // ============================================================
 // Application
@@ -32,10 +34,11 @@ export const READ_TAG_EVENTS = 'READ_TAG_EVENTS'
 export const PROFILE_DETAIL_INITIALIZE_EVENT = 'PROFILE_DETAIL_INITIALIZE_EVENT'
 export const READ_PROFILE_EVENTS = 'READ_PROFILE_EVENTS'
 export const READ_PROFILE_DETAIL_EVENT = 'READ_PROFILE_DETAIL_EVENT'
-export const CREATE_PROFILE_EVENT = 'CREATE_PROFILE_EVENT'
 export const READ_ACCOUNT_ID_EVENT = 'READ_ACCOUNT_ID_EVENT'
 export const SEARCH_PROFILE_EVENT = 'SEARCH_PROFILE_EVENT'
 export const RESET_PROFILE_LIST_EVENT = 'RESET_PROFILE_LIST_EVENT'
+// プロフィールの登録
+// export const CREATE_PROFILE_EVENT = 'CREATE_PROFILE_EVENT'
 
 // ============================================================
 // message

@@ -3,7 +3,7 @@ import {
   PROFILE_DETAIL_INITIALIZE_EVENT,
   READ_PROFILE_EVENTS,
   READ_PROFILE_DETAIL_EVENT,
-  CREATE_PROFILE_EVENT,
+  // CREATE_PROFILE_EVENT,
   READ_ACCOUNT_ID_EVENT,
   SEARCH_PROFILE_EVENT,
   RESET_PROFILE_LIST_EVENT,
@@ -11,6 +11,10 @@ import {
 
 const DEFAULT_STATE = {
   isLoading: false,
+
+  // プロフィールを登録したら、newProfileを再レンダリングさせる
+  // isRegisterProfile: false,
+
   // トップページのprofileListのデータ
   profileList: [],
   // profileDetailページのデータ。planListとtagListは最初にmapで作業があるので先に初期値を入れる
@@ -98,9 +102,9 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     // =========================================================================================
     // プロフィールを作成する
     // =========================================================================================
-    case CREATE_PROFILE_EVENT:
-      console.log('CREATE_PROFILE_EVENT')
-      return state
+    // case CREATE_PROFILE_EVENT:
+    //   console.log('CREATE_PROFILE_EVENT')
+    //   return { ...state, isRegisterProfile: true }
 
     default:
       return state
