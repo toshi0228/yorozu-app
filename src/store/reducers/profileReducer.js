@@ -7,21 +7,24 @@ import {
   READ_ACCOUNT_ID_EVENT,
   SEARCH_PROFILE_EVENT,
   RESET_PROFILE_LIST_EVENT,
+  READ_PROFILE_ITEM_EVENT,
 } from '../actionTypes'
 
 const DEFAULT_STATE = {
+  // httpGETをしたことがあるか
   isLoading: false,
-
-  // プロフィールを登録したら、newProfileを再レンダリングさせる
-  // isRegisterProfile: false,
 
   // トップページのprofileListのデータ
   profileList: [],
+
   // profileDetailページのデータ。planListとtagListは最初にmapで作業があるので先に初期値を入れる
   profileDetail: { planList: [], tagList: [], score: { positiveScore: 0, negativeScore: 0 } },
 
   // アカウントのid profileを作成の時に必要 サーバー側でaccountとprofileでリレーションしているので、accountIdが必要
   accountId: '',
+
+  // プロフィールで登録しする項目
+  profile: { nickname: '', yorozuyaName: '', yorozuId: '', profileImage: [], profileDescription: '', yorozuyaThumbnailImage: '' },
 }
 
 const profileReducer = (state = DEFAULT_STATE, action) => {
@@ -100,11 +103,25 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
       return { ...state, accountId: action.payload }
 
     // =========================================================================================
-    // プロフィールを作成する
+    // プロフィール項目のデータ
     // =========================================================================================
-    // case CREATE_PROFILE_EVENT:
-    //   console.log('CREATE_PROFILE_EVENT')
-    //   return { ...state, isRegisterProfile: true }
+    case READ_PROFILE_ITEM_EVENT:
+      console.log('READ_PROFILE_ITEM_EVENT')
+      const nickname = state.profileDetail['nickname']
+      const yorozuyaName = state.profileDetail['yorozuyaName']
+      const yorozuId = state.profileDetail['yorozuId']
+      const profileDescription = state.profileDetail['profileDescription']
+
+      const profile = {
+        nickname: nickname,
+        yorozuyaName: yorozuyaName,
+        yorozuId: yorozuId,
+        // profileImage: [],
+        profileDescription: profileDescription,
+        yorozuyaThumbnailImage: '',
+      }
+
+      return state
 
     default:
       return state

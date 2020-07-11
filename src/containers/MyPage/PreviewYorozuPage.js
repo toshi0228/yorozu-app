@@ -43,8 +43,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
   authToken: state.account.authToken.access,
   yorozuId: state.account.yorozuId,
-  // porfileを更新したら,trueになり、再レンダリングさせる
-  // isRegisterProfile: state.profile.isRegisterProfile,
 })
 
 const mapDispatchToProps = (dispatch) => ({

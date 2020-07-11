@@ -4,6 +4,8 @@ import { Modal, Button, Row, Col } from 'antd'
 import { planContract } from '../../../../store/actions/planContract'
 import { sendMessage } from '../../../../store/actions/message'
 
+import StripeCheckoutButton from '../../../stripeButton'
+
 import host from '../../../../constants/url'
 import styles from './index.module.scss'
 
@@ -75,6 +77,7 @@ const PlanContractModal = (props) => {
             <p>
               クレジットカード<span style={{ padding: 30, color: '#1890ff', cursor: 'pointer', fontSize: 10 }}>変更する</span>
             </p>
+            <StripeCheckoutButton />
           </Col>
 
           {/* 画像 */}

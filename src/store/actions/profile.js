@@ -5,6 +5,7 @@ import {
   READ_ACCOUNT_ID_EVENT,
   SEARCH_PROFILE_EVENT,
   RESET_PROFILE_LIST_EVENT,
+  READ_PROFILE_ITEM_EVENT,
   // CREATE_PROFILE_EVENT,
 } from '../actionTypes'
 import { getProfileList, postProfile, getProfileDetail, postSerach } from '../../services/ApiRequest'
@@ -128,6 +129,16 @@ export const createProfile = (profile) => (dispatch) => {
       dispatch(readProfile(res.data))
     })
   })
+}
+
+// =====================================================================================
+// プロフィールの項目を読み込み
+// =====================================================================================
+
+export const readProfileItem = () => {
+  return {
+    type: READ_PROFILE_ITEM_EVENT,
+  }
 }
 
 // export const registerProfile = (profile) => {

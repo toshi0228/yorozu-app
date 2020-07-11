@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Input, Button } from 'antd'
 import ImageForm from '../../components/form/ImageForm/index'
-import { createProfile, feachAccountId } from '../../store/actions/profile'
+import { createProfile, feachAccountId, readProfileItem } from '../../store/actions/profile'
 
 import CreateProfileModal from '../../components/modal/createProfileModal'
 
 const CreateProfilePage = (props) => {
-  // console.log(props)
+  console.log('CreateProfilePage')
+  console.log(props)
+
   const [nickname, setNickname] = useState('')
   const [yorozuyaName, setYorozuyaName] = useState('')
   const [yorozuId, setYorozuId] = useState('')
@@ -22,10 +24,15 @@ const CreateProfilePage = (props) => {
   // trueになるとモダールが表示される
   const [alertModal, setAlertModal] = useState(false)
 
-  // プロフィール作成の時は、アカウントIDが必要になるので、最初に取得するs
+  // プロフィール作成の時は、アカウントIDが必要になるので、最初に取得する
   useEffect(() => {
     props.readAccountIdEvent(props.authToken)
   })
+
+  useEffect(() => {
+    console.log('読み込む')
+    props.readprofileItemEvent()
+  }, [])
 
   // プロフィールを送信する時に、空白がエラ-をだす
   const chenckRegisterProfile = (profile) => {
@@ -171,12 +178,15 @@ const CreateProfilePage = (props) => {
 const mapStateToProps = (state) => ({
   authToken: state.account.authToken.access,
   accountId: state.profile.accountId,
+  profile: state.profile.profile,
+  profile: state.profile.profileDetail,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   // プロフィールを作成する処理
   readAccountIdEvent: (authToken) => dispatch(feachAccountId(authToken)),
   createProfileEvent: (authToken) => dispatch(createProfile(authToken)),
+  readprofileItemEvent: () => dispatch(readProfileItem()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateProfilePage)
