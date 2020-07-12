@@ -148,6 +148,16 @@ export const getMySentPlanContractList = (authToken) => {
 }
 
 // =====================================================================================
+// stripeの決済処理
+// =====================================================================================
+
+export const postPayment = (token) => {
+  console.log('postpaymentまできてる')
+  console.log(token)
+  return axios.post(`${host.localhost()}/api/payment/`, token)
+}
+
+// =====================================================================================
 // 自分のプランを購入してくれた人のリスト
 // =====================================================================================
 export const getPurchasersList = (authToken) => {
