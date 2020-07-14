@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { loadStripe } from '@stripe/stripe-js'
+import { Col, Row } from 'antd'
 
 import {
   Elements,
@@ -44,20 +45,51 @@ const CheckoutForm = ({ price, paymentEvent }) => {
     }
   }
 
-  const CARD_OPTIONS = {
-    iconStyle: 'solid',
-    color: '#fff',
-    fontSize: '196px',
-    background: 'red',
+  // const CARD_OPTIONS = {
+  const cardOptions = {
+    style: {
+      base: {
+        iconStyle: 'solid',
+        padding: '10px',
+        borderBottom: 'solid 3px #cfd7df',
+        color: 'rgba(0, 0, 0, 0.65)',
+        fontSize: '14px',
+        marign: '20px',
+        '::placeholder': {
+          color: '#CCCCCC',
+        },
+      },
+    },
   }
 
   return (
     // <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto', background: 'yellow' }}>
     <form onSubmit={handleSubmit}>
-      {/* <CardElement /> */}
-      <CardNumberElement options={CARD_OPTIONS} />
-      <CardExpiryElement />
-      <CardCvcElement />
+      {/* <CardElement options={cardOptions} /> */}
+      {/* <CardNumberElement options={CARD_OPTIONS} /> */}
+
+      <span>カード番号</span>
+      <div style={{ marginBottom: '10px', padding: '6px', borderBottom: 'solid 0.3px #cfd7df' }}>
+        <CardNumberElement options={cardOptions} />
+      </div>
+
+      <div style={{ marginBottom: '10px', display: 'flex' }}>
+        {/* 有効期限Container */}
+        <div style={{ borderBottom: 'solid 0.3px #cfd7df' }}>
+          <div style={{ paddingRight: '155px' }}>有効期限</div>
+          <div style={{ padding: '6px' }}>
+            <CardExpiryElement options={cardOptions} />
+          </div>
+        </div>
+
+        {/* CSVコードのContainer */}
+        <div style={{ paddingRight: '35%', marginLeft: '5%', borderBottom: 'solid 0.3px #cfd7df' }}>
+          <span>CVCコード</span>
+          <div style={{ padding: '6px' }}>
+            <CardCvcElement options={cardOptions} />
+          </div>
+        </div>
+      </div>
 
       <button type="submit" disabled={!stripe}>
         お支払い
@@ -71,7 +103,8 @@ const stripePromise = loadStripe(
 )
 
 // ストライプのコンポーネント
-const Stripe = ({ price, paymentEvent }) => {
+const Stripe = ({ price, paymentEvent, hundleSubmit }) => {
+  console.log(hundleSubmit)
   return (
     <Elements stripe={stripePromise}>
       <CheckoutForm price={price} paymentEvent={paymentEvent} />

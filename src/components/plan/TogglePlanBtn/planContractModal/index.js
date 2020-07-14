@@ -74,12 +74,14 @@ const PlanContractModal = (props) => {
             <p>{props.planData.title}</p>
             <h3>料金</h3>
             <p>{`￥${props.planData.price} 円`}</p>
-            <h3>決済方法</h3>
+            <h3>お支払い方法</h3>
             <p>
-              クレジットカード<span style={{ padding: 30, color: '#1890ff', cursor: 'pointer', fontSize: 10 }}>変更する</span>
+              <img src="https://d2aj9sy12tbpym.cloudfront.net/javascripts/dist/assets/cards-93fdb7f8c04e768123771a8f33e49f63.svg" />
             </p>
-            <StripeCheckoutButton />
-            <Stripe price={props.planData.price} />
+            {/* <p>
+              クレジットカード<span style={{ padding: 30, color: '#1890ff', cursor: 'pointer', fontSize: 10 }}>変更する</span>
+            </p> */}
+            {/* <StripeCheckoutButton /> */}
           </Col>
 
           {/* 画像 */}
@@ -87,6 +89,8 @@ const PlanContractModal = (props) => {
             <img alt="example" src={`${host.localhost()}${props.planData.image}`} style={{ width: '100%', height: 110, borderRadius: 8 }} />
           </Col>
         </Row>
+
+        <Stripe price={props.planData.price} hundleSubmit={hundleSubmit} />
 
         <h3 style={{ color: '#ff7d6e' }}>注意事項</h3>
         <div style={{ marginBottom: 20 }} className={styles.attention}>
@@ -103,6 +107,7 @@ const PlanContractModal = (props) => {
             <li>初回契約にかぎり、48時間以内によろずやから返答がない場合は自動キャンセル・返金となります。</li>
           </ul>
         </div>
+
         <p style={{ marginBottom: 10 }}></p>
       </Modal>
     </div>
