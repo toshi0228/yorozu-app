@@ -4,11 +4,13 @@ import { Modal, Button, Row, Col } from 'antd'
 import { planContract } from '../../../../store/actions/planContract'
 import { sendMessage } from '../../../../store/actions/message'
 
-import StripeCheckoutButton from '../../../stripeButton'
+// import StripeCheckoutButton from '../../../stripeButton'
 import Stripe from '../../../stripe'
 
-import host from '../../../../constants/url'
-import styles from './index.module.scss'
+// import host from '../../../../constants/url'
+// import styles from './index.module.scss'
+
+import PlanDataContext from '../../../../contexts/PlanDataContext'
 
 // ====================================================================
 // プランリクエストのモーダル
@@ -54,63 +56,26 @@ const PlanContractModal = (props) => {
   }
 
   return (
-    <div>
-      <Modal
-        title="お支払い方法の選択"
-        // visiblがtrueなら、モーダルが表示される
-        visible={props.isPlanContractModalVisible}
-        onOk={hundleSubmit}
-        onCancel={handleCancel}
-        footer={[
-          <Button key="submit" onClick={hundleSubmit}>
-            クレジットカードで決済
-          </Button>,
-        ]}
-      >
-        <Row>
-          {/* 説明 */}
-          <Col span={14}>
-            <h3>タイトル</h3>
-            <p>{props.planData.title}</p>
-            <h3>料金</h3>
-            <p>{`￥${props.planData.price} 円`}</p>
-            <h3>お支払い方法</h3>
-            <p>
-              <img src="https://d2aj9sy12tbpym.cloudfront.net/javascripts/dist/assets/cards-93fdb7f8c04e768123771a8f33e49f63.svg" />
-            </p>
-            {/* <p>
-              クレジットカード<span style={{ padding: 30, color: '#1890ff', cursor: 'pointer', fontSize: 10 }}>変更する</span>
-            </p> */}
-            {/* <StripeCheckoutButton /> */}
-          </Col>
-
-          {/* 画像 */}
-          <Col span={8} offset={2} style={{ background: '#ff7d6e' }}>
-            <img alt="example" src={`${host.localhost()}${props.planData.image}`} style={{ width: '100%', height: 110, borderRadius: 8 }} />
-          </Col>
-        </Row>
-
-        <Stripe price={props.planData.price} hundleSubmit={hundleSubmit} />
-
-        <h3 style={{ color: '#ff7d6e' }}>注意事項</h3>
-        <div style={{ marginBottom: 20 }} className={styles.attention}>
-          <ul>
-            <li>解約は自由に行なえますが、課金後の返金は行っておりません。</li>
-          </ul>
-          <ul>
-            <li>毎月の契約は契約日から1ヶ月となります。例えば5/20に契約すると次回は6/20の更新となります。</li>
-          </ul>
-          <ul>
-            <li>契約がつづく限り、毎月自動で課金が行われます。</li>
-          </ul>
-          <ul>
-            <li>初回契約にかぎり、48時間以内によろずやから返答がない場合は自動キャンセル・返金となります。</li>
-          </ul>
-        </div>
-
-        <p style={{ marginBottom: 10 }}></p>
-      </Modal>
-    </div>
+    // <PlanDataContext.Provider value={'hellow I am provider'}>
+    <PlanDataContext.Provider value={props}>
+      <Stripe price={props.planData.price} hundleSubmit={hundleSubmit} />
+      {/* <div>
+        <Modal
+          title="お支払い方法の選択"
+          // visiblがtrueなら、モーダルが表示される
+          visible={props.isPlanContractModalVisible}
+          onOk={hundleSubmit}
+          onCancel={handleCancel}
+          footer={[
+            <Button key="submit" onClick={hundleSubmit}>
+              クレジットカードで決済
+            </Button>,
+          ]}
+        >
+          <Stripe price={props.planData.price} hundleSubmit={hundleSubmit} />
+        </Modal>
+      </div> */}
+    </PlanDataContext.Provider>
   )
 }
 
