@@ -1,80 +1,29 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Modal, Button, Row, Col } from 'antd'
+
+import { loadStripe } from '@stripe/stripe-js'
+import { Elements } from '@stripe/react-stripe-js'
+
+import ModalContent from './ModalContent'
+import PlanDataContext from '../../../../contexts/PlanDataContext'
 import { planContract } from '../../../../store/actions/planContract'
 import { sendMessage } from '../../../../store/actions/message'
-
-// import StripeCheckoutButton from '../../../stripeButton'
-import Stripe from '../../../stripe'
-
-// import host from '../../../../constants/url'
-// import styles from './index.module.scss'
-
-import PlanDataContext from '../../../../contexts/PlanDataContext'
 
 // ====================================================================
 // プランリクエストのモーダル
 // ====================================================================
 
+const stripePromise = loadStripe(
+  '	pk_test_51H2sQ2Ac2aWSlNWdWo97wMYthmjx2goPgJOXscnmHSOYRjGSBOgEpj6jn2JIIXhILpRvlDSgEOMUqk1Fs0f0fPoe00rUKABZcB'
+)
+
+// プランに合わせたモーダルを作成するために,prospには、プランデータが入っいる
 const PlanContractModal = (props) => {
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // ContractDataは、プランのリクエストの時に必要な情報
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const ContractData = {
-    // リクエストの送り主(ログインしているユーザー)
-    senderYorozuId: props.loginUserYorozuId,
-    // リクエストの送り先のユーザー(プランオーナーのyorozuId)
-    receiverYorozuId: props.planOwnerYorozuId,
-    // 契約するプランのID
-    contractPlan: props.planData.id,
-  }
-
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // モーダルの中での送信ボタンを押した時の処理
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const hundleSubmit = () => {
-    // プランのリクエストの処理
-    props.planContractEvent(ContractData)
-
-    // 送信ボタンを押したらモダールを閉じる
-    props.setIsPlanContractModalVisible(false)
-
-    const messageData = {
-      senderYorozuId: props.loginUserYorozuId,
-      receiverYorozuId: props.planOwnerYorozuId,
-      messageContent: '契約の承認をお願いします(クライアントが契約を申請した時に、自動で送信されるメッセージです)',
-    }
-    // 契約を押した時に、プランオーナーにメッセージも送る。相手は、メッセージ画面からプランの承認を押すことができる
-    props.sendMessageEvent(messageData)
-  }
-
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // モーダルの中でのキャンセルボタンを押した時の処理
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const handleCancel = () => {
-    props.setIsPlanContractModalVisible(false)
-  }
-
   return (
-    // <PlanDataContext.Provider value={'hellow I am provider'}>
     <PlanDataContext.Provider value={props}>
-      <Stripe price={props.planData.price} hundleSubmit={hundleSubmit} />
-      {/* <div>
-        <Modal
-          title="お支払い方法の選択"
-          // visiblがtrueなら、モーダルが表示される
-          visible={props.isPlanContractModalVisible}
-          onOk={hundleSubmit}
-          onCancel={handleCancel}
-          footer={[
-            <Button key="submit" onClick={hundleSubmit}>
-              クレジットカードで決済
-            </Button>,
-          ]}
-        >
-          <Stripe price={props.planData.price} hundleSubmit={hundleSubmit} />
-        </Modal>
-      </div> */}
+      <Elements stripe={stripePromise}>
+        <ModalContent />
+      </Elements>
     </PlanDataContext.Provider>
   )
 }
@@ -94,3 +43,18 @@ const mapStateToDispatch = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapStateToDispatch)(PlanContractModal)
+
+// ====================================================================================================
+// カードエレメントに関して 2020 7 11
+// <CardElement />
+// 上記のものを、記入するだけで、ユーザーが入力するカード番号のフォームなどが表示されるようになる
+// ====================================================================================================
+
+// ====================================================================================================
+// useStripe()に関して 2020 7 14
+
+//  <Elements stripe={stripePromise}>
+//   この中でしか、wrapされたコンポーネントしたかuseStripeは使えない
+// </Elements>
+
+// ====================================================================================================

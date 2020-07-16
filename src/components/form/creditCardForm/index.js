@@ -2,7 +2,7 @@ import React from 'react'
 
 import { CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 
-const PaymentForm = () => {
+const CreditCardForm = () => {
   const cardOptions = {
     style: {
       base: {
@@ -47,4 +47,4 @@ const PaymentForm = () => {
   )
 }
 
-export default PaymentForm
+export default CreditCardForm

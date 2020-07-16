@@ -1,17 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Modal, Button } from 'antd'
 import { CardNumberElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { payment } from '../../../store/actions/payment'
-import PaymentForm from '../paymentForm'
 
-import PlanDataContext from '../../../contexts/PlanDataContext'
-import { planContract } from '../../../store/actions/planContract'
-import host from '../../../constants/url'
+import { payment } from '../../../../../store/actions/payment'
+import CreditCardForm from '../../../../form/creditCardForm'
+import PlanDataContext from '../../../../../contexts/PlanDataContext'
+import host from '../../../../../constants/url'
+
 import styles from './index.module.scss'
 
-const CheckoutForm = ({ price, paymentEvent }) => {
-  //   console.log(PlanDataContext)
+const ModalContent = ({ price, paymentEvent }) => {
+  const [cardErrorMessage, setCardErrorMessage] = useState('')
+  const [isCardErrorMessage, isSetCardErrorMessage] = useState(false)
 
   // planContractModalにpropsで受け取るplanDataを読み込む
   const props = useContext(PlanDataContext)
@@ -29,10 +30,10 @@ const CheckoutForm = ({ price, paymentEvent }) => {
   }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // モーダルの中での送信ボタンを押した時の処理
+  // 購入情報をContractモデルに登録
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+
   const planContract = () => {
-    console.log('もだる')
     // プランのリクエストの処理
     props.planContractEvent(ContractData)
 
@@ -49,26 +50,20 @@ const CheckoutForm = ({ price, paymentEvent }) => {
   }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // モーダルの中でのキャンセルボタンを押した時の処理
+  // モーダルの中での送信ボタンを押した時の処理
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const handleCancel = () => {
-    props.setIsPlanContractModalVisible(false)
-  }
-
   // useStripeを使うことでストライプ側に情報を送信できる
   const stripe = useStripe()
-  console.log('stripe')
-  console.log(stripe)
 
   // カード情報を入力した値を取得するhooks?
   const elements = useElements()
 
   const handleSubmit = async (event) => {
-    console.log('カード')
     event.preventDefault()
 
     // 決済処理？ 必要なのは、カード決済ということと、クレジットカードの値？
     // elements.getElement(CardElement)は、引数にCardElementを入れることでカード情報を取得する？
+    // カード情報のみ先に、stripe側に送信する
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
       card: elements.getElement(CardNumberElement),
@@ -81,13 +76,24 @@ const CheckoutForm = ({ price, paymentEvent }) => {
     // うまく言えば、エラーはundifinedになるので、以下のように書く
     if (!error) {
       const { id } = paymentMethod
-      console.log('ポイント')
-      //   console.log({ id, amount: price })
+      // paymentEvent => stripeのための決済処理をサーバー側で行う
       paymentEvent({ id, price })
+
+      // planContract => 誰が、誰の、どのプランを購入したかをサーバー側で管理する
       planContract()
     } else {
       console.log('うまく行かない')
+      console.log(error.message)
+      isSetCardErrorMessage(true)
+      setCardErrorMessage(`${error.message}もう一度ご確認ください。`)
     }
+  }
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // モーダルの中でのキャンセルボタンを押した時の処理
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  const handleCancel = () => {
+    props.setIsPlanContractModalVisible(false)
   }
 
   return (
@@ -96,7 +102,6 @@ const CheckoutForm = ({ price, paymentEvent }) => {
         title="お支払い方法の選択"
         // visiblがtrueなら、モーダルが表示される
         visible={props.isPlanContractModalVisible}
-        onOk={handleSubmit}
         onCancel={handleCancel}
         footer={[
           <Button key="submit" onClick={handleSubmit}>
@@ -123,7 +128,10 @@ const CheckoutForm = ({ price, paymentEvent }) => {
           </Col>
         </Row>
 
-        <PaymentForm />
+        {/* 失敗した時のエラーメッセージ */}
+        {isCardErrorMessage && <p style={{ color: 'red', fontSize: '10px' }}>{cardErrorMessage}</p>}
+        {/* クレジットカードの情報を入力 */}
+        <CreditCardForm />
 
         <h3 style={{ color: '#ff7d6e' }}>注意事項</h3>
         <div style={{ marginBottom: 20 }} className={styles.attention}>
@@ -151,6 +159,41 @@ const mapDispatchToProps = (dispatch) => ({
   paymentEvent: (token) => dispatch(payment(token)),
 })
 
-export default connect(null, mapDispatchToProps)(CheckoutForm)
+export default connect(null, mapDispatchToProps)(ModalContent)
 
-// export default CheckoutForm
+// ====================================================================================================
+// stripe.createPaymentMethodに関して 2020 7 11
+
+// 以下メソッドを実行した時の関数のreturn
+// stripe.createPaymentMethod({
+//   type: 'card',
+//   card: elements.getElement(CardElement),
+//   billing_details: {
+//     name: 'Jenny Rosen',
+//   },
+// })
+
+// 成功した時のreturn
+// paymentMethod: {id: "pm_1H3xNuAc2aWSlNWdvH0M6bWY", object: "payment_method", billing_details: {…}, card: {…}, created: 1594530354, …}
+
+// エラーした時のreturn
+// error: {code: "incomplete_number", type: "validation_error", message: "カード番号に不備があります。"}
+// ====================================================================================================
+
+// ====================================================================================================
+// elements.getElement(CardNumberElement)に関して 2020 7 12
+
+// elements.getElement()の引数は、
+// CardElementか、CardNumberElementを入れることができる
+
+// ====================================================================================================
+
+// ====================================================================================================
+// stripe.createPaymentMethodのbilling_detailsに関して 2020 712
+
+//   billing_details: {
+//     name: 'Jenny Rosen',
+//   },
+
+// billing_detailsのnameをすることで、stripeの顧客リストの名前がつく
+// ====================================================================================================
