@@ -5,6 +5,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
 import ModalContent from './ModalContent'
+import LoginAttentionModal from '../../../modal/loginAttention'
 import PlanDataContext from '../../../../contexts/PlanDataContext'
 import { planContract } from '../../../../store/actions/planContract'
 import { sendMessage } from '../../../../store/actions/message'
@@ -19,11 +20,17 @@ const stripePromise = loadStripe(
 
 // プランに合わせたモーダルを作成するために,prospには、プランデータが入っいる
 const PlanContractModal = (props) => {
+  // ログインしている時と、ログインしていない時で、モーダルを入れ替える
+  const toggleModal = () => {
+    if (props.loginUserYorozuId) {
+      return <ModalContent />
+    } else {
+      return <LoginAttentionModal />
+    }
+  }
   return (
     <PlanDataContext.Provider value={props}>
-      <Elements stripe={stripePromise}>
-        <ModalContent />
-      </Elements>
+      <Elements stripe={stripePromise}>{toggleModal()}</Elements>
     </PlanDataContext.Provider>
   )
 }
