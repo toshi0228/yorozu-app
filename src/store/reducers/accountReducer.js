@@ -6,6 +6,7 @@ import {
   FAILURE_SIGIN_UP_EVENT,
   RESET_ERROR_MESSAGE_EVENT,
   READ_YOROZUID_EVENT,
+  READ_MAIL_ADDRESS_EVENT,
 } from '../actionTypes'
 // import Account from '../../models/account';
 
@@ -17,6 +18,7 @@ export const DEFAULT_STATE = {
   isSignUpFailure: false,
   //// ユーザーイメージを取得しているかどうかと、 ログインユーザーの画像
   userImage: { isUserImage: false, image: '' },
+  email: '',
 }
 
 const accountReducer = (state = DEFAULT_STATE, action) => {
@@ -45,6 +47,7 @@ const accountReducer = (state = DEFAULT_STATE, action) => {
     // ============================================================================
     case READ_LOGIN_USER_PROFILE_EVENT:
       const profileImage = action.payload.data['profileImage']
+
       if (profileImage) {
         return { ...state, userImage: { isUserImage: true, image: profileImage } }
       }
@@ -75,6 +78,13 @@ const accountReducer = (state = DEFAULT_STATE, action) => {
     case RESET_ERROR_MESSAGE_EVENT:
       console.log('RESET_ERROR_MESSAGE_EVENT')
       return { ...state, isSignInFailure: false, isSignUpFailure: false }
+
+    // ============================================================================
+    // メールアドレスの取得
+    // ============================================================================
+    case READ_MAIL_ADDRESS_EVENT:
+      const email = action.payload.data['email']
+      return { ...state, email: email }
 
     default:
       return state

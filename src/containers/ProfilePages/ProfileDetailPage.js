@@ -7,6 +7,7 @@ import RightSide from '../../components/profile/detailProfile/RightSide'
 import { feachProfileDetail } from '../../store/actions/profile'
 import { feachMySentPlanContract } from '../../store/actions/planContract'
 import { readMysentReview, fetchReviewScore } from '../../store/actions/review'
+import { fetchMailAddress } from '../../store/actions/account'
 
 const ProfileDetailPage = (props) => {
   useEffect(() => {
@@ -26,6 +27,14 @@ const ProfileDetailPage = (props) => {
     // トークンがり、なおかつまだレビューを取得していなければ、取得する
     if (props.authToken && props.mySentReview.isLoading != true) {
       props.readMysentReviewEvent(props.authToken)
+    }
+  }, [])
+
+  // ログインユーザーのメールアドレスを取得する
+  useEffect(() => {
+    // トークンがり、なおかつまだ、メールアドレスを取得していなければ、取得する
+    if (props.authToken && props.email.length === 0) {
+      props.readMailAddressEvent(props.authToken)
     }
   }, [])
 
@@ -55,6 +64,7 @@ const mapStateToProps = (state) => ({
   data: state.profile,
   authToken: state.account.authToken.access,
   mySentReview: state.review,
+  email: state.account.email,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -66,6 +76,8 @@ const mapDispatchToProps = (dispatch) => ({
   readMysentReviewEvent: (authToken) => dispatch(readMysentReview(authToken)),
   // 万屋のreviewScoreを取得する
   readReviewScoreEvent: (yorozuId) => dispatch(fetchReviewScore(yorozuId)),
+  // ログインユーザーのメールアドレスを取得する
+  readMailAddressEvent: (authToken) => dispatch(fetchMailAddress(authToken)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileDetailPage)

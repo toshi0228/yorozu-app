@@ -6,10 +6,11 @@ import {
   FAILURE_SIGIN_UP_EVENT,
   RESET_ERROR_MESSAGE_EVENT,
   READ_YOROZUID_EVENT,
+  READ_MAIL_ADDRESS_EVENT,
 } from '../actionTypes'
 import { push } from 'connected-react-router'
 import { postSignIn, postSignUp, postTokenVerify, checkAccountId } from '../../services/authApiRequest'
-import { setAuthHeader, getYorozuId, getLoginUserProfile } from '../../services/ApiRequest'
+import { setAuthHeader, getYorozuId, getLoginUserProfile, getMailAddress } from '../../services/ApiRequest'
 import jwt from 'jwt-decode'
 import routes from '../../routes'
 
@@ -171,6 +172,22 @@ export const readYorozuId = (yorozuId) => {
   return {
     type: READ_YOROZUID_EVENT,
     payload: yorozuId,
+  }
+}
+
+// =====================================================================================
+// メールアドレスを取得する
+// =====================================================================================
+export const fetchMailAddress = (authToken) => (dispatch) => {
+  getMailAddress(authToken).then((res) => {
+    dispatch(readMailAddress(res))
+  })
+}
+
+export const readMailAddress = (email) => {
+  return {
+    type: READ_MAIL_ADDRESS_EVENT,
+    payload: email,
   }
 }
 

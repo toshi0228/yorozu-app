@@ -10,6 +10,8 @@ export const FAILURE_SIGIN_UP_EVENT = 'FAILURE_SIGIN_UP_EVENT'
 export const RESET_ERROR_MESSAGE_EVENT = 'RESET_ERROR_MESSAGE_EVENT'
 // yorozuIdの読み込み
 export const READ_YOROZUID_EVENT = 'READ_YOROZUID_EVENT'
+// メールアドレスの取得
+export const READ_MAIL_ADDRESS_EVENT = 'READ_MAIL_ADDRESS_EVENT'
 
 // ============================================================
 // Application

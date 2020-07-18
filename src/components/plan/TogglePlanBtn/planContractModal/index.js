@@ -38,8 +38,12 @@ const PlanContractModal = (props) => {
 const mapStateToProps = (state) => ({
   // リクエストの送り主(ログインしているユーザー)
   loginUserYorozuId: state.account.yorozuId,
+  // よろずや名(ログインしているユーザー)
+  // yorozuyaName: state.account.yorozuyaName,
   // リクエストの送り先のユーザー(プランオーナーのyorozuId)
   planOwnerYorozuId: state.profile.profileDetail.yorozuId,
+  // ログインユーザーのメールアドレス
+  email: state.account.email,
 })
 
 const mapStateToDispatch = (dispatch) => ({

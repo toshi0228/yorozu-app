@@ -10,11 +10,13 @@ import host from '../../../../../constants/url'
 
 import styles from './index.module.scss'
 
-const ModalContent = ({ price, paymentEvent }) => {
+const ModalContent = ({ paymentEvent }) => {
   const [cardErrorMessage, setCardErrorMessage] = useState('')
   const [isCardErrorMessage, isSetCardErrorMessage] = useState(false)
 
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // planContractModalにpropsで受け取るplanDataを読み込む
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const props = useContext(PlanDataContext)
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -68,7 +70,7 @@ const ModalContent = ({ price, paymentEvent }) => {
       type: 'card',
       card: elements.getElement(CardNumberElement),
       billing_details: {
-        name: '佐藤 二郎',
+        name: props.email,
       },
       //   card: elements.getElement(CardElement),
     })
@@ -77,13 +79,15 @@ const ModalContent = ({ price, paymentEvent }) => {
     if (!error) {
       const { id } = paymentMethod
       // paymentEvent => stripeのための決済処理をサーバー側で行う
-      paymentEvent({ id, price })
+      // paymentEvent({ id, price })
+      const price = props.planData.price
+      const title = props.planData.title
+      const email = props.email
+      paymentEvent({ id, price, title, email })
 
       // planContract => 誰が、誰の、どのプランを購入したかをサーバー側で管理する
       planContract()
     } else {
-      console.log('うまく行かない')
-      console.log(error.message)
       isSetCardErrorMessage(true)
       setCardErrorMessage(`${error.message}もう一度ご確認ください。`)
     }
