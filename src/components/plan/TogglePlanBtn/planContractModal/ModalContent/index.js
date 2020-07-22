@@ -20,9 +20,16 @@ const ModalContent = ({ paymentEvent }) => {
   const props = useContext(PlanDataContext)
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // stripeにデータを送る際に必要になるデータ
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  const price = props.planData.price
+  const title = props.planData.title
+  const email = props.email
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // ContractDataは、プランのリクエストの時に必要な情報
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const ContractData = {
+  const contractData = {
     // リクエストの送り主(ログインしているユーザー)
     senderYorozuId: props.loginUserYorozuId,
     // リクエストの送り先のユーザー(プランオーナーのyorozuId)
@@ -31,24 +38,13 @@ const ModalContent = ({ paymentEvent }) => {
     contractPlan: props.planData.id,
   }
 
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // 購入情報をContractモデルに登録
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-
-  const planContract = () => {
-    // プランのリクエストの処理
-    props.planContractEvent(ContractData)
-
-    // 送信ボタンを押したらモダールを閉じる
-    props.setIsPlanContractModalVisible(false)
-
-    const messageData = {
-      senderYorozuId: props.loginUserYorozuId,
-      receiverYorozuId: props.planOwnerYorozuId,
-      messageContent: '契約の承認をお願いします(クライアントが契約を申請した時に、自動で送信されるメッセージです)',
-    }
-    // 契約を押した時に、プランオーナーにメッセージも送る。相手は、メッセージ画面からプランの承認を押すことができる
-    props.sendMessageEvent(messageData)
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // messageDataは、プランのリクエストの時に必要な情報
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  const messageData = {
+    senderYorozuId: props.loginUserYorozuId,
+    receiverYorozuId: props.planOwnerYorozuId,
+    messageContent: '契約の承認をお願いします(クライアントが契約を申請した時に、自動で送信されるメッセージです)',
   }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -75,18 +71,18 @@ const ModalContent = ({ paymentEvent }) => {
       //   card: elements.getElement(CardElement),
     })
 
-    // うまく言えば、エラーはundifinedになるので、以下のように書く
+    // うまく言えば、errorはundifinedになるので、以下のように書く
     if (!error) {
       const { id } = paymentMethod
-      // paymentEvent => stripeのための決済処理をサーバー側で行う
-      // paymentEvent({ id, price })
-      const price = props.planData.price
-      const title = props.planData.title
-      const email = props.email
-      paymentEvent({ id, price, title, email })
 
-      // planContract => 誰が、誰の、どのプランを購入したかをサーバー側で管理する
-      planContract()
+      // paymentEvent => stripeのための決済処理をサーバー側で行う
+      // 1.stripe処理
+      // 2.stripe処理がうまくいった場合 誰が、誰の、どのプランを購入したかをサーバー側で管理する
+      // 3.stripe処理がうまくいった場合、購入したことを、知らせるためにメッセージを送る
+      paymentEvent({ id, price, title, email, contractData, messageData })
+
+      // 送信ボタンを押したらモダールを閉じる
+      props.setIsPlanContractModalVisible(false)
     } else {
       isSetCardErrorMessage(true)
       setCardErrorMessage(`${error.message}もう一度ご確認ください。`)

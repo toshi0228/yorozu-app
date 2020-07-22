@@ -7,8 +7,6 @@ import { Elements } from '@stripe/react-stripe-js'
 import ModalContent from './ModalContent'
 import LoginAttentionModal from '../../../modal/loginAttention'
 import PlanDataContext from '../../../../contexts/PlanDataContext'
-import { planContract } from '../../../../store/actions/planContract'
-import { sendMessage } from '../../../../store/actions/message'
 
 // ====================================================================
 // プランリクエストのモーダル
@@ -46,14 +44,7 @@ const mapStateToProps = (state) => ({
   email: state.account.email,
 })
 
-const mapStateToDispatch = (dispatch) => ({
-  // プランの契約をするときアクション
-  planContractEvent: (contractData) => dispatch(planContract(contractData)),
-  // プラン契約したきに、をプランオーナーにメールも送信する
-  sendMessageEvent: (message) => dispatch(sendMessage(message)),
-})
-
-export default connect(mapStateToProps, mapStateToDispatch)(PlanContractModal)
+export default connect(mapStateToProps, null)(PlanContractModal)
 
 // ====================================================================================================
 // カードエレメントに関して 2020 7 11
