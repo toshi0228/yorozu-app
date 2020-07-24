@@ -28,6 +28,7 @@ export const createPlan = (plan) => (dispatch) => {
 
   postPlan(formData)
     .then((res) => {
+      console.log('登録成功')
       console.log(res)
     })
     .catch((error) => {

@@ -6,12 +6,14 @@ import {
   SEARCH_PROFILE_EVENT,
   RESET_PROFILE_LIST_EVENT,
   READ_PROFILE_ITEM_EVENT,
+  UPDATE_PROFILE_EVENT,
   // CREATE_PROFILE_EVENT,
 } from '../actionTypes'
-import { getProfileList, postProfile, getProfileDetail, postSerach } from '../../services/ApiRequest'
+import { getProfileList, postProfile, getProfileDetail, postSerach, patchProfile } from '../../services/ApiRequest'
 import { checkAccountId } from '../../services/authApiRequest'
 import { push } from 'connected-react-router'
 import routes from '../../routes/index'
+import { readYorozuId } from './account'
 
 // =====================================================================================
 // プロフィールリストの読み込み(トップページでの処理)
@@ -120,14 +122,18 @@ export const createProfile = (profile) => (dispatch) => {
   formData.append('yorozuyaThumbnailImage', profile.yorozuyaThumbnailImage[0], profile.yorozuyaThumbnailImage[0].name)
   postProfile(formData).then((res) => {
     // dispatch(registerProfile(res))
-    // console.log()
-    // console.log(res)
+    console.log('登録')
+    console.log(res)
 
     // プロフィールを登録した後に、登録したprofileデータの詳細を取得する(プランデータやscoreデータも取得できる)
     const yorozuId = res.data.yorozuId
     getProfileDetail(yorozuId).then((res) => {
       dispatch(readProfile(res.data))
     })
+
+    // プロフィールを登録した後、planの登録ボタンを押すためには、yorozuIdをaccountReucerで登録させないといけない
+    // 引数に関しては、他で{ data: yorozuId }の形で渡しているので、その形に合わせる
+    dispatch(readYorozuId({ data: yorozuId }))
   })
 }
 
@@ -135,18 +141,63 @@ export const createProfile = (profile) => (dispatch) => {
 // プロフィールの項目を読み込み
 // =====================================================================================
 
-export const readProfileItem = () => {
+export const readProfileItem = (profileData) => {
   return {
     type: READ_PROFILE_ITEM_EVENT,
+    payload: profileData,
   }
 }
 
-// export const registerProfile = (profile) => {
-//   return {
-//     type: CREATE_PROFILE_EVENT,
-//     payload: profile,
-//   }
-// }
+// =====================================================================================
+// プロフィールの更新処理
+// =====================================================================================
+
+export const updateProfile = (profile) => (dispatch) => {
+  // 画像を送信する時は、「Content-Type: multipart/form-data」をheaderにつけるので,
+  // formオブジェクトを作成しないといけない
+  const formData = new FormData()
+  formData.append('accountId', profile.accountId)
+  formData.append('nickname', profile.nickname)
+  formData.append('yorozuyaName', profile.yorozuyaName)
+  formData.append('yorozuId', profile.yorozuId)
+
+  formData.append('profileDescription', profile.profileDescription)
+
+  // profile.profileImageの初期値は[]で、空なら何も処理をしない
+  if (profile.profileImage.length !== 0) {
+    console.log('中身あり')
+    // 省略可能な第3引数を使用して、Content-Dispositionヘッダに含めるファイル名を渡すことができる
+    formData.append('profileImage', profile.profileImage[0], profile.profileImage[0].name)
+  } else {
+    console.log('から')
+  }
+
+  // profile.profileImageの初期値は[]で、空なら何も処理をしない
+  if (profile.yorozuyaThumbnailImage.length !== 0) {
+    console.log('中身あり')
+    // 省略可能な第3引数を使用して、Content-Dispositionヘッダに含めるファイル名を渡すことができる
+    formData.append('yorozuyaThumbnailImage', profile.yorozuyaThumbnailImage[0], profile.yorozuyaThumbnailImage[0].name)
+  }
+
+  const updateData = { formData, yorozuId: profile.yorozuId }
+  // プロフィールを更新する処理
+  patchProfile(updateData)
+    .then((res) => {
+      // console.log('更新うまく言った')
+      // console.log(res)
+      dispatch(newProfile(res))
+    })
+    .catch((error) => {
+      dispatch(newProfile({ error }))
+    })
+}
+
+export const newProfile = (profileData) => {
+  return {
+    type: UPDATE_PROFILE_EVENT,
+    payload: profileData,
+  }
+}
 
 // =====================================================================================
 // 2020 4 28

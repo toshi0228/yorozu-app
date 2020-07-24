@@ -8,8 +8,8 @@ import ImageForm from '../../components/form/ImageForm/index'
 const { TextArea } = Input
 
 const CreatePlanPage = (props) => {
-  console.log('CreatePlanPage')
-  console.log(props)
+  // console.log('CreatePlanPage')
+  // console.log(props)
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
   const [description, setDescription] = useState('')

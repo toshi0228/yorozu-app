@@ -1,3 +1,4 @@
+import React from 'react'
 import _ from 'lodash'
 import {
   PROFILE_DETAIL_INITIALIZE_EVENT,
@@ -8,7 +9,10 @@ import {
   SEARCH_PROFILE_EVENT,
   RESET_PROFILE_LIST_EVENT,
   READ_PROFILE_ITEM_EVENT,
+  UPDATE_PROFILE_EVENT,
 } from '../actionTypes'
+import { notification } from 'antd'
+import { SmileOutlined } from '@ant-design/icons'
 
 const DEFAULT_STATE = {
   // httpGETをしたことがあるか
@@ -23,8 +27,19 @@ const DEFAULT_STATE = {
   // アカウントのid profileを作成の時に必要 サーバー側でaccountとprofileでリレーションしているので、accountIdが必要
   accountId: '',
 
-  // プロフィールで登録しする項目
-  profile: { nickname: '', yorozuyaName: '', yorozuId: '', profileImage: [], profileDescription: '', yorozuyaThumbnailImage: '' },
+  // プロフィールで登録する項目
+  registeredProfile: {
+    nickname: 'h',
+    yorozuyaName: '',
+    yorozuId: '',
+    profileImage: [],
+    profileDescription: '',
+    yorozuyaThumbnailImage: [],
+  },
+
+  // 登録の時に、エラーが起きたがどうか
+  registerError: false,
+  registerSuccess: false,
 }
 
 const profileReducer = (state = DEFAULT_STATE, action) => {
@@ -103,22 +118,52 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
       return { ...state, accountId: action.payload }
 
     // =========================================================================================
-    // プロフィール項目のデータ
+    // プロフィール項目のデータを表示させる
     // =========================================================================================
     case READ_PROFILE_ITEM_EVENT:
       console.log('READ_PROFILE_ITEM_EVENT')
-      const nickname = state.profileDetail['nickname']
-      const yorozuyaName = state.profileDetail['yorozuyaName']
-      const yorozuId = state.profileDetail['yorozuId']
-      const profileDescription = state.profileDetail['profileDescription']
+      console.log(action.payload)
 
-      const profile = {
+      const nickname = action.payload['nickname']
+      const yorozuyaName = action.payload['yorozuyaName']
+      const yorozuId = action.payload['yorozuId']
+      const profileDescription = action.payload['profileDescription']
+      const profileImage = action.payload['profileImage']
+      const yorozuyaThumbnailImage = action.payload['yorozuyaThumbnailImage']
+
+      // profileに登録してある項目
+      const registeredProfile = {
         nickname: nickname,
         yorozuyaName: yorozuyaName,
         yorozuId: yorozuId,
-        // profileImage: [],
+        profileImage: profileImage,
         profileDescription: profileDescription,
-        yorozuyaThumbnailImage: '',
+        yorozuyaThumbnailImage: yorozuyaThumbnailImage,
+      }
+
+      return { ...state, registeredProfile: registeredProfile }
+
+    // =========================================================================================
+    // プロフィールのデータの更新
+    // =========================================================================================
+    case UPDATE_PROFILE_EVENT:
+      console.log('UPDATE_PROFILE_EVENT')
+      console.log(action.payload)
+      // notification.error({ message: 'サーバーエラー、運営の対応をお待ちください' })
+
+      // エラーがあった場合は、失敗の通知をだす
+      if (action.payload.error) {
+        notification.error({
+          message: 'プロフィールの更新に失敗しました',
+          description: 'もう一度試してみてください',
+        })
+        // エラーがなあった場合は、プロフィールの更新に成功したことを通知する
+      } else {
+        notification.open({
+          message: 'プロフィールの更新ができました',
+          description: 'プレビューを確認してみてくださいね',
+          icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+        })
       }
 
       return state

@@ -174,11 +174,24 @@ export const getPurchasersList = (authToken) => {
 }
 
 //=====================================================================================
-// profileを登録
+// profileを登録 (新規登録)
 //=====================================================================================
 
 export const postProfile = (profile) => {
+  console.log('飛ばした')
+  // delete axios.defaults.headers.common['Authorization']
   return axios.post(`${host.localhost()}/api/profile/`, profile, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  })
+}
+
+//=====================================================================================
+// profileのデータを更新する
+//=====================================================================================
+export const patchProfile = (updataData) => {
+  return axios.patch(`${host.localhost()}/api/profile/${updataData.yorozuId}/`, updataData.formData, {
     headers: {
       'content-type': 'multipart/form-data',
     },

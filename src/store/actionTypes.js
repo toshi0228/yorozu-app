@@ -43,6 +43,8 @@ export const RESET_PROFILE_LIST_EVENT = 'RESET_PROFILE_LIST_EVENT'
 // export const CREATE_PROFILE_EVENT = 'CREATE_PROFILE_EVENT'
 // プロフィールの項目を取得
 export const READ_PROFILE_ITEM_EVENT = 'READ_PROFILE_ITEM_EVENT'
+// プロフィールの更新
+export const UPDATE_PROFILE_EVENT = 'UPDATE_PROFILE_EVENT'
 
 // ============================================================
 // message

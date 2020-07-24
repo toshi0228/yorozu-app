@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
 import CreateProfilePage from './CreateProfilePage'
 import CreatePlanPage from './CreatePlanPage'
 import PreviewYorozuPage from './PreviewYorozuPage'
 
+import { readProfileItem } from '../../store/actions/profile'
+
 const ManagementTopPage = (props) => {
-  // function callback(key) {
-  //   console.log(key)
-  // }
+  // createProfileで初期値を表示させるために、profileで登録した項目を読み込む
+  // もうすでにprofile情報がある場合に、登録項目にデータを表示させるようにしておく
+  useEffect(() => {
+    props.readprofileItemEvent(props.profile)
+  }, [props.profile])
+
   return (
     <>
       {/* タイトル */}
@@ -44,6 +49,11 @@ const mapStateToProps = (state) => ({
   authToken: state.account.authToken.access,
   accountId: state.profile.accountId,
   yorozuyaName: state.profile.profileDetail.yorozuyaName,
+  profile: state.profile.profileDetail,
 })
 
-export default connect(mapStateToProps, null)(ManagementTopPage)
+const mapDispatchToProps = (dispatch) => ({
+  readprofileItemEvent: (profileData) => dispatch(readProfileItem(profileData)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManagementTopPage)
