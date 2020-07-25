@@ -10,12 +10,13 @@ import {
   RESET_PROFILE_LIST_EVENT,
   READ_PROFILE_ITEM_EVENT,
   UPDATE_PROFILE_EVENT,
+  FIN_UPDATE_PROFILE_EVENT,
 } from '../actionTypes'
 import { notification } from 'antd'
 import { SmileOutlined } from '@ant-design/icons'
 
 const DEFAULT_STATE = {
-  // httpGETをしたことがあるか
+  // httpGETをしたことがあるかどうか
   isLoading: false,
 
   // トップページのprofileListのデータ
@@ -37,9 +38,8 @@ const DEFAULT_STATE = {
     yorozuyaThumbnailImage: [],
   },
 
-  // 登録の時に、エラーが起きたがどうか
-  registerError: false,
-  registerSuccess: false,
+  //プロフィールを登録・更新したら、falseになる
+  updateProfile: false,
 }
 
 const profileReducer = (state = DEFAULT_STATE, action) => {
@@ -147,15 +147,11 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     // プロフィールのデータの更新
     // =========================================================================================
     case UPDATE_PROFILE_EVENT:
-      console.log('UPDATE_PROFILE_EVENT')
-      console.log(action.payload)
-      // notification.error({ message: 'サーバーエラー、運営の対応をお待ちください' })
-
       // エラーがあった場合は、失敗の通知をだす
       if (action.payload.error) {
         notification.error({
           message: 'プロフィールの更新に失敗しました',
-          description: 'もう一度試してみてください',
+          description: '画像データが大きいようです。もう一度試してみてください',
         })
         // エラーがなあった場合は、プロフィールの更新に成功したことを通知する
       } else {
@@ -164,9 +160,27 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
           description: 'プレビューを確認してみてくださいね',
           icon: <SmileOutlined style={{ color: '#108ee9' }} />,
         })
+
+        //profileに登録してある項目 新しく更新したデータにする
+        const registeredProfile = {
+          nickname: action.payload.data['nickname'],
+          yorozuyaName: action.payload.data['yorozuyaName'],
+          yorozuId: action.payload.data['yorozuId'],
+          profileImage: action.payload.data['profileImage'],
+          profileDescription: action.payload.data['profileDescription'],
+          yorozuyaThumbnailImage: action.payload.data['yorozuyaThumbnailImage'],
+        }
+
+        return { ...state, registeredProfile: registeredProfile, updateProfile: true }
       }
 
       return state
+
+    // =========================================================================================
+    // プロフィールの更新終了
+    // =========================================================================================
+    case FIN_UPDATE_PROFILE_EVENT:
+      return { ...state, updateProfile: false }
 
     default:
       return state

@@ -7,6 +7,7 @@ import {
   RESET_PROFILE_LIST_EVENT,
   READ_PROFILE_ITEM_EVENT,
   UPDATE_PROFILE_EVENT,
+  FIN_UPDATE_PROFILE_EVENT,
   // CREATE_PROFILE_EVENT,
 } from '../actionTypes'
 import { getProfileList, postProfile, getProfileDetail, postSerach, patchProfile } from '../../services/ApiRequest'
@@ -160,21 +161,16 @@ export const updateProfile = (profile) => (dispatch) => {
   formData.append('nickname', profile.nickname)
   formData.append('yorozuyaName', profile.yorozuyaName)
   formData.append('yorozuId', profile.yorozuId)
-
   formData.append('profileDescription', profile.profileDescription)
 
   // profile.profileImageの初期値は[]で、空なら何も処理をしない
   if (profile.profileImage.length !== 0) {
-    console.log('中身あり')
     // 省略可能な第3引数を使用して、Content-Dispositionヘッダに含めるファイル名を渡すことができる
     formData.append('profileImage', profile.profileImage[0], profile.profileImage[0].name)
-  } else {
-    console.log('から')
   }
 
   // profile.profileImageの初期値は[]で、空なら何も処理をしない
   if (profile.yorozuyaThumbnailImage.length !== 0) {
-    console.log('中身あり')
     // 省略可能な第3引数を使用して、Content-Dispositionヘッダに含めるファイル名を渡すことができる
     formData.append('yorozuyaThumbnailImage', profile.yorozuyaThumbnailImage[0], profile.yorozuyaThumbnailImage[0].name)
   }
@@ -196,6 +192,16 @@ export const newProfile = (profileData) => {
   return {
     type: UPDATE_PROFILE_EVENT,
     payload: profileData,
+  }
+}
+
+// =====================================================================================
+// profileUpdateを終了 updateProfileをtrueからfalseにする
+// =====================================================================================
+
+export const finUpdateProfile = () => {
+  return {
+    type: FIN_UPDATE_PROFILE_EVENT,
   }
 }
 

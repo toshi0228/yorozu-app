@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Input, Button } from 'antd'
 import ImageForm from '../../components/form/ImageForm/index'
-import { createProfile, feachAccountId, updateProfile } from '../../store/actions/profile'
+import { createProfile, feachAccountId, updateProfile, feachProfileDetail, finUpdateProfile } from '../../store/actions/profile'
 
 import CreateProfileModal from '../../components/modal/createProfileModal'
 import host from '../../constants/url'
 
 const CreateProfilePage = (props) => {
-  // console.log(props.registeredProfile)
+  console.log(props.updataProfile)
 
   const [nickname, setNickname] = useState(props.registeredProfile['nickname'])
   const [yorozuyaName, setYorozuyaName] = useState(props.registeredProfile['yorozuyaName'])
@@ -29,6 +29,13 @@ const CreateProfilePage = (props) => {
   useEffect(() => {
     props.readAccountIdEvent(props.authToken)
   }, [])
+
+  // プレビューでデータが更新できるように、更新処理を行ったらデータを更新する
+  if (props.updataProfile) {
+    props.readProfileDetailEvent(props.yorozuId)
+    // updataProfileをtrueからfalseにする これをしないと永遠にreadProfileDetailEventを行ってしまう
+    props.finUpdateProfile()
+  }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // プロフィールを送信する時に、空白がエラ-をだす(新規登録処理)
@@ -73,8 +80,6 @@ const CreateProfilePage = (props) => {
     // props.registeredProfile.yorozuIdがあれば、登録内容の修正、なければ、新規登録
     if (props.registeredProfile.yorozuId) {
       // 登録内容の処理
-      console.log('登録内容の修正')
-      console.log(profile)
       props.updateProfileEvent(profile)
     } else {
       // 新規登録の処理
@@ -204,9 +209,12 @@ const CreateProfilePage = (props) => {
 const mapStateToProps = (state) => ({
   authToken: state.account.authToken.access,
   accountId: state.profile.accountId,
-
   // profileの登録項目
   registeredProfile: state.profile.registeredProfile,
+  // プロフィールデータを読み込む時に必要になる
+  yorozuId: state.account.yorozuId,
+  // プロフィールが登録されたら,trueになる
+  updataProfile: state.profile.updateProfile,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -215,6 +223,10 @@ const mapDispatchToProps = (dispatch) => ({
   createProfileEvent: (profileData) => dispatch(createProfile(profileData)),
   // プロフィールの更新処理
   updateProfileEvent: (profileData) => dispatch(updateProfile(profileData)),
+  // プロフィールを更新した時に、万屋の詳細ページを取得する(プランや、よろずやユーザーの情報等)
+  readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
+  // updataProfileをtrueからfalseにする
+  finUpdateProfile: () => dispatch(finUpdateProfile()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateProfilePage)

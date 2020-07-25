@@ -45,6 +45,8 @@ export const RESET_PROFILE_LIST_EVENT = 'RESET_PROFILE_LIST_EVENT'
 export const READ_PROFILE_ITEM_EVENT = 'READ_PROFILE_ITEM_EVENT'
 // プロフィールの更新
 export const UPDATE_PROFILE_EVENT = 'UPDATE_PROFILE_EVENT'
+// プロフィール更新終了 updateProfile trueからfalseにする
+export const FIN_UPDATE_PROFILE_EVENT = 'FIN_UPDATE_PROFILE_EVENT'
 
 // ============================================================
 // message
