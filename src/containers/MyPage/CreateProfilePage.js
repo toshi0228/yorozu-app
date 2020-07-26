@@ -1,36 +1,51 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Input, Button } from 'antd'
-import ImageForm from '../../components/form/ImageForm/index'
-import { createProfile, feachAccountId, updateProfile, feachProfileDetail, finUpdateProfile } from '../../store/actions/profile'
 
-import CreateProfileModal from '../../components/modal/createProfileModal'
+import ImageForm from '../../components/form/ImageForm/index'
+import {
+  createProfile,
+  feachAccountId,
+  updateProfile,
+  feachProfileDetail,
+  finUpdateProfile,
+  checkInputItem,
+} from '../../store/actions/profile'
+
 import host from '../../constants/url'
 
 const CreateProfilePage = (props) => {
-  console.log(props.updataProfile)
-
   const [nickname, setNickname] = useState(props.registeredProfile['nickname'])
   const [yorozuyaName, setYorozuyaName] = useState(props.registeredProfile['yorozuyaName'])
   const [yorozuId, setYorozuId] = useState(props.registeredProfile['yorozuId'])
-  const [profileImage, setProfileImage] = useState([])
-  // const [profileImage, setProfileImage] = useState(props.registeredProfile['profileImage'])
   const [profileDescription, setProfileDescription] = useState(props.registeredProfile['profileDescription'])
+  const [profileImage, setProfileImage] = useState([])
   const [yorozuyaThumbnailImage, setYorozuyaThumbnailImage] = useState([])
 
-  // 登録ボタンを押した時の、モーダルのテキスト
-  const [alertText, setAlertText] = useState('')
-  // 空白のエラーがある場合にtrue
-  const [isEmpty, setIsEmpty] = useState(false)
-  // trueになるとモダールが表示される
-  const [alertModal, setAlertModal] = useState(false)
+  // プロフィールオブジェクト
+  const profile = {
+    accountId: props.accountId,
+    nickname,
+    yorozuyaName,
+    yorozuId,
+    profileImage,
+    profileDescription,
+    yorozuyaThumbnailImage,
+  }
 
+  // プロフィールの項目の配列 空白があるかどうか確認する時に必要
+  const items = [nickname, yorozuyaName, yorozuId, profileImage, profileDescription, yorozuyaThumbnailImage]
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // プロフィール作成の時は、アカウントIDが必要になるので、最初に取得する
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   useEffect(() => {
     props.readAccountIdEvent(props.authToken)
   }, [])
 
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // プレビューでデータが更新できるように、更新処理を行ったらデータを更新する
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   if (props.updataProfile) {
     props.readProfileDetailEvent(props.yorozuId)
     // updataProfileをtrueからfalseにする これをしないと永遠にreadProfileDetailEventを行ってしまう
@@ -38,53 +53,56 @@ const CreateProfilePage = (props) => {
   }
 
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // プロフィールを送信する時に、空白がエラ-をだす(新規登録処理)
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const chenckRegisterProfile = (profile) => {
-    const items = [nickname, yorozuyaName, yorozuId, profileImage, profileDescription, yorozuyaThumbnailImage]
-    const emptyItems = []
-    // inputがエラーの項目を抽出する profileImageは、配列なのでitem.lengthが0なら空白とする
-    items.forEach((item, index) => {
-      if (item === '' || item.length === 0) {
-        emptyItems.push(index)
-      }
-    })
-
-    // 空白がなければ、emptyItemsは0 つまりエラーはなし
-    if (emptyItems.length === 0) {
-      setIsEmpty(false)
-      setAlertText('プロフィールの保存ができました。プレビューを見てみましょう!!')
-      // 保存したことを通知するモーダル
-      setAlertModal(true)
-      // 登録をする
-      props.createProfileEvent(profile)
-    } else {
-      setAlertText('入力項目に空白の場所があるようです。ご確認お願いします!!')
-      setIsEmpty(true)
-      setAlertModal(true)
-    }
-  }
-
   // 登録ボタンを押した時のイベント
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const register = () => {
-    const profile = {
-      accountId: props.accountId,
-      nickname,
-      yorozuyaName,
-      yorozuId,
-      profileImage,
-      profileDescription,
-      yorozuyaThumbnailImage,
-    }
-
     // props.registeredProfile.yorozuIdがあれば、登録内容の修正、なければ、新規登録
     if (props.registeredProfile.yorozuId) {
       // 登録内容の処理
       props.updateProfileEvent(profile)
     } else {
-      // 新規登録の処理
-      // 空白がないかチェックしてから、登録処理を行う
-      chenckRegisterProfile(profile)
+      // 新規登録の処理を行う前に、まず空白がないかチェックしてから、登録処理を行う
+      // もし、ここで上手くいけば、props.isToRegisterがfalaeからtrueになる
+      props.checkInputItem(items)
+    }
+  }
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // checkInputItemで、空白があるか確認したあとなければ、isToRegisterはtrueになり
+  // 以下で登録の作業をを行う
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  if (props.isToRegister) {
+    props.createProfileEvent(profile)
+  }
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // プロフィール画像 props.registeredProfile.profileImageが
+  // undifinなら初期値をセットする
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  const toggleProfileImage = () => {
+    if (props.registeredProfile.profileImage) {
+      return (
+        <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={`${host.localhost()}${props.registeredProfile.profileImage}`} />
+      )
+    } else {
+      return (
+        <img
+          style={{ height: 150, width: 150, borderRadius: '50%' }}
+          src="https://st.depositphotos.com/1036039/2761/v/450/depositphotos_27612833-stock-illustration-user-icon.jpg"
+        />
+      )
+    }
+  }
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // よろずやのサムネール画像 props.registeredProfile.yorozuyaThumbnailImageが
+  // undifinなら、初期値をリセットする
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  const toggleThumbnailImage = () => {
+    if (props.registeredProfile.yorozuyaThumbnailImage) {
+      return <img style={{ height: 208, width: '100%' }} src={`${host.localhost()}${props.registeredProfile.yorozuyaThumbnailImage}`} />
+    } else {
+      return <img style={{ height: 208, width: '100%' }} src="https://toyoake-seinenbu.com/wp/wp-content/uploads/2018/11/sample_img.gif" />
     }
   }
 
@@ -138,14 +156,7 @@ const CreateProfilePage = (props) => {
           <ImageForm image={profileImage} setImage={setProfileImage} />
         </Col>
         <Col offset={8} span={7} style={{ height: 208, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          {/* <img
-            style={{ height: 150, width: 150, borderRadius: '50%' }}
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSf_CwORn6v_QUcYmGQgZvguXU5q0on8CWnXg&usqp=CAU"
-          /> */}
-          <img
-            style={{ height: 150, width: 150, borderRadius: '50%' }}
-            src={`${host.localhost()}${props.registeredProfile.profileImage}`}
-          />
+          {toggleProfileImage()}
         </Col>
       </Row>
 
@@ -171,8 +182,8 @@ const CreateProfilePage = (props) => {
         <Col span={9}>
           <ImageForm image={yorozuyaThumbnailImage} setImage={setYorozuyaThumbnailImage} />
         </Col>
-        <Col offset={8} span={7} style={{ backgroundColor: 'red' }}>
-          <img style={{ height: 208, width: '100%' }} src={`${host.localhost()}${props.registeredProfile.yorozuyaThumbnailImage}`} />
+        <Col offset={8} span={7}>
+          {toggleThumbnailImage()}
         </Col>
       </Row>
 
@@ -199,8 +210,6 @@ const CreateProfilePage = (props) => {
           <Button type="primary" htmlType="submit" size="large" style={{ width: 400 }} onClick={register}>
             登録
           </Button>
-          {/* 保存に成功もしくは、エラーの時にモーダルが表示される */}
-          {alertModal && <CreateProfileModal modalText={alertText} error={isEmpty} setModal={setAlertModal} />}
         </Col>
       </Row>
     </>
@@ -208,6 +217,7 @@ const CreateProfilePage = (props) => {
 }
 const mapStateToProps = (state) => ({
   authToken: state.account.authToken.access,
+  // プロフィール作成の時は、アカウントIDが必要になるので、最初に取得する
   accountId: state.profile.accountId,
   // profileの登録項目
   registeredProfile: state.profile.registeredProfile,
@@ -215,6 +225,8 @@ const mapStateToProps = (state) => ({
   yorozuId: state.account.yorozuId,
   // プロフィールが登録されたら,trueになる
   updataProfile: state.profile.updateProfile,
+  // checkInputItemで、プロフィールの入力項目に空白がなければこの値がtrueになる
+  isToRegister: state.profile.isToRegister,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -227,6 +239,8 @@ const mapDispatchToProps = (dispatch) => ({
   readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
   // updataProfileをtrueからfalseにする
   finUpdateProfile: () => dispatch(finUpdateProfile()),
+  // プロフィールの入力項目を確認する
+  checkInputItem: (item) => dispatch(checkInputItem(item)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateProfilePage)

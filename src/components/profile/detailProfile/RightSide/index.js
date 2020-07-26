@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Tag } from 'antd'
+import { Row, Col, Tag, Skeleton } from 'antd'
 import styles from './index.module.scss'
 
 import ConsultationButton from './ConsultationButton'
@@ -19,12 +19,37 @@ const RightSide = ({ data }) => {
     return <Tag key={index}>{`#${tag}`}</Tag>
   })
 
+  // よろずやの名前 data.profileDetail.yorozuyaNameがundifindなら、初期値をリセットする
+  const toggleYorozuyaName = () => {
+    if (data.profileDetail.yorozuyaName) {
+      return <h3 className={styles.name}>{data.profileDetail.yorozuyaName}</h3>
+    } else {
+      return <h3 className={styles.name}>○○○屋</h3>
+    }
+  }
+
+  // プロフィール画像 props.registeredProfile.profileImageがundifinなら、初期値をセットする
+  const toggleProfileImage = () => {
+    if (data.profileDetail.profileImage) {
+      return <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={`${host.localhost()}${data.profileDetail.profileImage}`} />
+    } else {
+      return (
+        <Skeleton
+          active
+          img
+          style={{ height: 150, width: 150, borderRadius: '50%' }}
+          src="https://st.depositphotos.com/1036039/2761/v/450/depositphotos_27612833-stock-illustration-user-icon.jpg"
+        />
+      )
+    }
+  }
+
   return (
     <>
       {/* よろず名前*/}
       <Row>
         <Col offset={3} span={21}>
-          <h3 className={styles.name}>{data.profileDetail.yorozuyaName}</h3>
+          {toggleYorozuyaName()}
         </Col>
       </Row>
       {/* タグ */}
@@ -37,7 +62,8 @@ const RightSide = ({ data }) => {
       {/* プロフィール画像 */}
       <Row type="flex" justify="center">
         <Col style={{ paddingTop: 40 }}>
-          <img className={styles.circle} alt="画像" src={`${host.localhost()}${data.profileDetail.profileImage}`} />
+          {/* <img className={styles.circle} alt="画像" src={`${host.localhost()}${data.profileDetail.profileImage}`} /> */}
+          {toggleProfileImage()}
         </Col>
       </Row>
       <Row type="flex" justify="center" style={{ marginTop: 25 }}>

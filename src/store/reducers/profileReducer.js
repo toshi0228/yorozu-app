@@ -11,6 +11,8 @@ import {
   READ_PROFILE_ITEM_EVENT,
   UPDATE_PROFILE_EVENT,
   FIN_UPDATE_PROFILE_EVENT,
+  CHECK_INPUT_ITEM_EVENT,
+  FIN_REGISTER_PROFILE_EVENT,
 } from '../actionTypes'
 import { notification } from 'antd'
 import { SmileOutlined } from '@ant-design/icons'
@@ -30,7 +32,7 @@ const DEFAULT_STATE = {
 
   // プロフィールで登録する項目
   registeredProfile: {
-    nickname: 'h',
+    nickname: '',
     yorozuyaName: '',
     yorozuId: '',
     profileImage: [],
@@ -40,6 +42,9 @@ const DEFAULT_STATE = {
 
   //プロフィールを登録・更新したら、falseになる
   updateProfile: false,
+
+  // プロフィールを登録ボタンを押して、空白なしの確認ができたらTrueになる
+  isToRegister: false,
 }
 
 const profileReducer = (state = DEFAULT_STATE, action) => {
@@ -121,9 +126,6 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     // プロフィール項目のデータを表示させる
     // =========================================================================================
     case READ_PROFILE_ITEM_EVENT:
-      console.log('READ_PROFILE_ITEM_EVENT')
-      console.log(action.payload)
-
       const nickname = action.payload['nickname']
       const yorozuyaName = action.payload['yorozuyaName']
       const yorozuId = action.payload['yorozuId']
@@ -177,10 +179,58 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
       return state
 
     // =========================================================================================
-    // プロフィールの更新終了
+    // プロフィールの登録完了  isToRegisterを true から false にする
+    // =========================================================================================
+    case FIN_REGISTER_PROFILE_EVENT:
+      notification.open({
+        message: 'プロフィールの登録ができました',
+        description: 'プレビューを見てみましょう!!',
+        icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      })
+      return { ...state, isToRegister: false }
+
+    // =========================================================================================
+    // プロフィールの更新終了  updateProfileを true から false にする
     // =========================================================================================
     case FIN_UPDATE_PROFILE_EVENT:
       return { ...state, updateProfile: false }
+
+    // =========================================================================================
+    // プロフィールの登録ボタンを押した時に、空白がないかなど中身を確認する
+    // =========================================================================================
+    case CHECK_INPUT_ITEM_EVENT:
+      // profileのinput項目の配列
+      // action.payload => [undefined, undefined, undefined, Array(0), undefined, Array(0)]
+
+      const emptyItems = []
+      // inputがエラーの項目を抽出する profileImageは、配列なのでitem.lengthが0なら空白とする
+      action.payload.forEach((item, index) => {
+        // 配列でない場合、item.lengthがエラーになるのでtry, catchを使う
+        try {
+          // 画像データがない場合は、Array(0)になる
+          if (item.length === 0) {
+            emptyItems.push(index)
+          }
+        } catch {
+          // 文字データは、こちら側で確認する 値がundefinedなら、emptyItemsに入れる
+          if (!item) {
+            emptyItems.push(index)
+          }
+        }
+      })
+
+      // emptyItemsの配列に値があれば、空白があるので、アラートをだす
+      if (emptyItems.length > 0) {
+        notification.error({
+          message: 'プロフィールの登録に失敗しました',
+          description: '入力項目に空白の場所があるようです。ご確認お願いします!!',
+        })
+      } else {
+        // 空白がなければ、profileを登録できる準備ができたことを伝える
+        return { ...state, isToRegister: true }
+      }
+
+      return state
 
     default:
       return state

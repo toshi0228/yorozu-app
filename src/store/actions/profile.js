@@ -8,6 +8,8 @@ import {
   READ_PROFILE_ITEM_EVENT,
   UPDATE_PROFILE_EVENT,
   FIN_UPDATE_PROFILE_EVENT,
+  CHECK_INPUT_ITEM_EVENT,
+  FIN_REGISTER_PROFILE_EVENT,
   // CREATE_PROFILE_EVENT,
 } from '../actionTypes'
 import { getProfileList, postProfile, getProfileDetail, postSerach, patchProfile } from '../../services/ApiRequest'
@@ -122,9 +124,9 @@ export const createProfile = (profile) => (dispatch) => {
   formData.append('profileDescription', profile.profileDescription)
   formData.append('yorozuyaThumbnailImage', profile.yorozuyaThumbnailImage[0], profile.yorozuyaThumbnailImage[0].name)
   postProfile(formData).then((res) => {
-    // dispatch(registerProfile(res))
-    console.log('登録')
-    console.log(res)
+    // プロフィールの登録完了  isToRegisterを true から false にする これをしないと何回も
+    // createProfileを行うことになってしまうので、完了したことをreducerに伝える
+    dispatch(finCreateProfile())
 
     // プロフィールを登録した後に、登録したprofileデータの詳細を取得する(プランデータやscoreデータも取得できる)
     const yorozuId = res.data.yorozuId
@@ -179,8 +181,6 @@ export const updateProfile = (profile) => (dispatch) => {
   // プロフィールを更新する処理
   patchProfile(updateData)
     .then((res) => {
-      // console.log('更新うまく言った')
-      // console.log(res)
       dispatch(newProfile(res))
     })
     .catch((error) => {
@@ -196,12 +196,32 @@ export const newProfile = (profileData) => {
 }
 
 // =====================================================================================
+// プロフィールの登録完了  isToRegisterを true から false にする
+// =====================================================================================
+
+export const finCreateProfile = () => {
+  return {
+    type: FIN_REGISTER_PROFILE_EVENT,
+  }
+}
+
+// =====================================================================================
 // profileUpdateを終了 updateProfileをtrueからfalseにする
 // =====================================================================================
 
 export const finUpdateProfile = () => {
   return {
     type: FIN_UPDATE_PROFILE_EVENT,
+  }
+}
+
+// =====================================================================================
+// プロフィールの登録画面で空白のチェック
+// =====================================================================================
+export const checkInputItem = (InputItems) => {
+  return {
+    type: CHECK_INPUT_ITEM_EVENT,
+    payload: InputItems,
   }
 }
 

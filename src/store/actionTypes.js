@@ -47,6 +47,11 @@ export const READ_PROFILE_ITEM_EVENT = 'READ_PROFILE_ITEM_EVENT'
 export const UPDATE_PROFILE_EVENT = 'UPDATE_PROFILE_EVENT'
 // プロフィール更新終了 updateProfile trueからfalseにする
 export const FIN_UPDATE_PROFILE_EVENT = 'FIN_UPDATE_PROFILE_EVENT'
+// 登録ボタンを押した時に入力項目の確認をする
+export const CHECK_INPUT_ITEM_EVENT = 'CHECK_INPUT_ITEM_EVENT'
+// プロフィールの登録を完了 isToRegister trueからfalseにする
+// これをやらないと、永年に登録処理を行ってしまうので
+export const FIN_REGISTER_PROFILE_EVENT = 'FIN_REGISTER_PROFILE_EVENT'
 
 // ============================================================
 // message

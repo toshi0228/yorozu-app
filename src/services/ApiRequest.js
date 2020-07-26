@@ -178,7 +178,6 @@ export const getPurchasersList = (authToken) => {
 //=====================================================================================
 
 export const postProfile = (profile) => {
-  console.log('飛ばした')
   // delete axios.defaults.headers.common['Authorization']
   return axios.post(`${host.localhost()}/api/profile/`, profile, {
     headers: {
