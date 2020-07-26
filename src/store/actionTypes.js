@@ -23,6 +23,8 @@ export const START_LOADING = 'STOP_LOADING'
 // ============================================================
 export const CREATE_PLAN_EVENT = 'CREATE_PLAN'
 export const READ_PLAN_EVENTS = 'READ_PLAN_EVENTS'
+// プランの登録画面で空白項目がないか確認する
+export const CHECK_INPUT_PLAN_ITEM_EVENT = 'CHECK_INPUT_PLAN_ITEM_EVENT'
 
 // ============================================================
 // Tag

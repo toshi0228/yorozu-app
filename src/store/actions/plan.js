@@ -1,20 +1,11 @@
-import { READ_PLAN_EVENTS, CREATE_PLAN_EVENT } from '../actionTypes'
-import { postPlan } from '../../services/ApiRequest'
-// import { postPlanRequest } from '../../services/ApiRequest'
+import { READ_PLAN_EVENTS, CREATE_PLAN_EVENT, CHECK_INPUT_PLAN_ITEM_EVENT, FIN_REGISTER_PLAN_EVENT } from '../actionTypes'
+// import { READ_PLAN_EVENTS, CREATE_PLAN_EVENT, CHECK_INPUT_PLAN_ITEM_EVENT } from '../actionTypes'
+import { postPlan, getProfileDetail } from '../../services/ApiRequest'
+import { readProfile } from './profile'
 
-// プランの承認
-// export const planRequest = (requestData) => (dispatch) => {
-//   console.log(`acttionがよばれた:${requestData}`)
-//   console.log(requestData)
-//   postPlanRequest(requestData).then((res) => {
-//     console.log('プランのリクエスト完了')
-//     console.log(res)
-//   })
-// }
 // ======================================================================
 // プラン登録
 // ======================================================================
-
 export const createPlan = (plan) => (dispatch) => {
   const formData = new FormData()
   // サーバーサイドのシリアライザと同じ名前にしないといけない
@@ -28,18 +19,34 @@ export const createPlan = (plan) => (dispatch) => {
 
   postPlan(formData)
     .then((res) => {
-      console.log('登録成功')
-      console.log(res)
+      // プロフィールを登録した後に、登録したprofileデータの詳細を取得する(プランデータやscoreデータも取得できる)
+      // また、プレビューのデータも以下の作業を行うことで更新される
+      const yorozuId = res.data
+      getProfileDetail(yorozuId).then((res) => {
+        dispatch(readProfile(res.data))
+      })
+
+      // プランの登録の場合
+      dispatch(setCreatePlan(res))
     })
     .catch((error) => {
       console.log(error)
     })
 }
 
-// .then((res) => {
-//   console.log(res)
-// })
-// .catch((error) => {
-//   console.log(error)
-// })
-// }
+const setCreatePlan = (createPlan) => {
+  return {
+    type: CREATE_PLAN_EVENT,
+    payload: createPlan,
+  }
+}
+
+// ======================================================================
+// プランの登録画面で、インプット項目に空白がないか確認
+// ======================================================================
+export const checkPlanItem = (planItem) => {
+  return {
+    type: CHECK_INPUT_PLAN_ITEM_EVENT,
+    payload: planItem,
+  }
+}

@@ -1,31 +1,59 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Input, Row, Col, Button } from 'antd'
 import InputTag from '../../components/form/tagForm/index'
 import { createPlan } from '../../store/actions/plan'
 import ImageForm from '../../components/form/ImageForm/index'
+import { checkPlanItem } from '../../store/actions/plan'
 
 const { TextArea } = Input
 
 const CreatePlanPage = (props) => {
-  // console.log('CreatePlanPage')
-  // console.log(props)
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [tags, setTags] = useState([])
 
+  const plan = {
+    title,
+    description,
+    image,
+    price,
+    tags,
+    yorozuId: props.yorozuId,
+  }
+
+  const planItem = [title, description, image, price, tags]
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  // プランがあるか呼び出す
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+
+  // useEffect(() => {
+  //   console.log('プランを呼ぶ')
+  //   console.log(props.planData)
+  // }, [])
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
   // 登録ボタンを押した時のアクション
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
   const register = () => {
-    const plan = {
-      title,
-      description,
-      image,
-      price,
-      tags,
-      yorozuId: props.yorozuId,
+    // props.planDataの初期値 => [] 中身がなければ新規登録の処理
+    if (props.planData.length === 0) {
+      console.log('新規登録')
+      props.checkInputItemEvent(planItem)
+    } else {
+      console.log('更新処理')
     }
+  }
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  // checkInputItemEventでクリアしたら, isToRegisterが
+  // falseからtrueになるので、プラン登録を行う
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  if (props.isToRegister) {
+    console.log('登録の準備完了')
     props.createPlanEvent(plan)
   }
 
@@ -35,8 +63,8 @@ const CreatePlanPage = (props) => {
       return (
         <Row type="flex" justify="center">
           <Col>
-            <Button type="primary" htmlType="submit" size="large" style={{ width: 200 }} onClick={register}>
-              送信
+            <Button type="primary" htmlType="submit" size="large" style={{ width: 400 }} onClick={register}>
+              登録
             </Button>
           </Col>
         </Row>
@@ -124,11 +152,17 @@ const mapStateToProps = (state) => {
     plan: state.plan,
     authToken: state.account.authToken.access,
     yorozuId: state.account.yorozuId,
+    planData: state.profile.profileDetail['planList'],
+    // checkInputItemEventでクリアしたら,isToRegisterがfalseからtrueになる
+    isToRegister: state.plan.isToRegister,
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  // プランの登録
   createPlanEvent: (planContent) => dispatch(createPlan(planContent)),
+  // プランの入力項目に空白がないか確認
+  checkInputItemEvent: (planItem) => dispatch(checkPlanItem(planItem)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePlanPage)
