@@ -55,8 +55,8 @@ const InputTag = ({ setTags, tagsData, readTagEvent }) => {
   // =====================================================================================
 
   return (
-    <Row style={{ marginBottom: 64 }}>
-      <Col span={12}>
+    <Row>
+      <Col>
         <Select mode="tags" style={{ width: '100%' }} onChange={handleChange}>
           {optionTagList}
         </Select>

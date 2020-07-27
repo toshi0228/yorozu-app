@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Input, Row, Col, Button } from 'antd'
-import { createPlan } from '../../store/actions/plan'
-
 import InputTag from '../../components/form/tagForm/index'
+import { createPlan } from '../../store/actions/plan'
 import ImageForm from '../../components/form/ImageForm/index'
-import InputPlanItem from '../../components/plan/inputPlanItem'
-
 import { checkPlanItem } from '../../store/actions/plan'
 
 const { TextArea } = Input
@@ -94,69 +91,56 @@ const CreatePlanPage = (props) => {
         </Col>
       </Row>
 
-      <Row>
-        {/* プラン作成画面の右側のレイアウト */}
-        <Col span={8}>プラン項目</Col>
+      {/* <div style={{ background: '#fff', border: 'solid 3px #f7f9f9' }}> */}
+      <div style={{ background: '#fff', border: 'solid 1px #d5d5d5' }}>
+        <Row style={{ marginBottom: 8 }}>
+          <Col span={4}>タイトル</Col>
+        </Row>
 
-        {/* プラン作成画面の左側のレイアウト */}
-        <Col style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }} span={16}>
-          {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
-          <Row type="flex" justify="center">
-            {/* <Col span={20} style={{ background: '#f6f9f9', paddingTop: '32px' }}> */}
-            <Col span={20} style={{ paddingTop: '32px' }}>
-              <InputPlanItem register={register} yorozuId={props.yorozuId} />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+        <Row style={{ marginBottom: 48 }}>
+          <Col span={10}>
+            <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+          </Col>
+        </Row>
 
-      <Row style={{ marginBottom: 8 }}>
-        <Col span={4}>タイトル</Col>
-      </Row>
+        <Row style={{ marginBottom: 8 }}>
+          <Col span={18}>イメージ画像の登録</Col>
+        </Row>
 
-      <Row style={{ marginBottom: 48 }}>
-        <Col span={10}>
-          <Input value={title} onChange={(e) => setTitle(e.target.value)} />
-        </Col>
-      </Row>
+        {/* 画像登録 */}
+        <Row style={{ marginBottom: 48 }}>
+          <Col span={9}>
+            <ImageForm image={image} setImage={setImage} />
+          </Col>
+        </Row>
 
-      <Row style={{ marginBottom: 8 }}>
-        <Col span={18}>イメージ画像の登録</Col>
-      </Row>
+        <Row style={{ marginBottom: 8 }}>
+          <Col span={18}>プラン説明</Col>
+        </Row>
 
-      {/* 画像登録 */}
-      <Row style={{ marginBottom: 48 }}>
-        <Col span={9}>
-          <ImageForm image={image} setImage={setImage} />
-        </Col>
-      </Row>
+        <Row style={{ marginBottom: 48 }}>
+          <Col span={18}>
+            <TextArea value={description} onChange={(e) => setDescription(e.target.value)} autoSize={{ minRows: 6, maxRows: 6 }} />
+          </Col>
+        </Row>
 
-      <Row style={{ marginBottom: 8 }}>
-        <Col span={18}>プラン説明</Col>
-      </Row>
+        <Row style={{ marginBottom: 8 }}>
+          <Col span={18}>料金</Col>
+        </Row>
 
-      <Row style={{ marginBottom: 48 }}>
-        <Col span={18}>
-          <Input.TextArea value={description} onChange={(e) => setDescription(e.target.value)} autoSize={{ minRows: 6, maxRows: 6 }} />
-        </Col>
-      </Row>
+        <Row style={{ marginBottom: 48 }}>
+          <Col span={7}>
+            <Input prefix="￥" suffix="円" value={price} onChange={(e) => setPrice(e.target.value)} />
+          </Col>
+        </Row>
 
-      <Row style={{ marginBottom: 8 }}>
-        <Col span={18}>料金</Col>
-      </Row>
+        <Row style={{ marginBottom: 8 }}>
+          <Col span={18}>タグ</Col>
+        </Row>
 
-      <Row style={{ marginBottom: 48 }}>
-        <Col span={7}>
-          <Input prefix="￥" suffix="円" value={price} onChange={(e) => setPrice(e.target.value)} />
-        </Col>
-      </Row>
-
-      <Row style={{ marginBottom: 8 }}>
-        <Col span={18}>タグ</Col>
-      </Row>
-
-      {/* タグ入力 */}
-      <InputTag setTags={setTags} />
+        {/* タグ入力 */}
+        <InputTag setTags={setTags} />
+      </div>
 
       {/* 送信ボタン */}
       {toggleRegisterBtn()}
