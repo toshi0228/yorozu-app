@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
 import { Button, Col, Row, Input } from 'antd'
 
-import InputTag from '../../../components/form/tagForm/index'
-import ImageForm from '../../../components/form/ImageForm/index'
+import { createPlan } from '../../../../store/actions/plan'
+import { checkPlanItem } from '../../../../store/actions/plan'
+
+import InputTag from '../../../form/tagForm/index'
+import ImageForm from '../../../form/ImageForm/index'
 
 import style from './index.module.scss'
 
@@ -10,12 +14,47 @@ import style from './index.module.scss'
 // プラン登録画面の入力項目カード
 // ====================================================================
 
-const InputPlanItem = ({ register, yorozuId }) => {
+// yorozuId, planDataは、CreatePlanPageから渡ってくる
+const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEvent, isToRegister }) => {
+  console.log('InputPlanItemに来た')
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [tags, setTags] = useState([])
+
+  const plan = {
+    title,
+    description,
+    image,
+    price,
+    tags,
+    yorozuId: yorozuId,
+  }
+
+  const planItem = [title, description, image, price, tags]
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  // 登録ボタンを押した時のアクション
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  const register = () => {
+    // props.planDataの初期値 => [] 中身がなければ新規登録の処理
+    if (planData.length === 0) {
+      console.log('新規登録')
+      checkInputItemEvent(planItem)
+    } else {
+      console.log('更新処理')
+    }
+  }
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  // checkInputItemEventでクリアしたら, isToRegisterが
+  // falseからtrueになるので、プラン登録を行う
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  if (isToRegister) {
+    console.log('登録の準備完了 => 作成')
+    createPlanEvent(plan)
+  }
 
   const toggleRegisterBtn = () => {
     if (yorozuId) {
@@ -100,4 +139,16 @@ const InputPlanItem = ({ register, yorozuId }) => {
   )
 }
 
-export default InputPlanItem
+const mapStateToProps = (state) => ({
+  // checkInputItemEventでクリアしたら,isToRegisterがfalseからtrueになる
+  isToRegister: state.plan.isToRegister,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  // プランの登録
+  createPlanEvent: (planContent) => dispatch(createPlan(planContent)),
+  // プランの入力項目に空白がないか確認
+  checkInputItemEvent: (planItem) => dispatch(checkPlanItem(planItem)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(InputPlanItem)

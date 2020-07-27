@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
+import routes from '../routes/index'
 
 const RequireAuth = (ComposedComponent) => {
   // 以下の関数で"ComposedComponent"をAUTHという
@@ -12,7 +13,7 @@ const RequireAuth = (ComposedComponent) => {
         console.log('isRequireAuth:tokenあり')
       } else {
         // tokenがなければ、ログインページに飛ぶ
-        props.push('sign_in')
+        props.push(routes.siginIn())
         console.log('tokenなし')
       }
     }
