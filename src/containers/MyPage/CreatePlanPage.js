@@ -5,12 +5,12 @@ import { Row, Col } from 'antd'
 import RightSide from '../../components/plan/createPlan/rightSide'
 import LeftSide from '../../components/plan/createPlan/leftSide'
 
-const CreatePlanPage = ({ yorozuId, planData }) => {
+const CreatePlanPage = ({ yorozuId, planData, registeredPlan }) => {
   return (
     <>
       <Row style={{ marginTop: 32, marginBottom: 32 }}>
         <Col span={8}>
-          <h4>どんなプランがあるのか、教えてください</h4>
+          <h4>どんなプランがあるのか、教えてください!!</h4>
         </Col>
       </Row>
 
@@ -30,7 +30,7 @@ const CreatePlanPage = ({ yorozuId, planData }) => {
           {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
-              <RightSide yorozuId={yorozuId} planData={planData} />
+              <RightSide yorozuId={yorozuId} planData={planData} registeredPlan={registeredPlan} />
             </Col>
           </Row>
         </Col>
@@ -42,6 +42,8 @@ const CreatePlanPage = ({ yorozuId, planData }) => {
 const mapStateToProps = (state) => ({
   yorozuId: state.account.yorozuId,
   planData: state.profile.profileDetail['planList'],
+  // 現在登録しているプラン項目をinputの所に表示させる
+  registeredPlan: state.plan.registeredPlan,
 })
 
 export default connect(mapStateToProps, null)(CreatePlanPage)

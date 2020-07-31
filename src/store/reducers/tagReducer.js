@@ -1,8 +1,8 @@
-import _ from 'lodash';
-import Tag from '../../models/tag';
-import { READ_TAG_EVENTS } from '../actionTypes';
+import _ from 'lodash'
+import Tag from '../../models/tag'
+import { READ_TAG_EVENTS } from '../actionTypes'
 
-const DEFAULT_STATE = {};
+const DEFAULT_STATE = {}
 // const DEFAULT_STATE = {
 //   ...new Tag({})
 // };
@@ -11,13 +11,14 @@ const tagReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case READ_TAG_EVENTS:
       // keyとidの値が同じオブジェクトを返す
-      return _.mapKeys(action.payload, 'id');
-    default:
-      return state;
-  }
-};
+      return _.mapKeys(action.payload, 'id')
 
-export default tagReducer;
+    default:
+      return state
+  }
+}
+
+export default tagReducer
 
 // =====================================================================================
 // ロダッシュによって、keyとidを同じにする

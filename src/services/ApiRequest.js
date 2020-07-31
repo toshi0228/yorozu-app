@@ -101,6 +101,14 @@ export const patchMessage = (message) => {
 // }
 
 //=====================================================================================
+// プランを取得 プランを編集する時に使う
+//=====================================================================================
+
+export const getPlan = (planId) => {
+  return axios.get(`${host.localhost()}/api/plan/${planId}`)
+}
+
+//=====================================================================================
 // プラン登録
 //=====================================================================================
 export const postPlan = (plan) => {
@@ -145,6 +153,43 @@ export const patchPlanApprovalStatus = (contractPlan) => {
 export const postPlanContract = (contractData) => {
   return axios.post(`${host.localhost()}/api/contract/`, contractData)
 }
+
+//=====================================================================================
+// プランの更新を行う
+//=====================================================================================
+
+export const patchPlan = (planItem) => {
+  return axios.patch(`${host.localhost()}/api/plan/${planItem['id']}/`, planItem)
+}
+
+//=====================================================================================
+// プランの画像を更新を行う
+//=====================================================================================
+
+export const patchPlanImage = (imageData) => {
+  return axios.patch(`${host.localhost()}/api/plan/${imageData['id']}/`, imageData.formData, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  })
+}
+
+//=====================================================================================
+// プランのタグを更新する
+//=====================================================================================
+
+export const patchPlanTag = (tagData) => {
+  console.log(tagData)
+  return axios.patch(`${host.localhost()}/api/plan/tag/${tagData['id']}/`, tagData.tag, {
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  })
+}
+
+// !!配列の場合もmultipart/form-dataで送る
+// プランの更新と渡しているものは同じだが、以下のurlにplanデータを渡せば、
+// サーバー側ではtagしか更新されない
 
 // =====================================================================================
 // 自分が送信したプランの契約申請一覧を取得する

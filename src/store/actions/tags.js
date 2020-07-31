@@ -1,18 +1,18 @@
-import { READ_TAG_EVENTS } from '../actionTypes';
-import { feachTags } from '../../services/ApiRequest';
+import { READ_TAG_EVENTS } from '../actionTypes'
+import { feachTags } from '../../services/ApiRequest'
 
-export const readTagEvent = () => dispatch => {
-  feachTags().then(res => {
-    dispatch(readTag({ ...res.data }));
-  });
-};
+export const readTagEvent = () => (dispatch) => {
+  feachTags().then((res) => {
+    dispatch(readTag({ ...res.data }))
+  })
+}
 
-export const readTag = tags => {
+export const readTag = (tags) => {
   return {
     type: READ_TAG_EVENTS,
-    payload: { ...tags }
-  };
-};
+    payload: { ...tags },
+  }
+}
 
 // =====================================================================================
 // 非同期の場合は、API通信を行って、そこから取得した値をとってから値をstoreに飛ばしたい。

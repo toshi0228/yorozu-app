@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Button, Col, Row, Input } from 'antd'
 
-import { createPlan } from '../../../../store/actions/plan'
+import { createPlan, updatePlan } from '../../../../store/actions/plan'
 import { checkPlanItem } from '../../../../store/actions/plan'
 
 import InputTag from '../../../form/tagForm/index'
@@ -14,9 +14,9 @@ import style from './index.module.scss'
 // プラン登録画面の入力項目カード
 // ====================================================================
 
-// yorozuId, planDataは、CreatePlanPageから渡ってくる
-const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEvent, isToRegister }) => {
-  console.log('InputPlanItemに来た')
+// yorozuId, planData, registeredPlanは、CreatePlanPageから渡ってくる
+const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEvent, isToRegister, registeredPlan, updatePlanEvent }) => {
+  // const [title, setTitle] = useState(registeredPlan['title'])
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
   const [description, setDescription] = useState('')
@@ -24,6 +24,7 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
   const [tags, setTags] = useState([])
 
   const plan = {
+    id: registeredPlan['id'],
     title,
     description,
     image,
@@ -34,9 +35,10 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
 
   const planItem = [title, description, image, price, tags]
 
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  // ======================================================================
   // 登録ボタンを押した時のアクション
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  // ======================================================================
+
   const register = () => {
     // props.planDataの初期値 => [] 中身がなければ新規登録の処理
     if (planData.length === 0) {
@@ -44,17 +46,31 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
       checkInputItemEvent(planItem)
     } else {
       console.log('更新処理')
+      console.log(plan)
+      // 更新の場合は, checkInputItemEventで空白の確認を行わない
+      updatePlanEvent(plan)
     }
   }
 
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  // ======================================================================
   // checkInputItemEventでクリアしたら, isToRegisterが
   // falseからtrueになるので、プラン登録を行う
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝==
+  // ======================================================================
+
   if (isToRegister) {
     console.log('登録の準備完了 => 作成')
     createPlanEvent(plan)
   }
+
+  // ======================================================================
+  // 左側のプランが押されたら、登録してあるプラン情報を表示させる
+  // ======================================================================
+  useEffect(() => {
+    setTitle(registeredPlan['title'])
+    setDescription(registeredPlan['description'])
+    setPrice(registeredPlan['price'])
+    setTags(registeredPlan['tags'])
+  }, [registeredPlan])
 
   const toggleRegisterBtn = () => {
     if (yorozuId) {
@@ -82,7 +98,7 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
     <>
       <Row type="flex" justify="center" style={{ marginTop: 16, marginBottom: 32 }}>
         <Col>
-          <h3>プランの新規登録</h3>
+          <h3>プランの登録</h3>
         </Col>
       </Row>
 
@@ -109,7 +125,12 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
       <Row className={style.marginBottom}>
         <Col>
           <h3 className={style.title}>プラン説明</h3>
-          <Input.TextArea value={description} onChange={(e) => setDescription(e.target.value)} autoSize={{ minRows: 6, maxRows: 6 }} />
+          <Input.TextArea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            autoSize={{ minRows: 6, maxRows: 6 }}
+            placeholder="どんなプランなのか書いて見ましょう"
+          />
         </Col>
       </Row>
 
@@ -118,7 +139,7 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
           <h3 className={style.title}>料金</h3>
         </Col>
         <Col span={16}>
-          <Input prefix="￥" suffix="円" value={price} onChange={(e) => setPrice(e.target.value)} />
+          <Input prefix="￥" suffix="円" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="12000" />
         </Col>
       </Row>
 
@@ -127,7 +148,7 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
           <h3 className={style.title}>タグ</h3>
         </Col>
         <Col>
-          <InputTag setTags={setTags} />
+          <InputTag setTags={setTags} tagList={registeredPlan['tags']} />
         </Col>
       </Row>
 
@@ -149,6 +170,8 @@ const mapDispatchToProps = (dispatch) => ({
   createPlanEvent: (planContent) => dispatch(createPlan(planContent)),
   // プランの入力項目に空白がないか確認
   checkInputItemEvent: (planItem) => dispatch(checkPlanItem(planItem)),
+  // プランのupdateを更新
+  updatePlanEvent: (planItem) => dispatch(updatePlan(planItem)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(InputPlanItem)

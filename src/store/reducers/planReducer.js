@@ -3,13 +3,23 @@ import { notification } from 'antd'
 import { SmileOutlined } from '@ant-design/icons'
 
 import Plan from '../../models/plan'
-import { CREATE_PLAN_EVENT, CHECK_INPUT_PLAN_ITEM_EVENT } from '../actionTypes'
+import { CREATE_PLAN_EVENT, CHECK_INPUT_PLAN_ITEM_EVENT, EDIT_PLAN_ITEM_EVENT } from '../actionTypes'
 
 const DEFAULT_STATE = {
   ...new Plan({}),
 
   // 空白がなければ、profileを登録できる準備ができたことを伝える
   isToRegister: false,
+
+  // プランで登録する項目
+  registeredPlan: {
+    id: '',
+    title: '',
+    description: '',
+    image: [],
+    price: '',
+    tags: [],
+  },
 }
 
 const planReducer = (state = DEFAULT_STATE, action) => {
@@ -63,6 +73,26 @@ const planReducer = (state = DEFAULT_STATE, action) => {
         return { ...state, isToRegister: true }
       }
       return state
+
+    case EDIT_PLAN_ITEM_EVENT:
+      // タグの名前だけの配列を作る
+      //action.payload.tags => [{…}, {…}, {…}]
+      // tag_List => ["インスターグラマー", "記念日", "エンジニア"]
+      const tag_List = action.payload.tags.map((tag) => {
+        return tag.name
+      })
+
+      return {
+        ...state,
+        registeredPlan: {
+          id: action.payload['id'],
+          title: action.payload['title'],
+          description: action.payload['description'],
+          image: action.payload['image'],
+          price: action.payload['price'],
+          tags: tag_List,
+        },
+      }
 
     default:
       return state
