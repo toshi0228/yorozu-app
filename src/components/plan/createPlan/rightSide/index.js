@@ -16,6 +16,8 @@ import style from './index.module.scss'
 
 // yorozuId, planData, registeredPlanは、CreatePlanPageから渡ってくる
 const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEvent, isToRegister, registeredPlan, updatePlanEvent }) => {
+  console.log('InputPlanItemで確認したいこと')
+  console.log(registeredPlan)
   // const [title, setTitle] = useState(registeredPlan['title'])
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
@@ -69,6 +71,9 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
     setDescription(registeredPlan['description'])
     setPrice(registeredPlan['price'])
     setTags(registeredPlan['tags'])
+    // 画像登録する場所は、プランが押されたごとに履歴を消す なぜなら、以前登録したプランの画像で上書きして
+    // しまうので、プランが変更をしたらリセットを行う
+    setImage([])
   }, [registeredPlan])
 
   const toggleRegisterBtn = () => {

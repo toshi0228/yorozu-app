@@ -37,8 +37,6 @@ const planReducer = (state = DEFAULT_STATE, action) => {
     // プラン登録
     // ======================================================================
     case CREATE_PLAN_EVENT:
-      console.log('CREATE_PLAN_EVENT')
-
       notification.open({
         message: 'プランを登録できました',
         description: 'プレビューを確認してみてくださいね',
