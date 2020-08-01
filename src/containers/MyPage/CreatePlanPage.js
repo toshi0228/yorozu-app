@@ -12,9 +12,13 @@ import { finReadUpdatePlan } from '../../store/actions/plan'
 const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, readUpdatePlanEvent, finReadUpdatePlanEvent }) => {
   // プランが更新されたら、プロフィールを更新する。プロフィールにはプランが紐づいているので、更新されたプランが取得できる
   useEffect(() => {
-    console.log('プランが更新された')
-    readUpdatePlanEvent(yorozuId)
-    finReadUpdatePlan()
+    // if文を使うことでisUpdatePlanで更新された時だけ変化する
+    // もし書かない場合、isUpdatePlanがturuからfalseに変更された時も更新処理が動いてしまう
+    if (isUpdatePlan) {
+      console.log('プランが更新された')
+      readUpdatePlanEvent(yorozuId)
+      finReadUpdatePlanEvent()
+    }
   }, [isUpdatePlan])
 
   return (
