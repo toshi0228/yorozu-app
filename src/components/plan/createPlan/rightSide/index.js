@@ -44,9 +44,8 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
     if (planData.length === 0) {
       console.log('新規登録')
       checkInputItemEvent(planItem)
+      // 更新処理
     } else {
-      console.log('更新処理')
-      console.log(plan)
       // 更新の場合は, checkInputItemEventで空白の確認を行わない
       updatePlanEvent(plan)
     }

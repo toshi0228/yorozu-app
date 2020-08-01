@@ -12,8 +12,8 @@ import { readEditPlan } from '../../../../store/actions/plan'
 // 新規で登録するプランリストがここに入る
 // ======================================================================
 
-// yorozuId, planDataは、CreatePlanPageから渡ってくる
-const RegisteredPlanList = ({ yorozuId, planData, readEditPlanEvent }) => {
+// planDataは、CreatePlanPageから渡ってくる
+const RegisteredPlanList = ({ planData, readEditPlanEvent }) => {
   // ====================================================================
   // 登録済みのプランを選んだ時に処理 選択することによって右側の編集項目がでる
   // ====================================================================

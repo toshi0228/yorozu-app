@@ -1,16 +1,28 @@
 import { READ_TAG_EVENTS } from '../actionTypes'
 import { feachTags } from '../../services/ApiRequest'
 
+// 7 31
+// 0を削除するところから
+
 export const readTagEvent = () => (dispatch) => {
   feachTags().then((res) => {
-    dispatch(readTag({ ...res.data }))
+    // 空白のタグをの削除した、以前に全ユーザーが登録したtagが入る
+    const registeredTagList = []
+    res.data.forEach((registeredTag) => {
+      // {id: "5a9eb972f", name: "",...}こんな感じでnameに空白があるとエラーが出るので、削除する
+      if (registeredTag.name) {
+        registeredTagList.push(registeredTag)
+      }
+    })
+
+    dispatch(readTag({ ...registeredTagList }))
   })
 }
 
-export const readTag = (tags) => {
+export const readTag = (tagList) => {
   return {
     type: READ_TAG_EVENTS,
-    payload: { ...tags },
+    payload: { ...tagList },
   }
 }
 

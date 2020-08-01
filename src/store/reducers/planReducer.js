@@ -3,7 +3,13 @@ import { notification } from 'antd'
 import { SmileOutlined } from '@ant-design/icons'
 
 import Plan from '../../models/plan'
-import { CREATE_PLAN_EVENT, CHECK_INPUT_PLAN_ITEM_EVENT, EDIT_PLAN_ITEM_EVENT } from '../actionTypes'
+import {
+  CREATE_PLAN_EVENT,
+  CHECK_INPUT_PLAN_ITEM_EVENT,
+  EDIT_PLAN_ITEM_EVENT,
+  UPDATE_PLAN_EVENT,
+  FIN_READ_UPDATE_PLAN_EVENT,
+} from '../actionTypes'
 
 const DEFAULT_STATE = {
   ...new Plan({}),
@@ -20,6 +26,9 @@ const DEFAULT_STATE = {
     price: '',
     tags: [],
   },
+  // (1)プランがupdateされるとtrueになる (2)プランがupdateされるとcreatePlanPageでprofileの読み込む処理を行う
+  // profileには、プランデータも含まれているにで、プランも更新されたデータを取得することができる
+  isUpdatePlan: false,
 }
 
 const planReducer = (state = DEFAULT_STATE, action) => {
@@ -74,6 +83,9 @@ const planReducer = (state = DEFAULT_STATE, action) => {
       }
       return state
 
+    // ======================================================================
+    // プランの編集画面で使う 以前登録してあるプランデータを入力項目に表示させる
+    // ======================================================================
     case EDIT_PLAN_ITEM_EVENT:
       // タグの名前だけの配列を作る
       //action.payload.tags => [{…}, {…}, {…}]
@@ -93,6 +105,24 @@ const planReducer = (state = DEFAULT_STATE, action) => {
           tags: tag_List,
         },
       }
+
+    // ======================================================================
+    // プランの更新statusを変更する
+    // ======================================================================
+    case UPDATE_PLAN_EVENT:
+      notification.open({
+        message: 'プランの更新ができました',
+        description: 'プレビューを見てみましょう!!',
+        icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      })
+      return { ...state, isUpdatePlan: true }
+
+    // ======================================================================
+    // 更新したプラン(実際,createPlanPageでprofileを取得する)を取得したら、
+    // isUpdatePlan: falseにする
+    // ======================================================================
+    case FIN_READ_UPDATE_PLAN_EVENT:
+      return { ...state, isUpdatePlan: false }
 
     default:
       return state

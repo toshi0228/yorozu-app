@@ -27,6 +27,10 @@ export const READ_PLAN_EVENTS = 'READ_PLAN_EVENTS'
 export const CHECK_INPUT_PLAN_ITEM_EVENT = 'CHECK_INPUT_PLAN_ITEM_EVENT'
 // プランの編集画面で使う
 export const EDIT_PLAN_ITEM_EVENT = 'EDIT_PLAN_ITEM_EVENT'
+// プランの更新をしたら isUpdatePlan: falseが => isUpdatePlan: trueになる
+export const UPDATE_PLAN_EVENT = 'UPDATE_PLAN_EVENT'
+// 更新したプラン(実際,createPlanPageでprofileを取得する)を取得したら、isUpdatePlan: falseにする
+export const FIN_READ_UPDATE_PLAN_EVENT = 'FIN_READ_UPDATE_PLAN_EVENT'
 
 // ============================================================
 // Tag

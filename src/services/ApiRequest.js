@@ -179,7 +179,6 @@ export const patchPlanImage = (imageData) => {
 //=====================================================================================
 
 export const patchPlanTag = (tagData) => {
-  console.log(tagData)
   return axios.patch(`${host.localhost()}/api/plan/tag/${tagData['id']}/`, tagData.tag, {
     headers: {
       'content-type': 'multipart/form-data',
