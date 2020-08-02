@@ -30,6 +30,10 @@ const DEFAULT_STATE = {
   // (1)プランがupdateされるとtrueになる (2)プランがupdateされるとcreatePlanPageでprofileの読み込む処理を行う
   // profileには、プランデータも含まれているにで、プランも更新されたデータを取得することができる
   isUpdatePlan: false,
+
+  // 新規登録ボタンを押した時は、これがtrueになる。これがtrueになる事で更新処理ではなく、新規登録の処理になる
+  // createPlanのrightページで使う 最初は新規登録プランから始まるので初期値はtrue
+  isNewCreatePlan: true,
 }
 
 const planReducer = (state = DEFAULT_STATE, action) => {
@@ -93,6 +97,7 @@ const planReducer = (state = DEFAULT_STATE, action) => {
         return tag.name
       })
 
+      // 更新処理を行うので、isNewCreatePlanをfalseにする
       return {
         ...state,
         registeredPlan: {
@@ -103,6 +108,7 @@ const planReducer = (state = DEFAULT_STATE, action) => {
           price: action.payload['price'],
           tags: tag_List,
         },
+        isNewCreatePlan: false,
       }
 
     // ======================================================================
@@ -135,7 +141,7 @@ const planReducer = (state = DEFAULT_STATE, action) => {
         price: '',
         tags: [],
       }
-      return { ...state, registeredPlan: resetPlanInput }
+      return { ...state, registeredPlan: resetPlanInput, isNewCreatePlan: true }
 
     default:
       return state

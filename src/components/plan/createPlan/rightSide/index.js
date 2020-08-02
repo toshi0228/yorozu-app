@@ -14,8 +14,16 @@ import style from './index.module.scss'
 // プラン登録画面の入力項目カード
 // ====================================================================
 
-// yorozuId, planData, registeredPlanは、CreatePlanPageから渡ってくる
-const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEvent, isToRegister, registeredPlan, updatePlanEvent }) => {
+// yorozuId,  registeredPlanは、CreatePlanPageから渡ってくる
+const InputPlanItem = ({
+  yorozuId,
+  checkInputItemEvent,
+  createPlanEvent,
+  isToRegister,
+  isNewCreatePlan,
+  registeredPlan,
+  updatePlanEvent,
+}) => {
   // const [title, setTitle] = useState(registeredPlan['title'])
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
@@ -40,9 +48,8 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
   // ======================================================================
 
   const register = () => {
-    // props.planDataの初期値 => [] 中身がなければ新規登録の処理
-    if (planData.length === 0) {
-      console.log('新規登録')
+    // 新規登録の場合は、isNewCreatePlanがtrueになる
+    if (isNewCreatePlan) {
       checkInputItemEvent(planItem)
       // 更新処理
     } else {
@@ -69,7 +76,6 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
     setDescription(registeredPlan['description'])
     setPrice(registeredPlan['price'])
     // setTags(registeredPlan['tags'])
-    // setTags([])
     // 画像登録する場所は、プランが押されたごとに履歴を消す なぜなら、以前登録したプランの画像で上書きして
     // しまうので、プランが変更をしたらリセットを行う
     setImage([])
@@ -167,6 +173,8 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
 const mapStateToProps = (state) => ({
   // checkInputItemEventでクリアしたら,isToRegisterがfalseからtrueになる
   isToRegister: state.plan.isToRegister,
+  // 新規登録ボタンを押した時は、isNewCreatePlanがtrueになり、新規登録の処理を行う
+  isNewCreatePlan: state.plan.isNewCreatePlan,
 })
 
 const mapDispatchToProps = (dispatch) => ({

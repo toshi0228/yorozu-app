@@ -44,7 +44,7 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
           {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
-              <RightSide yorozuId={yorozuId} planData={planData} registeredPlan={registeredPlan} />
+              <RightSide yorozuId={yorozuId} registeredPlan={registeredPlan} />
             </Col>
           </Row>
         </Col>
