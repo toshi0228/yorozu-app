@@ -21,8 +21,10 @@ export const START_LOADING = 'STOP_LOADING'
 // ============================================================
 // Plan
 // ============================================================
-export const CREATE_PLAN_EVENT = 'CREATE_PLAN'
-export const READ_PLAN_EVENTS = 'READ_PLAN_EVENTS'
+// プランに新規作成
+export const CREATE_PLAN_EVENT = 'CREATE_PLAN_EVENT'
+// 新規ボタンを押したときに、入力項目を空白にする
+export const READY_CREATE_PLAN_EVENT = 'READY_CREATE_PLAN_EVENT'
 // プランの登録画面で空白項目がないか確認する
 export const CHECK_INPUT_PLAN_ITEM_EVENT = 'CHECK_INPUT_PLAN_ITEM_EVENT'
 // プランの編集画面で使う

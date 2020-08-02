@@ -6,19 +6,26 @@ import styles from './index.module.scss'
 import host from '../../../../constants/url'
 
 // action
-import { readEditPlan } from '../../../../store/actions/plan'
+import { readEditPlan, readyCreatePlan } from '../../../../store/actions/plan'
 
 // ======================================================================
 // 新規で登録するプランリストがここに入る
 // ======================================================================
 
 // planDataは、CreatePlanPageから渡ってくる
-const RegisteredPlanList = ({ planData, readEditPlanEvent }) => {
+const RegisteredPlanList = ({ planData, readEditPlanEvent, readyCreatePlanEvent }) => {
   // ====================================================================
   // 登録済みのプランを選んだ時に処理 選択することによって右側の編集項目がでる
   // ====================================================================
   const editPlan = (planItem) => {
     readEditPlanEvent(planItem)
+  }
+
+  // ====================================================================
+  // プランの新規登録ボタンを押した時、右側の入力項目を白紙にする
+  // ====================================================================
+  const readyCreatePlan = () => {
+    readyCreatePlanEvent()
   }
 
   // ====================================================================
@@ -41,7 +48,7 @@ const RegisteredPlanList = ({ planData, readEditPlanEvent }) => {
   return (
     <>
       {/* プランの新規登録ボタン */}
-      <Row type="flex" justify="center" className={styles.newRegister} onClick={() => editPlan()}>
+      <Row type="flex" justify="center" className={styles.newRegister} onClick={() => readyCreatePlan()}>
         <Col>
           <div className={styles.plus}>+</div>
           新規登録
@@ -68,6 +75,8 @@ const RegisteredPlanList = ({ planData, readEditPlanEvent }) => {
 const mapDispatchToProps = (dispatch) => ({
   // 編集するプランを取得する
   readEditPlanEvent: (planId) => dispatch(readEditPlan(planId)),
+  // 新規登録の作業なので、右側の入力項目を空白にする
+  readyCreatePlanEvent: () => dispatch(readyCreatePlan()),
 })
 
 export default connect(null, mapDispatchToProps)(RegisteredPlanList)

@@ -41,7 +41,13 @@ const InputTag = ({ setTags, tagList, tagsData, readTagEvent }) => {
     // tagList.lengthなら、タグは何も登録されていない'
     if (tagList.length === 0) {
       return (
-        <Select mode="tags" style={{ width: '100%' }} onChange={handleChange} placeholder="サプライズ、エンタメ、エンジニア...etc">
+        <Select
+          mode="tags"
+          style={{ width: '100%' }}
+          onChange={handleChange}
+          value={tagValue}
+          placeholder="サプライズ、エンタメ、エンジニア...etc"
+        >
           {optionTagList}
         </Select>
       )

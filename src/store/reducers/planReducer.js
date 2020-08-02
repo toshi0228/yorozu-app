@@ -9,6 +9,7 @@ import {
   EDIT_PLAN_ITEM_EVENT,
   UPDATE_PLAN_EVENT,
   FIN_READ_UPDATE_PLAN_EVENT,
+  READY_CREATE_PLAN_EVENT,
 } from '../actionTypes'
 
 const DEFAULT_STATE = {
@@ -121,6 +122,20 @@ const planReducer = (state = DEFAULT_STATE, action) => {
     // ======================================================================
     case FIN_READ_UPDATE_PLAN_EVENT:
       return { ...state, isUpdatePlan: false }
+
+    // ======================================================================
+    // プランの新規登録ボタンを押した時に、プランの入力項目を空白にする処理
+    // ======================================================================
+    case READY_CREATE_PLAN_EVENT:
+      const resetPlanInput = {
+        id: '',
+        title: '',
+        description: '',
+        image: [],
+        price: '',
+        tags: [],
+      }
+      return { ...state, registeredPlan: resetPlanInput }
 
     default:
       return state

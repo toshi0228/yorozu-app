@@ -15,7 +15,6 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
     // if文を使うことでisUpdatePlanで更新された時だけ変化する
     // もし書かない場合、isUpdatePlanがturuからfalseに変更された時も更新処理が動いてしまう
     if (isUpdatePlan) {
-      console.log('プランが更新された')
       readUpdatePlanEvent(yorozuId)
       finReadUpdatePlanEvent()
     }

@@ -4,6 +4,7 @@ import {
   EDIT_PLAN_ITEM_EVENT,
   UPDATE_PLAN_EVENT,
   FIN_READ_UPDATE_PLAN_EVENT,
+  READY_CREATE_PLAN_EVENT,
 } from '../actionTypes'
 // import { READ_PLAN_EVENTS, CREATE_PLAN_EVENT, CHECK_INPUT_PLAN_ITEM_EVENT } from '../actionTypes'
 import { postPlan, getProfileDetail, patchPlan, patchPlanImage, patchPlanTag } from '../../services/ApiRequest'
@@ -54,6 +55,16 @@ export const checkPlanItem = (planItem) => {
   return {
     type: CHECK_INPUT_PLAN_ITEM_EVENT,
     payload: planItem,
+  }
+}
+
+// ======================================================================
+// プランを作成ボタンを押した時に使う。プランの入力項目を一度空白にする
+// ======================================================================
+
+export const readyCreatePlan = () => {
+  return {
+    type: READY_CREATE_PLAN_EVENT,
   }
 }
 

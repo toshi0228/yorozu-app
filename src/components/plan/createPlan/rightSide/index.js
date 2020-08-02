@@ -16,8 +16,6 @@ import style from './index.module.scss'
 
 // yorozuId, planData, registeredPlanは、CreatePlanPageから渡ってくる
 const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEvent, isToRegister, registeredPlan, updatePlanEvent }) => {
-  console.log('InputPlanItemで確認したいこと')
-  console.log(registeredPlan)
   // const [title, setTitle] = useState(registeredPlan['title'])
   const [title, setTitle] = useState('')
   const [image, setImage] = useState([])
@@ -70,7 +68,8 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
     setTitle(registeredPlan['title'])
     setDescription(registeredPlan['description'])
     setPrice(registeredPlan['price'])
-    setTags(registeredPlan['tags'])
+    // setTags(registeredPlan['tags'])
+    // setTags([])
     // 画像登録する場所は、プランが押されたごとに履歴を消す なぜなら、以前登録したプランの画像で上書きして
     // しまうので、プランが変更をしたらリセットを行う
     setImage([])
@@ -153,6 +152,7 @@ const InputPlanItem = ({ yorozuId, planData, checkInputItemEvent, createPlanEven
         </Col>
         <Col>
           <InputTag setTags={setTags} tagList={registeredPlan['tags']} />
+          {/* <InputTag tagList={registeredPlan['tags']} /> */}
         </Col>
       </Row>
 
