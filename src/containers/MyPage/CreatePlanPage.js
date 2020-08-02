@@ -29,7 +29,7 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
       </Row>
 
       <Row>
-        {/* プラン作成画面の右側のレイアウト */}
+        {/* プラン作成画面の左側のレイアウト */}
         <Col span={8}>
           <Row>
             {/* 右サイドと少し隙間を開けるために4/24分の隙間を開ける */}
@@ -39,7 +39,7 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
           </Row>
         </Col>
 
-        {/* プラン作成画面の左側のレイアウト */}
+        {/* プラン作成画面の右側のレイアウト */}
         <Col style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }} span={16}>
           {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">

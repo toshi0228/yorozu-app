@@ -57,17 +57,6 @@ const RegisteredPlanList = ({ planData, readEditPlanEvent, readyCreatePlanEvent 
 
       {/* 登録したプランリストが並ぶ */}
       {planList}
-
-      <Row style={{ marginTop: 32 }}>
-        <Col onClick={() => console.log('押された')}>
-          <img src="https://i.pinimg.com/originals/85/a6/92/85a692a199ae0a0c8b29430bdf72afdc.jpg" className={styles.planImage} />
-        </Col>
-
-        <Col style={{ marginTop: 4 }}>
-          <h4 style={{ margin: 0 }}>タイトルの長いプランンンンンんn</h4>
-        </Col>
-        <Col style={{ fontSize: 12 }}>12000円</Col>
-      </Row>
     </>
   )
 }

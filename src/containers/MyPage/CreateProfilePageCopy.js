@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Input, Button } from 'antd'
 
@@ -13,9 +13,6 @@ import {
 } from '../../store/actions/profile'
 
 import host from '../../constants/url'
-
-// Component
-import RightSide from '../../components/profile/createProfile/rightSide'
 
 const CreateProfilePage = (props) => {
   const [nickname, setNickname] = useState(props.registeredProfile['nickname'])
@@ -116,29 +113,6 @@ const CreateProfilePage = (props) => {
       <Row style={{ marginTop: 20, marginBottom: 32 }}>
         <Col>
           <h4>どんな、よろず屋なのか教えてください!!</h4>
-        </Col>
-      </Row>
-
-      <Row>
-        {/* プロフィール作成画面の左側のレイアウト */}
-        <Col span={8}>
-          <Row>
-            {/* 右サイドと少し隙間を開けるために4/24分の隙間を開ける */}
-            <Col span={20}>
-              {/* <LeftSide planData={planData} /> */}
-              左側
-            </Col>
-          </Row>
-        </Col>
-
-        {/* プロフィール作成画面の右側のレイアウト */}
-        <Col style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }} span={16}>
-          {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
-          <Row type="flex" justify="center">
-            <Col span={20} style={{ paddingTop: '32px' }}>
-              <RightSide registeredProfile={props.registeredProfile} />
-            </Col>
-          </Row>
         </Col>
       </Row>
 
