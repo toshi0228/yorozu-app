@@ -40,8 +40,8 @@ const DEFAULT_STATE = {
     yorozuyaThumbnailImage: [],
   },
 
-  //プロフィールを登録・更新したら、falseになる
-  updateProfile: false,
+  //プロフィールを登録・更新したら、trueになる
+  isUpdateProfile: false,
 
   // プロフィールを登録ボタンを押して、空白なしの確認ができたらTrueになる
   isToRegister: false,
@@ -173,7 +173,7 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
           yorozuyaThumbnailImage: action.payload.data['yorozuyaThumbnailImage'],
         }
 
-        return { ...state, registeredProfile: registeredProfile, updateProfile: true }
+        return { ...state, registeredProfile: registeredProfile, isUpdateProfile: true }
       }
 
       return state
@@ -193,7 +193,7 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     // プロフィールの更新終了  updateProfileを true から false にする
     // =========================================================================================
     case FIN_UPDATE_PROFILE_EVENT:
-      return { ...state, updateProfile: false }
+      return { ...state, isUpdateProfile: false }
 
     // =========================================================================================
     // プロフィールの登録ボタンを押した時に、空白がないかなど中身を確認する

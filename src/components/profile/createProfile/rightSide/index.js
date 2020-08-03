@@ -1,28 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+
 import { Button, Col, Row, Input } from 'antd'
 
 // Component
 import ImageForm from '../../../form/ImageForm'
+
+// action
+import {
+  createProfile,
+  updateProfile,
+  feachProfileDetail,
+  // finUpdateProfile,
+  checkInputItem,
+  // isToRegister,
+} from '../../../../store/actions/profile'
 
 import style from './index.module.scss'
 
 // ======================================================================
 // createProfilePageの右側 プロフィールの入力フォーム
 // ======================================================================
+// createProfilePageから、registeredProfile,accountIdが渡ってくる
 
-const RightSide = (props) => {
-  console.log('RightSide 確認したい事')
-  console.log(props)
-  const [nickname, setNickname] = useState(props.registeredProfile['nickname'])
-  const [yorozuyaName, setYorozuyaName] = useState(props.registeredProfile['yorozuyaName'])
-  const [yorozuId, setYorozuId] = useState(props.registeredProfile['yorozuId'])
-  const [profileDescription, setProfileDescription] = useState(props.registeredProfile['profileDescription'])
+const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister, createProfileEvent, updateProfileEvent }) => {
+  const [nickname, setNickname] = useState(registeredProfile['nickname'])
+  const [yorozuyaName, setYorozuyaName] = useState(registeredProfile['yorozuyaName'])
+  const [yorozuId, setYorozuId] = useState(registeredProfile['yorozuId'])
+  const [profileDescription, setProfileDescription] = useState(registeredProfile['profileDescription'])
   const [profileImage, setProfileImage] = useState([])
   const [yorozuyaThumbnailImage, setYorozuyaThumbnailImage] = useState([])
 
   // プロフィールオブジェクト
   const profile = {
-    accountId: props.accountId,
+    accountId: accountId,
     nickname,
     yorozuyaName,
     yorozuId,
@@ -34,19 +45,37 @@ const RightSide = (props) => {
   // プロフィールの項目の配列 空白があるかどうか確認する時に必要
   const items = [nickname, yorozuyaName, yorozuId, profileImage, profileDescription, yorozuyaThumbnailImage]
 
+  // 登録しているプロフィールを読み込んだら、inoutの中に値を挿入する
+  // 以下のことをやらないと、registeredProfileのデータを取得した後も、inputが空白のままになってしまう。
+  useEffect(() => {
+    console.log('registeredProfileに変更が合った')
+    setNickname(registeredProfile['nickname'])
+    setYorozuyaName(registeredProfile['yorozuyaName'])
+    setYorozuId(registeredProfile['yorozuId'])
+    setProfileDescription(registeredProfile['profileDescription'])
+  }, [registeredProfile])
+
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // 登録ボタンを押した時のイベント
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const register = () => {
     // props.registeredProfile.yorozuIdがあれば、登録内容の修正、なければ、新規登録
-    if (props.registeredProfile.yorozuId) {
+    if (registeredProfile.yorozuId) {
       // 登録内容の処理
-      props.updateProfileEvent(profile)
+      updateProfileEvent(profile)
     } else {
       // 新規登録の処理を行う前に、まず空白がないかチェックしてから、登録処理を行う
       // もし、ここで上手くいけば、props.isToRegisterがfalaeからtrueになる
-      props.checkInputItem(items)
+      checkInputItem(items)
     }
+  }
+
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  // checkInputItemで、空白があるか確認したあとなければ、isToRegisterはtrueになり
+  // 以下で登録の作業をを行う
+  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+  if (isToRegister) {
+    createProfileEvent(profile)
   }
 
   return (
@@ -89,7 +118,6 @@ const RightSide = (props) => {
       {/*  yorozuId */}
       <Row className={style.marginBottom}>
         <h3 className={style.title}>よろずやのID</h3>
-
         <Col span={18}>
           <Input value={yorozuId} onChange={(e) => setYorozuId(e.target.value)} placeholder="例) yorozu、mornig、yororo" />
         </Col>
@@ -100,11 +128,20 @@ const RightSide = (props) => {
         <div style={{ fontSize: 8, color: 'red' }}>※このIDがあなたのプランのURLにもなります 例) http://yorozu/plan/●●●</div>
       </Row>
 
+      {/* topページに掲載されるサムネ画像 */}
+      <Row className={style.marginBottom}>
+        <h3 className={style.title}>よろずやのサムネール画像</h3>
+
+        {/* よろずやのサムネール画像 (※よろずやのtopページで表示される画像になります) */}
+        <Col>
+          <ImageForm image={yorozuyaThumbnailImage} setImage={setYorozuyaThumbnailImage} />
+        </Col>
+        <p style={{ fontSize: 8, marginTop: 8 }}>※よろずやのtopページで表示される画像になります</p>
+      </Row>
+
       {/* プロフィール説明 */}
-
-      <Row style={{ marginBottom: 64 }}>
+      <Row style={{ marginBottom: 48 }}>
         <h3 className={style.title}>プロフィール説明</h3>
-
         <Col>
           <Input.TextArea
             value={profileDescription}
@@ -127,4 +164,25 @@ const RightSide = (props) => {
   )
 }
 
-export default RightSide
+const mapStateToProps = (state) => ({
+  // checkInputItemで、プロフィールの入力項目に空白がなければこの値がtrueになる
+  isToRegister: state.profile.isToRegister,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  // readAccountIdEvent: (authToken) => dispatch(feachAccountId(authToken)),
+  // // プロフィールを作成する処理
+  createProfileEvent: (profileData) => dispatch(createProfile(profileData)),
+  // プロフィールの更新処理
+  updateProfileEvent: (profileData) => dispatch(updateProfile(profileData)),
+
+  // プロフィールを更新した時に、万屋の詳細ページを取得する(プランや、よろずやユーザーの情報等)
+  // readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
+  // updataProfileをtrueからfalseにする
+  // finUpdateProfile: () => dispatch(finUpdateProfile()),
+
+  // プロフィールの入力項目を確認する
+  checkInputItem: (item) => dispatch(checkInputItem(item)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RightSide)

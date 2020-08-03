@@ -95,7 +95,7 @@ const InputPlanItem = ({
       // よろずIDがなければ、作成できない(プロフィールを作成をしていない場合)
       return (
         <>
-          <Button type="primary" htmlType="submit" size="large" style={{ width: 200 }} onClick={register} disabled>
+          <Button type="primary" htmlType="submit" size="large" style={{ width: 400 }} onClick={register} disabled>
             プロフィールから作成をお願いします
           </Button>
         </>
