@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Row, Col } from 'antd'
+import { Row, Col, Empty } from 'antd'
 
 import LeftSide from '../../components/profile/detailProfile/LeftSide'
 import RightSide from '../../components/profile/detailProfile/RightSide'
@@ -10,6 +10,9 @@ import { fetchYorozuId } from '../../store/actions/account'
 import { fetchReviewScore } from '../../store/actions/review'
 
 const PreviewYorozuPage = (props) => {
+  console.log('PreviewYorozuPage')
+  console.log(props.yorozuId)
+
   // よろずIDを取得する (※プロフィールを登録した後に、リロードした時に、エラーになるので)
   useEffect(() => {
     props.readYorozuIdEvent(props.authToken)
@@ -23,20 +26,46 @@ const PreviewYorozuPage = (props) => {
     }
   }, [])
 
-  return (
-    <>
-      <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
-        {/* 右サイド プラン一覧  割合12/24*/}
-        <Col span={16}>
-          <LeftSide data={props.profile} />
-        </Col>
-        {/* 右サイドバー 割合6/24 */}
-        <Col span={8}>
-          <RightSide data={props.profile} />
-        </Col>
-      </Row>
-    </>
-  )
+  // ==============================================================================
+  // まだ,プロフィールを登録していなくて、yorozuIdをもっていなければ、データはないと表示される
+  // ==============================================================================
+  const togglePreviewPage = () => {
+    if (props.yorozuId) {
+      return (
+        <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
+          {/* 右サイド プラン一覧  割合12/24*/}
+          <Col span={16}>
+            <LeftSide data={props.profile} />
+          </Col>
+          {/* 右サイドバー 割合6/24 */}
+          <Col span={8}>
+            <RightSide data={props.profile} />
+          </Col>
+        </Row>
+      )
+    } else {
+      return (
+        <>
+          <Row style={{ marginTop: 32 }}>
+            <Col>
+              <h3 style={{ color: '#DB6E60' }}>まだ、表示できるデータがございません</h3>
+            </Col>
+          </Row>
+          <Row style={{ minHeight: 280 }}>
+            <Col>
+              <Empty
+                imageStyle={{
+                  height: 240,
+                }}
+              />
+            </Col>
+          </Row>
+        </>
+      )
+    }
+  }
+
+  return <>{togglePreviewPage()}</>
 }
 
 const mapStateToProps = (state) => ({

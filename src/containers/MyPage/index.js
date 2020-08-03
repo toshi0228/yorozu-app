@@ -27,11 +27,11 @@ const ManagementTopPage = (props) => {
         <Col span={18}>
           {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
           <Tabs defaultActiveKey="1">
-            <Tabs.TabPane tab="よろず屋プレビュー" key="2">
+            <Tabs.TabPane tab="よろず屋プレビュー" key="1">
               <PreviewYorozuPage />
             </Tabs.TabPane>
 
-            <Tabs.TabPane tab="プロフィール作成" key="1">
+            <Tabs.TabPane tab="プロフィール作成" key="2">
               <CreateProfilePage />
             </Tabs.TabPane>
 
