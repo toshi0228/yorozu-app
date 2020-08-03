@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-
 import { Button, Col, Row, Input } from 'antd'
 
-// Component
+// component
 import ImageForm from '../../../form/ImageForm'
 
 // action
-import {
-  createProfile,
-  updateProfile,
-  feachProfileDetail,
-  // finUpdateProfile,
-  checkInputItem,
-  // isToRegister,
-} from '../../../../store/actions/profile'
+import { createProfile, updateProfile, checkInputItem } from '../../../../store/actions/profile'
 
 import style from './index.module.scss'
 
@@ -48,7 +40,6 @@ const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister,
   // 登録しているプロフィールを読み込んだら、inoutの中に値を挿入する
   // 以下のことをやらないと、registeredProfileのデータを取得した後も、inputが空白のままになってしまう。
   useEffect(() => {
-    console.log('registeredProfileに変更が合った')
     setNickname(registeredProfile['nickname'])
     setYorozuyaName(registeredProfile['yorozuyaName'])
     setYorozuId(registeredProfile['yorozuId'])
@@ -116,16 +107,19 @@ const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister,
       </Row>
 
       {/*  yorozuId */}
-      <Row className={style.marginBottom}>
+      <Row>
         <h3 className={style.title}>よろずやのID</h3>
         <Col span={18}>
           <Input value={yorozuId} onChange={(e) => setYorozuId(e.target.value)} placeholder="例) yorozu、mornig、yororo" />
         </Col>
-        {/* 以下に<Row></Row>を入れないと入力の左側に */}
-        <Row></Row>
-        {/* yorozuIdに関しての注意事項 */}
-        <div style={{ fontSize: 8, color: 'red', marginTop: 8 }}>※一度決めたら変更できません。半角文字でお願いします)</div>
-        <div style={{ fontSize: 8, color: 'red' }}>※このIDがあなたのプランのURLにもなります 例) http://yorozu/plan/●●●</div>
+      </Row>
+
+      {/* yorozuIdに関しての注意事項 */}
+      <Row className={style.marginBottom}>
+        <Col>
+          <div style={{ fontSize: 8, color: 'red', marginTop: 8 }}>※一度決めたら変更できません。半角文字でお願いします)</div>
+          <div style={{ fontSize: 8, color: 'red' }}>※このIDがあなたのプランのURLにもなります 例) http://yorozu/plan/●●●</div>
+        </Col>
       </Row>
 
       {/* topページに掲載されるサムネ画像 */}
@@ -170,17 +164,10 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  // readAccountIdEvent: (authToken) => dispatch(feachAccountId(authToken)),
   // // プロフィールを作成する処理
   createProfileEvent: (profileData) => dispatch(createProfile(profileData)),
   // プロフィールの更新処理
   updateProfileEvent: (profileData) => dispatch(updateProfile(profileData)),
-
-  // プロフィールを更新した時に、万屋の詳細ページを取得する(プランや、よろずやユーザーの情報等)
-  // readProfileDetailEvent: (id) => dispatch(feachProfileDetail(id)),
-  // updataProfileをtrueからfalseにする
-  // finUpdateProfile: () => dispatch(finUpdateProfile()),
-
   // プロフィールの入力項目を確認する
   checkInputItem: (item) => dispatch(checkInputItem(item)),
 })
