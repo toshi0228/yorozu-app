@@ -17,7 +17,7 @@ const HeaderLogo = ({ resetProfileListEvent }) => {
             resetProfileListEvent()
           }}
         >
-          Yorozu
+          Yorozuuuu
         </h2>
       </Link>
     </>

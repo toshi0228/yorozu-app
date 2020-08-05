@@ -1,9 +1,7 @@
 import React from 'react'
-import { Row, Col } from 'antd'
-// import styles from './index.module.scss'
+import { Empty } from 'antd'
+
 import DetailPlanSection from '../../../plan/detailPlanSection/index'
-// import ConsultationButton from '../ConsultationButton'
-// import host from '../../../constants/url'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、profileの詳細ページ

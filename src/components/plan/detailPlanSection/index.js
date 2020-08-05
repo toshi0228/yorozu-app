@@ -1,6 +1,5 @@
 import React from 'react'
 import { Col, Row } from 'antd'
-import { HeartTwoTone } from '@ant-design/icons'
 import TogglePlanBtn from '../TogglePlanBtn'
 import host from '../../../constants/url'
 
@@ -10,6 +9,7 @@ import host from '../../../constants/url'
 // プランの部分は左の12の部分
 // ====================================================================
 
+// planDataは、profileDetailPage => componentのprofileDetail => leftSideから渡ってくる
 const DetailPlanSection = ({ planData }) => {
   return (
     <>
