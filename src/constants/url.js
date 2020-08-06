@@ -3,7 +3,8 @@ const hostList = {
   //   aws: () => 'http://54.178.94.145',
 
   // 本番用
-  localhost: () => 'http://54.178.94.145',
+  // localhost: () => 'http://54.178.94.145',
+  localhost: () => 'https://54.178.94.145',
 }
 
 export default hostList
