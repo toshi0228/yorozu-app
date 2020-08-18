@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'antd'
 import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons'
@@ -8,6 +8,8 @@ import styles from './index.module.scss'
 import SearchForm from '../../../form/searchForm'
 import HeaderLogo from '../HeaderLogo'
 
+import MenuDrawer from '../components/Drawer'
+
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ
 // 24分割で,左空白3 ロゴ3、真ん中10,右サイド5 右空白3
@@ -15,9 +17,16 @@ import HeaderLogo from '../HeaderLogo'
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 const GuestHeader = () => {
+  // Drawerを表示、非表示のスイッチ
+  const [isDrawer, setIsDrawer] = useState(false)
+
+  // ハンバーガーを押した時に、Drawerを表示させる
+  const showDrawer = () => {
+    setIsDrawer(true)
+  }
   return (
     <>
-      <header>
+      <header style={{ borderBottom: 'solid 2px #f6f6f6' }}>
         {/* ロゴ */}
         <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
           <Col span={3} xs={16} md={3}>
@@ -43,7 +52,11 @@ const GuestHeader = () => {
 
           {/* ボタン */}
           <Col span={5} className={styles.right} xs={3} md={5} className={styles.navbarArea}>
-            <UnorderedListOutlined className={styles.menu} />
+            <UnorderedListOutlined className={styles.menu} onClick={() => showDrawer()} />
+
+            {/* ハンバーガーボタンを押した時に、出てくるDrawer */}
+            <MenuDrawer isDrawer={isDrawer} setIsDrawer={setIsDrawer} />
+
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
                 <Link to="/sign_in">
@@ -64,3 +77,16 @@ const GuestHeader = () => {
 }
 
 export default GuestHeader
+
+// =================================================================
+// spanは、横100％を24とした時にどれくらを閉めるか
+// ※スパンは、初期値の状態
+// span={3} ロゴ
+// span={10} 検索
+// span={5} ボタン
+
+// 小さい時 つまりxsの時 全体は24 他は、22閉める 両端に1ずつ空いてる
+// xs={16} ロゴ
+// xs={3} 検索
+// xs={3} ボタン
+// =================================================================
