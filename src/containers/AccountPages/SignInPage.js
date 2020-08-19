@@ -27,7 +27,6 @@ const SignInPage = (props) => {
         <p style={{ textAlign: 'center', color: 'red', fontSize: 8 }}>メールアドレスまたは、パスワード間違いがあります</p>
       )}
 
-      {/* <Form {...layout} onSubmit={onSubmit}> */}
       <Form onSubmit={onSubmit}>
         <Form.Item name="username" style={{ marginTop: 40 }}>
           {/* メールアドレスを入力する項目 */}

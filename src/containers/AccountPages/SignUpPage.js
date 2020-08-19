@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { signUp, resetErrorMessage } from '../../store/actions/account'
-import { Button, Form, Input, Icon } from 'antd'
+import { Button, Row, Col, Form, Input, Icon } from 'antd'
 
 const SignUpPage = (props) => {
   useEffect(() => {
@@ -18,20 +18,6 @@ const SignUpPage = (props) => {
     setPassword('')
   }
 
-  const layout = {
-    wrapperCol: {
-      offset: 8,
-      span: 8,
-    },
-  }
-
-  const tailLayout = {
-    wrapperCol: {
-      offset: 10,
-      span: 8,
-    },
-  }
-
   return (
     <>
       <h2 style={{ textAlign: 'center', marginTop: 70 }}>新規登録</h2>
@@ -42,31 +28,48 @@ const SignUpPage = (props) => {
         </p>
       )}
 
-      <Form {...layout} onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
         <Form.Item name="username" style={{ marginTop: 40 }}>
-          <Input
-            prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            placeholder="メールアドレス"
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value)
-            }}
-          />
+          {/* メールアドレスの入力 */}
+          <Row type="flex" justify="center">
+            <Col xs={18} lg={8}>
+              <Input
+                prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="メールアドレス"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value)
+                }}
+              />
+            </Col>
+          </Row>
         </Form.Item>
+
         <Form.Item name="password">
-          <Input.Password
-            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-            placeholder="パスワード"
-          />
+          {/* パスワードの入力 */}
+          <Row type="flex" justify="center">
+            <Col xs={18} lg={8}>
+              <Input.Password
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                }}
+                placeholder="パスワード"
+              />
+            </Col>
+          </Row>
         </Form.Item>
-        <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit" style={{ marginTop: 40, width: '50%', marginBottom: 30 }}>
-            ログイン
-          </Button>
+
+        <Form.Item>
+          {/* ログインボタン */}
+          <Row type="flex" justify="center">
+            <Col xs={12} lg={4}>
+              <Button type="primary" htmlType="submit" block={true} style={{ marginTop: 40, marginBottom: 30 }}>
+                登録する
+              </Button>
+            </Col>
+          </Row>
         </Form.Item>
       </Form>
     </>
