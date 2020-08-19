@@ -8,7 +8,9 @@ import styles from './index.module.scss'
 import SearchForm from '../../../form/searchForm'
 import HeaderLogo from '../HeaderLogo'
 
-import MenuDrawer from '../components/Drawer'
+// headerのcomponents
+import MenuDrawer from '../components/menuDrawer'
+import SearchDrawer from '../components/searchDrawer'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ
@@ -17,16 +19,24 @@ import MenuDrawer from '../components/Drawer'
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 const GuestHeader = () => {
-  // Drawerを表示、非表示のスイッチ
-  const [isDrawer, setIsDrawer] = useState(false)
+  // ハンバーガーアイコンを押した時の、Drawerを表示、非表示のスイッチ
+  const [isMenuDrawer, setIsMenuDrawer] = useState(false)
+
+  // 検索画面を押した時の、Drawerを表示,非表示のスイッチ
+  const [isSearchDrawer, setIsSearchDrawer] = useState(false)
 
   // ハンバーガーを押した時に、Drawerを表示させる
-  const showDrawer = () => {
-    setIsDrawer(true)
+  const showMenuDrawer = () => {
+    setIsMenuDrawer(true)
+  }
+
+  // 検索のアイコンを押した時に、検索フォームを表示させる
+  const showSearchForm = () => {
+    setIsSearchDrawer(true)
   }
   return (
     <>
-      <header style={{ borderBottom: 'solid 2px #f6f6f6' }}>
+      <header style={{ borderBottom: 'solid 2px #F2F2F2' }}>
         {/* ロゴ */}
         <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
           <Col span={3} xs={16} md={3}>
@@ -35,7 +45,12 @@ const GuestHeader = () => {
 
           {/* 検索 */}
           <Col span={10} xs={3} md={10} className={styles.searchArea}>
-            <SearchOutlined className={styles.searchLogo} />
+            {/* スマホ画面の時に出てくる検索アイコン */}
+            <SearchOutlined className={styles.searchLogo} onClick={() => showSearchForm()} />
+
+            {/* 検索ボタンを押した時に表示されるDrawer */}
+            <SearchDrawer isDrawer={isSearchDrawer} setIsDrawer={setIsSearchDrawer} />
+
             <Row type="flex" justify="start">
               <Col>
                 {/* モバイルの時は削除するブロック */}
@@ -52,10 +67,11 @@ const GuestHeader = () => {
 
           {/* ボタン */}
           <Col span={5} className={styles.right} xs={3} md={5} className={styles.navbarArea}>
-            <UnorderedListOutlined className={styles.menu} onClick={() => showDrawer()} />
+            {/* スマホ画面の時に出てくるハンバーガーアイコン */}
+            <UnorderedListOutlined className={styles.menu} onClick={() => showMenuDrawer()} />
 
             {/* ハンバーガーボタンを押した時に、出てくるDrawer */}
-            <MenuDrawer isDrawer={isDrawer} setIsDrawer={setIsDrawer} />
+            <MenuDrawer isDrawer={isMenuDrawer} setIsDrawer={setIsMenuDrawer} />
 
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
