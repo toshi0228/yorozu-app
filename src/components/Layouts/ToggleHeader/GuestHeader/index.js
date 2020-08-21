@@ -32,7 +32,7 @@ const GuestHeader = () => {
       <header>
         <Row type="flex" justify="center" align="middle" className={styles.headerContainer}>
           {/* ロゴ */}
-          <Col xs={21} md={3}>
+          <Col xs={20} md={3}>
             <HeaderLogo />
           </Col>
 
@@ -64,10 +64,9 @@ const GuestHeader = () => {
 
           {/* スマホ用ボタン */}
           {/* スマホ画面の時に出てくるハンバーガーアイコン pcの時には、アイコンを表示させないようにする */}
-          <Row xs={1}>
+          <Row xs={2}>
             <Col md={0}>
-              {/* <UnorderedListOutlined className={styles.menu} onClick={() => showMenuDrawer()} /> */}
-              <UnorderedListOutlined style={{ fontSize: 20 }} onClick={() => showMenuDrawer()} />
+              <UnorderedListOutlined style={{ fontSize: 20, marginLeft: 10 }} onClick={() => showMenuDrawer()} />
             </Col>
           </Row>
           {/* ハンバーガーボタンを押した時に、出てくるDrawer */}
