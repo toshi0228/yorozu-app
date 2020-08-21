@@ -23,7 +23,7 @@ const GuestHeader = () => {
   const [isMenuDrawer, setIsMenuDrawer] = useState(false)
 
   // 検索画面を押した時の、Drawerを表示,非表示のスイッチ
-  const [isSearchDrawer, setIsSearchDrawer] = useState(false)
+  // const [isSearchDrawer, setIsSearchDrawer] = useState(false)
 
   // ハンバーガーを押した時に、Drawerを表示させる
   const showMenuDrawer = () => {
@@ -31,29 +31,34 @@ const GuestHeader = () => {
   }
 
   // 検索のアイコンを押した時に、検索フォームを表示させる
-  const showSearchForm = () => {
-    setIsSearchDrawer(true)
-  }
+  // const showSearchForm = () => {
+  //   setIsSearchDrawer(true)
+  // }
   return (
     <>
-      <header style={{ borderBottom: 'solid 2px #F2F2F2' }}>
+      <header>
         {/* ロゴ */}
-        <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
-          <Col span={3} xs={16} md={3}>
+        <Row
+          className={styles.headerContainer}
+          type="flex"
+          justify="center"
+          align="middle"
+          style={{ borderBottom: 'solid 0.4px  #B3B3B3' }}
+        >
+          <Col span={3} xs={18} md={3}>
             <HeaderLogo />
           </Col>
 
           {/* 検索 */}
-          <Col span={10} xs={3} md={10} className={styles.searchArea}>
-            {/* スマホ画面の時に出てくる検索アイコン */}
+          {/* <Col span={10} xs={0} md={10} className={styles.searchArea}>
+            スマホ画面の時に出てくる検索アイコン
             <SearchOutlined className={styles.searchLogo} onClick={() => showSearchForm()} />
 
-            {/* 検索ボタンを押した時に表示されるDrawer */}
+            検索ボタンを押した時に表示されるDrawer
             <SearchDrawer isDrawer={isSearchDrawer} setIsDrawer={setIsSearchDrawer} />
-
             <Row type="flex" justify="start">
               <Col>
-                {/* モバイルの時は削除するブロック */}
+                モバイルの時は削除するブロック
                 <div className={styles.searchForm}>
                   <Row type="flex" gutter={24}>
                     <Col>
@@ -63,10 +68,19 @@ const GuestHeader = () => {
                 </div>
               </Col>
             </Row>
+          </Col> */}
+
+          {/* 検索 */}
+          <Col span={10} xs={0} md={10} className={styles.searchArea}>
+            <Row type="flex" justify="start">
+              <Col>
+                <SearchForm />
+              </Col>
+            </Row>
           </Col>
 
           {/* ボタン */}
-          <Col span={5} className={styles.right} xs={3} md={5} className={styles.navbarArea}>
+          <Col span={5} className={styles.right} xs={4} md={5} className={styles.navbarArea}>
             {/* スマホ画面の時に出てくるハンバーガーアイコン */}
             <UnorderedListOutlined className={styles.menu} onClick={() => showMenuDrawer()} />
 

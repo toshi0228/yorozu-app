@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Input } from 'antd'
+import { Input, Row, Col } from 'antd'
 
 import { search } from '../../../store/actions/profile'
 import styles from './index.module.scss'
@@ -12,7 +12,11 @@ const SearchForm = (props) => {
 
   return (
     <>
-      <Input.Search placeholder="検索" className={styles.searchForm} onSearch={(keyword) => search(keyword)}></Input.Search>
+      <Row>
+        <Col>
+          <Input.Search placeholder="検索" className={styles.searchForm} onSearch={(keyword) => search(keyword)}></Input.Search>
+        </Col>
+      </Row>
     </>
   )
 }

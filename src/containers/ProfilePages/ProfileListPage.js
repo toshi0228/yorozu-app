@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import ProfileList from '../../components/profile/ProfileList/index'
 import { Col, Row, Pagination } from 'antd'
 import { fetchProfileList, profileDetailInitialize } from '../../store/actions/profile'
+
+// components
+import ProfileList from '../../components/profile/ProfileList/index'
+import SearchForm from '../../components/form/searchForm'
 
 import styles from '../../styles/ProfileListPage.module.scss'
 
@@ -25,6 +28,13 @@ const ProfileListPage = (props) => {
 
   return (
     <>
+      {/* モバイル用は、最初検索の欄が最初に表示される */}
+      <Row type="flex" justify="center" style={{ marginTop: 20, marginBottom: 20 }}>
+        <Col xs={22} md={0}>
+          <SearchForm />
+        </Col>
+      </Row>
+
       {/* モバイル用 */}
       <div className={styles.mobileProfileList}>
         <Row type="flex" justify="center">
@@ -33,7 +43,6 @@ const ProfileListPage = (props) => {
           </Col>
         </Row>
       </div>
-
       {/* デスクトップ用 */}
       <div className={styles.pcProfileList}>
         <Row type="flex" justify="center" className={styles.profileList}>
@@ -42,7 +51,6 @@ const ProfileListPage = (props) => {
           </Col>
         </Row>
       </div>
-
       {/* ページの項目 */}
       <Row type="flex" justify="center">
         <Col>

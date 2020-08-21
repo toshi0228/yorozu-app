@@ -1,5 +1,4 @@
 import React from 'react'
-import { Empty } from 'antd'
 
 import DetailPlanSection from '../../../plan/detailPlanSection/index'
 
