@@ -41,18 +41,22 @@ const ProfileDetailPage = (props) => {
   return (
     <>
       <Row>
-        <Col offset={3}>
+        <Col xs={0} offset={3}>
           <h2>詳細ページ</h2>
         </Col>
       </Row>
 
       <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
         {/* 右サイド プラン一覧  割合12/24*/}
-        <Col span={12} md={12}>
+        <Col xs={22} md={12}>
           <LeftSide data={props.data} />
         </Col>
+
+        {/* 左と左の空白 これがあることでレしポンスデザインとの時に役立つ */}
+        <Col xs={0} md={1}></Col>
+
         {/* 右サイドバー 割合6/24 */}
-        <Col span={6}>
+        <Col xs={22} md={5}>
           <RightSide data={props.data} />
         </Col>
       </Row>

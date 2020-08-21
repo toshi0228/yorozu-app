@@ -50,15 +50,11 @@ const RightSide = ({ data }) => {
     <>
       {/* よろず名前*/}
       <Row>
-        <Col offset={3} span={21}>
-          {toggleYorozuyaName()}
-        </Col>
+        <Col span={24}>{toggleYorozuyaName()}</Col>
       </Row>
       {/* タグ */}
       <Row style={{ marginTop: 5 }}>
-        <Col offset={3} span={20}>
-          {tagList}
-        </Col>
+        <Col span={24}>{tagList}</Col>
       </Row>
 
       {/* プロフィール画像 */}
@@ -88,7 +84,7 @@ const RightSide = ({ data }) => {
 
       {/* プロフィールの説明 */}
       <Row type="flex" justify="center" style={{ marginTop: 40 }}>
-        <Col span={18}>
+        <Col span={24}>
           <div style={{ paddding: 20 }}>{data.profileDetail.profileDescription}</div>
         </Col>
       </Row>
