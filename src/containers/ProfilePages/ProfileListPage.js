@@ -5,7 +5,6 @@ import { fetchProfileList, profileDetailInitialize } from '../../store/actions/p
 
 // components
 import ProfileList from '../../components/profile/ProfileList/index'
-import SearchForm from '../../components/form/searchForm'
 
 import styles from '../../styles/ProfileListPage.module.scss'
 
@@ -28,13 +27,6 @@ const ProfileListPage = (props) => {
 
   return (
     <>
-      {/* モバイル用は、最初検索の欄が最初に表示される */}
-      <Row type="flex" justify="center" style={{ marginTop: 20, marginBottom: 20 }}>
-        <Col xs={22} md={0}>
-          <SearchForm />
-        </Col>
-      </Row>
-
       {/* モバイル用 */}
       <div className={styles.mobileProfileList}>
         <Row type="flex" justify="center">

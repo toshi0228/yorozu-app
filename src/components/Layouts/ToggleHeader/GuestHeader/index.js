@@ -37,15 +37,16 @@ const GuestHeader = () => {
   return (
     <>
       <header>
+        {/* <header style={{ borderBottom: 'solid 0.4px  #B3B3B3' }}> */}
         {/* ロゴ */}
-        <Row
-          className={styles.headerContainer}
-          type="flex"
-          justify="center"
-          align="middle"
-          style={{ borderBottom: 'solid 0.4px  #B3B3B3' }}
-        >
-          <Col span={3} xs={18} md={3}>
+        {/* <Row className={styles.headerContainer} type="flex" justify="center" align="middle"> */}
+
+        {/* <Row style={{ background: 'red', marginTop: 10 }}>
+          <Col xs={0} md={1}></Col>
+        </Row> */}
+
+        <Row type="flex" justify="center" align="middle" className={styles.headerContainer}>
+          <Col xs={21} md={3}>
             <HeaderLogo />
           </Col>
 
@@ -71,7 +72,7 @@ const GuestHeader = () => {
           </Col> */}
 
           {/* 検索 */}
-          <Col span={10} xs={0} md={10} className={styles.searchArea}>
+          <Col xs={0} md={10} className={styles.searchArea}>
             <Row type="flex" justify="start">
               <Col>
                 <SearchForm />
@@ -79,14 +80,9 @@ const GuestHeader = () => {
             </Row>
           </Col>
 
-          {/* ボタン */}
-          <Col span={5} className={styles.right} xs={4} md={5} className={styles.navbarArea}>
-            {/* スマホ画面の時に出てくるハンバーガーアイコン */}
-            <UnorderedListOutlined className={styles.menu} onClick={() => showMenuDrawer()} />
-
-            {/* ハンバーガーボタンを押した時に、出てくるDrawer */}
-            <MenuDrawer isDrawer={isMenuDrawer} setIsDrawer={setIsMenuDrawer} />
-
+          {/* PC用ボタン */}
+          {/* <Col className={styles.right} xs={4} md={5} className={styles.navbarArea}> */}
+          <Col xs={0} md={5}>
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
                 <Link to="/sign_in">
@@ -99,6 +95,31 @@ const GuestHeader = () => {
                 </Link>
               </Col>
             </Row>
+          </Col>
+
+          {/* スマホ用ボタン */}
+          {/* スマホ画面の時に出てくるハンバーガーアイコン pcの時には、アイコンを表示させないようにする */}
+          <Row xs={1}>
+            <Col md={0}>
+              <UnorderedListOutlined className={styles.menu} onClick={() => showMenuDrawer()} />
+            </Col>
+          </Row>
+          {/* ハンバーガーボタンを押した時に、出てくるDrawer */}
+          <MenuDrawer isDrawer={isMenuDrawer} setIsDrawer={setIsMenuDrawer} />
+        </Row>
+
+        {/* モバイル用は、最初検索の欄が最初に表示される */}
+        {/* <Row type="flex" justify="center" style={{ marginTop: 20, marginBottom: 20 }}> */}
+        <Row type="flex" justify="center">
+          <Col xs={22} md={0}>
+            <SearchForm />
+          </Col>
+        </Row>
+
+        {/* スマホ用の下線 */}
+        <Row>
+          <Col xs={24} md={0}>
+            <hr />
           </Col>
         </Row>
       </header>
