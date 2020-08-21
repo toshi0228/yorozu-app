@@ -10,7 +10,6 @@ import HeaderLogo from '../HeaderLogo'
 
 // headerのcomponents
 import MenuDrawer from '../components/menuDrawer'
-import { READ_MESSAGE_ROOM_USER_YOROZUID_EVENT } from '../../../../store/actionTypes'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ
