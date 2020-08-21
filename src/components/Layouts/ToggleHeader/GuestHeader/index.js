@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'antd'
-import { SearchOutlined, UnorderedListOutlined } from '@ant-design/icons'
+import { UnorderedListOutlined } from '@ant-design/icons'
 import styles from './index.module.scss'
 
 // import routes from '../../../../routes'
@@ -10,7 +10,7 @@ import HeaderLogo from '../HeaderLogo'
 
 // headerのcomponents
 import MenuDrawer from '../components/menuDrawer'
-import SearchDrawer from '../components/searchDrawer'
+import { READ_MESSAGE_ROOM_USER_YOROZUID_EVENT } from '../../../../store/actionTypes'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ
@@ -22,56 +22,21 @@ const GuestHeader = () => {
   // ハンバーガーアイコンを押した時の、Drawerを表示、非表示のスイッチ
   const [isMenuDrawer, setIsMenuDrawer] = useState(false)
 
-  // 検索画面を押した時の、Drawerを表示,非表示のスイッチ
-  // const [isSearchDrawer, setIsSearchDrawer] = useState(false)
-
   // ハンバーガーを押した時に、Drawerを表示させる
   const showMenuDrawer = () => {
     setIsMenuDrawer(true)
   }
 
-  // 検索のアイコンを押した時に、検索フォームを表示させる
-  // const showSearchForm = () => {
-  //   setIsSearchDrawer(true)
-  // }
   return (
     <>
       <header>
-        {/* <header style={{ borderBottom: 'solid 0.4px  #B3B3B3' }}> */}
-        {/* ロゴ */}
-        {/* <Row className={styles.headerContainer} type="flex" justify="center" align="middle"> */}
-
-        {/* <Row style={{ background: 'red', marginTop: 10 }}>
-          <Col xs={0} md={1}></Col>
-        </Row> */}
-
         <Row type="flex" justify="center" align="middle" className={styles.headerContainer}>
+          {/* ロゴ */}
           <Col xs={21} md={3}>
             <HeaderLogo />
           </Col>
 
-          {/* 検索 */}
-          {/* <Col span={10} xs={0} md={10} className={styles.searchArea}>
-            スマホ画面の時に出てくる検索アイコン
-            <SearchOutlined className={styles.searchLogo} onClick={() => showSearchForm()} />
-
-            検索ボタンを押した時に表示されるDrawer
-            <SearchDrawer isDrawer={isSearchDrawer} setIsDrawer={setIsSearchDrawer} />
-            <Row type="flex" justify="start">
-              <Col>
-                モバイルの時は削除するブロック
-                <div className={styles.searchForm}>
-                  <Row type="flex" gutter={24}>
-                    <Col>
-                      <SearchForm />
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
-          </Col> */}
-
-          {/* 検索 */}
+          {/* PC用検索 */}
           <Col xs={0} md={10} className={styles.searchArea}>
             <Row type="flex" justify="start">
               <Col>
@@ -101,7 +66,8 @@ const GuestHeader = () => {
           {/* スマホ画面の時に出てくるハンバーガーアイコン pcの時には、アイコンを表示させないようにする */}
           <Row xs={1}>
             <Col md={0}>
-              <UnorderedListOutlined className={styles.menu} onClick={() => showMenuDrawer()} />
+              {/* <UnorderedListOutlined className={styles.menu} onClick={() => showMenuDrawer()} /> */}
+              <UnorderedListOutlined style={{ fontSize: 20 }} onClick={() => showMenuDrawer()} />
             </Col>
           </Row>
           {/* ハンバーガーボタンを押した時に、出てくるDrawer */}
@@ -119,7 +85,8 @@ const GuestHeader = () => {
         {/* スマホ用の下線 */}
         <Row>
           <Col xs={24} md={0}>
-            <hr />
+            {/* <hr /> */}
+            <div style={{ borderBottom: 'solid 1.2px #f4f4f4', marginTop: 10 }}></div>
           </Col>
         </Row>
       </header>
