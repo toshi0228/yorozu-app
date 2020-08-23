@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { Row, Col, Modal, Button } from 'antd'
 
 import routes from '../../../routes/index'
-import host from '../../../constants/url'
 import PlanDataContext from '../../../contexts/PlanDataContext'
 
 import styles from './index.module.scss'
@@ -51,7 +50,7 @@ const LoginAttention = () => {
 
           {/* 画像 */}
           <Col span={8} offset={2} style={{ background: '#ff7d6e' }}>
-            <img alt="example" src={`${host.localhost()}${props.planData.image}`} style={{ width: '100%', height: 110, borderRadius: 8 }} />
+            <img alt="example" src={props.planData.image} style={{ width: '100%', height: 110, borderRadius: 8 }} />
           </Col>
         </Row>
 

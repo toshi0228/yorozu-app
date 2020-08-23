@@ -6,7 +6,6 @@ import { CardNumberElement, useStripe, useElements } from '@stripe/react-stripe-
 import { payment } from '../../../../../store/actions/payment'
 import CreditCardForm from '../../../../form/creditCardForm'
 import PlanDataContext from '../../../../../contexts/PlanDataContext'
-import host from '../../../../../constants/url'
 
 import styles from './index.module.scss'
 
