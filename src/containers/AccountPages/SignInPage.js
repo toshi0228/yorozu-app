@@ -35,6 +35,7 @@ const SignInPage = (props) => {
               <Input
                 prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 placeholder="メールアドレス"
+                size="large"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value)
