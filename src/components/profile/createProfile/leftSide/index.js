@@ -10,6 +10,8 @@ import styles from './index.module.scss'
 
 // createProfilePageから、registeredProfileが渡ってくる
 export const LeftSide = ({ registeredProfile }) => {
+  console.log('createProfile')
+  console.log(registeredProfile)
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // よろずやの名前 data.profileDetail.yorozuyaNameがundifindなら、初期値をリセットする
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -27,7 +29,7 @@ export const LeftSide = ({ registeredProfile }) => {
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const toggleProfileImage = () => {
     if (registeredProfile.profileImage) {
-      return <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={`${host.localhost()}${registeredProfile.profileImage}`} />
+      return <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={registeredProfile.profileImage} />
     } else {
       return (
         <div className={styles.profileNoImage}>
@@ -42,7 +44,7 @@ export const LeftSide = ({ registeredProfile }) => {
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   const toggleThumbnailImage = () => {
     if (registeredProfile.yorozuyaThumbnailImage) {
-      return <img style={{ height: 208, width: '100%' }} src={`${host.localhost()}${registeredProfile.yorozuyaThumbnailImage}`} />
+      return <img style={{ height: 208, width: '100%' }} src={registeredProfile.yorozuyaThumbnailImage} />
     } else {
       //   return <img style={{ height: 208, width: '100%' }} src="https://toyoake-seinenbu.com/wp/wp-content/uploads/2018/11/sample_img.gif" />
       return (

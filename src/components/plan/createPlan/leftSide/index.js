@@ -35,7 +35,7 @@ const RegisteredPlanList = ({ planData, readEditPlanEvent, readyCreatePlanEvent 
     return (
       <Row className={styles.planCard} key={index}>
         <Col onClick={() => editPlan(plan)}>
-          <img src={`${host.localhost()}${plan.image}`} className={styles.planImage} />
+          <img src={plan.image} className={styles.planImage} />
         </Col>
         <Col style={{ marginTop: 4 }}>
           <h4 style={{ margin: 0 }}>{plan.title}</h4>

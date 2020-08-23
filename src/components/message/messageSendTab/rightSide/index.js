@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Table, Avatar, Badge } from 'antd'
 import { Link } from 'react-router-dom'
-import host from '../../../../constants/url'
 import { readRoomMessage } from '../../../../store/actions/message'
+import routes from '../../../../routes/index'
 
 const RightSide = (props) => {
   const columns = [
@@ -18,15 +18,16 @@ const RightSide = (props) => {
     const userData = {
       profileImage: (
         // プロフィールイメージを押した時に、メッセージルームの内容が変化するようにする
-        <Link to={`/message/rooms/${user.senderYorozuId}`} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
+        // <Link to={`/message/rooms/${user.senderYorozuId}`} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
+        <Link to={routes.createMessage(user.senderYorozuId)} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
           <Badge>
-            <Avatar src={`${host.localhost()}${user.senderProfile.profileImage}`} />
+            <Avatar src={user.senderProfile.profileImage} />
           </Badge>
         </Link>
       ),
       user: (
         // ユーザー名を押した時に、メッセージルームの内容が変化するようにする
-        <Link to={`/message/rooms/${user.senderYorozuId}`} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
+        <Link to={routes.createMessage(user.senderYorozuId)} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
           {user.senderProfile.nickname}{' '}
         </Link>
       ),

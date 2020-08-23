@@ -43,7 +43,7 @@ const MessageTable = (props) => {
       profileImage: (
         <Link to={routes.createMessage(message.senderYorozuId)}>
           <Badge dot={message.unread} onClick={() => read(message)}>
-            <Avatar src={`${host.localhost()}${message.senderProfile.profileImage}`} />
+            <Avatar src={message.senderProfile.profileImage} />
           </Badge>
         </Link>
       ),

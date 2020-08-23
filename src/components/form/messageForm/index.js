@@ -47,7 +47,7 @@ const MessageForm = (props) => {
     <>
       <Comment
         // avatar={<Avatar src={`${host.localhost()}${props.senderProfileImage}`} alt="you" />}
-        avatar={<Avatar src={`${host.localhost()}${props.loginUserImage['image']}`} alt="you" />}
+        avatar={<Avatar src={props.loginUserImage['image']} alt="you" />}
         // contentを書くことによって、アバターの横にアイテムを書くことができる
         content={
           <>

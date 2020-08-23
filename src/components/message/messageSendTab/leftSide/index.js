@@ -22,7 +22,7 @@ const LeftSide = (props) => {
   props.roomMessage.forEach((message, index) => {
     const messageObj = {
       author: message.senderProfile.nickname,
-      avatar: `${host.localhost()}${message.senderProfile.profileImage}`,
+      avatar: message.senderProfile.profileImage,
       content: <p>{message.messageContent}</p>,
       datetime: message.createdAt,
       key: index,
