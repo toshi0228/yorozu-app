@@ -65,7 +65,7 @@ const GuestHeader = () => {
           {/* スマホ画面の時に出てくるハンバーガーアイコン pcの時には、アイコンを表示させないようにする */}
           <Row xs={2}>
             <Col md={0}>
-              <UnorderedListOutlined style={{ fontSize: 20, marginLeft: 10 }} onClick={() => showMenuDrawer()} />
+              <UnorderedListOutlined style={{ fontSize: 24, marginLeft: 8 }} onClick={() => showMenuDrawer()} />
             </Col>
           </Row>
           {/* ハンバーガーボタンを押した時に、出てくるDrawer */}

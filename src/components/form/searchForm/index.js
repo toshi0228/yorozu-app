@@ -12,8 +12,15 @@ const SearchForm = (props) => {
 
   return (
     <>
+      {/* PC用検索フォーム */}
       <Row>
-        <Col>
+        <Col xs={0} md={24}>
+          <Input.Search placeholder="検索" className={styles.searchForm} onSearch={(keyword) => search(keyword)}></Input.Search>
+        </Col>
+      </Row>
+      {/* スマホ用検索フォーム */}
+      <Row>
+        <Col xs={24} md={0}>
           <Input.Search
             placeholder="検索"
             className={styles.searchForm}
