@@ -31,9 +31,7 @@ const RightSide = ({ data }) => {
   // プロフィール画像 props.registeredProfile.profileImageがundifinなら、初期値をセットする
   const toggleProfileImage = () => {
     if (data.profileDetail.profileImage) {
-      return <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={`${host.localhost()}${data.profileDetail.profileImage}`} />
-      // s3に変更後
-      // return <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={`${data.profileDetail.profileImage}`} />
+      return <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={data.profileDetail.profileImage} />
     } else {
       return (
         <Skeleton

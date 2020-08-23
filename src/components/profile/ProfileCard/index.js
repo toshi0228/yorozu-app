@@ -12,9 +12,9 @@ const ProfileCard = ({ data }) => {
   return (
     <>
       <Link to={`${routes.profileDetail(data.yorozuId)}`}>
-        <Card cover={<img alt="example" src={`${host.localhost()}${data.yorozuyaThumbnailImage}`} style={{ height: 200 }} />} hoverable>
+        <Card cover={<img alt="example" src={data.yorozuyaThumbnailImage} style={{ height: 200 }} />} hoverable>
           <Card.Meta
-            avatar={<Avatar src={`${host.localhost()}${data.profileImage}`} />}
+            avatar={<Avatar src={data.profileImage} />}
             title={data.yorozuyaName}
             description={data.profileDescription}
             style={{ height: 100, overflow: 'hidden' }}

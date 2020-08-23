@@ -11,9 +11,11 @@ import host from '../../../constants/url'
 
 // planDataは、profileDetailPage => componentのprofileDetail => leftSideから渡ってくる
 const DetailPlanSection = ({ planData }) => {
+  console.log('DetailPlan')
+  console.log(planData)
   return (
     <>
-      <img alt="example" src={`${host.localhost()}${planData.image}`} style={{ width: '100%', height: 360, borderRadius: 8 }} />
+      <img alt="example" src={planData.image} style={{ width: '100%', height: 360, borderRadius: 8 }} />
       {/* プランのタイトル */}
       <div style={{ marginBottom: 48 }}>
         {/* タイトル */}
