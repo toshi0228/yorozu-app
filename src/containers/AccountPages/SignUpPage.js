@@ -36,6 +36,7 @@ const SignUpPage = (props) => {
               <Input
                 prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 placeholder="メールアドレス"
+                size="large"
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value)
@@ -45,13 +46,14 @@ const SignUpPage = (props) => {
           </Row>
         </Form.Item>
 
-        <Form.Item name="password">
+        <Form.Item name="password" style={{ marginTop: 32 }}>
           {/* パスワードの入力 */}
           <Row type="flex" justify="center">
             <Col xs={18} lg={8}>
               <Input.Password
                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 value={password}
+                size="large"
                 onChange={(e) => {
                   setPassword(e.target.value)
                 }}
@@ -65,7 +67,7 @@ const SignUpPage = (props) => {
           {/* ログインボタン */}
           <Row type="flex" justify="center">
             <Col xs={12} lg={4}>
-              <Button type="primary" htmlType="submit" block={true} style={{ marginTop: 40, marginBottom: 30 }}>
+              <Button type="primary" htmlType="submit" block={true} size="large" style={{ marginTop: 32, marginBottom: 30 }}>
                 登録する
               </Button>
             </Col>

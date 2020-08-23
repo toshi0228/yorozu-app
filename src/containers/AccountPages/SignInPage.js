@@ -27,11 +27,12 @@ const SignInPage = (props) => {
         <p style={{ textAlign: 'center', color: 'red', fontSize: 8 }}>メールアドレスまたは、パスワード間違いがあります</p>
       )}
 
+      {/* PC用 メールアドレスの入力 */}
       <Form onSubmit={onSubmit}>
         <Form.Item name="username" style={{ marginTop: 40 }}>
           {/* メールアドレスを入力する項目 */}
           <Row type="flex" justify="center">
-            <Col xs={18} lg={8} style={{ background: 'white' }}>
+            <Col xs={18} md={8} style={{ background: 'white' }}>
               <Input
                 prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 placeholder="メールアドレス"
@@ -47,10 +48,11 @@ const SignInPage = (props) => {
 
         <Form.Item name="password">
           {/* パスワードの入力項目 */}
-          <Row type="flex" justify="center">
+          <Row type="flex" justify="center" style={{ marginTop: 8 }}>
             <Col xs={18} lg={8}>
               <Input.Password
                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                size="large"
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value)
@@ -65,7 +67,7 @@ const SignInPage = (props) => {
           <Row type="flex" justify="center">
             <Col xs={12} lg={4}>
               {/* ボタンを中央に寄せる */}
-              <Button type="primary" htmlType="submit" block={true} style={{ marginTop: 40, marginBottom: 30 }}>
+              <Button type="primary" htmlType="submit" block={true} size="large" style={{ marginTop: 32, marginBottom: 30 }}>
                 ログイン
               </Button>
             </Col>
