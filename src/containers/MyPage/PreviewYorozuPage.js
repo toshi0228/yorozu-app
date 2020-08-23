@@ -9,10 +9,11 @@ import { feachProfileDetail } from '../../store/actions/profile'
 import { fetchYorozuId } from '../../store/actions/account'
 import { fetchReviewScore } from '../../store/actions/review'
 
-const PreviewYorozuPage = (props) => {
-  console.log('PreviewYorozuPage')
-  console.log(props.yorozuId)
+// ======================================================================
+// 自身のプラン preview
+// ======================================================================
 
+const PreviewYorozuPage = (props) => {
   // よろずIDを取得する (※プロフィールを登録した後に、リロードした時に、エラーになるので)
   useEffect(() => {
     props.readYorozuIdEvent(props.authToken)
@@ -33,12 +34,16 @@ const PreviewYorozuPage = (props) => {
     if (props.yorozuId) {
       return (
         <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
-          {/* 右サイド プラン一覧  割合12/24*/}
-          <Col span={16}>
+          {/* 右サイド プラン一覧  pcの時,割合12/24*/}
+          <Col xs={22} md={17}>
             <LeftSide data={props.profile} />
           </Col>
-          {/* 右サイドバー 割合6/24 */}
-          <Col span={8}>
+
+          {/* 左と左の空白 これがあることでレしポンスデザインとの時に役立つ */}
+          <Col xs={0} md={1}></Col>
+
+          {/* 右サイドバー pcの時,割合5/24 */}
+          <Col xs={22} md={6}>
             <RightSide data={props.profile} />
           </Col>
         </Row>

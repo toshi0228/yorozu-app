@@ -24,7 +24,8 @@ const ManagementTopPage = (props) => {
       </Row>
 
       <Row type="flex" justify="center" style={{ marginTop: 20 }}>
-        <Col span={18}>
+        {/* スマホ画面の時は、画面いっぱいまで使うため24 */}
+        <Col xs={24} md={18}>
           {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
           <Tabs defaultActiveKey="1">
             <Tabs.TabPane tab="よろず屋プレビュー" key="1">
