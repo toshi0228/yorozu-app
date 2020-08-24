@@ -18,16 +18,21 @@ const ManagementTopPage = (props) => {
     <>
       {/* タイトル */}
       <Row type="flex" justify="start">
-        <Col offset={3} style={{ fontSize: 18 }}>
+        {/* pc用 */}
+        <Col xs={0} md={24} offset={3} style={{ fontSize: 18 }}>
           <h2>{props.yorozuyaName}</h2>
+        </Col>
+        <Col xs={24} md={0} offset={1} style={{ marginTop: 24 }}>
+          <h4>ダッシュボード</h4>
         </Col>
       </Row>
 
-      <Row type="flex" justify="center" style={{ marginTop: 20 }}>
+      {/* PC用 */}
+      <Row type="flex" justify="center">
         {/* スマホ画面の時は、画面いっぱいまで使うため24 */}
-        <Col xs={24} md={18}>
+        <Col xs={0} md={18} style={{ marginTop: 24 }}>
           {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
-          <Tabs defaultActiveKey="1">
+          <Tabs defaultActiveKey="1" centered>
             <Tabs.TabPane tab="よろず屋プレビュー" key="1">
               <PreviewYorozuPage />
             </Tabs.TabPane>
@@ -37,6 +42,27 @@ const ManagementTopPage = (props) => {
             </Tabs.TabPane>
 
             <Tabs.TabPane tab="プラン作成" key="3">
+              <CreatePlanPage />
+            </Tabs.TabPane>
+          </Tabs>
+        </Col>
+      </Row>
+
+      {/* スマホ用 */}
+      <Row type="flex" justify="center">
+        {/* スマホ画面の時は、画面いっぱいまで使うため24 */}
+        <Col xs={24} md={0} style={{ marginTop: 8 }}>
+          {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
+          <Tabs defaultActiveKey="1" size="small">
+            <Tabs.TabPane tab="プレビュー" key="1">
+              <PreviewYorozuPage />
+            </Tabs.TabPane>
+
+            <Tabs.TabPane tab="プロフィール" key="2">
+              <CreateProfilePage />
+            </Tabs.TabPane>
+
+            <Tabs.TabPane tab="プラン" key="3">
               <CreatePlanPage />
             </Tabs.TabPane>
           </Tabs>

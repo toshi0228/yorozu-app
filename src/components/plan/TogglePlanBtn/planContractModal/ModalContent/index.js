@@ -122,7 +122,7 @@ const ModalContent = ({ paymentEvent }) => {
           </Col>
 
           {/* 画像 */}
-          <Col span={8} offset={2} style={{ background: '#ff7d6e' }}>
+          <Col span={8} offset={2}>
             <img alt="example" src={props.planData.image} style={{ width: '100%', height: 110, borderRadius: 8 }} />
           </Col>
         </Row>
