@@ -31,26 +31,42 @@ const CreateProfilePage = (props) => {
       {/* プロフィール画面 */}
 
       <Row style={{ marginTop: 20, marginBottom: 32 }}>
-        <Col>
+        {/* PC用 */}
+        <Col xs={0} md={24}>
+          <h4>どんな、よろず屋なのか教えてください!!</h4>
+        </Col>
+        {/* スマホ用 */}
+        <Col offset={1} xs={24} md={0}>
           <h4>どんな、よろず屋なのか教えてください!!</h4>
         </Col>
       </Row>
 
+      {/* pc用のプロフィール作成画面 */}
       <Row>
         {/* プロフィール作成画面の左側のレイアウト */}
-        <Col span={8}>
-          <Row>
-            {/* 右サイドと少し隙間を開けるために4/24分の隙間を開ける */}
-            <Col span={20}>
-              {/* <LeftSide planData={planData} /> */}
-              <LeftSide registeredProfile={props.registeredProfile} />
+        <Col xs={0} md={7}>
+          <LeftSide registeredProfile={props.registeredProfile} />
+        </Col>
+
+        {/* 右と左のブロックの間の隙間 */}
+        <Col xs={0} md={1}></Col>
+
+        {/* プロフィール作成画面の右側のレイアウト */}
+        <Col xs={0} md={16} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
+          {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
+          <Row type="flex" justify="center">
+            <Col span={20} style={{ paddingTop: '32px' }}>
+              <RightSide registeredProfile={props.registeredProfile} accountId={props.accountId} />
             </Col>
           </Row>
         </Col>
+      </Row>
 
-        {/* プロフィール作成画面の右側のレイアウト */}
-        <Col style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }} span={16}>
-          {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
+      {/* スマ用の作成画面 */}
+      <Row type="flex" justify="center">
+        {/* <Col xs={24} md={0} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}> */}
+        <Col xs={24} md={0}>
+          {/* 入力項目を真ん中ににするために、flex center */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
               <RightSide registeredProfile={props.registeredProfile} accountId={props.accountId} />

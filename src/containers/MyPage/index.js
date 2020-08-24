@@ -20,17 +20,17 @@ const ManagementTopPage = (props) => {
       <Row type="flex" justify="start">
         {/* pc用 */}
         <Col xs={0} md={24} offset={3} style={{ fontSize: 18 }}>
-          <h2>{props.yorozuyaName}</h2>
+          <h2>マイページ</h2>
         </Col>
         <Col xs={24} md={0} offset={1} style={{ marginTop: 24 }}>
-          <h4>ダッシュボード</h4>
+          <h3>マイページ</h3>
         </Col>
       </Row>
 
       {/* PC用 */}
       <Row type="flex" justify="center">
         {/* スマホ画面の時は、画面いっぱいまで使うため24 */}
-        <Col xs={0} md={18} style={{ marginTop: 24 }}>
+        <Col xs={0} md={18} style={{ marginTop: 40 }}>
           {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
           <Tabs defaultActiveKey="1" centered>
             <Tabs.TabPane tab="よろず屋プレビュー" key="1">

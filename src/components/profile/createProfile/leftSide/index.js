@@ -10,8 +10,6 @@ import styles from './index.module.scss'
 
 // createProfilePageから、registeredProfileが渡ってくる
 export const LeftSide = ({ registeredProfile }) => {
-  console.log('createProfile')
-  console.log(registeredProfile)
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // よろずやの名前 data.profileDetail.yorozuyaNameがundifindなら、初期値をリセットする
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
