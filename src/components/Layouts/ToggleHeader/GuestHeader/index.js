@@ -9,7 +9,7 @@ import SearchForm from '../../../form/searchForm'
 import HeaderLogo from '../HeaderLogo'
 
 // headerのcomponents
-import MenuDrawer from '../components/menuDrawer'
+import MenuDrawer from '../components/GuestMenuDrawer'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ

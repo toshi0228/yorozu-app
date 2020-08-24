@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
 import { UnorderedListOutlined } from '@ant-design/icons'
-import { Col, Row, MenuDrawer } from 'antd'
+import { Col, Row } from 'antd'
 import styles from './index.module.scss'
 
 import { signOut } from '../../../../store/actions/account'
@@ -12,7 +12,7 @@ import HeaderLogo from '../HeaderLogo'
 import SearchForm from '../../../form/searchForm'
 
 // headerのcomponents
-// import MenuDrawer from '../components/menuDrawer'
+import MemberMenuDrawer from '../components/MemberMenuDrawer'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、ヘッダーの詳細ページ
@@ -68,7 +68,7 @@ const MemberHeader = (props) => {
             </Col>
           </Row>
           {/* ハンバーガーボタンを押した時に、出てくるDrawer */}
-          {/* <MenuDrawer isDrawer={isMenuDrawer} setIsDrawer={setIsMenuDrawer} /> */}
+          <MemberMenuDrawer isDrawer={isMenuDrawer} setIsDrawer={setIsMenuDrawer} />
         </Row>
 
         {/* モバイル用は、最初検索の欄が最初に表示される */}
