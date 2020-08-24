@@ -4,7 +4,7 @@ import { Col, Row } from 'antd'
 import { UnorderedListOutlined } from '@ant-design/icons'
 import styles from './index.module.scss'
 
-// import routes from '../../../../routes'
+import routes from '../../../../routes'
 import SearchForm from '../../../form/searchForm'
 import HeaderLogo from '../HeaderLogo'
 
@@ -36,7 +36,7 @@ const GuestHeader = () => {
           </Col>
 
           {/* PC用検索 */}
-          <Col xs={0} md={10} className={styles.searchArea}>
+          <Col xs={0} md={10}>
             <Row type="flex" justify="start">
               <Col>
                 <SearchForm />
@@ -49,12 +49,12 @@ const GuestHeader = () => {
           <Col xs={0} md={5}>
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
-                <Link to="/sign_in">
+                <Link to={routes.siginIn()}>
                   <div className={styles.btn}>ログイン</div>
                 </Link>
               </Col>
               <Col>
-                <Link to="/sign_up">
+                <Link to={routes.signUp()}>
                   <div className={styles.btn}>新規登録</div>
                 </Link>
               </Col>

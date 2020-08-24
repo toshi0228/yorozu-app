@@ -34,13 +34,13 @@ const MemberHeader = (props) => {
       <header>
         <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
           {/* ロゴスペース */}
-          <Col xs={21} md={3} className={styles.left}>
+          <Col xs={20} md={3}>
             <HeaderLogo />
           </Col>
 
           {/* PC用検索のスペース */}
-          <Col xs={0} md={10} className={styles.center}>
-            <Row type="flex" className={styles.box1} justify="start">
+          <Col xs={0} md={10}>
+            <Row type="flex" justify="start">
               <Col>
                 <Row type="flex" className="menu" gutter={24}>
                   <Col>
@@ -52,7 +52,7 @@ const MemberHeader = (props) => {
           </Col>
 
           {/* PC用 マイページボタン */}
-          <Col xs={0} md={5} className={styles.right}>
+          <Col xs={0} md={5}>
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
                 <MyPageBtn singOutEvent={props.singOutEvent} />
@@ -64,11 +64,27 @@ const MemberHeader = (props) => {
           {/* スマホ画面の時に出てくるハンバーガーアイコン pcの時には、アイコンを表示させないようにする */}
           <Row xs={2}>
             <Col md={0}>
-              <UnorderedListOutlined style={{ fontSize: 20, marginLeft: 10 }} onClick={() => showMenuDrawer()} />
+              <UnorderedListOutlined style={{ fontSize: 24, marginLeft: 8 }} onClick={() => showMenuDrawer()} />
             </Col>
           </Row>
           {/* ハンバーガーボタンを押した時に、出てくるDrawer */}
           {/* <MenuDrawer isDrawer={isMenuDrawer} setIsDrawer={setIsMenuDrawer} /> */}
+        </Row>
+
+        {/* モバイル用は、最初検索の欄が最初に表示される */}
+        {/* <Row type="flex" justify="center" style={{ marginTop: 20, marginBottom: 20 }}> */}
+        <Row type="flex" justify="center">
+          <Col xs={22} md={0}>
+            <SearchForm />
+          </Col>
+        </Row>
+
+        {/* スマホ用の下線 */}
+        <Row>
+          <Col xs={24} md={0}>
+            {/* <hr /> */}
+            <div style={{ borderBottom: 'solid 1.2px #f4f4f4', marginTop: 10 }}></div>
+          </Col>
         </Row>
       </header>
     </>

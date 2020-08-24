@@ -5,35 +5,6 @@
 header {
   .headerContainer {
     height: 40px;
-    // border-bottom: solid 0.4px;
-    // margin-bottom: 48px;
-    .logoArea {
-      background: red;
-      background: #fff;
-      margin-top: 4px;
-    }
-    .searchArea {
-      // background: yellow;
-      background: #fff;
-      text-align: end;
-      .searchLogo {
-        font-size: 18px;
-      }
-      .searchForm {
-        display: none;
-      }
-    }
-    .navbarArea {
-      // background: blue;
-      background: #fff;
-      text-align: end;
-      .menu {
-        font-size: 18px;
-      }
-    }
-  }
-  .btn {
-    display: none;
   }
 }
 
@@ -44,20 +15,8 @@ header {
       height: 64px;
       border-bottom: solid 0.7px;
       margin-bottom: 48px;
-      .searchArea {
-        .searchLogo {
-          display: none;
-        }
-        .searchForm {
-          display: block;
-        }
-      }
-      .navbarArea {
-        .menu {
-          display: none;
-        }
-      }
     }
+    // ログイン,新規登録ボタン
     .btn {
       display: inline-block;
       line-height: 36px;

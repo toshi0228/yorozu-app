@@ -21,7 +21,7 @@ const SignInPage = (props) => {
 
   return (
     <>
-      <h2 style={{ textAlign: 'center', marginTop: 56 }}>ログイン</h2>
+      <h2 style={{ textAlign: 'center', marginTop: 48 }}>ログイン</h2>
       <p style={{ textAlign: 'center', marginTop: 40 }}>メールアドレスとパスワードを入力してください。</p>
       {props.isSignFailure && (
         <p style={{ textAlign: 'center', color: 'red', fontSize: 8 }}>メールアドレスまたは、パスワード間違いがあります</p>

@@ -20,7 +20,7 @@ const SignUpPage = (props) => {
 
   return (
     <>
-      <h2 style={{ textAlign: 'center', marginTop: 56 }}>新規登録</h2>
+      <h2 style={{ textAlign: 'center', marginTop: 48 }}>新規登録</h2>
       <p style={{ textAlign: 'center', marginTop: 40 }}>メールアドレスとパスワードを入力してください。</p>
       {props.isSignUpFailure && (
         <p style={{ textAlign: 'center', color: 'red', fontSize: 8 }}>
