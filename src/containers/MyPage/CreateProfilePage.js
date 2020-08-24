@@ -71,6 +71,11 @@ const CreateProfilePage = (props) => {
             </Col>
           </Row>
         </Col>
+
+        {/* 現在登録しているprofile画像 */}
+        <Col xs={22} md={0}>
+          <LeftSide registeredProfile={props.registeredProfile} />
+        </Col>
       </Row>
     </>
   )
