@@ -8,6 +8,7 @@ import { feachAccountId, feachProfileDetail, finUpdateProfile } from '../../stor
 // Component
 import RightSide from '../../components/profile/createProfile/rightSide'
 import LeftSide from '../../components/profile/createProfile/leftSide'
+import InputProfile from '../../components/profile/createProfile/mobile'
 
 const CreateProfilePage = (props) => {
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -30,13 +31,9 @@ const CreateProfilePage = (props) => {
     <>
       {/* プロフィール画面 */}
 
-      <Row style={{ marginTop: 20, marginBottom: 32 }}>
+      <Row>
         {/* PC用 */}
-        <Col xs={0} md={24}>
-          <h4>どんな、よろず屋なのか教えてください!!</h4>
-        </Col>
-        {/* スマホ用 */}
-        <Col offset={1} xs={24} md={0}>
+        <Col xs={0} md={24} style={{ marginTop: 20, marginBottom: 32 }}>
           <h4>どんな、よろず屋なのか教えてください!!</h4>
         </Col>
       </Row>
@@ -65,11 +62,12 @@ const CreateProfilePage = (props) => {
       {/* スマ用の作成画面 */}
       <Row type="flex" justify="center">
         {/* <Col xs={24} md={0} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}> */}
-        <Col xs={24} md={0}>
+        <Col xs={22} md={0}>
           {/* 入力項目を真ん中ににするために、flex center */}
           <Row type="flex" justify="center">
-            <Col span={20} style={{ paddingTop: '32px' }}>
-              <RightSide registeredProfile={props.registeredProfile} accountId={props.accountId} />
+            {/* <Col span={20} style={{ paddingTop: '32px' }}> */}
+            <Col style={{ paddingTop: '32px' }}>
+              <InputProfile registeredProfile={props.registeredProfile} accountId={props.accountId} />
             </Col>
           </Row>
         </Col>
