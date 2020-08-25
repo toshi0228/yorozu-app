@@ -1,16 +1,26 @@
+// @media screen and (min-width: 768px)
+
 .back {
   background: #f8f8f8;
   border: 1px solid #f0f0f0;
   border-radius: 5px;
   width: 100%;
-  margin: 10 0;
-  padding: 75px 5px;
+  height: 160px;
   outline: none;
   cursor: pointer;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .back:hover {
   // border: 1px dashed #db6e60;
   border: 1px dashed #1890ff;
+}
+
+@media screen and (min-width: 768px) {
+  .back {
+    height: 240px;
+  }
 }

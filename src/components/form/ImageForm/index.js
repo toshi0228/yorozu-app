@@ -38,13 +38,13 @@ const ImageForm = (props) => {
       <div {...getRootProps()} className={styles.back}>
         <input {...getInputProps()} />
         {isDragActive ? (
-          <p>ここにファイルをドロップ・ドロップしてください</p>
+          <div>ここにファイルをドロップ・ドロップしてください</div>
         ) : (
-          <p>
+          <div>
             ここにファイルをドラッグするか、
             <br />
             クリックしてファイルを選択してください
-          </p>
+          </div>
         )}
       </div>
       {files}

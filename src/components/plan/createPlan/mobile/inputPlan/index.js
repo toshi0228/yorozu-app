@@ -157,7 +157,6 @@ const InputPlanItem = ({
         </Col>
         <Col>
           <InputTag setTags={setTags} tagList={registeredPlan['tags']} />
-          {/* <InputTag tagList={registeredPlan['tags']} /> */}
         </Col>
       </Row>
 

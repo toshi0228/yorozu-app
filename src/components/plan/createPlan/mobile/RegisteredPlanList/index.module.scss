@@ -19,7 +19,17 @@
 
 .planImage {
   width: 100%;
-  height: 160px;
+  height: 200px;
   cursor: pointer;
   border-radius: 4px;
+}
+
+// pc用の画像
+@media screen and (min-width: 768px) {
+  .planImage {
+    width: 100%;
+    height: 160px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
 }
