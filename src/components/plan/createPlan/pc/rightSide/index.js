@@ -5,7 +5,7 @@ import { Button, Col, Row, Input } from 'antd'
 import { createPlan, updatePlan } from '../../../../../store/actions/plan'
 import { checkPlanItem } from '../../../../../store/actions/plan'
 
-import InputTag from '../../../../form/tagForm/index'
+import InputTag from '../../../../form/tagForm/pc/index'
 import ImageForm from '../../../../form/ImageForm/index'
 
 import style from './index.module.scss'

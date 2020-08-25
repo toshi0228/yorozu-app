@@ -140,7 +140,7 @@ const InputProfile = ({ registeredProfile, accountId, checkInputItem, isToRegist
         <Col>
           <Input.TextArea
             value={profileDescription}
-            size="large"
+            style={{ fontSize: 16 }}
             onChange={(e) => setProfileDescription(e.target.value)}
             autoSize={{ minRows: 6, maxRows: 6 }}
             placeholder="どんなよろず屋なのか書いて見てください"

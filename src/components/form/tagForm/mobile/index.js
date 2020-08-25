@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Col, Row, Select } from 'antd'
-import { readTagEvent } from '../../../store/actions/tags'
+import { readTagEvent } from '../../../../store/actions/tags'
 import _ from 'lodash'
+
+import styles from './index.module.scss'
 
 const { Option } = Select
 
@@ -43,7 +45,8 @@ const InputTag = ({ setTags, tagList, tagsData, readTagEvent }) => {
       return (
         <Select
           mode="tags"
-          style={{ width: '100%' }}
+          size="large"
+          className={styles.form}
           onChange={handleChange}
           value={tagValue}
           placeholder="サプライズ、エンタメ、エンジニア...etc"
@@ -56,9 +59,9 @@ const InputTag = ({ setTags, tagList, tagsData, readTagEvent }) => {
       return (
         <Select
           mode="tags"
-          style={{ width: '100%' }}
+          size="large"
           onChange={handleChange}
-          // value={tagList}
+          className={styles.form}
           value={tagValue}
           placeholder="サプライズ、エンタメ、エンジニア...etc"
         >

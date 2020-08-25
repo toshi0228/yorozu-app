@@ -5,7 +5,7 @@ import { Button, Col, Row, Input } from 'antd'
 import { createPlan, updatePlan } from '../../../../../store/actions/plan'
 import { checkPlanItem } from '../../../../../store/actions/plan'
 
-import InputTag from '../../../../form/tagForm/index'
+import InputTag from '../../../../form/tagForm/mobile/index'
 import ImageForm from '../../../../form/ImageForm/index'
 
 import style from './index.module.scss'
@@ -135,7 +135,7 @@ const InputPlanItem = ({
         <Col>
           <h3 className={style.title}>プラン説明</h3>
           <Input.TextArea
-            size="large"
+            style={{ fontSize: 16 }}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             autoSize={{ minRows: 6, maxRows: 6 }}
@@ -158,7 +158,7 @@ const InputPlanItem = ({
           <h3 className={style.title}>タグ</h3>
         </Col>
         <Col>
-          <InputTag setTags={setTags} size="large" tagList={registeredPlan['tags']} />
+          <InputTag setTags={setTags} tagList={registeredPlan['tags']} />
         </Col>
       </Row>
 
