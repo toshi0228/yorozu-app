@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { Button, Col, Row, Input } from 'antd'
 
 // component
-import ImageForm from '../../../form/ImageForm'
+import ImageForm from '../../../../form/ImageForm'
 
 // action
-import { createProfile, updateProfile, checkInputItem } from '../../../../store/actions/profile'
+import { createProfile, updateProfile, checkInputItem } from '../../../../../store/actions/profile'
 
 import style from './index.module.scss'
 

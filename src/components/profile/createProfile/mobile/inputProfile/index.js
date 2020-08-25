@@ -3,10 +3,10 @@ import { connect } from 'react-redux'
 import { Button, Col, Row, Input } from 'antd'
 
 // component
-import ImageForm from '../../../form/ImageForm'
+import ImageForm from '../../../../form/ImageForm'
 
 // action
-import { createProfile, updateProfile, checkInputItem } from '../../../../store/actions/profile'
+import { createProfile, updateProfile, checkInputItem } from '../../../../../store/actions/profile'
 
 import style from './index.module.scss'
 
@@ -15,7 +15,7 @@ import style from './index.module.scss'
 // ======================================================================
 // createProfilePageから、registeredProfile,accountIdが渡ってくる
 
-const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister, createProfileEvent, updateProfileEvent }) => {
+const InputProfile = ({ registeredProfile, accountId, checkInputItem, isToRegister, createProfileEvent, updateProfileEvent }) => {
   const [nickname, setNickname] = useState(registeredProfile['nickname'])
   const [yorozuyaName, setYorozuyaName] = useState(registeredProfile['yorozuyaName'])
   const [yorozuId, setYorozuId] = useState(registeredProfile['yorozuId'])
@@ -149,7 +149,7 @@ const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister,
       </Row>
 
       {/* 送信ボタン */}
-      <Row type="flex" justify="center" style={{ marginBottom: 48 }}>
+      <Row type="flex" justify="center" style={{ marginTop: 72 }}>
         <Col>
           <Button type="primary" htmlType="submit" size="large" style={{ width: 200 }} onClick={register}>
             登録
@@ -174,4 +174,4 @@ const mapDispatchToProps = (dispatch) => ({
   checkInputItem: (item) => dispatch(checkInputItem(item)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RightSide)
+export default connect(mapStateToProps, mapDispatchToProps)(InputProfile)

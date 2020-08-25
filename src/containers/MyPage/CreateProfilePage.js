@@ -6,9 +6,13 @@ import { Row, Col } from 'antd'
 import { feachAccountId, feachProfileDetail, finUpdateProfile } from '../../store/actions/profile'
 
 // Component
-import RightSide from '../../components/profile/createProfile/rightSide'
-import LeftSide from '../../components/profile/createProfile/leftSide'
-import InputProfile from '../../components/profile/createProfile/mobile'
+// PC用 components
+import RightSide from '../../components/profile/createProfile/pc/rightSide'
+import LeftSide from '../../components/profile/createProfile/pc/leftSide'
+
+// スマホ用 components
+import InputProfile from '../../components/profile/createProfile/mobile/inputProfile'
+import RegisteredImage from '../../components/profile/createProfile/mobile/registeredImage'
 
 const CreateProfilePage = (props) => {
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -64,17 +68,12 @@ const CreateProfilePage = (props) => {
         {/* <Col xs={24} md={0} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}> */}
         <Col xs={22} md={0}>
           {/* 入力項目を真ん中ににするために、flex center */}
-          <Row type="flex" justify="center">
-            {/* <Col span={20} style={{ paddingTop: '32px' }}> */}
-            <Col style={{ paddingTop: '32px' }}>
-              <InputProfile registeredProfile={props.registeredProfile} accountId={props.accountId} />
-            </Col>
-          </Row>
+          <InputProfile registeredProfile={props.registeredProfile} accountId={props.accountId} />
         </Col>
 
         {/* 現在登録しているprofile画像 */}
         <Col xs={22} md={0}>
-          <LeftSide registeredProfile={props.registeredProfile} />
+          <RegisteredImage registeredProfile={props.registeredProfile} />
         </Col>
       </Row>
     </>

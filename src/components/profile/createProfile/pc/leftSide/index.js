@@ -1,7 +1,7 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 
-import host from '../../../../constants/url'
+import host from '../../../../../constants/url'
 import styles from './index.module.scss'
 
 // ======================================================================
