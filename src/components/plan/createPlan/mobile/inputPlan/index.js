@@ -115,8 +115,9 @@ const InputPlanItem = ({
           <h3 className={style.title}>タイトル</h3>
           <Input
             value={title}
+            size="large"
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="サプライズプラン、モーニングコールプラン...etc"
+            placeholder="モーニングコールプラン...etc"
             style={{ width: '100%' }}
           />
         </Col>
@@ -134,6 +135,7 @@ const InputPlanItem = ({
         <Col>
           <h3 className={style.title}>プラン説明</h3>
           <Input.TextArea
+            size="large"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             autoSize={{ minRows: 6, maxRows: 6 }}
@@ -147,7 +149,7 @@ const InputPlanItem = ({
           <h3 className={style.title}>料金</h3>
         </Col>
         <Col span={16}>
-          <Input prefix="￥" suffix="円" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="12000" />
+          <Input prefix="￥" suffix="円" size="large" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="12000" />
         </Col>
       </Row>
 
@@ -156,7 +158,7 @@ const InputPlanItem = ({
           <h3 className={style.title}>タグ</h3>
         </Col>
         <Col>
-          <InputTag setTags={setTags} tagList={registeredPlan['tags']} />
+          <InputTag setTags={setTags} size="large" tagList={registeredPlan['tags']} />
         </Col>
       </Row>
 

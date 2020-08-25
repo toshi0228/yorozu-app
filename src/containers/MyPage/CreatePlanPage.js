@@ -60,7 +60,8 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
         </Col>
 
         <Col xs={22} md={0}>
-          <h4 style={{ textAlign: 'center', marginTop: 80 }}>◆作成・編集するプランを選択してください◆</h4>
+          <h4 style={{ textAlign: 'center', marginTop: 80 }}>◆作成・編集するプランをタップしてください◆</h4>
+          <p style={{ textAlign: 'center', fontSize: 12 }}>タップすると登録したプラン内容が、入力項目に表示されます</p>
         </Col>
 
         <Col xs={22} md={0} style={{ marginTop: 32 }}>
