@@ -1,10 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Component } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
-import MessageSendTab from '../../components/message/messageSendTab'
-import MessageTable from '../../components/message/messageTable'
-import { feachMessageList, feachSendMessageList } from '../../store/actions/message'
 
+// components
+// pc用 components
+import MessageSendTab from '../../components/message/messageSendTab'
+import MessageTable from '../../components/message/messageTable/pc/index'
+
+// mobile用 Components
+import MobileMessageTable from '../../components/message/messageTable/mobile/index'
+
+// action
+import { feachMessageList, feachSendMessageList } from '../../store/actions/message'
 import { feachPurchasersList } from '../../store/actions/planContract'
 
 // ========================================================================
@@ -25,18 +32,35 @@ const MessagePage = (props) => {
     <>
       {/* タイトル */}
       <Row type="flex" justify="start">
-        <Col offset={3} style={{ fontSize: 18 }}>
+        <Col xs={0} md={24} offset={3} style={{ fontSize: 18 }}>
           メッセージ
         </Col>
       </Row>
 
-      {/* タブ */}
-      <Row type="flex" justify="center" style={{ marginTop: 20 }}>
-        <Col span={18}>
+      {/* pc用 タブ */}
+      <Row type="flex" justify="center">
+        <Col xs={0} md={18} style={{ marginTop: 20 }}>
           <Tabs type="card" defaultActiveKey="1">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">
               <MessageTable recieveMessage={props.recieveMessage} />
+            </Tabs.TabPane>
+
+            {/* メッセージ作成ページのタブ */}
+            <Tabs.TabPane tab="メッセージを作成" key="2">
+              <MessageSendTab />
+            </Tabs.TabPane>
+          </Tabs>
+        </Col>
+      </Row>
+
+      {/* スマ用のメッセージ一覧 */}
+      <Row type="flex" justify="center">
+        <Col xs={22} md={0} style={{ marginTop: 20 }}>
+          <Tabs defaultActiveKey="1" size="large">
+            {/* メッセージリストのタブ */}
+            <Tabs.TabPane tab="メッセージ一覧" key="1">
+              <MobileMessageTable recieveMessage={props.recieveMessage} />
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}

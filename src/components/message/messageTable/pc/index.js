@@ -3,10 +3,9 @@ import { connect } from 'react-redux'
 
 import { Row, Col, Table, Avatar, Badge } from 'antd'
 import { Link } from 'react-router-dom'
-import host from '../../../constants/url'
-import routes from '../../../routes'
+import routes from '../../../../routes'
 
-import { alreadyRead } from '../../../store/actions/message'
+import { alreadyRead } from '../../../../store/actions/message'
 
 const MessageTable = (props) => {
   // メッセージを確認した時の処理

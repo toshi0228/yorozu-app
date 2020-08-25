@@ -17,7 +17,7 @@ const HeaderLogo = ({ resetProfileListEvent }) => {
             resetProfileListEvent()
           }}
         >
-          Yourozu
+          EdoWork
         </h2>
       </Link>
     </>
