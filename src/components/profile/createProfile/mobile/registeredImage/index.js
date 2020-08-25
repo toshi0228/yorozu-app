@@ -1,7 +1,6 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 
-import host from '../../../../../constants/url'
 import styles from './index.module.scss'
 
 // ======================================================================
@@ -10,17 +9,6 @@ import styles from './index.module.scss'
 
 // createProfilePageから、registeredProfileが渡ってくる
 export const RsegisteredProfile = ({ registeredProfile }) => {
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  // よろずやの名前 data.profileDetail.yorozuyaNameがundifindなら、初期値をリセットする
-  // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-  const toggleYorozuyaName = () => {
-    if (registeredProfile.yorozuyaName) {
-      return <h3 className={styles.name}>{registeredProfile.yorozuyaName}</h3>
-    } else {
-      return <h3 className={styles.name}>○ ○ ○屋</h3>
-    }
-  }
-
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // プロフィール画像 props.registeredProfile.profileImageが
   // undifinなら初期値をセットする
@@ -55,11 +43,8 @@ export const RsegisteredProfile = ({ registeredProfile }) => {
 
   return (
     <>
-      {/* よろずやの名前 */}
-      {/* {toggleYorozuyaName()} */}
-
       {/* プロフィール画像 */}
-      <Row type="flex" justify="center" style={{ marginTop: 64 }}>
+      <Row type="flex" justify="center" style={{ marginTop: 80 }}>
         <p style={{ marginTop: 8 }}>※現在使われているプロフィール画像</p>
         <Col>{toggleProfileImage()}</Col>
       </Row>

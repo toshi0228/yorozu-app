@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Button, Col, Row, Input } from 'antd'
 
-import { createPlan, updatePlan } from '../../../../store/actions/plan'
-import { checkPlanItem } from '../../../../store/actions/plan'
+import { createPlan, updatePlan } from '../../../../../store/actions/plan'
+import { checkPlanItem } from '../../../../../store/actions/plan'
 
-import InputTag from '../../../form/tagForm/index'
-import ImageForm from '../../../form/ImageForm/index'
+import InputTag from '../../../../form/tagForm/index'
+import ImageForm from '../../../../form/ImageForm/index'
 
 import style from './index.module.scss'
 
 // ====================================================================
-// プラン登録画面の入力項目カード
+// プラン登録画面の入力項目カード (モバイル用のcomponents)
 // ====================================================================
 
 // yorozuId,  registeredPlanは、CreatePlanPageから渡ってくる
@@ -64,7 +64,6 @@ const InputPlanItem = ({
   // ======================================================================
 
   if (isToRegister) {
-    console.log('登録の準備完了 => 作成')
     createPlanEvent(plan)
   }
 
@@ -163,7 +162,7 @@ const InputPlanItem = ({
       </Row>
 
       {/* 送信ボタン */}
-      <Row type="flex" justify="center" style={{ marginBottom: 48 }}>
+      <Row type="flex" justify="center" style={{ marginTop: 12 }}>
         <Col>{toggleRegisterBtn()}</Col>
       </Row>
     </>

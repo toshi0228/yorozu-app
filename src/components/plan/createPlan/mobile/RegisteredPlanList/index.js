@@ -3,13 +3,12 @@ import { connect } from 'react-redux'
 import { Col, Row } from 'antd'
 
 import styles from './index.module.scss'
-import host from '../../../../constants/url'
 
 // action
-import { readEditPlan, readyCreatePlan } from '../../../../store/actions/plan'
+import { readEditPlan, readyCreatePlan } from '../../../../../store/actions/plan'
 
 // ======================================================================
-// 新規で登録するプランリストがここに入る
+// 新規で登録するプランリストがここに入る モバイル用
 // ======================================================================
 
 // planDataは、CreatePlanPageから渡ってくる
