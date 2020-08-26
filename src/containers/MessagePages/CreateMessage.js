@@ -2,8 +2,14 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
 
+// components
+// pc用 components
 import MessageSendTab from '../../components/message/messageSendTab/pc'
 import MessageTable from '../../components/message/messageTable/pc'
+
+// mobile用 Components
+import MobileMessageTable from '../../components/message/messageTable/mobile/index'
+import MobileMessageSendTab from '../../components/message/messageSendTab/mobile'
 
 import { readRoomMessage, feachMessageList, feachSendMessageList, readMessageRoomUserYorozuId } from '../../store/actions/message'
 import { feachPurchasersList } from '../../store/actions/planContract'
@@ -45,14 +51,14 @@ const CreateMessage = (props) => {
     <>
       {/* タイトル */}
       <Row type="flex" justify="start">
-        <Col offset={3} style={{ fontSize: 18, marginTop: 48 }}>
+        <Col xs={0} md={24} offset={3} style={{ fontSize: 18, marginTop: 48 }}>
           メッセージ
         </Col>
       </Row>
 
-      {/* タブ */}
-      <Row type="flex" justify="center" style={{ marginTop: 20, minHeight: 700 }}>
-        <Col span={18}>
+      {/* pc用タブ */}
+      <Row type="flex" justify="center">
+        <Col xs={0} md={18} style={{ marginTop: 20, minHeight: 700 }}>
           <Tabs type="card" onChange={callback} defaultActiveKey="4">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="2">
@@ -62,6 +68,23 @@ const CreateMessage = (props) => {
             {/* メッセージ作成ページのタブ */}
             <Tabs.TabPane tab="メッセージを作成" key="4">
               <MessageSendTab />
+            </Tabs.TabPane>
+          </Tabs>
+        </Col>
+      </Row>
+
+      {/* モバイル用タブ */}
+      <Row type="flex" justify="center">
+        <Col xs={22} md={0} style={{ marginTop: 20, minHeight: 700 }}>
+          <Tabs onChange={callback} defaultActiveKey="4" size="large">
+            {/* メッセージリストのタブ */}
+            <Tabs.TabPane tab="メッセージ一覧" key="2">
+              <MobileMessageTable />
+            </Tabs.TabPane>
+
+            {/* メッセージ作成ページのタブ */}
+            <Tabs.TabPane tab="メッセージを作成" key="4">
+              <MobileMessageSendTab />
             </Tabs.TabPane>
           </Tabs>
         </Col>
