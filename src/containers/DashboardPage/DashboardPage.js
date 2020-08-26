@@ -23,11 +23,11 @@ const Dashboard = (props) => {
     <>
       {/* タイトル */}
       <Row type="flex" justify="center">
-        <Col style={{ fontSize: 18 }}>ダッシュボード</Col>
+        <Col style={{ fontSize: 18, marginTop: 48 }}>ダッシュボード</Col>
       </Row>
 
       {/* タブ */}
-      <Row type="flex" justify="center" style={{ marginTop: 20 }}>
+      <Row type="flex" justify="center" style={{ marginTop: 20, height: '80vh' }}>
         <Col span={18}>
           <Tabs type="card" onChange={callback} defaultActiveKey="1">
             {/* 売り上げタブのコンテント */}

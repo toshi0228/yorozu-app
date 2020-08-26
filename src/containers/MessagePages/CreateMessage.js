@@ -45,13 +45,13 @@ const CreateMessage = (props) => {
     <>
       {/* タイトル */}
       <Row type="flex" justify="start">
-        <Col offset={3} style={{ fontSize: 18 }}>
+        <Col offset={3} style={{ fontSize: 18, marginTop: 48 }}>
           メッセージ
         </Col>
       </Row>
 
       {/* タブ */}
-      <Row type="flex" justify="center" style={{ marginTop: 20 }}>
+      <Row type="flex" justify="center" style={{ marginTop: 20, height: '80vh' }}>
         <Col span={18}>
           <Tabs type="card" onChange={callback} defaultActiveKey="4">
             {/* メッセージリストのタブ */}

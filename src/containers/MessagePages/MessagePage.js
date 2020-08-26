@@ -32,14 +32,14 @@ const MessagePage = (props) => {
     <>
       {/* タイトル */}
       <Row type="flex" justify="start">
-        <Col xs={0} md={24} offset={3} style={{ fontSize: 18 }}>
+        <Col xs={0} md={24} offset={3} style={{ fontSize: 18, marginTop: 48 }}>
           メッセージ
         </Col>
       </Row>
 
       {/* pc用 タブ */}
       <Row type="flex" justify="center">
-        <Col xs={0} md={18} style={{ marginTop: 20 }}>
+        <Col xs={0} md={18} style={{ marginTop: 20, height: '80vh' }}>
           <Tabs type="card" defaultActiveKey="1">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">

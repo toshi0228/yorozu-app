@@ -24,7 +24,7 @@ const SignInPage = (props) => {
   return (
     <>
       <Row className={styles.signInPageWrap} type="flex" align="middle" justify="center">
-        <Col md={24}>
+        <Col xs={24} md={24}>
           {/* <h2 style={{ textAlign: 'center', marginTop: 48 }}>ログイン</h2> */}
           <h2 style={{ textAlign: 'center' }}>ログイン</h2>
           <p style={{ textAlign: 'center', marginTop: 40 }}>メールアドレスとパスワードを入力してください。</p>
