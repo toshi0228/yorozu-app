@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Comment, List, Row, Col, Modal } from 'antd'
-import MessageForm from '../../../../form/messageForm/pc/index'
+import MessageForm from '../../../../form/messageForm/mobile/index'
 // import host from '../../../../constants/url'
 import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../../store/actions/message'
 // import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/planRequest'
@@ -9,11 +9,11 @@ import { checkPurchasePlan, planRequestApproval } from '../../../../../store/act
 import styles from './index.module.scss'
 
 // ====================================================================================
-// メッセージルームの左側のページ
+// メッセージルーム (モバイル)
 // ユーザーを変更するたびに処理が動く つまり、ユーザーごとにする処理がある場合は、ここに書く
 // ====================================================================================
 
-const LeftSide = (props) => {
+const MessageRoom = (props) => {
   const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
   const [isPlanRequest, setIsPlanRequest] = useState(false)
   const data = []
@@ -145,4 +145,4 @@ const mapDispatchToProps = (dispatch) => ({
   checkPurchasePlanEvent: (roomUserYorozuId) => dispatch(checkPurchasePlan(roomUserYorozuId)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftSide)
+export default connect(mapStateToProps, mapDispatchToProps)(MessageRoom)

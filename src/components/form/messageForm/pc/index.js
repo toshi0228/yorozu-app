@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Comment, Avatar, Form, Input, Button } from 'antd'
-import host from '../../../constants/url'
-import { sendMessage } from '../../../store/actions/message'
-import { fetchLoginUserImage } from '../../../store/actions/account'
+
+import { sendMessage } from '../../../../store/actions/message'
+import { fetchLoginUserImage } from '../../../../store/actions/account'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // メッセージルームのメッセージフォーム

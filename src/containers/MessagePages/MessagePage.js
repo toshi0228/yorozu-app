@@ -9,6 +9,7 @@ import MessageTable from '../../components/message/messageTable/pc/index'
 
 // mobile用 Components
 import MobileMessageTable from '../../components/message/messageTable/mobile/index'
+import MobileMessageSendTab from '../../components/message/messageSendTab/mobile'
 
 // action
 import { feachMessageList, feachSendMessageList } from '../../store/actions/message'
@@ -39,7 +40,7 @@ const MessagePage = (props) => {
 
       {/* pc用 タブ */}
       <Row type="flex" justify="center">
-        <Col xs={0} md={18} style={{ marginTop: 20, height: '80vh' }}>
+        <Col xs={0} md={18} style={{ marginTop: 20, minHeight: 700 }}>
           <Tabs type="card" defaultActiveKey="1">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">
@@ -56,7 +57,7 @@ const MessagePage = (props) => {
 
       {/* スマ用のメッセージ一覧 */}
       <Row type="flex" justify="center">
-        <Col xs={22} md={0} style={{ marginTop: 20 }}>
+        <Col xs={22} md={0} style={{ marginTop: 20, minHeight: 700 }}>
           <Tabs defaultActiveKey="1" size="large">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">
@@ -65,7 +66,8 @@ const MessagePage = (props) => {
 
             {/* メッセージ作成ページのタブ */}
             <Tabs.TabPane tab="メッセージを作成" key="2">
-              <MessageSendTab />
+              {/* <MessageSendTab /> */}
+              <MobileMessageSendTab />
             </Tabs.TabPane>
           </Tabs>
         </Col>

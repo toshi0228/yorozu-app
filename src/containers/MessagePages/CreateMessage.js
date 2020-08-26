@@ -51,7 +51,7 @@ const CreateMessage = (props) => {
       </Row>
 
       {/* タブ */}
-      <Row type="flex" justify="center" style={{ marginTop: 20, height: '80vh' }}>
+      <Row type="flex" justify="center" style={{ marginTop: 20, minHeight: 700 }}>
         <Col span={18}>
           <Tabs type="card" onChange={callback} defaultActiveKey="4">
             {/* メッセージリストのタブ */}
