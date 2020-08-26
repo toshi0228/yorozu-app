@@ -1,8 +1,9 @@
 import React from 'react'
 import { Card, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
-import host from '../../../constants/url'
+
 import routes from '../../../routes'
+import styles from './index.module.scss'
 
 // ============================================================
 // プランリストのカード部分
@@ -12,7 +13,7 @@ const ProfileCard = ({ data }) => {
   return (
     <>
       <Link to={`${routes.profileDetail(data.yorozuId)}`}>
-        <Card cover={<img alt="example" src={data.yorozuyaThumbnailImage} style={{ height: 200 }} />} hoverable>
+        <Card cover={<img alt="example" src={data.yorozuyaThumbnailImage} className={styles.card} />} hoverable>
           <Card.Meta
             avatar={<Avatar src={data.profileImage} />}
             title={data.yorozuyaName}

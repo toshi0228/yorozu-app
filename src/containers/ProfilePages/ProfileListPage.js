@@ -27,24 +27,14 @@ const ProfileListPage = (props) => {
 
   return (
     <>
-      {/* モバイル用 */}
-      <div className={styles.mobileProfileList}>
-        <Row type="flex" justify="center">
-          <Col span={24}>
-            <ProfileList data={props.data} />
-          </Col>
-        </Row>
-      </div>
-      {/* デスクトップ用 */}
-      <div className={styles.pcProfileList}>
-        <Row type="flex" justify="center" className={styles.profileList}>
-          <Col span={18}>
-            <ProfileList data={props.data} />
-          </Col>
-        </Row>
-      </div>
+      <Row type="flex" justify="center" className={styles.profileList}>
+        <Col xs={24} md={18}>
+          <ProfileList data={props.data} />
+        </Col>
+      </Row>
+      {/* </div> */}
       {/* ページの項目 */}
-      <Row type="flex" justify="center">
+      <Row type="flex" justify="center" style={{ marginBottom: 72 }}>
         <Col>
           <Pagination defaultCurrent={1} total={50} />
         </Col>

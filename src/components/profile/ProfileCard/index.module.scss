@@ -2,6 +2,16 @@
   color: red;
 }
 
+// .card {
+//   height: 240px;
+// }
+
+@media screen and (min-width: 768px) {
+  .card {
+    height: 200px;
+  }
+}
+
 // 複数行の三点リーダーがうまく行かない
 // style={{
 //   height: 100,
