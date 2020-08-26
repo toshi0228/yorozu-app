@@ -23,13 +23,6 @@ const MobileMessageTable = (props) => {
     }
   }
 
-  const columns = [
-    { title: 'ユーザー', dataIndex: 'profileImage' },
-    { title: '名前', dataIndex: 'user' },
-    { title: '日にち', dataIndex: 'day' },
-    // { title: '内容', dataIndex: 'messageContent' },
-  ]
-
   // メッセージのリストが入る
   const data = []
 
@@ -55,31 +48,6 @@ const MobileMessageTable = (props) => {
       senderYorozuId: message.senderYorozuId,
       key: index,
     }
-    // const oneMessageData = {
-    //   profileImage: (
-    //     <Link to={routes.createMessage(message.senderYorozuId)}>
-    //       <Badge dot={message.unread} onClick={() => read(message)}>
-    //         <Avatar src={message.senderProfile.profileImage} />
-    //       </Badge>
-    //     </Link>
-    //   ),
-    //   user: (
-    //     <Link to={routes.createMessage(message.senderYorozuId)} onClick={() => read(message)} style={{ fontSize: 10 }}>
-    //       {message.senderProfile.nickname}
-    //     </Link>
-    //   ),
-    //   day: (
-    //     <Link to={routes.createMessage(message.senderYorozuId)} onClick={() => read(message)} style={{ fontSize: 10 }}>
-    //       {message.createdAt.split('T')[0]}
-    //     </Link>
-    //   ),
-    //   messageContent: (
-    //     <Link to={routes.createMessage(message.senderYorozuId)} onClick={() => read(message)}>
-    //       {messageText}
-    //     </Link>
-    //   ),
-    //   key: index,
-    // }
     data.push(oneMessageData)
   })
 
@@ -118,7 +86,6 @@ const MobileMessageTable = (props) => {
       />
       {/* 下のグレイの線 */}
       <Row style={{ borderBottom: 'solid 1px #e8e8e8' }}></Row>,
-      {/* <Table columns={columns} dataSource={data} style={{ fontSize: 10 }}></Table> */}
     </>
   )
 }

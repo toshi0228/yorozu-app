@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
-import MessageSendTab from '../../components/message/messageSendTab'
+
+import MessageSendTab from '../../components/message/messageSendTab/pc'
 import MessageTable from '../../components/message/messageTable/pc'
+
 import { readRoomMessage, feachMessageList, feachSendMessageList, readMessageRoomUserYorozuId } from '../../store/actions/message'
 import { feachPurchasersList } from '../../store/actions/planContract'
 

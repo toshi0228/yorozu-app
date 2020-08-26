@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Table, Avatar, Badge } from 'antd'
 import { Link } from 'react-router-dom'
-import { readRoomMessage } from '../../../../store/actions/message'
-import routes from '../../../../routes/index'
+import { readRoomMessage } from '../../../../../store/actions/message'
+import routes from '../../../../../routes/index'
 
 const RightSide = (props) => {
   const columns = [

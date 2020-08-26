@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Comment, List, Row, Col, Modal } from 'antd'
-import MessageForm from '../../../form/messageForm/index'
-import host from '../../../../constants/url'
-import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../store/actions/message'
+import MessageForm from '../../../../form/messageForm/index'
+// import host from '../../../../constants/url'
+import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../../store/actions/message'
 // import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/planRequest'
-import { checkPurchasePlan, planRequestApproval } from '../../../../store/actions/planContract'
+import { checkPurchasePlan, planRequestApproval } from '../../../../../store/actions/planContract'
 import styles from './index.module.scss'
 
 // ====================================================================================

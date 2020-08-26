@@ -4,7 +4,7 @@ import { Row, Col, Tabs } from 'antd'
 
 // components
 // pc用 components
-import MessageSendTab from '../../components/message/messageSendTab'
+import MessageSendTab from '../../components/message/messageSendTab/pc'
 import MessageTable from '../../components/message/messageTable/pc/index'
 
 // mobile用 Components
