@@ -1,18 +1,13 @@
 import React from 'react'
-import { Table, List, Avatar, Row, Col } from 'antd'
+import { List, Avatar } from 'antd'
 import { Link } from 'react-router-dom'
 import routes from '../../../../routes'
 
-// const columns
+// ================================================================
+// 売り上げのダッシュボード
+// ================================================================
 
 const DashboardSale = (props) => {
-  const columns = [
-    { title: '日にち', dataIndex: 'day' },
-    { title: 'ユーザー', dataIndex: 'purchaserUser' },
-    { title: 'プラン名', dataIndex: 'planTitle' },
-    { title: '金額', dataIndex: 'planPrice' },
-  ]
-
   const data = []
 
   // 自分のプランを購入してくれた人のデータを抽出する
@@ -21,6 +16,7 @@ const DashboardSale = (props) => {
       day: purchaser.createdAt,
       purchaserUser: purchaser.purchaserProfile.nickname,
       purchaserImage: purchaser.purchaserProfile.profileImage,
+      purchaserYorozuId: purchaser.senderYorozuId,
       planTitle: purchaser.contractPlan.title,
       planPrice: `${purchaser.contractPlan.price} 円`,
       key: index,
@@ -30,8 +26,6 @@ const DashboardSale = (props) => {
 
   return (
     <>
-      {/* <div style={{ marginBottom: 32 }}>売上履歴</div> */}
-
       <List
         // itemLayout="horizontal"
         // gridを入れることで、リストの中間にできる線を消すことができる
@@ -43,21 +37,17 @@ const DashboardSale = (props) => {
           <List.Item>
             <List.Item.Meta
               style={{ border: 'solid 1px #eeeeee', borderRadius: 4, padding: 8 }}
-              // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-              avatar={<Avatar src={item.purchaserImage} />}
-              // title={<a href="https://ant.design">{item.planTitle}</a>}
-              title={
-                <Link to={routes.top()}>
-                  <Row type="flex" justify="space-between">
-                    <Col>{item.planTitle}</Col>
-                    <Col style={{ fontSize: 12 }}>{item.day}</Col>
-                  </Row>
+              avatar={
+                <Link to={routes.profileDetail(item.purchaserYorozuId)}>
+                  <Avatar src={item.purchaserImage} />
                 </Link>
               }
+              title={item.planTitle}
               description={
                 <>
-                  <div>{`購入者:${item.purchaserUser}`}</div>
-                  <div style={{ textAlign: 'end' }}>{`金額:${item.planPrice}`}</div>
+                  <div>{`購入者：${item.purchaserUser}`}</div>
+                  <div>{`日時：${item.day}`}</div>
+                  <h4 style={{ textAlign: 'end', color: '#000000A6' }}>{`金額：${item.planPrice}`}</h4>
                 </>
               }
             />
