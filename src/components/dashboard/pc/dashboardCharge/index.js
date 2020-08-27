@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'antd'
 import { Link } from 'react-router-dom'
-import routes from '../../../routes/index'
+import routes from '../../../../routes/index'
 // const columns
 
 // todo 課金のところから

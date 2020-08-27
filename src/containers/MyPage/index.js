@@ -19,10 +19,11 @@ const ManagementTopPage = (props) => {
       {/* タイトル */}
       <Row type="flex" justify="start">
         {/* pc用 */}
-        <Col xs={0} md={24} offset={3} style={{ marginTop: 32 }}>
+        <Col xs={0} md={24} offset={3} style={{ marginTop: 48 }}>
           <h2>マイページ</h2>
         </Col>
-        <Col xs={24} md={0} offset={1} style={{ marginTop: 24 }}>
+        {/* モバイル用 */}
+        <Col xs={24} md={0} offset={1} style={{ marginTop: 16 }}>
           <h3>マイページ</h3>
         </Col>
       </Row>
@@ -30,7 +31,7 @@ const ManagementTopPage = (props) => {
       {/* PC用 */}
       <Row type="flex" justify="center">
         {/* スマホ画面の時は、画面いっぱいまで使うため24 */}
-        <Col xs={0} md={18} style={{ marginTop: 24, marginBottom: 72 }}>
+        <Col xs={0} md={18} style={{ marginTop: 8, marginBottom: 72 }}>
           {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
           <Tabs defaultActiveKey="1" centered>
             <Tabs.TabPane tab="よろず屋プレビュー" key="1">

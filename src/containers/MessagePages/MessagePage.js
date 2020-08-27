@@ -32,15 +32,16 @@ const MessagePage = (props) => {
   return (
     <>
       {/* タイトル */}
-      <Row type="flex" justify="start">
-        <Col xs={0} md={24} offset={3} style={{ fontSize: 18, marginTop: 48 }}>
-          メッセージ
+      <Row type="flex" justify="center">
+        {/* pc用 */}
+        <Col xs={0} md={18} style={{ marginTop: 48 }}>
+          <h2 style={{ textAlign: 'center' }}>メッセージ</h2>
         </Col>
       </Row>
 
       {/* pc用 タブ */}
       <Row type="flex" justify="center">
-        <Col xs={0} md={18} style={{ marginTop: 20, minHeight: 700 }}>
+        <Col xs={0} md={18} style={{ marginTop: 16, minHeight: 720 }}>
           <Tabs type="card" defaultActiveKey="1">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">
@@ -57,7 +58,7 @@ const MessagePage = (props) => {
 
       {/* スマ用のメッセージ一覧 */}
       <Row type="flex" justify="center">
-        <Col xs={22} md={0} style={{ marginTop: 20, minHeight: 700 }}>
+        <Col xs={22} md={0} style={{ marginTop: 16, minHeight: 700 }}>
           <Tabs defaultActiveKey="1" size="large">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">

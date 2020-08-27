@@ -33,7 +33,7 @@ const PreviewYorozuPage = (props) => {
   const togglePreviewPage = () => {
     if (props.yorozuId) {
       return (
-        <Row type="flex" justify="center" style={{ paddingTop: 30 }}>
+        <Row type="flex" justify="center" style={{ paddingTop: 32 }}>
           {/* 右サイド プラン一覧  pcの時,割合12/24*/}
           <Col xs={22} md={16}>
             <LeftSide data={props.profile} />
