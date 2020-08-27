@@ -85,7 +85,7 @@ const MobileMessageTable = (props) => {
         )}
       />
       {/* 下のグレイの線 */}
-      <Row style={{ borderBottom: 'solid 1px #e8e8e8' }}></Row>,
+      <Row style={{ borderBottom: 'solid 1px #e8e8e8' }}></Row>
     </>
   )
 }

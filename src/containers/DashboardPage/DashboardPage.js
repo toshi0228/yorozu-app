@@ -61,7 +61,7 @@ const Dashboard = (props) => {
       {/* モバイル用 タブ */}
       <Row type="flex" justify="center">
         <Col xs={22} md={0}>
-          <Tabs onChange={callback} defaultActiveKey="1" size="small" style={{ minHeight: 720, marginBottom: 72 }}>
+          <Tabs onChange={callback} defaultActiveKey="1" size="small" style={{ minHeight: 480, marginBottom: 72 }}>
             {/* 売り上げタブのコンテント */}
             <Tabs.TabPane tab="売上" key="1">
               <MobileDashboardSale purchasersList={props.purchasersList} />
