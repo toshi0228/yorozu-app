@@ -52,7 +52,7 @@ const ManagementTopPage = (props) => {
       {/* スマホ用 */}
       <Row type="flex" justify="center">
         {/* スマホ画面の時は、画面いっぱいまで使うため24 */}
-        <Col xs={24} md={0}>
+        <Col xs={24} md={0} style={{ marginBottom: 72 }}>
           {/* <Tabs defaultActiveKey="1" onChange={callback}> */}
           <Tabs defaultActiveKey="1" size="small">
             <Tabs.TabPane tab="プレビュー" key="1">

@@ -75,7 +75,7 @@ const CreateMessage = (props) => {
 
       {/* モバイル用タブ */}
       <Row type="flex" justify="center">
-        <Col xs={22} md={0} style={{ marginTop: 16, minHeight: 720 }}>
+        <Col xs={22} md={0} style={{ marginTop: 16, minHeight: 720, marginBottom: 72 }}>
           <Tabs onChange={callback} defaultActiveKey="4" size="large">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="2">

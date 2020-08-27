@@ -58,7 +58,7 @@ const MessagePage = (props) => {
 
       {/* スマ用のメッセージ一覧 */}
       <Row type="flex" justify="center">
-        <Col xs={22} md={0} style={{ marginTop: 16, minHeight: 700 }}>
+        <Col xs={22} md={0} style={{ marginTop: 16, minHeight: 700, marginBottom: 72 }}>
           <Tabs defaultActiveKey="1" size="large">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">
