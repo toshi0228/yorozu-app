@@ -17,7 +17,8 @@ const DashboardSale = (props) => {
   props.purchasersList.forEach((purchaser, index) => {
     const purchaserObj = {
       day: purchaser.createdAt,
-      purchaserUser: purchaser.purchaserUserName,
+      purchaserUser: purchaser.purchaserProfile.nickname,
+      purchaserImage: purchaser.purchaserProfile.profileImage,
       planTitle: purchaser.contractPlan.title,
       planPrice: `${purchaser.contractPlan.price} 円`,
       key: index,

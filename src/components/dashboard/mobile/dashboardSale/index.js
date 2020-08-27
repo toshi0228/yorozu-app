@@ -1,5 +1,7 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Table, List, Avatar, Row, Col } from 'antd'
+import { Link } from 'react-router-dom'
+import routes from '../../../../routes'
 
 // const columns
 
@@ -17,7 +19,8 @@ const DashboardSale = (props) => {
   props.purchasersList.forEach((purchaser, index) => {
     const purchaserObj = {
       day: purchaser.createdAt,
-      purchaserUser: purchaser.purchaserUserName,
+      purchaserUser: purchaser.purchaserProfile.nickname,
+      purchaserImage: purchaser.purchaserProfile.profileImage,
       planTitle: purchaser.contractPlan.title,
       planPrice: `${purchaser.contractPlan.price} 円`,
       key: index,
@@ -28,7 +31,39 @@ const DashboardSale = (props) => {
   return (
     <>
       {/* <div style={{ marginBottom: 32 }}>売上履歴</div> */}
-      <Table columns={columns} dataSource={data}></Table>
+
+      <List
+        // itemLayout="horizontal"
+        // gridを入れることで、リストの中間にできる線を消すことができる
+        grid={{
+          xs: 1,
+        }}
+        dataSource={data}
+        renderItem={(item) => (
+          <List.Item>
+            <List.Item.Meta
+              style={{ border: 'solid 1px #eeeeee', borderRadius: 4, padding: 8 }}
+              // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+              avatar={<Avatar src={item.purchaserImage} />}
+              // title={<a href="https://ant.design">{item.planTitle}</a>}
+              title={
+                <Link to={routes.top()}>
+                  <Row type="flex" justify="space-between">
+                    <Col>{item.planTitle}</Col>
+                    <Col style={{ fontSize: 12 }}>{item.day}</Col>
+                  </Row>
+                </Link>
+              }
+              description={
+                <>
+                  <div>{`購入者:${item.purchaserUser}`}</div>
+                  <div style={{ textAlign: 'end' }}>{`金額:${item.planPrice}`}</div>
+                </>
+              }
+            />
+          </List.Item>
+        )}
+      />
     </>
   )
 }

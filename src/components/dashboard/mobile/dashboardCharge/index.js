@@ -21,7 +21,8 @@ const dashboardCharge = (props) => {
     const yorozuyaId = contractPlan.receiverYorozuId
     const contractPlanObj = {
       day: contractPlan.createdAt,
-      yorozuya: <Link to={routes.profileDetail(yorozuyaId)}>{contractPlan.contractYorozuyaName}</Link>,
+      yorozuya: <Link to={routes.profileDetail(yorozuyaId)}>{contractPlan.contractYorozuyaProfile.nickname}</Link>,
+      yorozuyaImage: contractPlan.contractYorozuyaProfile.profileImage,
       planTitle: contractPlan.contractPlan.title,
       planPrice: `${contractPlan.contractPlan.price} 円`,
       key: index,
