@@ -112,9 +112,9 @@ const ModalContent = ({ paymentEvent }) => {
           {/* 説明 */}
           <Col span={14}>
             <h3>タイトル</h3>
-            <p style={{ fontSize: 16 }}>{props.planData.title}</p>
+            <p>{props.planData.title}</p>
             <h3>料金</h3>
-            <p style={{ fontSize: 16 }}>{`￥${props.planData.price} 円`}</p>
+            <p>{`￥${props.planData.price} 円`}</p>
             <h3>お支払い方法</h3>
             <p>
               <img style={{ height: 24 }} src="https://yourozu.s3-ap-northeast-1.amazonaws.com/stripeImage.png" />
