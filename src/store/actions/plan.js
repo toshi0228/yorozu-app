@@ -37,7 +37,7 @@ export const createPlan = (plan) => (dispatch) => {
       dispatch(setCreatePlan(res))
     })
     .catch((error) => {
-      console.log(error)
+      console.log('エラー')
     })
 }
 
@@ -86,8 +86,6 @@ export const readEditPlan = (planItem) => {
 // 同じ場所にhttpリクエストを行うのだが、image, tag, それ以外で三回の更新を行う
 // imageは、formData, tagは配列,それ以外は文字列だから
 export const updatePlan = (planItem) => (dispatch) => {
-  // console.log(updatePlanで確認したいこと)
-  console.log(planItem)
   // ーーー画像を更新
   // imgae => []なら、オブジェクトから削除する サーバー側でエラーになるので
   if (planItem.image.length === 0) {

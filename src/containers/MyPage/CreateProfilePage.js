@@ -38,7 +38,7 @@ const CreateProfilePage = (props) => {
       <Row>
         {/* PC用 */}
         <Col xs={0} md={24} style={{ marginTop: 20, marginBottom: 32 }}>
-          <h4>どんな、よろず屋なのか教えてください!!</h4>
+          <h4>どんな、よろず屋なのか教えてください!</h4>
         </Col>
       </Row>
 

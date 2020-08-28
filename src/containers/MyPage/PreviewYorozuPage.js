@@ -53,7 +53,11 @@ const PreviewYorozuPage = (props) => {
         <>
           <Row style={{ marginTop: 32 }}>
             <Col>
-              <h3 style={{ color: '#DB6E60' }}>まだ、表示できるデータがございません</h3>
+              <h3 style={{ color: '#DB6E60' }}>
+                まだ、表示できるデータがございません
+                <br />
+                プロフィールとプランを作成しましょう!
+              </h3>
             </Col>
           </Row>
           <Row style={{ minHeight: 280 }}>

@@ -11,7 +11,7 @@ const CreditCardForm = () => {
         padding: '10px',
         borderBottom: 'solid 3px #cfd7df',
         color: 'rgba(0, 0, 0, 0.65)',
-        fontSize: '14px',
+        fontSize: '16px',
         marign: '20px',
         '::placeholder': {
           color: '#CCCCCC',
@@ -24,7 +24,7 @@ const CreditCardForm = () => {
     <>
       <span>カード番号</span>
       <div style={{ marginBottom: '10px', padding: '6px', borderBottom: 'solid 0.3px #cfd7df' }}>
-        <CardNumberElement options={cardOptions} />
+        <CardNumberElement options={cardOptions} style={{ fontSize: 16 }} />
       </div>
 
       <Row type="flex" justify="space-between">

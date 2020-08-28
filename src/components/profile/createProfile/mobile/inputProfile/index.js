@@ -90,12 +90,7 @@ const InputProfile = ({ registeredProfile, accountId, checkInputItem, isToRegist
       <Row className={style.marginBottom}>
         <Col>
           <h3 className={style.title}>よろず屋名</h3>
-          <Input
-            value={yorozuyaName}
-            size="large"
-            onChange={(e) => setYorozuyaName(e.target.value)}
-            placeholder="例) サプライズ屋、モーニングコール屋、おしゃべり屋"
-          />
+          <Input value={yorozuyaName} size="large" onChange={(e) => setYorozuyaName(e.target.value)} placeholder="例) モーニングコール屋" />
         </Col>
       </Row>
 

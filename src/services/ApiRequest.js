@@ -13,7 +13,6 @@ export const setAuthHeader = (authToken) => {
 // ログインを行った時に、yorozuIDを取得にいく
 //=====================================================================================
 export const getYorozuId = (accoutId) => {
-  // console.log(axios.get(`http://127.0.0.1:8000/api/account/${userId}`));
   return axios.get(`${host.localhost()}/api/account/${accoutId}`)
 }
 //=====================================================================================
@@ -204,8 +203,6 @@ export const getMySentPlanContractList = (authToken) => {
 // =====================================================================================
 
 export const postPayment = (token) => {
-  console.log('postpaymentまできてる')
-  console.log(token)
   return axios.post(`${host.localhost()}/api/payment/`, token)
 }
 
