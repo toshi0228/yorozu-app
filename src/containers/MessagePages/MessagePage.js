@@ -37,6 +37,9 @@ const MessagePage = (props) => {
         <Col xs={0} md={18} style={{ marginTop: 48 }}>
           <h2 style={{ textAlign: 'center' }}>メッセージ</h2>
         </Col>
+        <Col xs={22} md={0} style={{ marginTop: 16 }}>
+          <h3>メッセージ</h3>
+        </Col>
       </Row>
 
       {/* pc用 タブ */}
@@ -58,15 +61,15 @@ const MessagePage = (props) => {
 
       {/* スマ用のメッセージ一覧 */}
       <Row type="flex" justify="center">
-        <Col xs={22} md={0} style={{ marginTop: 16, minHeight: 700, marginBottom: 72 }}>
-          <Tabs defaultActiveKey="1" size="large">
+        <Col xs={22} md={0} style={{ minHeight: 700, marginBottom: 72 }}>
+          <Tabs defaultActiveKey="1" size="small">
             {/* メッセージリストのタブ */}
-            <Tabs.TabPane tab="メッセージ一覧" key="1">
+            <Tabs.TabPane tab="受信" key="1">
               <MobileMessageTable recieveMessage={props.recieveMessage} />
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}
-            <Tabs.TabPane tab="メッセージを作成" key="2">
+            <Tabs.TabPane tab="作成" key="2">
               {/* <MessageSendTab /> */}
               <MobileMessageSendTab />
             </Tabs.TabPane>

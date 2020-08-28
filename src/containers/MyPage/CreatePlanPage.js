@@ -55,16 +55,16 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
 
       {/* スマホ レイアウト */}
       <Row type="flex" justify="center">
-        <Col xs={22} md={0}>
+        <Col xs={24} md={0}>
           <InputPlan yorozuId={yorozuId} registeredPlan={registeredPlan} />
         </Col>
 
-        <Col xs={22} md={0}>
+        <Col xs={24} md={0}>
           <h4 style={{ textAlign: 'center', marginTop: 80 }}>◆作成・編集するプランをタップしてください◆</h4>
           <p style={{ textAlign: 'center', fontSize: 12 }}>タップすると、登録したプラン内容が入力項目に表示されます</p>
         </Col>
 
-        <Col xs={22} md={0} style={{ marginTop: 32 }}>
+        <Col xs={24} md={0} style={{ marginTop: 32 }}>
           <RegisteredPlanList planData={planData} />
         </Col>
       </Row>

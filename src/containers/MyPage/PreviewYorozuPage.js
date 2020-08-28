@@ -35,7 +35,7 @@ const PreviewYorozuPage = (props) => {
       return (
         <Row type="flex" justify="center" style={{ paddingTop: 32 }}>
           {/* 右サイド プラン一覧  pcの時,割合12/24*/}
-          <Col xs={22} md={16}>
+          <Col xs={24} md={16}>
             <LeftSide data={props.profile} />
           </Col>
 
@@ -43,7 +43,7 @@ const PreviewYorozuPage = (props) => {
           <Col xs={0} md={1}></Col>
 
           {/* 右サイドバー pcの時,割合5/24 */}
-          <Col xs={22} md={7}>
+          <Col xs={24} md={7}>
             <RightSide data={props.profile} />
           </Col>
         </Row>

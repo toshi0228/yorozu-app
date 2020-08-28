@@ -54,6 +54,9 @@ const CreateMessage = (props) => {
         <Col xs={0} md={18} style={{ marginTop: 48 }}>
           <h2 style={{ textAlign: 'center' }}>メッセージ</h2>
         </Col>
+        <Col xs={22} md={0} style={{ marginTop: 16 }}>
+          <h3>メッセージ</h3>
+        </Col>
       </Row>
 
       {/* pc用タブ */}
@@ -75,15 +78,15 @@ const CreateMessage = (props) => {
 
       {/* モバイル用タブ */}
       <Row type="flex" justify="center">
-        <Col xs={22} md={0} style={{ marginTop: 16, minHeight: 720, marginBottom: 72 }}>
-          <Tabs onChange={callback} defaultActiveKey="4" size="large">
+        <Col xs={22} md={0} style={{ minHeight: 720, marginBottom: 72 }}>
+          <Tabs onChange={callback} defaultActiveKey="4" size="small">
             {/* メッセージリストのタブ */}
-            <Tabs.TabPane tab="メッセージ一覧" key="2">
+            <Tabs.TabPane tab="受信" key="2">
               <MobileMessageTable />
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}
-            <Tabs.TabPane tab="メッセージを作成" key="4">
+            <Tabs.TabPane tab="一覧" key="4">
               <MobileMessageSendTab />
             </Tabs.TabPane>
           </Tabs>
