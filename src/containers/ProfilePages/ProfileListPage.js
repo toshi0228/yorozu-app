@@ -4,7 +4,8 @@ import { Col, Row, Pagination } from 'antd'
 import { fetchProfileList, profileDetailInitialize } from '../../store/actions/profile'
 
 // components
-import ProfileList from '../../components/profile/ProfileList/index'
+import ProfileList from '../../components/profile/ProfileList/pc/index'
+import MobileProfileList from '../../components/profile/ProfileList/mobile/index'
 
 import styles from '../../styles/ProfileListPage.module.scss'
 
@@ -28,17 +29,22 @@ const ProfileListPage = (props) => {
   return (
     <>
       <Row type="flex" justify="center" className={styles.profileList}>
-        <Col xs={24} md={18}>
+        {/* PC用 */}
+        <Col xs={0} md={18}>
           <ProfileList data={props.data} />
+        </Col>
+        {/* モバイル用 */}
+        <Col xs={22} md={0}>
+          <MobileProfileList data={props.data} />
         </Col>
       </Row>
       {/* </div> */}
       {/* ページの項目 */}
-      <Row type="flex" justify="center" style={{ marginBottom: 72 }}>
+      {/* <Row type="flex" justify="center" style={{ marginBottom: 72 }}>
         <Col>
           <Pagination defaultCurrent={1} total={50} />
         </Col>
-      </Row>
+      </Row> */}
     </>
   )
 }
