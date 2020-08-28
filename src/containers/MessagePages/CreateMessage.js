@@ -86,7 +86,7 @@ const CreateMessage = (props) => {
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}
-            <Tabs.TabPane tab="一覧" key="4">
+            <Tabs.TabPane tab="作成" key="4">
               <MobileMessageSendTab />
             </Tabs.TabPane>
           </Tabs>

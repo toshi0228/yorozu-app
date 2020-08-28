@@ -44,11 +44,11 @@ const dashboardCharge = (props) => {
                   <Avatar src={item.yorozuyaImage} />
                 </Link>
               }
-              title={item.planTitle}
+              title={item.yorozuya}
               description={
                 <>
-                  <div>{`提供者：${item.yorozuya}`}</div>
-                  <div>{`日時：${item.day}`}</div>
+                  <div>{`プラン：${item.planTitle}`}</div>
+                  <div>{`契約日：${item.day}`}</div>
                   <h4 style={{ textAlign: 'end', color: '#000000A6' }}>{`金額：${item.planPrice}`}</h4>
                 </>
               }

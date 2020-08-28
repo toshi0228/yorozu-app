@@ -42,11 +42,11 @@ const DashboardSale = (props) => {
                   <Avatar src={item.purchaserImage} />
                 </Link>
               }
-              title={item.planTitle}
+              title={item.purchaserUser}
               description={
                 <>
-                  <div>{`購入者：${item.purchaserUser}`}</div>
-                  <div>{`日時：${item.day}`}</div>
+                  <div>{`プラン：${item.planTitle}`}</div>
+                  <div>{`契約日：${item.day}`}</div>
                   <h4 style={{ textAlign: 'end', color: '#000000A6' }}>{`金額：${item.planPrice}`}</h4>
                 </>
               }

@@ -13,7 +13,17 @@ import host from '../../../constants/url'
 const DetailPlanSection = ({ planData }) => {
   return (
     <>
-      <img alt="example" src={planData.image} style={{ width: '100%', height: 360, borderRadius: 8 }} />
+      {/* プランのイメージ画像 */}
+      <Row>
+        <Col xs={24} md={24}>
+          <img alt="example" src={planData.image} style={{ width: '100%', height: 360, borderRadius: 8 }} />
+        </Col>
+
+        {/* <Col xs={24} md={0}>
+          <img alt="example" src={planData.image} style={{ width: '100%', height: 240 }} />
+        </Col> */}
+      </Row>
+
       {/* プランのタイトル */}
       <div style={{ marginBottom: 48 }}>
         {/* タイトル */}
