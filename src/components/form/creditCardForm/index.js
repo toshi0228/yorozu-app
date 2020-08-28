@@ -1,4 +1,5 @@
 import React from 'react'
+import { Row, Col } from 'antd'
 
 import { CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
 
@@ -26,8 +27,34 @@ const CreditCardForm = () => {
         <CardNumberElement options={cardOptions} />
       </div>
 
-      <div style={{ marginBottom: '10px', display: 'flex' }}>
-        {/* 有効期限Container */}
+      <Row type="flex" justify="space-between">
+        {/* 左側 */}
+        <Col style={{ height: 72 }} span={10}>
+          {/* <div style={{ paddingRight: '155px' }}>有効期限</div> */}
+          <Row>
+            <Col>
+              <div>有効期限</div>
+            </Col>
+            <Col style={{ padding: '6px', borderBottom: 'solid 0.3px #cfd7df' }}>
+              <CardExpiryElement options={cardOptions} />
+            </Col>
+          </Row>
+        </Col>
+        {/* 右側 */}
+        <Col style={{ height: 72 }} span={10}>
+          <Row>
+            <Col>
+              <div>CVCコード</div>
+            </Col>
+            <Col style={{ padding: '6px', borderBottom: 'solid 0.3px #cfd7df' }}>
+              <CardCvcElement options={cardOptions} />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+
+      {/* <div style={{ marginBottom: '10px', display: 'flex' }}>
+        有効期限Container
         <div style={{ borderBottom: 'solid 0.3px #cfd7df' }}>
           <div style={{ paddingRight: '155px' }}>有効期限</div>
           <div style={{ padding: '6px' }}>
@@ -35,14 +62,14 @@ const CreditCardForm = () => {
           </div>
         </div>
 
-        {/* CSVコードのContainer */}
+        CSVコードのContainer
         <div style={{ paddingRight: '35%', marginLeft: '5%', borderBottom: 'solid 0.3px #cfd7df' }}>
           <span>CVCコード</span>
           <div style={{ padding: '6px' }}>
             <CardCvcElement options={cardOptions} />
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

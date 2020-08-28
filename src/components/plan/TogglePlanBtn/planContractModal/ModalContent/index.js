@@ -117,7 +117,7 @@ const ModalContent = ({ paymentEvent }) => {
             <p>{`￥${props.planData.price} 円`}</p>
             <h3>お支払い方法</h3>
             <p>
-              <img src="https://d2aj9sy12tbpym.cloudfront.net/javascripts/dist/assets/cards-93fdb7f8c04e768123771a8f33e49f63.svg" />
+              <img style={{ height: 24 }} src="https://yourozu.s3-ap-northeast-1.amazonaws.com/stripeImage.png" />
             </p>
           </Col>
 
