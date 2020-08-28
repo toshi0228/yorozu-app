@@ -112,10 +112,10 @@ const ModalContent = ({ paymentEvent }) => {
           {/* 説明 */}
           <Col span={14}>
             <h3>タイトル</h3>
-            <p>{props.planData.title}</p>
-            <h3>料金</h3>
-            <p>{`￥${props.planData.price} 円`}</p>
-            <h3>お支払い方法</h3>
+            <p style={{ fontSize: 16 }}>{props.planData.title}</p>
+            <h3 style={{ marginTop: 24 }}>料金</h3>
+            <p style={{ fontSize: 16 }}>{`￥${props.planData.price} 円`}</p>
+            <h3 style={{ marginTop: 24 }}>お支払い方法</h3>
             <p>
               <img style={{ height: 24 }} src="https://yourozu.s3-ap-northeast-1.amazonaws.com/stripeImage.png" />
             </p>
@@ -132,7 +132,7 @@ const ModalContent = ({ paymentEvent }) => {
         {/* クレジットカードの情報を入力 */}
         <CreditCardForm />
 
-        <h3 style={{ color: '#ff7d6e' }}>注意事項</h3>
+        <h3 style={{ color: '#ff7d6e', marginTop: 24 }}>注意事項</h3>
         <div style={{ marginBottom: 20 }} className={styles.attention}>
           <ul>
             <li>解約は自由に行なえますが、課金後の返金は行っておりません。</li>
