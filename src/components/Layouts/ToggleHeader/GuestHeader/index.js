@@ -31,7 +31,6 @@ const GuestHeader = () => {
       <header>
         <Row type="flex" justify="center" align="middle" className={styles.headerContainer}>
           {/* ロゴ */}
-          {/* <Col xs={20} md={3}> */}
           <Col xs={20} md={4} lg={3}>
             <HeaderLogo />
           </Col>

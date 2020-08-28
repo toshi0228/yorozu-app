@@ -34,12 +34,12 @@ const MemberHeader = (props) => {
       <header>
         <Row className={styles.headerContainer} type="flex" justify="center" align="middle">
           {/* ロゴスペース */}
-          <Col xs={20} md={3}>
+          <Col xs={20} md={4} lg={3}>
             <HeaderLogo />
           </Col>
 
           {/* PC用検索のスペース */}
-          <Col xs={0} md={10}>
+          <Col xs={0} md={12} lg={10}>
             <Row type="flex" justify="start">
               <Col>
                 <Row type="flex" className="menu" gutter={24}>
@@ -52,7 +52,7 @@ const MemberHeader = (props) => {
           </Col>
 
           {/* PC用 マイページボタン */}
-          <Col xs={0} md={5}>
+          <Col xs={0} md={6} lg={5}>
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
                 <MyPageBtn singOutEvent={props.singOutEvent} />
