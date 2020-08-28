@@ -7,13 +7,16 @@
 // @media screen and (min-width: 768px) {
 // @media screen and (min-width: 992px) {
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 768px) {
+  .searchForm {
+    width: 360px !important;
+  }
+}
+
+@media screen and (min-width: 992px) {
   .searchForm {
     width: 480px !important;
   }
-  // .searchForm {
-  //   display: block !important;
-  // }
 }
 
 // @media screen and (max-width: 760px) {

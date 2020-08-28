@@ -31,12 +31,13 @@ const GuestHeader = () => {
       <header>
         <Row type="flex" justify="center" align="middle" className={styles.headerContainer}>
           {/* ロゴ */}
-          <Col xs={20} md={3}>
+          {/* <Col xs={20} md={3}> */}
+          <Col xs={20} md={4} lg={3}>
             <HeaderLogo />
           </Col>
 
           {/* PC用検索 */}
-          <Col xs={0} md={10}>
+          <Col xs={0} md={12} lg={10}>
             <Row type="flex" justify="start">
               <Col>
                 <SearchForm />
@@ -46,7 +47,7 @@ const GuestHeader = () => {
 
           {/* PC用ボタン */}
           {/* <Col className={styles.right} xs={4} md={5} className={styles.navbarArea}> */}
-          <Col xs={0} md={5}>
+          <Col xs={0} md={6} lg={5}>
             <Row type="flex" justify="end" gutter={24} span={8}>
               <Col>
                 <Link to={routes.siginIn()}>

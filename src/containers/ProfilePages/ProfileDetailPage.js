@@ -41,22 +41,26 @@ const ProfileDetailPage = (props) => {
   return (
     <>
       <Row>
-        <Col xs={0} md={24} offset={3} style={{ marginTop: 32 }}>
+        <Col xs={0} md={0} lg={24} offset={3} style={{ marginTop: 32 }}>
+          <h2>詳細ページ</h2>
+        </Col>
+        {/* ipad用 */}
+        <Col xs={0} md={24} lg={0} offset={1} style={{ marginTop: 32 }}>
           <h2>詳細ページ</h2>
         </Col>
       </Row>
 
       <Row type="flex" justify="center" style={{ marginTop: 24, marginBottom: 72 }}>
         {/* 右サイド プラン一覧  割合12/24*/}
-        <Col xs={22} md={12}>
+        <Col xs={22} md={14} lg={12}>
           <LeftSide data={props.data} />
         </Col>
 
         {/* 左と左の空白 これがあることでレしポンスデザインとの時に役立つ */}
-        <Col xs={0} md={1}></Col>
+        <Col xs={0} md={1} lg={1}></Col>
 
         {/* 右サイドバー 割合6/24 */}
-        <Col xs={22} md={5}>
+        <Col xs={22} md={7} lg={5}>
           <RightSide data={props.data} />
         </Col>
       </Row>
