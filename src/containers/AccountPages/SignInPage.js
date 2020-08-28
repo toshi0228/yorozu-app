@@ -38,7 +38,7 @@ const SignInPage = (props) => {
               {/* メールアドレスを入力する項目 */}
               <Row type="flex" justify="center">
                 {/* <Col xs={18} md={8} style={{ background: 'white' }}> */}
-                <Col xs={18} md={8} style={{ background: 'white' }}>
+                <Col xs={18} lg={8} style={{ background: 'white' }}>
                   <Input
                     prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
                     placeholder="メールアドレス"

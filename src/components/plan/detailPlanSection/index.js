@@ -1,7 +1,7 @@
 import React from 'react'
 import { Col, Row } from 'antd'
 import TogglePlanBtn from '../TogglePlanBtn'
-import host from '../../../constants/url'
+import styles from './index.module.scss'
 
 // ====================================================================
 // 詳細ページのプランのセクション
@@ -16,7 +16,8 @@ const DetailPlanSection = ({ planData }) => {
       {/* プランのイメージ画像 */}
       <Row>
         <Col xs={24} md={24}>
-          <img alt="example" src={planData.image} style={{ width: '100%', height: 360, borderRadius: 8 }} />
+          {/* <img alt="example" src={planData.image} style={{ width: '100%', height: 360, borderRadius: 8 }} /> */}
+          <img alt="example" src={planData.image} className={styles.planImage} />
         </Col>
 
         {/* <Col xs={24} md={0}>
