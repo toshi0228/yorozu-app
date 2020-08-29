@@ -52,7 +52,7 @@ const ProfileDetailPage = (props) => {
 
       <Row type="flex" justify="center" style={{ marginTop: 24, marginBottom: 72 }}>
         {/* 右サイド プラン一覧  割合12/24*/}
-        <Col xs={22} md={15} lg={12}>
+        <Col xs={22} md={14} lg={12}>
           <LeftSide data={props.data} />
         </Col>
 
@@ -60,7 +60,7 @@ const ProfileDetailPage = (props) => {
         <Col xs={0} md={1} lg={1}></Col>
 
         {/* 右サイドバー 割合6/24 */}
-        <Col xs={22} md={6} lg={5}>
+        <Col xs={22} md={7} lg={5}>
           <RightSide data={props.data} />
         </Col>
       </Row>

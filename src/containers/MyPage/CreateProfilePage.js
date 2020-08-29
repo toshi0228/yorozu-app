@@ -37,23 +37,25 @@ const CreateProfilePage = (props) => {
 
       <Row>
         {/* PC用 */}
-        <Col xs={0} md={24} style={{ marginTop: 20, marginBottom: 32 }}>
+        <Col xs={0} md={0} lg={24} style={{ marginTop: 20, marginBottom: 32 }}>
           <h4>どんな、よろず屋なのか教えてください!</h4>
         </Col>
+        {/* ipad用  タブとの空白*/}
+        <Col xs={0} md={24} lg={0} style={{ marginTop: 32 }}></Col>
       </Row>
 
       {/* pc用のプロフィール作成画面 */}
       <Row>
         {/* プロフィール作成画面の左側のレイアウト */}
-        <Col xs={0} md={7}>
+        <Col xs={0} md={0} lg={7}>
           <LeftSide registeredProfile={props.registeredProfile} />
         </Col>
 
         {/* 右と左のブロックの間の隙間 */}
-        <Col xs={0} md={1}></Col>
+        <Col xs={0} md={0} lg={1}></Col>
 
         {/* プロフィール作成画面の右側のレイアウト */}
-        <Col xs={0} md={16} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
+        <Col xs={0} md={0} lg={16} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
           {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
@@ -73,6 +75,24 @@ const CreateProfilePage = (props) => {
 
         {/* 現在登録しているprofile画像 */}
         <Col xs={24} md={0}>
+          <RegisteredImage registeredProfile={props.registeredProfile} />
+        </Col>
+      </Row>
+
+      {/* ipad用の作成画面 */}
+      <Row type="flex" justify="center">
+        {/* 入力項目を真ん中ににするために、flex center */}
+        <Col xs={0} md={24} lg={0} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
+          {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
+          <Row type="flex" justify="center">
+            <Col span={20} style={{ paddingTop: '32px' }}>
+              <RightSide registeredProfile={props.registeredProfile} accountId={props.accountId} />
+            </Col>
+          </Row>
+        </Col>
+
+        {/* 現在登録しているprofile画像 */}
+        <Col xs={0} md={0} lg={0}>
           <RegisteredImage registeredProfile={props.registeredProfile} />
         </Col>
       </Row>
