@@ -28,22 +28,25 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
   return (
     <>
       <Row>
-        <Col xs={0} md={8} style={{ marginTop: 32, marginBottom: 32 }}>
+        {/* pc用 */}
+        <Col xs={0} md={0} lg={8} style={{ marginTop: 32, marginBottom: 32 }}>
           <h4>どんなプランがあるのか、教えてください!!</h4>
         </Col>
+        {/* ipad用 タブとの空白があるだけ */}
+        <Col xs={0} md={22} lg={0} style={{ marginTop: 32, marginBottom: 32 }}></Col>
       </Row>
       {/* PC レイアウト */}
       <Row>
         {/* プラン作成画面の左側のレイアウト */}
-        <Col xs={0} md={7}>
+        <Col xs={0} md={0} lg={7}>
           <LeftSide planData={planData} />
         </Col>
 
         {/* pcの時の、右と左をわける空白 */}
-        <Col xs={0} md={1}></Col>
+        <Col xs={0} md={0} lg={1}></Col>
 
         {/* プラン作成画面の右側のレイアウト */}
-        <Col xs={0} md={16} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
+        <Col xs={0} md={0} lg={16} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
           {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
@@ -65,6 +68,28 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
         </Col>
 
         <Col xs={24} md={0} style={{ marginTop: 32 }}>
+          <RegisteredPlanList planData={planData} />
+        </Col>
+      </Row>
+
+      {/* ipad用 レイアウト */}
+      <Row type="flex" justify="center">
+        {/* プラン作成画面の右側のレイアウト */}
+        <Col xs={0} md={24} lg={0} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
+          {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
+          <Row type="flex" justify="center">
+            <Col span={20} style={{ paddingTop: '32px' }}>
+              <RightSide yorozuId={yorozuId} registeredPlan={registeredPlan} />
+            </Col>
+          </Row>
+        </Col>
+
+        <Col xs={0} md={24} lg={0}>
+          <h4 style={{ textAlign: 'center', marginTop: 80 }}>◆作成・編集するプランをタップしてください◆</h4>
+          <p style={{ textAlign: 'center', fontSize: 12 }}>タップすると、登録したプラン内容が入力項目に表示されます</p>
+        </Col>
+
+        <Col xs={0} md={24} lg={0} style={{ marginTop: 32 }}>
           <RegisteredPlanList planData={planData} />
         </Col>
       </Row>
