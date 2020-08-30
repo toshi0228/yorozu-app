@@ -13,6 +13,8 @@ import LeftSide from '../../components/plan/createPlan/pc/leftSide'
 // mobile用 componetns
 import InputPlan from '../../components/plan/createPlan/mobile/inputPlan'
 import RegisteredPlanList from '../../components/plan/createPlan/mobile/RegisteredPlanList'
+// ipad用 components
+import IpadInputPlan from '../../components/plan/createPlan/ipad/inputPlan'
 
 const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, readUpdatePlanEvent, finReadUpdatePlanEvent }) => {
   // プランが更新されたら、プロフィールを更新する。プロフィールにはプランが紐づいているので、更新されたプランが取得できる
@@ -79,7 +81,7 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
           {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
-              <RightSide yorozuId={yorozuId} registeredPlan={registeredPlan} />
+              <IpadInputPlan yorozuId={yorozuId} registeredPlan={registeredPlan} />
             </Col>
           </Row>
         </Col>
