@@ -8,7 +8,22 @@
 
 @media screen and (min-width: 768px) {
   .card {
+    height: 240px;
+  }
+
+  .description {
+    height: 100px;
+    overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .card {
     height: 200px;
+  }
+  .description {
+    height: 100px;
+    overflow: hidden;
   }
 }
 

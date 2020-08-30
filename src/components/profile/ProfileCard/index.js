@@ -18,7 +18,8 @@ const ProfileCard = ({ data }) => {
             avatar={<Avatar src={data.profileImage} />}
             title={data.yorozuyaName}
             description={data.profileDescription}
-            style={{ height: 100, overflow: 'hidden' }}
+            // style={{ height: 100, overflow: 'hidden' }}
+            className={styles.description}
           />
         </Card>
       </Link>
