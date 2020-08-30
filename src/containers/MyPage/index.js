@@ -23,7 +23,7 @@ const ManagementTopPage = (props) => {
           <h2>マイページ</h2>
         </Col>
         {/* ipad用 */}
-        <Col xs={0} md={24} lg={0} offset={1} style={{ marginTop: 48 }}>
+        <Col xs={0} md={22} lg={0} offset={1} style={{ marginTop: 48 }}>
           <h2>マイページ</h2>
         </Col>
         {/* モバイル用 */}
