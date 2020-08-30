@@ -78,7 +78,7 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
       {/* ipad用 レイアウト */}
       <Row type="flex" justify="center">
         {/* プラン作成画面の右側のレイアウト */}
-        <Col xs={0} md={24} lg={0} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
+        <Col xs={0} md={24} lg={0} style={{ border: 'solid 1px #d5d5d5', borderRadius: '8px' }}>
           {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
