@@ -10,9 +10,31 @@
   // text-align: center;
 }
 
-.circle {
+.profileImage {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   // background: skyblue;
+}
+
+.nickname {
+  font-size: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .profileImage {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .profileImage {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  .nickname {
+    font-size: 18px;
+  }
 }

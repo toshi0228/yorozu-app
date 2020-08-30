@@ -1,10 +1,10 @@
 import React from 'react'
 import { Row, Col, Tag, Skeleton } from 'antd'
-import styles from './index.module.scss'
 
 import ConsultationButton from './ConsultationButton'
-import host from '../../../../constants/url'
+
 import ReviewButton from './ReviewButton'
+import styles from './index.module.scss'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 // よろず、profileの詳細ページ
@@ -31,7 +31,8 @@ const RightSide = ({ data }) => {
   // プロフィール画像 props.registeredProfile.profileImageがundifinなら、初期値をセットする
   const toggleProfileImage = () => {
     if (data.profileDetail.profileImage) {
-      return <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={data.profileDetail.profileImage} />
+      // return <img style={{ height: 150, width: 150, borderRadius: '50%' }} src={data.profileDetail.profileImage} />
+      return <img className={styles.profileImage} src={data.profileDetail.profileImage} />
     } else {
       return (
         <Skeleton
@@ -57,14 +58,13 @@ const RightSide = ({ data }) => {
 
       {/* プロフィール画像 */}
       <Row type="flex" justify="center">
-        <Col style={{ paddingTop: 40 }}>
-          {/* <img className={styles.circle} alt="画像" src={`${host.localhost()}${data.profileDetail.profileImage}`} /> */}
-          {toggleProfileImage()}
-        </Col>
+        <Col style={{ paddingTop: 40 }}>{toggleProfileImage()}</Col>
       </Row>
-      <Row type="flex" justify="center" style={{ marginTop: 25 }}>
+
+      {/* ニックネーム */}
+      <Row type="flex" justify="center" style={{ marginTop: 24 }}>
         <Col>
-          <div style={{ fontSize: 20 }}>{data.profileDetail.nickname}</div>
+          <div className={styles.nickname}>{data.profileDetail.nickname}</div>
         </Col>
       </Row>
 

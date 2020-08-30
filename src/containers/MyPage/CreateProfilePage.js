@@ -14,6 +14,9 @@ import LeftSide from '../../components/profile/createProfile/pc/leftSide'
 import InputProfile from '../../components/profile/createProfile/mobile/inputProfile'
 import RegisteredImage from '../../components/profile/createProfile/mobile/registeredImage'
 
+// ipad用 components
+import IpadInputProfile from '../../components/profile/createProfile/ipad/inputProfile'
+
 const CreateProfilePage = (props) => {
   // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   // プロフィール作成の時は、アカウントIDが必要になるので、最初に取得する
@@ -82,18 +85,13 @@ const CreateProfilePage = (props) => {
       {/* ipad用の作成画面 */}
       <Row type="flex" justify="center">
         {/* 入力項目を真ん中ににするために、flex center */}
-        <Col xs={0} md={24} lg={0} style={{ border: 'solid 0.5px #d5d5d5', borderRadius: '8px' }}>
+        <Col xs={0} md={24} lg={0} style={{ border: 'solid 1px #d5d5d5', borderRadius: '8px' }}>
           {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
-              <RightSide registeredProfile={props.registeredProfile} accountId={props.accountId} />
+              <IpadInputProfile registeredProfile={props.registeredProfile} accountId={props.accountId} />
             </Col>
           </Row>
-        </Col>
-
-        {/* 現在登録しているprofile画像 */}
-        <Col xs={0} md={0} lg={0}>
-          <RegisteredImage registeredProfile={props.registeredProfile} />
         </Col>
       </Row>
     </>
