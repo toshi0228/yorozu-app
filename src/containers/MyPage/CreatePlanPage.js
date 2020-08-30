@@ -15,6 +15,7 @@ import InputPlan from '../../components/plan/createPlan/mobile/inputPlan'
 import RegisteredPlanList from '../../components/plan/createPlan/mobile/RegisteredPlanList'
 // ipad用 components
 import IpadInputPlan from '../../components/plan/createPlan/ipad/inputPlan'
+import IpadRegisteredPlanList from '../../components/plan/createPlan/ipad/registeredPlanList'
 
 const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, readUpdatePlanEvent, finReadUpdatePlanEvent }) => {
   // プランが更新されたら、プロフィールを更新する。プロフィールにはプランが紐づいているので、更新されたプランが取得できる
@@ -92,7 +93,7 @@ const CreatePlanPage = ({ yorozuId, planData, registeredPlan, isUpdatePlan, read
         </Col>
 
         <Col xs={0} md={24} lg={0} style={{ marginTop: 32 }}>
-          <RegisteredPlanList planData={planData} />
+          <IpadRegisteredPlanList planData={planData} />
         </Col>
       </Row>
     </>
