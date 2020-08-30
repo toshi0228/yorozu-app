@@ -43,7 +43,7 @@ const Dashboard = (props) => {
 
       {/* pc用タブ */}
       <Row type="flex" justify="center">
-        <Col xs={0} md={18}>
+        <Col xs={0} md={22} lg={18}>
           <Tabs type="card" onChange={callback} defaultActiveKey="1" style={{ marginTop: 16, minHeight: 720 }}>
             {/* 売り上げタブのコンテント */}
             <Tabs.TabPane tab="売上" key="1">
