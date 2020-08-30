@@ -30,7 +30,7 @@ const ProfileListPage = (props) => {
     <>
       <Row type="flex" justify="center" className={styles.profileList}>
         {/* PC用 */}
-        <Col xs={0} md={18}>
+        <Col xs={0} md={22} lg={18}>
           <ProfileList data={props.data} />
         </Col>
         {/* モバイル用 */}
@@ -38,6 +38,7 @@ const ProfileListPage = (props) => {
           <MobileProfileList data={props.data} />
         </Col>
       </Row>
+
       {/* </div> */}
       {/* ページの項目 */}
       {/* <Row type="flex" justify="center" style={{ marginBottom: 72 }}>
