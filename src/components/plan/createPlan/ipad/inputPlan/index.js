@@ -11,7 +11,7 @@ import ImageForm from '../../../../form/ImageForm/index'
 import style from './index.module.scss'
 
 // ====================================================================
-// プラン登録画面の入力項目カード
+// プラン登録画面の入力項目カード ipad用
 // ====================================================================
 
 // yorozuId,  registeredPlanは、CreatePlanPageから渡ってくる
