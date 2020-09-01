@@ -76,7 +76,6 @@ const accountReducer = (state = DEFAULT_STATE, action) => {
     // ページ遷移した時にエラーメッセージを消すために、isSignInFailure: falseにする
     // ============================================================================
     case RESET_ERROR_MESSAGE_EVENT:
-      console.log('RESET_ERROR_MESSAGE_EVENT')
       return { ...state, isSignInFailure: false, isSignUpFailure: false }
 
     // ============================================================================
