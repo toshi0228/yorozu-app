@@ -21,7 +21,7 @@ export const createPlan = (plan) => (dispatch) => {
   formData.append('title', plan.title)
   formData.append('description', plan.description)
   formData.append('price', plan.price)
-  formData.append('image', plan.image[0], plan.image[0].name)
+  formData.append('image', plan.image[0])
   formData.append('tag', plan.tags)
 
   postPlan(formData)

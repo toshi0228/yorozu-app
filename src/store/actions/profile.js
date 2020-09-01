@@ -112,6 +112,14 @@ export const searchProfile = (searchResult) => {
 // プロフィールの作成
 // =====================================================================================
 export const createProfile = (profile) => (dispatch) => {
+  console.log('action createProfile')
+  console.log(profile)
+  console.log('----------------------')
+  console.log(profile.profileImage)
+  // console.log(profile.profileImage[0])
+  // console.log(profile.profileImage[0].name)
+  console.log('----------------------')
+
   // 画像を送信する時は、「Content-Type: multipart/form-data」をheaderにつけるので,
   // formオブジェクトを作成しないといけない
   const formData = new FormData()
@@ -119,10 +127,11 @@ export const createProfile = (profile) => (dispatch) => {
   formData.append('nickname', profile.nickname)
   formData.append('yorozuyaName', profile.yorozuyaName)
   formData.append('yorozuId', profile.yorozuId)
-  // 省略可能な第3引数を使用して、Content-Dispositionヘッダに含めるファイル名を渡すことができる
-  formData.append('profileImage', profile.profileImage[0], profile.profileImage[0].name)
   formData.append('profileDescription', profile.profileDescription)
-  formData.append('yorozuyaThumbnailImage', profile.yorozuyaThumbnailImage[0], profile.yorozuyaThumbnailImage[0].name)
+
+  formData.append('profileImage', profile.profileImage[0])
+  formData.append('yorozuyaThumbnailImage', profile.yorozuyaThumbnailImage[0])
+
   postProfile(formData).then((res) => {
     // プロフィールの登録完了  isToRegisterを true から false にする これをしないと何回も
     // createProfileを行うことになってしまうので、完了したことをreducerに伝える

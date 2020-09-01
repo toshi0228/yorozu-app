@@ -10,11 +10,9 @@ const RequireAuth = (ComposedComponent) => {
   function Auth(props) {
     const shouldNavigateAway = () => {
       if (props.authTokenExist) {
-        console.log('isRequireAuth:tokenあり')
       } else {
         // tokenがなければ、ログインページに飛ぶ
         props.push(routes.siginIn())
-        console.log('tokenなし')
       }
     }
 
