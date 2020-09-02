@@ -89,8 +89,8 @@ const InputProfile = ({ registeredProfile, accountId, checkInputItem, isToRegist
       {/*  よろずや名 */}
       <Row className={style.marginBottom}>
         <Col>
-          <h3 className={style.title}>よろず屋名</h3>
-          <Input value={yorozuyaName} size="large" onChange={(e) => setYorozuyaName(e.target.value)} placeholder="例) モーニングコール屋" />
+          <h3 className={style.title}>インタビュイー名</h3>
+          <Input value={yorozuyaName} size="large" onChange={(e) => setYorozuyaName(e.target.value)} placeholder="例) フリーランス" />
         </Col>
       </Row>
 
@@ -104,7 +104,7 @@ const InputProfile = ({ registeredProfile, accountId, checkInputItem, isToRegist
 
       {/*  yorozuId */}
       <Row>
-        <h3 className={style.title}>よろずやのID</h3>
+        <h3 className={style.title}>InterviewアプリのID</h3>
         <Col span={18}>
           <Input value={yorozuId} size="large" onChange={(e) => setYorozuId(e.target.value)} placeholder="例) yorozu、mornig、yororo" />
         </Col>
@@ -114,19 +114,18 @@ const InputProfile = ({ registeredProfile, accountId, checkInputItem, isToRegist
       <Row className={style.marginBottom}>
         <Col>
           <div style={{ fontSize: 8, color: 'red', marginTop: 8 }}>※一度決めたら変更できません。半角文字でお願いします)</div>
-          <div style={{ fontSize: 8, color: 'red' }}>※このIDがあなたのプランのURLにもなります 例) http://yorozu/plan/●●●</div>
+          <div style={{ fontSize: 8, color: 'red' }}>※このIDがあなたのプランのURLにもなります 例) http://interview/plan/●●●</div>
         </Col>
       </Row>
 
       {/* topページに掲載されるサムネ画像 */}
       <Row className={style.marginBottom}>
-        <h3 className={style.title}>よろずやのサムネール画像</h3>
+        <h3 className={style.title}>プランのトップページサムネール画像</h3>
 
         {/* よろずやのサムネール画像 (※よろずやのtopページで表示される画像になります) */}
         <Col>
           <ImageForm image={yorozuyaThumbnailImage} setImage={setYorozuyaThumbnailImage} />
         </Col>
-        <p style={{ fontSize: 8, marginTop: 8 }}>※よろずやのtopページで表示される画像になります</p>
       </Row>
 
       {/* プロフィール説明 */}
@@ -138,7 +137,7 @@ const InputProfile = ({ registeredProfile, accountId, checkInputItem, isToRegist
             style={{ fontSize: 16 }}
             onChange={(e) => setProfileDescription(e.target.value)}
             autoSize={{ minRows: 6, maxRows: 6 }}
-            placeholder="どんなよろず屋なのか書いて見てください"
+            placeholder="どんな経験をしてきた人なのか書いて見てください"
           />
         </Col>
       </Row>
