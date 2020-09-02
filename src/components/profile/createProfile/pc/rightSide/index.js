@@ -89,11 +89,11 @@ const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister,
       {/*  よろずや名 */}
       <Row className={style.marginBottom}>
         <Col>
-          <h3 className={style.title}>よろず屋名</h3>
+          <h3 className={style.title}>インタビュイー名</h3>
           <Input
             value={yorozuyaName}
             onChange={(e) => setYorozuyaName(e.target.value)}
-            placeholder="例) サプライズ屋、モーニングコール屋、おしゃべり屋"
+            placeholder="例) エンジニア、海外暮らし, 起業経験"
           />
         </Col>
       </Row>
@@ -108,7 +108,7 @@ const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister,
 
       {/*  yorozuId */}
       <Row>
-        <h3 className={style.title}>よろずやのID</h3>
+        <h3 className={style.title}>InterviewアプリのID</h3>
         <Col span={18}>
           <Input value={yorozuId} onChange={(e) => setYorozuId(e.target.value)} placeholder="例) yorozu、mornig、yororo" />
         </Col>
@@ -118,19 +118,18 @@ const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister,
       <Row className={style.marginBottom}>
         <Col>
           <div style={{ fontSize: 8, color: 'red', marginTop: 8 }}>※一度決めたら変更できません。半角文字でお願いします)</div>
-          <div style={{ fontSize: 8, color: 'red' }}>※このIDがあなたのプランのURLにもなります 例) http://yorozu/plan/●●●</div>
+          <div style={{ fontSize: 8, color: 'red' }}>※このIDがあなたのプランのURLにもなります 例) http://interview/plan/●●●</div>
         </Col>
       </Row>
 
       {/* topページに掲載されるサムネ画像 */}
       <Row className={style.marginBottom}>
-        <h3 className={style.title}>よろずやのサムネール画像</h3>
+        <h3 className={style.title}>プランのトップページサムネール画像</h3>
 
         {/* よろずやのサムネール画像 (※よろずやのtopページで表示される画像になります) */}
         <Col>
           <ImageForm image={yorozuyaThumbnailImage} setImage={setYorozuyaThumbnailImage} />
         </Col>
-        <p style={{ fontSize: 8, marginTop: 8 }}>※よろずやのtopページで表示される画像になります</p>
       </Row>
 
       {/* プロフィール説明 */}
@@ -141,7 +140,7 @@ const RightSide = ({ registeredProfile, accountId, checkInputItem, isToRegister,
             value={profileDescription}
             onChange={(e) => setProfileDescription(e.target.value)}
             autoSize={{ minRows: 6, maxRows: 6 }}
-            placeholder="どんなよろず屋なのか書いて見てください"
+            placeholder="どんな経験をしてきた人なのか書いて見てください"
           />
         </Col>
       </Row>
