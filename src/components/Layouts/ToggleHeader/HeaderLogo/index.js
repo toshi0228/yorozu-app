@@ -17,7 +17,7 @@ const HeaderLogo = ({ resetProfileListEvent }) => {
             resetProfileListEvent()
           }}
         >
-          EdoWork
+          Interview
         </h2>
       </Link>
     </>

@@ -28,6 +28,18 @@ const ProfileListPage = (props) => {
 
   return (
     <>
+      {/* サイト説明 */}
+      <Row type="flex" justify="center">
+        <Col xs={0} md={22} lg={22} style={{ marginTop: 32 }}>
+          <h3 style={{ textAlign: 'center' }}>あなたの憧れている職業・大学・生き方の人にインタビューしよう</h3>
+          <h3 style={{ textAlign: 'center' }}>1人の人との出会いで、大きく人生が変わることがあるはず</h3>
+        </Col>
+        {/* スマホ用 */}
+        <Col xs={22} md={0} style={{ marginTop: 32 }}>
+          <p>あなたの憧れている職業・大学・生き方の人にインタビューしよう 1人の人との出会いで、大きく人生が変わることがあるはず</p>
+        </Col>
+      </Row>
+
       <Row type="flex" justify="center" className={styles.profileList}>
         {/* PC用 */}
         <Col xs={0} md={22} lg={18}>
