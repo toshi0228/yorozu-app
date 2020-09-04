@@ -41,7 +41,7 @@ const ProfileDetailPage = (props) => {
   return (
     <>
       <Row>
-        <Col xs={0} md={0} lg={24} offset={3} style={{ marginTop: 32 }}>
+        <Col xs={0} md={0} lg={18} offset={3} style={{ marginTop: 32 }}>
           <h2>詳細ページ</h2>
         </Col>
         {/* ipad用 */}
