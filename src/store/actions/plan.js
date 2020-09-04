@@ -173,3 +173,9 @@ export const finReadUpdatePlan = () => {
     type: FIN_READ_UPDATE_PLAN_EVENT,
   }
 }
+
+export const deletePlan = (planId) => (dispatch) => {
+  console.log('プランの削除アクション')
+  console.log(planId)
+  // return 'プランの削除'
+}

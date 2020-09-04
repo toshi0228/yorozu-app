@@ -19,7 +19,7 @@ const ManagementTopPage = (props) => {
       {/* タイトル */}
       <Row type="flex" justify="start">
         {/* pc用 */}
-        <Col xs={0} md={0} lg={24} offset={3} style={{ marginTop: 48 }}>
+        <Col xs={0} md={0} lg={18} offset={3} style={{ marginTop: 48 }}>
           <h2>マイページ</h2>
         </Col>
         {/* ipad用 */}
