@@ -10,6 +10,7 @@ import {
   RESET_PROFILE_LIST_EVENT,
   READ_PROFILE_ITEM_EVENT,
   UPDATE_PROFILE_EVENT,
+  DELETE_PLAN_EVENT,
   FIN_UPDATE_PROFILE_EVENT,
   CHECK_INPUT_ITEM_EVENT,
   FIN_REGISTER_PROFILE_EVENT,
@@ -79,8 +80,6 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
     // よろず屋(profile)の検索
     // =========================================================================================
     case SEARCH_PROFILE_EVENT:
-      console.log('SEARCH_PROFILE_EVENT')
-
       if (action.payload.data === '検索条件にマッチしたものがありませんでした') {
         return { ...state, profileList: [] }
       }
@@ -177,6 +176,23 @@ const profileReducer = (state = DEFAULT_STATE, action) => {
       }
 
       return state
+
+    // =========================================================================================
+    // プランの削除 プランがプロフィールに紐づいているので、profileReducerから行う。
+    // =========================================================================================
+    case DELETE_PLAN_EVENT:
+      // action.payloadにプランIDが入っているので、登録してあるプランリストから,削除プランを削除する
+      const afterPlanList = state.profileDetail.planList.filter((plan) => {
+        return plan.id !== action.payload
+      })
+      state.profileDetail.planList = afterPlanList
+
+      notification.open({
+        message: 'プランの削除ができました',
+        description: 'プレビューを確認してみてくださいね',
+        icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      })
+      return { ...state }
 
     // =========================================================================================
     // プロフィールの登録完了  isToRegisterを true から false にする

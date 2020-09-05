@@ -5,15 +5,17 @@ import {
   UPDATE_PLAN_EVENT,
   FIN_READ_UPDATE_PLAN_EVENT,
   READY_CREATE_PLAN_EVENT,
+  DELETE_PLAN_EVENT,
 } from '../actionTypes'
 // import { READ_PLAN_EVENTS, CREATE_PLAN_EVENT, CHECK_INPUT_PLAN_ITEM_EVENT } from '../actionTypes'
-import { postPlan, getProfileDetail, patchPlan, patchPlanImage, patchPlanTag } from '../../services/ApiRequest'
+import { postPlan, getProfileDetail, patchPlan, patchPlanImage, patchPlanTag, deletePlan } from '../../services/ApiRequest'
 import { readProfile } from './profile'
 
 // ======================================================================
 // プラン登録
 // ======================================================================
 export const createPlan = (plan) => (dispatch) => {
+  console.log('プラン登録のアクションが動いた')
   const formData = new FormData()
   // サーバーサイドのシリアライザと同じ名前にしないといけない
   // 第3引数は、Content-Dispositionヘッダに含めるファイル名を渡すことができる
@@ -174,8 +176,18 @@ export const finReadUpdatePlan = () => {
   }
 }
 
-export const deletePlan = (planId) => (dispatch) => {
-  console.log('プランの削除アクション')
-  console.log(planId)
-  // return 'プランの削除'
+// ======================================================================
+// プランを削除するアクション
+// ======================================================================
+export const removePlan = (planId) => (dispatch) => {
+  deletePlan(planId).then((res) => {
+    dispatch(remove(planId))
+  })
+}
+
+export const remove = (planId) => {
+  return {
+    type: DELETE_PLAN_EVENT,
+    payload: planId,
+  }
 }
