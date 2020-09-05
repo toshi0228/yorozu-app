@@ -33,6 +33,8 @@ export const EDIT_PLAN_ITEM_EVENT = 'EDIT_PLAN_ITEM_EVENT'
 export const UPDATE_PLAN_EVENT = 'UPDATE_PLAN_EVENT'
 // 更新したプラン(実際,createPlanPageでprofileを取得する)を取得したら、isUpdatePlan: falseにする
 export const FIN_READ_UPDATE_PLAN_EVENT = 'FIN_READ_UPDATE_PLAN_EVENT'
+// プランの削除
+export const DELETE_PLAN_EVENT = 'DELETE_PLAN_EVENT'
 
 // ============================================================
 // Tag

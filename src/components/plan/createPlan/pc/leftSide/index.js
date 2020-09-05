@@ -5,7 +5,7 @@ import { Button, Col, Row, Popconfirm } from 'antd'
 import styles from './index.module.scss'
 
 // action
-import { readEditPlan, readyCreatePlan, deletePlan } from '../../../../../store/actions/plan'
+import { readEditPlan, readyCreatePlan, removePlan } from '../../../../../store/actions/plan'
 
 // ======================================================================
 // 新規で登録するプランリストがここに入る
@@ -96,7 +96,7 @@ const mapDispatchToProps = (dispatch) => ({
   // 新規登録の作業なので、右側の入力項目を空白にする
   readyCreatePlanEvent: () => dispatch(readyCreatePlan()),
   // プランを削除する
-  deletePlanEvent: (planId) => dispatch(deletePlan(planId)),
+  deletePlanEvent: (planId) => dispatch(removePlan(planId)),
 })
 
 export default connect(null, mapDispatchToProps)(RegisteredPlanList)
