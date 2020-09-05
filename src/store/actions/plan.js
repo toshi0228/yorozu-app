@@ -15,7 +15,11 @@ import { readProfile } from './profile'
 // プラン登録
 // ======================================================================
 export const createPlan = (plan) => (dispatch) => {
-  console.log('プラン登録のアクションが動いた')
+  // plan.titleがないのに、actionが呼ばれることがあるので、タイトルがなければリターンする
+  if (plan.title === '') {
+    return
+  }
+
   const formData = new FormData()
   // サーバーサイドのシリアライザと同じ名前にしないといけない
   // 第3引数は、Content-Dispositionヘッダに含めるファイル名を渡すことができる

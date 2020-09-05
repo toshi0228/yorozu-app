@@ -59,8 +59,8 @@ const InputPlanItem = ({
   }
 
   // ======================================================================
-  // checkInputItemEventでクリアしたら, isToRegisterが
-  // falseからtrueになるので、プラン登録を行う
+  // checkInputItemEventでクリアしたら, isToRegister(プラン登録の準備ができているか？)
+  // がfalseからtrueになるので、プラン登録を行う
   // ======================================================================
 
   if (isToRegister) {
