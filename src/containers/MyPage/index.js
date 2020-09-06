@@ -27,7 +27,7 @@ const ManagementTopPage = (props) => {
           <h2>マイページ</h2>
         </Col>
         {/* モバイル用 */}
-        <Col xs={24} md={0} offset={1} style={{ marginTop: 16 }}>
+        <Col xs={22} md={0} offset={1} style={{ marginTop: 16 }}>
           <h3>マイページ</h3>
         </Col>
       </Row>
