@@ -58,6 +58,7 @@ const ConsultationButton = (props) => {
         </p>
         <Input.TextArea
           autoSize={{ minRows: 10, maxRows: 12 }}
+          style={{ fontSize: 16 }}
           placeholder="もう少し具体的にどんなことをするか教えてください！"
           onChange={(e) => setModalInputText(e.target.value)}
         />
