@@ -20,9 +20,6 @@ import { feachPurchasersList } from '../../store/actions/planContract'
 // ========================================================================
 
 const MessagePage = (props) => {
-  // console.log('MessagePage')
-  // console.log(props.messageTableList)
-
   useEffect(() => {
     // 自分あてに送られたメッセージを取得する
     props.readMessageEvents(props.authToken)
@@ -57,7 +54,7 @@ const MessagePage = (props) => {
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">
               {/* <MessageTable recieveMessage={props.recieveMessage} /> */}
-              <MessageTable recieveMessage={props.messageTableList} />
+              <MessageTable topMessageList={props.messageTableList} />
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}

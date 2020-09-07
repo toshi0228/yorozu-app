@@ -151,12 +151,9 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     // 自分が送信したメッセージリストの処理
     // ==========================================================
     case READ_MY_SEND_MESSAGE_EVENTS:
-      console.log('自分が送信したメッセージ')
-      console.log(action.payload.data)
-
       // 自分でメッセージを送信していない時の処理 (#action.payload.data[0].senderProfile.profileImageでエラーになる)
       if (action.payload.data.length === 0) {
-        return { ...state, senderMessage: action.payload.data, senderProfileImage: '' }
+        return { ...state, senderMessage: action.payload.data, senderProfileImage: '', isloadedSenderMessage: true }
       }
 
       // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
@@ -176,8 +173,6 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     // メッセージのトップページで、送信したメッセージと受信したメッセージ一覧を表示させるためのアクション
     // ==========================================================
     case READ_TOPPAGE_MESSAGE_LIST_EVENT:
-      console.log('READ_TOPPAGE_MESSAGE_LIST_EVENT きた')
-
       // 送信したメッセージと受信したメッセージを最新順にソートしてくれる
       const messageTableList = sortMessage(state.rowDataRecieveMessage, state.rowDataSenderMessage)
 

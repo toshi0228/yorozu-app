@@ -18,17 +18,16 @@ const RightSide = (props) => {
     const userData = {
       profileImage: (
         // プロフィールイメージを押した時に、メッセージルームの内容が変化するようにする
-        // <Link to={`/message/rooms/${user.senderYorozuId}`} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
-        <Link to={routes.createMessage(user.senderYorozuId)} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
+        <Link to={routes.createMessage(user.yorozuId)} onClick={() => props.readRoomMessageEvents(user.yorozuId)}>
           <Badge>
-            <Avatar src={user.senderProfile.profileImage} />
+            <Avatar src={user.profile.profileImage} />
           </Badge>
         </Link>
       ),
       user: (
         // ユーザー名を押した時に、メッセージルームの内容が変化するようにする
-        <Link to={routes.createMessage(user.senderYorozuId)} onClick={() => props.readRoomMessageEvents(user.senderYorozuId)}>
-          {user.senderProfile.nickname}{' '}
+        <Link to={routes.createMessage(user.yorozuId)} onClick={() => props.readRoomMessageEvents(user.yorozuId)}>
+          {user.profile.nickname}
         </Link>
       ),
       key: index,
@@ -47,7 +46,7 @@ const RightSide = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  userList: state.message.recieveMessage,
+  userList: state.message.messageTableList,
 })
 
 const mapDispatchToProps = (dispatch) => ({

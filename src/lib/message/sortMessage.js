@@ -12,9 +12,9 @@ export const sortMessage = (receiveMessage, sendMessage) => {
   const recieveMessageList = receiveMessage.map((message) => {
     const _message = {
       id: message.id,
-      user: message.senderYorozuId,
+      yorozuId: message.senderYorozuId,
       messageContent: message.messageContent,
-      senderProfile: message.senderProfile,
+      profile: message.senderProfile,
       unread: message.unread,
       createdAt: message.createdAt,
     }
@@ -24,10 +24,11 @@ export const sortMessage = (receiveMessage, sendMessage) => {
   const sendMessageList = sendMessage.map((message) => {
     const _message = {
       id: message.id,
-      user: message.receiverYorozuId,
+      yorozuId: message.receiverYorozuId,
       messageContent: message.messageContent,
-      senderProfile: message.senderProfile,
-      unread: message.unread,
+      profile: message.receiverProfile,
+      // 自分が送信したメッセージは常に既読にするためfalse
+      unread: false,
       createdAt: message.createdAt,
     }
     return _message
@@ -49,7 +50,7 @@ export const sortMessage = (receiveMessage, sendMessage) => {
 
   // メッセージ作成タブの右サイドのユーザーリストを作成する
   const userList = _.map(processingMessageList, (message) => {
-    return message.user
+    return message.yorozuId
   })
 
   // ユーザーリストから、重複をなくす ["のびた", "しずかちゃん", "のびた"] -> ["のびた", "しずかちゃん"]
@@ -59,7 +60,7 @@ export const sortMessage = (receiveMessage, sendMessage) => {
   const _processingMessageList = []
   _userList.forEach((user) => {
     const newMessage = _.find(processingMessageList, (message) => {
-      return _.includes(message.user, user)
+      return _.includes(message.yorozuId, user)
     })
     _processingMessageList.push(newMessage)
   })
