@@ -4,15 +4,31 @@ import {
   SEND_MESSAGE_EVENT,
   READ_MY_SEND_MESSAGE_EVENTS,
   READ_MESSAGE_ROOM_USER_YOROZUID_EVENT,
+  READ_TOPPAGE_MESSAGE_LIST_EVENT,
 } from '../actionTypes'
 import _ from 'lodash'
 
+import { sortMessage } from '../../lib/message/sortMessage'
+
 const DEFAULT_STATE = {
+  // 受信したメッセージ データを加工するのでrowDataを残す
   recieveMessage: [],
   rowDataRecieveMessage: [],
+  // 受信したメッセージを取得したらtrue
+  isloadedRecieveMessage: false,
+
+  // 送信したメッセージ
   senderMessage: [],
   rowDataSenderMessage: [],
+  // 送信したメッセージを取得したらtrue
+  isloadedSenderMessage: false,
+
+  // メッセージテーブルのページで表示させるトークルームリスト
+  messageTableList: [],
+
+  // トークルームに移動した時に使うリスト
   roomMessage: [],
+
   senderProfileImage: '',
   // MessageRoomUser -> 誰に送信するか
   messageRoomUser: '',
@@ -26,7 +42,7 @@ const DEFAULT_STATE = {
 const messageReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     // ==========================================================
-    // 自分宛に届いた全てのメッセージの処理
+    // 自分宛に届いたメッセージ
     // ==========================================================
     case READ_MESSAGE_EVENTS:
       // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
@@ -56,7 +72,7 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
         _recieveMessageList.push(newMessage)
       })
 
-      return { ...state, recieveMessage: _recieveMessageList, rowDataRecieveMessage: rowDataRecieveMessage }
+      return { ...state, recieveMessage: _recieveMessageList, rowDataRecieveMessage: rowDataRecieveMessage, isloadedRecieveMessage: true }
 
     // ==========================================================
     // /message/rooms/●●●/のパスに来た時に、この●●●のyorozuIdを取得する
@@ -137,7 +153,7 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     case READ_MY_SEND_MESSAGE_EVENTS:
       // 自分でメッセージを送信していない時の処理 (#action.payload.data[0].senderProfile.profileImageでエラーになる)
       if (action.payload.data.length === 0) {
-        return { ...state, senderMessage: action.payload.data, senderProfileImage: '' }
+        return { ...state, senderMessage: action.payload.data, senderProfileImage: '', isloadedSenderMessage: true }
       }
 
       // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
@@ -149,7 +165,21 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
         senderMessage: action.payload.data,
         senderProfileImage: senderProfileImage,
         rowDataSenderMessage: rowDataSenderMessage,
+        isloadedSenderMessage: true,
       }
+
+    // ==========================================================
+    // 送信したメッセージと受信したメッセージを読み込み終わった時に行う処理
+    // メッセージのトップページで、送信したメッセージと受信したメッセージ一覧を表示させるためのアクション
+    // ==========================================================
+    case READ_TOPPAGE_MESSAGE_LIST_EVENT:
+      // 送信したメッセージと受信したメッセージを最新順にソートしてくれる
+      const messageTableList = sortMessage(state.rowDataRecieveMessage, state.rowDataSenderMessage)
+
+      // isloadedSenderMessageとisloadedRecieveMessageをfalseしないと永遠に取得するので、falseにする
+
+      return { ...state, messageTableList: messageTableList, isloadedSenderMessage: false, isloadedRecieveMessage: false }
+    // return { ...state, messageTableList: messageTableList }
 
     // ==========================================================
     // メッセージの送信したときの処理

@@ -30,7 +30,7 @@ const MobileMessageTable = (props) => {
   const unreadMessageList = []
 
   // メッセージデータのリストを取り出す
-  props.recieveMessage.forEach((message, index) => {
+  props.topMessageList.forEach((message, index) => {
     // 未読のメッセージを抽出する
     if (message.unread) {
       unreadMessageList.push(message)
@@ -40,12 +40,12 @@ const MobileMessageTable = (props) => {
     const messageText = message.messageContent.length > 20 ? message.messageContent.slice(0, 40) + '…' : message.messageContent
     const oneMessageData = {
       messageData: message,
-      profileImage: message.senderProfile.profileImage,
-      title: message.senderProfile.nickname,
+      profileImage: message.profile.profileImage,
+      title: message.profile.nickname,
       day: message.createdAt.split('T')[0],
       messageContent: messageText,
       unread: message.unread,
-      senderYorozuId: message.senderYorozuId,
+      yorozuId: message.yorozuId,
       key: index,
     }
     data.push(oneMessageData)
@@ -65,21 +65,21 @@ const MobileMessageTable = (props) => {
           <List.Item>
             <List.Item.Meta
               avatar={
-                <Link to={routes.createMessage(item.senderYorozuId)}>
+                <Link to={routes.createMessage(item.yorozuId)}>
                   <Badge dot={item.unread} onClick={() => read(item.messageData)}>
                     <Avatar src={item.profileImage} />
                   </Badge>
                 </Link>
               }
               title={
-                <Link to={routes.createMessage(item.senderYorozuId)}>
+                <Link to={routes.createMessage(item.yorozuId)}>
                   <Row type="flex" justify="space-between">
                     <Col>{item.title}</Col>
                     <Col style={{ fontSize: 10 }}>{item.day}</Col>
                   </Row>
                 </Link>
               }
-              description={<Link to={routes.createMessage(item.senderYorozuId)}>{item.messageContent}</Link>}
+              description={<Link to={routes.createMessage(item.yorozuId)}>{item.messageContent}</Link>}
             />
           </List.Item>
         )}

@@ -78,7 +78,9 @@ export const READ_MY_SEND_MESSAGE_EVENTS = 'READ_MY_SEND_MESSAGE_EVENTS'
 // メッセージルームでメールを送信した時の処理
 export const SEND_MESSAGE_EVENT = 'SEND_MESSAGE_EVENT'
 // /message/rooms/●●●/のパスに来た時に、この●●●のyorozuIdを取得する
-export const READ_MESSAGE_ROOM_USER_YOROZUID_EVENT = 'READ_MESSAGE_ROOM_USER_YOROZUID_EVENT  '
+export const READ_MESSAGE_ROOM_USER_YOROZUID_EVENT = 'READ_MESSAGE_ROOM_USER_YOROZUID_EVENT'
+// 送信したメッセージと受信したメッセージを読み込み終わった時に行う処理
+export const READ_TOPPAGE_MESSAGE_LIST_EVENT = 'READ_TOPPAGE_MESSAGE_LIST_EVENT'
 
 // ============================================================
 // review

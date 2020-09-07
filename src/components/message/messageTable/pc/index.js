@@ -30,7 +30,7 @@ const MessageTable = (props) => {
   const unreadMessageList = []
 
   // メッセージデータのリストを取り出す
-  props.recieveMessage.forEach((message, index) => {
+  props.topMessageList.forEach((message, index) => {
     // 未読のメッセージを抽出する
     if (message.unread) {
       unreadMessageList.push(message)
@@ -40,24 +40,24 @@ const MessageTable = (props) => {
     const messageText = message.messageContent.length > 20 ? message.messageContent.slice(0, 40) + '…' : message.messageContent
     const oneMessageData = {
       profileImage: (
-        <Link to={routes.createMessage(message.senderYorozuId)}>
+        <Link to={routes.createMessage(message.yorozuId)}>
           <Badge dot={message.unread} onClick={() => read(message)}>
-            <Avatar src={message.senderProfile.profileImage} />
+            <Avatar src={message.profile.profileImage} />
           </Badge>
         </Link>
       ),
       user: (
-        <Link to={routes.createMessage(message.senderYorozuId)} onClick={() => read(message)}>
-          {message.senderProfile.nickname}
+        <Link to={routes.createMessage(message.yorozuId)} onClick={() => read(message)}>
+          {message.profile.nickname}
         </Link>
       ),
       day: (
-        <Link to={routes.createMessage(message.senderYorozuId)} onClick={() => read(message)}>
+        <Link to={routes.createMessage(message.yorozuId)} onClick={() => read(message)}>
           {message.createdAt.split('T')[0]}
         </Link>
       ),
       messageContent: (
-        <Link to={routes.createMessage(message.senderYorozuId)} onClick={() => read(message)}>
+        <Link to={routes.createMessage(message.yorozuId)} onClick={() => read(message)}>
           {messageText}
         </Link>
       ),

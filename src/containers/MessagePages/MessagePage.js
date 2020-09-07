@@ -1,4 +1,4 @@
-import React, { useEffect, Component } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Tabs } from 'antd'
 
@@ -12,7 +12,7 @@ import MobileMessageTable from '../../components/message/messageTable/mobile/ind
 import MobileMessageSendTab from '../../components/message/messageSendTab/mobile'
 
 // action
-import { feachMessageList, feachSendMessageList } from '../../store/actions/message'
+import { feachMessageList, feachSendMessageList, readTopPageMessage } from '../../store/actions/message'
 import { feachPurchasersList } from '../../store/actions/planContract'
 
 // ========================================================================
@@ -29,6 +29,11 @@ const MessagePage = (props) => {
     props.readPurchasersEvent(props.authToken)
   }, [])
 
+  // 受信したメッセージと送信したメッセージを読み込んだら
+  // 受信・送信メッセージの一覧をページに表示する
+  if (props.isloadedRecieveMessage === true && props.isloadedSenderMessage === true) {
+    props.readMessageListEvent()
+  }
   return (
     <>
       {/* タイトル */}
@@ -48,7 +53,8 @@ const MessagePage = (props) => {
           <Tabs type="card" defaultActiveKey="1">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="メッセージ一覧" key="1">
-              <MessageTable recieveMessage={props.recieveMessage} />
+              {/* <MessageTable recieveMessage={props.recieveMessage} /> */}
+              <MessageTable topMessageList={props.messageTableList} />
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}
@@ -65,7 +71,7 @@ const MessagePage = (props) => {
           <Tabs defaultActiveKey="1" size="small">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="受信" key="1">
-              <MobileMessageTable recieveMessage={props.recieveMessage} />
+              <MobileMessageTable topMessageList={props.messageTableList} />
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}
@@ -81,7 +87,12 @@ const MessagePage = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  recieveMessage: state.message.recieveMessage,
+  // 自分が受け取ったメッセージをfeachしたらtrueになる
+  isloadedRecieveMessage: state.message.isloadedRecieveMessage,
+  // 自分が送信したメッセージをfeachしたらtrueになる
+  isloadedSenderMessage: state.message.isloadedSenderMessage,
+  // メッセージリスト
+  messageTableList: state.message.messageTableList,
   authToken: state.account.authToken.access,
 })
 
@@ -93,6 +104,8 @@ const mapDispatchToProps = (dispatch) => ({
   // 自分宛に届いたプランリクエスト一覧を取得する(契約済みのプランも入る)
   // ※ここで取得しておかないと、メッセージルームページに移動した時に、承認アラートのところでエラーになる
   readPurchasersEvent: (authToken) => dispatch(feachPurchasersList(authToken)),
+  // メッセージのトップページに表示させる送信・受信のメッセージ一覧を取得する
+  readMessageListEvent: () => dispatch(readTopPageMessage()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessagePage)
