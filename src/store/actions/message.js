@@ -5,6 +5,7 @@ import {
   READ_MY_SEND_MESSAGE_EVENTS,
   SEND_MESSAGE_EVENT,
   READ_MESSAGE_ROOM_USER_YOROZUID_EVENT,
+  READ_TOPPAGE_MESSAGE_LIST_EVENT,
 } from '../actionTypes'
 
 // =================================================================================
@@ -100,4 +101,15 @@ export const alreadyRead = (message) => (dispatch) => {
   // createAtがreactで加工されたデータで、そのまま送るとエラーになるので、idと上書きするunread:falseだけにする
   const _message = { id: message['id'], unread: false }
   patchMessage(_message)
+}
+
+// =================================================================================
+// 送信したメッセージと受信したメッセージを取得した後に行うaction
+// メッセージのトップページで、送信したメッセージと受信したメッセージ一覧を表示させるためのアクション
+// =================================================================================
+
+export const readTopPageMessage = () => {
+  return {
+    type: READ_TOPPAGE_MESSAGE_LIST_EVENT,
+  }
 }
