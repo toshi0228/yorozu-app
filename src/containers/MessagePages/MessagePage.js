@@ -71,7 +71,7 @@ const MessagePage = (props) => {
           <Tabs defaultActiveKey="1" size="small">
             {/* メッセージリストのタブ */}
             <Tabs.TabPane tab="受信" key="1">
-              <MobileMessageTable recieveMessage={props.recieveMessage} />
+              <MobileMessageTable topMessageList={props.messageTableList} />
             </Tabs.TabPane>
 
             {/* メッセージ作成ページのタブ */}
@@ -87,10 +87,9 @@ const MessagePage = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  // 受信箱にあるメッセージ
-  recieveMessage: state.message.recieveMessage,
+  // 自分が受け取ったメッセージをfeachしたらtrueになる
   isloadedRecieveMessage: state.message.isloadedRecieveMessage,
-  // 自分が送信したメッセージ
+  // 自分が送信したメッセージをfeachしたらtrueになる
   isloadedSenderMessage: state.message.isloadedSenderMessage,
   // メッセージリスト
   messageTableList: state.message.messageTableList,
