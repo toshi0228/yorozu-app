@@ -18,8 +18,10 @@ const LeftSide = (props) => {
   const [isPlanRequest, setIsPlanRequest] = useState(false)
   const data = []
 
-  // 送信者のメッセージルームに合わせて,メッセージ内容を変える
+  // 送信者のメッセージルーム(トークルーム)に合わせて,メッセージ内容を変える
   props.roomMessage.forEach((message, index) => {
+    // console.log(message)
+
     const messageObj = {
       author: message.senderProfile.nickname,
       avatar: message.senderProfile.profileImage,
