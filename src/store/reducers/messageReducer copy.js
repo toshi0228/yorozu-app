@@ -15,11 +15,13 @@ import { sortTalkRoomMessage } from '../../lib/message/sortTalkRoomMessage'
 
 const DEFAULT_STATE = {
   // 受信したメッセージ データを加工するのでrowDataを残す
+  recieveMessage: [],
   rowDataRecieveMessage: [],
   // 受信したメッセージを取得したらtrue
   isloadedRecieveMessage: false,
 
   // 送信したメッセージ
+  senderMessage: [],
   rowDataSenderMessage: [],
   // 送信したメッセージを取得したらtrue
   isloadedSenderMessage: false,
@@ -43,12 +45,37 @@ const DEFAULT_STATE = {
 const messageReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     // ==========================================================
-    // 自分宛に届いたメッセージを取得した時の処理
+    // 自分宛に届いたメッセージ
     // ==========================================================
     case READ_MESSAGE_EVENTS:
-      const recieveMessageList = action.payload.data
+      // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
+      const rowDataRecieveMessage = _.cloneDeep(action.payload.data)
+      // 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23
+      const recieveMessageList = action.payload.data.map((message) => {
+        message['createdAt'] = message.createdAt.split('T')[0]
+        const time = message['createdAt'].split('-')
+        message['createdAt'] = `${time[0]}年${time[1]}月${time[2]}`
+        return message
+      })
 
-      return { ...state, rowDataRecieveMessage: recieveMessageList, isloadedRecieveMessage: true }
+      // メッセージ作成タブの右サイドのユーザーリストを作成する
+      const userList = _.map(recieveMessageList, (message) => {
+        return message.senderProfile.nickname
+      })
+
+      // ユーザーリストから、重複をなくす ["のびた", "しずかちゃん", "のびた"] -> ["のびた", "しずかちゃん"]
+      const _userList = _.union(userList)
+
+      // ["のびた", "しずかちゃん"]から、ユーザーごとの最新のメッセージを取り出す
+      const _recieveMessageList = []
+      _userList.forEach((user) => {
+        const newMessage = _.find(recieveMessageList, (message) => {
+          return _.includes(message.senderProfile.nickname, user)
+        })
+        _recieveMessageList.push(newMessage)
+      })
+
+      return { ...state, recieveMessage: _recieveMessageList, rowDataRecieveMessage: rowDataRecieveMessage, isloadedRecieveMessage: true }
 
     // ==========================================================
     // /message/rooms/●●●/のパスに来た時に、この●●●のyorozuIdを取得する
@@ -60,16 +87,17 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
     // ルームページ(トークルーム)ごとに、メッセージを呼び出すときの処理
     // ==========================================================
     case READ_ROOMMESSAGE_EVENTS:
-      // // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使うため)
+      console.log('sortTalkRoomMessage ')
+
+      // // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
       const _rowDataRecieveMessage = _.cloneDeep(state.rowDataRecieveMessage)
       const _rowDataSenderMessage = _.cloneDeep(state.rowDataSenderMessage)
 
+      // action.payloadはyorozuIdが入っている
       // メッセージルームID(urlの一番最後(yozozo))は、送信者のyozozuIDでaction.payloadには、
       // 送信者のyozozuIDが入っている ex) http://localhost:3000/message/rooms/yozozo
-      const yorozuId = action.payload
-
       // const talkRoomInfo = sortTalkRoomMessage(state.rowDataRecieveMessage, state.rowDataSenderMessage, action.payload)
-      const talkRoomInfo = sortTalkRoomMessage(_rowDataRecieveMessage, _rowDataSenderMessage, yorozuId)
+      const talkRoomInfo = sortTalkRoomMessage(_rowDataRecieveMessage, _rowDataSenderMessage, action.payload)
 
       // sortTalkRoomMessage()でreturn されるもの
       // const talkRoomInfo = {
@@ -83,24 +111,91 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
         roomMessage: talkRoomInfo['messageList'],
         messageRoomUser: talkRoomInfo['userNickname'],
         roomUserYorozuId: talkRoomInfo['yorozuId'],
+        // rowDataRecieveMessage: _rowDataRecieveMessage,
+        // rowDataSenderMessage: _rowDataSenderMessage,
       }
 
+    // const roomMessage = []
+    // const messageRoomUser = []
+    // const roomUserYorozuId = []
+
+    // // メッセージルームID(urlの一番最後(yozozo))は、送信者のyozozuIDでaction.payloadには、
+    // // 送信者のyozozuIDが入っている ex) http://localhost:3000/message/rooms/yozozo
+    // const roomMessageId = action.payload
+
+    // // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
+    // const _rowDataRecieveMessage = _.cloneDeep(state.rowDataRecieveMessage)
+    // const _rowDataSenderMessage = _.cloneDeep(state.rowDataSenderMessage)
+
+    // // 自分あてに送信してくれた人のメッセージリストから、トークルームのIDと送信者のyorozuIdが同じメッセージを抽出する
+    // _.map(state.rowDataRecieveMessage, (message) => {
+    //   if (roomMessageId === message.senderYorozuId) {
+    //     roomMessage.push(message)
+    //     // ルームユーザのニックネームを抽出する
+    //     messageRoomUser.push(message.senderProfile.nickname)
+    //     // ルームユーザーのyorozuIdを抽出する
+    //     roomUserYorozuId.push(message.senderYorozuId)
+    //   }
+    // })
+
+    // // 自分が送信したメッセージリストから、トークルームのIDと受信者のyorozuIdが同じメッセージを抽出する
+    // _.map(state.rowDataSenderMessage, (message) => {
+    //   if (roomMessageId === message.receiverYorozuId) {
+    //     roomMessage.push(message)
+    //   }
+    // })
+
+    // // pushの注意
+    // // state.roomMessage.push(message)見たな感じで直接pushは上手く行かない
+    // // 参照に関しての問題がおこる
+
+    // // ルームの中のメッセージをソートする
+    // const sortRoomMessage = [...roomMessage].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+
+    // // 作成日の加工 "2020-05-24T14:46:01.945895+09:00" -> 2020年10月23 16:27
+    // sortRoomMessage.map((message) => {
+    //   // 1度作成日を加工した場合、2回目はエラーになるので、try,catchを行う
+    //   try {
+    //     const day = message['createdAt'].split('T')[0]
+    //     const time = message['createdAt'].split('T')[1]
+    //     const _time = time.split(':')
+    //     const _day = day.split('-')
+    //     message['createdAt'] = `${_day[0]}年${_day[1]}月${_day[2]} ${_time[0]}:${_time[1]}`
+    //     return message
+    //   } catch {
+    //     // 加工されているものは、そのまま返す
+    //     return { ...state, roomMessage: sortRoomMessage, messageRoomUser: messageRoomUser[0], roomUserYorozuId: roomUserYorozuId[0] }
+    //   }
+    // })
+
+    // tryのなかで、加工されたら加工済みの値を返す
+    // return {
+    //   ...state,
+    //   roomMessage: sortRoomMessage,
+    //   messageRoomUser: messageRoomUser[0],
+    //   roomUserYorozuId: roomUserYorozuId[0],
+    //   rowDataRecieveMessage: _rowDataRecieveMessage,
+    //   rowDataSenderMessage: _rowDataSenderMessage,
+    // }
+
     // ==========================================================
-    // 自分が送信したメッセージリストを取得した時の処理
+    // 自分が送信したメッセージリストの処理
     // ==========================================================
     case READ_MY_SEND_MESSAGE_EVENTS:
-      const sentMessagelist = action.payload.data
-
       // 自分でメッセージを送信していない時の処理 (#action.payload.data[0].senderProfile.profileImageでエラーになる)
-      if (sentMessagelist.length === 0) {
-        return { ...state, senderMessage: sentMessagelist, senderProfileImage: '', isloadedSenderMessage: true }
+      if (action.payload.data.length === 0) {
+        return { ...state, senderMessage: action.payload.data, senderProfileImage: '', isloadedSenderMessage: true }
       }
 
-      const senderProfileImage = sentMessagelist[0].senderProfile.profileImage
+      // 未加工のデータを残しておく(ルームメッセージの時に、日にちのソートで使う)
+      const rowDataSenderMessage = _.cloneDeep(action.payload.data)
+
+      const senderProfileImage = action.payload.data[0].senderProfile.profileImage
       return {
         ...state,
-        rowDataSenderMessage: sentMessagelist,
+        senderMessage: action.payload.data,
         senderProfileImage: senderProfileImage,
+        rowDataSenderMessage: rowDataSenderMessage,
         isloadedSenderMessage: true,
       }
 
@@ -116,7 +211,7 @@ const messageReducer = (state = DEFAULT_STATE, action) => {
       return { ...state, messageTableList: messageTableList, isloadedSenderMessage: false, isloadedRecieveMessage: false }
 
     // ==========================================================
-    // メッセージの送信をしたときの処理
+    // メッセージの送信したときの処理
     // ==========================================================
     case SEND_MESSAGE_EVENT:
       // action.payloadには、自分が送信した新しいメッセージが入っているので、既存のデータに追加する

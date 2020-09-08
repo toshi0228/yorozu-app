@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-import { Row, Col, Table, Avatar, Badge, List } from 'antd'
+import { Row, Col, Avatar, Badge, List } from 'antd'
 import { Link } from 'react-router-dom'
 import routes from '../../../../routes'
 
@@ -15,9 +15,8 @@ const MobileMessageTable = (props) => {
   // メッセージを確認した時の処理
   // message.unreadがtrueの場合は、未読の状態なので、既読の処理をする
   const read = (message) => {
+    // messageの中身
     // {id: "20a27755-b4ee-4a69-bab6-c8f520533252", senderYorozuId: "shizuka", receiverYorozuId: "nobita", messageContent: "こんにちは！", senderProfile: {…}, …}
-    console.log('呼ばれた')
-    console.log(message)
     if (message.unread) {
       props.alreadyReadEvent(message)
     }

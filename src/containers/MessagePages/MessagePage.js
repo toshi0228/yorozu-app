@@ -91,7 +91,7 @@ const mapStateToProps = (state) => ({
   isloadedRecieveMessage: state.message.isloadedRecieveMessage,
   // 自分が送信したメッセージをfeachしたらtrueになる
   isloadedSenderMessage: state.message.isloadedSenderMessage,
-  // メッセージリスト
+  // 送信、受信のメッセージリスト
   messageTableList: state.message.messageTableList,
   authToken: state.account.authToken.access,
 })
