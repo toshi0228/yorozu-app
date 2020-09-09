@@ -57,16 +57,10 @@ const MessageRoom = (props) => {
     props.checkPurchasePlanEvent(props.roomUserYorozuId)
   }, [props.messageRoomUser, props.purchasersList])
 
-  return (
-    <>
-      <Row type="flex" style={{ marginTop: 10, paddingTop: 8 }}>
-        {/* <Col span={24}>{`${props.messageRoomUser}にメッセージを送ります`}</Col> */}
-        <Col span={24}>{explanation}</Col>
-      </Row>
-
-      {/* プランリクエストがきた場合のアラート */}
-      {/* isPlanRequestが, trueの時だけコンポーネントが表示される */}
-      {props.isPlanRequest && (
+  // プランリクエストがきた場合のアラート
+  const toggleRequestAlert = () => {
+    if (props.isPlanRequest === true && props.clientPurchasePlan.isApproval === false) {
+      return (
         <Row style={{ marginTop: 8 }}>
           <Col span={24}>
             <div style={{ color: 'red', fontSize: 10 }}>
@@ -78,7 +72,19 @@ const MessageRoom = (props) => {
             </div>
           </Col>
         </Row>
-      )}
+      )
+    }
+  }
+
+  return (
+    <>
+      <Row type="flex" style={{ marginTop: 10, paddingTop: 8 }}>
+        {/* <Col span={24}>{`${props.messageRoomUser}にメッセージを送ります`}</Col> */}
+        <Col span={24}>{explanation}</Col>
+      </Row>
+
+      {/* プランリクエストがきた時のアラート */}
+      {toggleRequestAlert()}
 
       {/* メッセージフォーム */}
       <Row>
