@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Row, Col } from 'antd'
 import RightSide from './rightSide'
 import LeftSide from './leftSide'

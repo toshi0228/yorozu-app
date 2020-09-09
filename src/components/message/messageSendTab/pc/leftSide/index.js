@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Comment, List, Row, Col, Modal } from 'antd'
 import MessageForm from '../../../../form/messageForm/pc/index'
-// import host from '../../../../constants/url'
+
 import { feachMessageList, feachSendMessageList, readRoomMessage } from '../../../../../store/actions/message'
-// import { patchPlanApproval, readRoomMessageUserPlanRequest } from '../../../../store/actions/planRequest'
 import { checkPurchasePlan, planRequestApproval } from '../../../../../store/actions/planContract'
 import styles from './index.module.scss'
 
@@ -15,13 +14,10 @@ import styles from './index.module.scss'
 
 const LeftSide = (props) => {
   const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
-  const [isPlanRequest, setIsPlanRequest] = useState(false)
   const data = []
 
   // 送信者のメッセージルーム(トークルーム)に合わせて,メッセージ内容を変える
   props.roomMessage.forEach((message, index) => {
-    // console.log(message)
-
     const messageObj = {
       author: message.senderProfile.nickname,
       avatar: message.senderProfile.profileImage,
@@ -59,26 +55,15 @@ const LeftSide = (props) => {
     props.checkPurchasePlanEvent(props.roomUserYorozuId)
   }, [props.messageRoomUser, props.purchasersList])
 
-  // ルームユーザーにプランのリクエストがあり、なおかつまだリクエストを承認していなければ、アラートを表示させる
-  useEffect(() => {
-    // props.clientPurchasePlan.isApproval => プランリクエストの承認状態 falseなら承認されていない
-    if (props.clientPurchasePlan && props.clientPurchasePlan.isApproval === false) {
-      setIsPlanRequest(true)
-    } else {
-      setIsPlanRequest(false)
-    }
-  }, [props.clientPurchasePlan])
-
   return (
     <>
       <Row type="flex" style={{ marginTop: 10, paddingTop: 8 }}>
         {/* <Col span={24}>{`${props.messageRoomUser}にメッセージを送ります`}</Col> */}
         <Col span={24}>{explanation}</Col>
       </Row>
-
       {/* プランリクエストがきた場合のアラート */}
-      {/* isPlanRequestが, trueの時だけコンポーネントが表示される */}
-      {isPlanRequest && (
+      {/* props.isPlanRequestが, trueの時だけコンポーネントが表示される */}
+      {props.isPlanRequest && (
         <Row style={{ marginTop: 8 }}>
           <Col span={24}>
             <div style={{ color: 'red', fontSize: 10 }}>
@@ -103,7 +88,6 @@ const LeftSide = (props) => {
           />
         </Col>
       </Row>
-
       <Row type="flex">
         <Col span={24}>
           <List
@@ -130,6 +114,8 @@ const mapStateToProps = (state) => ({
   messageRoomUser: state.message.messageRoomUser,
   // メッセールームユーザーが購入してくれたプラン
   clientPurchasePlan: state.planContract.clientPurchasePlan,
+  // トークルームユーザーのプランリクエストがあるかどうか
+  isPlanRequest: state.planContract.isPlanRequest,
 })
 
 const mapDispatchToProps = (dispatch) => ({

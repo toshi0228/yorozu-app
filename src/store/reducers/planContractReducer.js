@@ -17,7 +17,10 @@ const DEFAULT_STATE = {
   // 自分が契約しているプラン
   contractPlanList: [],
 
-  //メッセージルームに移動した時に、自分宛に送ってくれた契約してくれたプランを確認する
+  // トークルームにいるユーザーから、リクエストがあるかどうか
+  isPlanRequest: false,
+
+  //メッセージのトークルームに移動した時に、自分宛に送ってくれた契約してくれたプランを確認する
   clientPurchasePlan: [],
 
   // 自分が送信した契約申請リスト
@@ -96,7 +99,12 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
         return purchaser.senderYorozuId === action.payload
       })
 
-      return { ...state, clientPurchasePlan: clientPurchasePlan }
+      // もし、メッセージのトークルームに移動して、契約しているプランがなければ、初期値と同じから配列にする
+      if (!clientPurchasePlan) {
+        return { ...state, isPlanRequest: false }
+      }
+
+      return { ...state, clientPurchasePlan: clientPurchasePlan, isPlanRequest: true }
 
     // =================================================================================
     // プランページに移動した時に、ログインユーザーがプラン契約の申請を送信した事がある万屋か確認する
