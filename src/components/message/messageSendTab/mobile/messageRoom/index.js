@@ -15,7 +15,7 @@ import styles from './index.module.scss'
 
 const MessageRoom = (props) => {
   const [explanation, setExplanation] = useState('メッセージを送りたいユーザーを選んでね')
-  const [isPlanRequest, setIsPlanRequest] = useState(false)
+
   const data = []
 
   // 送信者のメッセージルームに合わせて,メッセージ内容を変える
@@ -57,16 +57,6 @@ const MessageRoom = (props) => {
     props.checkPurchasePlanEvent(props.roomUserYorozuId)
   }, [props.messageRoomUser, props.purchasersList])
 
-  // ルームユーザーにプランのリクエストがあり、なおかつまだリクエストを承認していなければ、アラートを表示させる
-  useEffect(() => {
-    // props.clientPurchasePlan.isApproval => プランリクエストの承認状態 falseなら承認されていない
-    if (props.clientPurchasePlan && props.clientPurchasePlan.isApproval === false) {
-      setIsPlanRequest(true)
-    } else {
-      setIsPlanRequest(false)
-    }
-  }, [props.clientPurchasePlan])
-
   return (
     <>
       <Row type="flex" style={{ marginTop: 10, paddingTop: 8 }}>
@@ -76,7 +66,7 @@ const MessageRoom = (props) => {
 
       {/* プランリクエストがきた場合のアラート */}
       {/* isPlanRequestが, trueの時だけコンポーネントが表示される */}
-      {isPlanRequest && (
+      {props.isPlanRequest && (
         <Row style={{ marginTop: 8 }}>
           <Col span={24}>
             <div style={{ color: 'red', fontSize: 10 }}>
@@ -128,6 +118,8 @@ const mapStateToProps = (state) => ({
   messageRoomUser: state.message.messageRoomUser,
   // メッセールームユーザーが購入してくれたプラン
   clientPurchasePlan: state.planContract.clientPurchasePlan,
+  // トークルームユーザーのプランリクエストがあるかどうか
+  isPlanRequest: state.planContract.isPlanRequest,
 })
 
 const mapDispatchToProps = (dispatch) => ({
