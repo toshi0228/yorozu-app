@@ -19,10 +19,6 @@ const DetailPlanSection = ({ planData }) => {
           {/* <img alt="example" src={planData.image} style={{ width: '100%', height: 360, borderRadius: 8 }} /> */}
           <img alt="example" src={planData.image} className={styles.planImage} />
         </Col>
-
-        {/* <Col xs={24} md={0}>
-          <img alt="example" src={planData.image} style={{ width: '100%', height: 240 }} />
-        </Col> */}
       </Row>
 
       {/* プランのタイトル */}

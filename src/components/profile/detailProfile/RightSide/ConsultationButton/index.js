@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { Modal, Button, Input } from 'antd'
 import { sendMessage } from '../../../../../store/actions/message'
+import { push } from 'connected-react-router'
+
+import routes from '../../../../../routes/index'
 
 // ====================================================================
 // 相談ボタンとクリックした時に起動するモーダル
@@ -11,6 +14,7 @@ const ConsultationButton = (props) => {
   // isVisibleがfalseだとモーダルが非表示になる
   const [isVisible, setIsVisible] = useState(false)
   const [modalInputText, setModalInputText] = useState('')
+  const dispatch = useDispatch()
 
   // 相談するボタンを押した時の処理
   const showModal = () => {
@@ -35,6 +39,23 @@ const ConsultationButton = (props) => {
   const handleCancel = () => {
     setIsVisible(false)
   }
+
+  const toggleBtn = () => {
+    // yorozuIdがない場合は、ログインしてからメッセージを送るようにする
+    if (props.loginUser.yorozuId) {
+      return (
+        <Button key="submit" onClick={hundleSubmit}>
+          送信
+        </Button>
+      )
+    } else {
+      return (
+        <Button key="submit" onClick={() => dispatch(push(routes.siginIn()))}>
+          ログインしてから送信
+        </Button>
+      )
+    }
+  }
   return (
     <div>
       <Button onClick={showModal}>相談をする</Button>
@@ -43,11 +64,7 @@ const ConsultationButton = (props) => {
         visible={isVisible}
         onOk={hundleSubmit}
         onCancel={handleCancel}
-        footer={[
-          <Button key="submit" onClick={hundleSubmit}>
-            送信
-          </Button>,
-        ]}
+        footer={toggleBtn()}
       >
         <p style={{ marginBottom: 20 }}>
           気になったら、まずは教えてほしいことを相談！
