@@ -20,7 +20,7 @@ const DEFAULT_STATE = {
   // トークルームにいるユーザーから、リクエストがあるかどうか
   isPlanRequest: false,
 
-  //メッセージのトークルームに移動した時に、自分宛に送ってくれた契約してくれたプランを確認する
+  //メッセージのトークルームに移動した時に、自分宛に送ってくれた契約してくれたプランを確認する オブジェクトの形が多い？
   clientPurchasePlan: [],
 
   // 自分が送信した契約申請リスト
@@ -87,8 +87,17 @@ const planContractReducer = (state = DEFAULT_STATE, action) => {
     // よろず屋が、お客さんのプランリクエストの承認を行う
     // =========================================================================================
     case PLAN_APPROVAL_EVENT:
-      // action.payload => 承認の変数,isApprovalがfalseからtrueに変化した値が入っている
-      return { ...state, clientPurchasePlan: action.payload }
+      // clientPurchasePlanにある、自分のプランを購入した人の一覧データを更新する
+      // isApproval:falseからtrueにする
+
+      const patchPurchasersList = state.purchasersList.map((purchaser) => {
+        // 送信者と更新されたプランのIDが同じ場合、承認をtrueにする
+        if (purchaser.contractPlan['id'] === action.payload.contractPlan && purchaser.senderYorozuId === action.payload.senderYorozuId) {
+          purchaser['isApproval'] = true
+        }
+        return purchaser
+      })
+      return { ...state, clientPurchasePlan: action.payload, purchasersList: patchPurchasersList }
 
     // =========================================================================================
     // ログインユーザーのプランを購入してくれた人のリストから、messageRoomUserが契約してくれたプランがあるか確認
