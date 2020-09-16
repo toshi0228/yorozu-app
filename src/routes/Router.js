@@ -18,6 +18,9 @@ import SignUpPage from '../containers/AccountPages/SignUpPage'
 import MessagePage from '../containers/MessagePages/MessagePage'
 import CreateMessage from '../containers/MessagePages/CreateMessage'
 
+// account情報設定（クレジットカード等）
+import RegisterdCard from '../containers/SettingAccountPage/RegisterdCard'
+
 // ゲストヘッダーとメンバーヘッダーでレイアウトを変更する
 import { withLayout } from '../components/Layouts/RouteWithLayout'
 
@@ -50,13 +53,16 @@ const Router = (props) => {
         <Route path={routes.signUp()} component={withLayout(SignUpPage)} />
 
         {/* ダッシュボードページ */}
-        <Route exact path={routes.dashboard()} component={withLayout(DashboardPage)} />
+        <Route exact path={routes.dashboard()} component={withLayout(requireAuth(DashboardPage))} />
 
         {/* メッセージのトップページ */}
-        <Route exact path={routes.messageList()} render={withLayout(MessagePage)} />
+        <Route exact path={routes.messageList()} render={withLayout(requireAuth(MessagePage))} />
 
         {/* メッセージ作成ページ */}
-        <Route exact path={routes.createMessage(':id')} render={withLayout(CreateMessage)} />
+        <Route exact path={routes.createMessage(':id')} render={withLayout(requireAuth(CreateMessage))} />
+
+        {/* カード登録ページ */}
+        <Route exact path={routes.card()} render={withLayout(requireAuth(RegisterdCard))} />
 
         {/* プラン作成  */}
         {/* ログインチェックなし */}

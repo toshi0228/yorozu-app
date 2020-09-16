@@ -8,6 +8,7 @@ const UrlList = {
   createMessage: (yorozuId) => `/message/rooms/${yorozuId}`,
   dashboard: () => '/dashboard',
   myPage: () => '/channel/featured',
+  card: () => '/card',
 }
 
 export default UrlList
