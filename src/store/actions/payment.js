@@ -1,4 +1,4 @@
-import { postPayment, postPlanContract, postMessage } from '../../services/ApiRequest'
+import { postPayment, postPaymentCustomer, postPlanContract, postMessage } from '../../services/ApiRequest'
 import { PLAN_CONTRACT_EVENT } from '../actionTypes'
 import { sentPlanContract } from './planContract'
 import { sendMessageLoginUser, readRoomMessage } from './message'
@@ -14,9 +14,6 @@ export const payment = (token) => (dispatch) => {
 
   // stripe処理
   postPayment(token).then((res) => {
-    // console.log('stripe処理')
-    // console.log(res)
-
     // stripe処理でうまくいったら、サーバーサイドに、誰がどのプランを購入したか送る
     postPlanContract(contractData).then((res) => {
       dispatch(sentPlanContract(res.data))
@@ -34,4 +31,8 @@ export const payment = (token) => (dispatch) => {
         console.log(error)
       })
   })
+}
+
+export const registerdCard = (accountInfo) => () => {
+  console.log('カード情報の登録')
 }
