@@ -46,7 +46,6 @@ const DetailPlanSection = ({ planData }) => {
         </Row>
 
         {/* プランの説明 */}
-        {/* <Row type="flex" justify="center" style={{ paddingTop: 10 }}> */}
         <Row style={{ paddingTop: 20 }}>
           <Col span={24}>
             {/* {`詳細プランのコンポーネント`} */}

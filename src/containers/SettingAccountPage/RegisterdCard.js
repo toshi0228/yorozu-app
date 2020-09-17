@@ -1,9 +1,9 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Row, Col } from 'antd'
 
 // Component
 import CardForm from '../../components/stripe/cardForm'
-
 import styles from '../../styles/RegisterdCard.module.scss'
 
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -21,10 +21,9 @@ const RegisterdCard = () => {
 
       <Row type="flex" justify="center" style={{ marginTop: 32 }}>
         <Col span={12} style={{ border: 'solid 1px #d5d5d5', borderRadius: '8px' }}>
-          {/* // Row,Colのイメージは,入力項目はm一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
+          {/* // Row,Colのイメージは,入力項目は、一つの紙になかに、中心 20/24 までに範囲にするイメージ */}
           <Row type="flex" justify="center">
             <Col span={20} style={{ paddingTop: '32px' }}>
-              {/* <IpadInputProfile registeredProfile={props.registeredProfile} accountId={props.accountId} /> */}
               <CardForm />
             </Col>
           </Row>
@@ -34,4 +33,4 @@ const RegisterdCard = () => {
   )
 }
 
-export default RegisterdCard
+export default connect()(RegisterdCard)

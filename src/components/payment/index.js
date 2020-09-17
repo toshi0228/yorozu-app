@@ -1,9 +1,46 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
-import { CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
+// stripe
+import { CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useElements } from '@stripe/react-stripe-js'
 import { Row, Col, Button } from 'antd'
 
-const Payment = () => {
+import { registerdCard } from '../../store/actions/payment'
+
+const Payment = ({ account, registerdCardEvent }) => {
+  // useStripeを使うことでストライプ側に情報を送信できる
+  const stripe = useStripe()
+
+  // カード情報を入力した値を取得するhooks?
+  const elements = useElements()
+
+  const registerd = async () => {
+    // stripe側で、準備ができていなければエラーになる
+    if (!stripe || !elements) {
+      return
+    }
+
+    // elements.getElement(CardElement)は、引数にCardElementを入れることでカード情報を取得する？
+    const cardElement = elements.getElement(CardNumberElement)
+
+    // //Stripeに、カード情報を送っているのかな。cardElementに入力してあるカード情報が不正なものでないか確認している?
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    })
+
+    // うまく言えば、errorはundifinedになるので、以下のように書く
+    if (error) {
+      console.log('[error]', error)
+      return
+    }
+
+    console.log(paymentMethod)
+    const paymentMethodId = paymentMethod.id
+
+    // registerdCardEvent('aa')
+  }
+
   const cardOptions = {
     style: {
       base: {
@@ -24,10 +61,8 @@ const Payment = () => {
     <>
       {/* 説明 */}
       <Row>
-        {/* <p style={{ marginTop: 24 }}> */}
         <img style={{ height: 32 }} src="https://yourozu.s3-ap-northeast-1.amazonaws.com/stripeImage.png" />
         <div style={{ marginTop: 8 }}>※ご利用頂けるカードは、上記のカードです。</div>
-        {/* </p> */}
       </Row>
 
       {/* カード番号の入力 */}
@@ -75,7 +110,8 @@ const Payment = () => {
       {/* ボタン */}
       <Row type="flex" justify="end">
         <Col style={{ marginTop: 32, marginBottom: 32 }}>
-          <Button size="large" type="primary">
+          {/* <Button size="large" type="primary" onClick={() => registerd()}> */}
+          <Button size="large" type="primary" onClick={registerd}>
             保存する
           </Button>
         </Col>
@@ -84,4 +120,13 @@ const Payment = () => {
   )
 }
 
-export default Payment
+const mapStateToProps = (state) => ({
+  account: state.account,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  // クレジットカード情報を登録する
+  registerdCardEvent: (accountInfo) => dispatch(registerdCard(accountInfo)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Payment)
