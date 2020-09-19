@@ -19,6 +19,7 @@ import profileReducer from './reducers/profileReducer'
 import messageReducer from './reducers/messageReducer'
 import planContractReducer from './reducers/planContractReducer'
 import reviewReducer from './reducers/reviewReducer'
+import paymentReducer from './reducers/paymentReducer'
 
 // 永続化の設定
 const authPersistConfig = {
@@ -38,16 +39,17 @@ export const createRootReducer = (history) =>
     message: messageReducer,
     planContract: planContractReducer,
     review: reviewReducer,
+    payment: paymentReducer,
   })
 
 export const history = createBrowserHistory()
 
 export default function configureStore() {
   const store = createStore(
-    createRootReducer(history), // root reducer with router state
+    createRootReducer(history), // root reducer with router state (ルーティング情報を元にcomponentとurlを双方バインディングさせるため )
     applyMiddleware(
       reduxThunk,
-      routerMiddleware(history) // for dispatching history actions
+      routerMiddleware(history) // for dispatching history actions (dispatch中にURLを変更することができる様にさせるため)
     )
   )
 
@@ -85,11 +87,26 @@ export default function configureStore() {
 // Middlewareは、dispatch and getStateを引数として受け取る
 // =====================================================================================
 
-// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// =====================================================================================
 // データの永続化に関して
 // データをリロードした時に、データが消えなようにpersistを設定
 // importするもの
 // import storage from 'redux-persist/lib/storage'
 // import { persistReducer } from 'redux-persist';
 // persistReducer(設定, 指定したreducer),
-// ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+// =====================================================================================
+
+// =====================================================================================
+// routerMiddleware(history) 2020 9 18
+
+// applyMiddlewareのなかに、routerMiddleware(history)を入れることでdispatchのなかに
+// pushを埋め込むことで、actionの処理中にurlを変更することができる
+// ex) dispatch(push(routes.myPage()))
+
+// conbinereducerをを作成する時にrouterを入れるのは、おそらく、URLの変化とstoreに保持している
+// ルーティング情報を双方バインディングさせるため だからこそ、reducerでヒストリー情報を持っていないと
+// いけない
+
+// これがあることで、一回一回サーバーサイドとやり取りをしなくて済む
+// router: connectRouter(history)
+// =====================================================================================

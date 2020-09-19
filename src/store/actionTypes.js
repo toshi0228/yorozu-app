@@ -116,3 +116,9 @@ export const READ_PURCHASERS_LIST_EVENT = 'READ_PURCHASERS_LIST_EVENT'
 export const CHECK_CLIENT_PURCHASE_PLAN_EVENT = 'CHECK_CLIENT_PURCHASE_PLAN_EVENT'
 // よろず屋が、お客さんのプランリクエストの承認を行う
 export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
+
+// ============================================================
+// payment 決済処理
+// ============================================================
+// クレジットカードの情報を登録した時の処理
+export const CREATE_PAYMENT_CUSTOMER = 'CREATE_PAYMENT_CUSTOMER'

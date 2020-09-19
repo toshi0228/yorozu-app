@@ -7,7 +7,11 @@ import { Row, Col, Button } from 'antd'
 
 import { registerdCard } from '../../store/actions/payment'
 
-const Payment = ({ account, registerdCardEvent }) => {
+const Payment = ({ authToken, paymentInfo, registerdCardEvent }) => {
+  console.log('process.env.NODE_ENVの情報')
+  console.log(process.env.NODE_ENV)
+  // console.log('development')
+
   // useStripeを使うことでストライプ側に情報を送信できる
   const stripe = useStripe()
 
@@ -35,10 +39,11 @@ const Payment = ({ account, registerdCardEvent }) => {
       return
     }
 
-    console.log(paymentMethod)
+    // サーバー側で顧客情報と、クレジットカード情報を紐づけるために、paymentMethod.idが必要になるので抽出する
     const paymentMethodId = paymentMethod.id
 
-    // registerdCardEvent('aa')
+    // authTokenから、actionでemailとuidを取得する
+    registerdCardEvent({ paymentMethodId, authToken })
   }
 
   const cardOptions = {
@@ -65,9 +70,17 @@ const Payment = ({ account, registerdCardEvent }) => {
         <div style={{ marginTop: 8 }}>※ご利用頂けるカードは、上記のカードです。</div>
       </Row>
 
+      {/* 登録中のカード情報 */}
+      <Row>
+        <Col style={{ marginTop: 32 }}>
+          登録中のカード情報<span style={{ marginLeft: 32 }}>**** **** **** 9299</span>
+        </Col>
+        {/* <Col style={{ marginTop: 8 }}>**** **** **** 9299</Col> */}
+      </Row>
+
       {/* カード番号の入力 */}
       <Row>
-        <Col style={{ marginTop: 40 }}>
+        <Col style={{ marginTop: 32 }}>
           <span>カード番号</span>
         </Col>
         <Col style={{ marginBottom: '10px', padding: '6px', borderBottom: 'solid 0.3px #cfd7df' }}>
@@ -121,12 +134,13 @@ const Payment = ({ account, registerdCardEvent }) => {
 }
 
 const mapStateToProps = (state) => ({
-  account: state.account,
+  authToken: state.account.authToken,
+  paymentInfo: state.payment,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   // クレジットカード情報を登録する
-  registerdCardEvent: (accountInfo) => dispatch(registerdCard(accountInfo)),
+  registerdCardEvent: (paymentMethodId) => dispatch(registerdCard(paymentMethodId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Payment)
