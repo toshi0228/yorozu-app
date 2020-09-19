@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Row, Col } from 'antd'
 
 // Component
@@ -10,7 +9,7 @@ import styles from '../../styles/RegisterdCard.module.scss'
 // クレジットカードの登録ページ
 // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
-const RegisterdCard = () => {
+const RegisterdCard = ({ email }) => {
   return (
     <div className={styles.RegisterdCardWrap}>
       <Row type="flex" justify="center" style={{ marginTop: 48 }}>
@@ -33,4 +32,4 @@ const RegisterdCard = () => {
   )
 }
 
-export default connect()(RegisterdCard)
+export default RegisterdCard
