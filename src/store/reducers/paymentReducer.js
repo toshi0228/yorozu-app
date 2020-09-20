@@ -1,7 +1,7 @@
 import React from 'react'
 import { notification } from 'antd'
 import { SmileOutlined } from '@ant-design/icons'
-import { READ_PAYMENT_CUSTOMER, READ_PAYMENT_CUSTOMER_ERROR, CREATE_PAYMENT_CUSTOMER } from '../../store/actionTypes'
+import { READ_PAYMENT_CUSTOMER, READ_PAYMENT_CUSTOMER_ERROR, CREATE_PAYMENT_CUSTOMER, UPDATE_CARD_INFO } from '../../store/actionTypes'
 
 const DEFAULT_STATE = {
   // stripe側で管理しているクレジットカードに紐づいた顧客情報
@@ -57,6 +57,24 @@ const paymentReducer = (state = DEFAULT_STATE, action) => {
       })
 
       return { ...state, customerId: customerId, paymentMethodId: paymentMethodId, cardBrand: cardBrand, cardlast4: cardLast4 }
+
+    // ==========================================================
+    // カード情報の更新処理
+    // ==========================================================
+    case UPDATE_CARD_INFO:
+      notification.open({
+        message: 'カード情報を更新できました',
+        icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      })
+      const updataStripInfo = action.payload.data
+
+      return {
+        ...state,
+        customerId: updataStripInfo['customer'],
+        paymentMethodId: updataStripInfo['id'],
+        cardBrand: updataStripInfo.card.brand,
+        cardlast4: updataStripInfo.card.last4,
+      }
     default:
       return state
   }

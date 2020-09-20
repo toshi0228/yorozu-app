@@ -1,6 +1,6 @@
-import { getPayment, postPayment, postPaymentCustomer, postPlanContract, postMessage } from '../../services/ApiRequest'
+import { getPayment, postPayment, postPaymentCustomer, postPlanContract, postMessage, patchCardInfo } from '../../services/ApiRequest'
 import { checkAccountId } from '../../services/authApiRequest'
-import { READ_PAYMENT_CUSTOMER, CREATE_PAYMENT_CUSTOMER, READ_PAYMENT_CUSTOMER_ERROR } from '../actionTypes'
+import { READ_PAYMENT_CUSTOMER, CREATE_PAYMENT_CUSTOMER, READ_PAYMENT_CUSTOMER_ERROR, UPDATE_CARD_INFO } from '../actionTypes'
 import { sentPlanContract } from './planContract'
 import { sendMessageLoginUser, readRoomMessage } from './message'
 
@@ -80,13 +80,29 @@ export const registerdCard = (accountInfo) => (dispatch) => {
       })
     })
     .catch((e) => {
-      console.log(e + 'エラー')
+      console.log('エラー')
     })
 }
 
 const createPaymentCustomer = (customer) => {
   return {
     type: CREATE_PAYMENT_CUSTOMER,
+    payload: customer,
+  }
+}
+
+// ==========================================================================
+// カード情報を更新する
+// ==========================================================================
+export const updateCard = ({ customerId, prevPaymentMethodId, nextPaymentMethodId }) => (dispatch) => {
+  patchCardInfo({ customerId, prevPaymentMethodId, nextPaymentMethodId }).then((customer) => {
+    dispatch(updateCardInfo(customer))
+  })
+}
+
+const updateCardInfo = (customer) => {
+  return {
+    type: UPDATE_CARD_INFO,
     payload: customer,
   }
 }

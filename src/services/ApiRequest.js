@@ -226,6 +226,10 @@ export const postPaymentCustomer = (accountInfo) => {
   return axios.post(`${host.localhost()}/api/payment/customer`, accountInfo)
 }
 
+export const patchCardInfo = ({ customerId, prevPaymentMethodId, nextPaymentMethodId }) => {
+  return axios.patch(`${host.localhost()}/api/payment/customer`, { customerId, prevPaymentMethodId, nextPaymentMethodId })
+}
+
 // =====================================================================================
 // 自分のプランを購入してくれた人のリスト
 // =====================================================================================

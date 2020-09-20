@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 
 // stripe
 import { CardNumberElement, CardExpiryElement, CardCvcElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { Row, Col, Button } from 'antd'
+import { Row, Col, Button, notification } from 'antd'
 
-import { registerdCard } from '../../store/actions/payment'
+// action
+import { registerdCard, updateCard } from '../../store/actions/payment'
 
-const Payment = ({ authToken, paymentInfo, registerdCardEvent }) => {
+const Payment = ({ authToken, paymentInfo, registerdCardEvent, updateCardEvent }) => {
   // useStripeを使うことでストライプ側に情報を送信できる
   const stripe = useStripe()
 
@@ -31,15 +32,28 @@ const Payment = ({ authToken, paymentInfo, registerdCardEvent }) => {
 
     // うまく言えば、errorはundifinedになるので、以下のように書く
     if (error) {
-      console.log('[error]', error)
+      notification.error({
+        message: 'カード情報の保存に失敗しました',
+        description: error.message,
+      })
       return
     }
 
     // サーバー側で顧客情報と、クレジットカード情報を紐づけるために、paymentMethod.idが必要になるので抽出する
     const paymentMethodId = paymentMethod.id
 
-    // authTokenから、actionでemailとuidを取得する
-    registerdCardEvent({ paymentMethodId, authToken })
+    // stripeから発行された顧客情報を持っていればカード情報の更新、そうでなければ新規で登録作業
+    if (paymentInfo['customerId']) {
+      // カードの更新処理
+      const customerId = paymentInfo['customerId']
+      const prevPaymentMethodId = paymentInfo['paymentMethodId']
+      const nextPaymentMethodId = paymentMethodId
+      updateCardEvent({ customerId, prevPaymentMethodId, nextPaymentMethodId })
+    } else {
+      // authTokenから、actionでemailとuidを取得する
+      // カード情報の新規登録
+      registerdCardEvent({ paymentMethodId, authToken })
+    }
   }
 
   const cardOptions = {
@@ -153,6 +167,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   // クレジットカード情報を登録する
   registerdCardEvent: (paymentMethodId) => dispatch(registerdCard(paymentMethodId)),
+  // クレジットカードの更新処理
+  updateCardEvent: ({ customerId, prevPaymentMethodId, nextPaymentMethodId }) =>
+    dispatch(updateCard({ customerId, prevPaymentMethodId, nextPaymentMethodId })),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Payment)
