@@ -222,8 +222,9 @@ export const getPayment = (authToken) => {
 // =====================================================================================
 // stripeのカード情報の登録
 // =====================================================================================
-export const postPaymentCustomer = (accountInfo) => {
-  return axios.post(`${host.localhost()}/api/payment/customer`, accountInfo)
+export const postPaymentCustomer = ({ id, email, paymentMethodId, authToken }) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.post(`${host.localhost()}/api/payment/customer`, { id, email, paymentMethodId })
 }
 
 export const patchCardInfo = ({ customerId, prevPaymentMethodId, nextPaymentMethodId }) => {
