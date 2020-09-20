@@ -65,17 +65,15 @@ const createPaymentCustomerError = (e) => {
 
 // ==========================================================================
 // stripeの顧客情報を登録する
-// accountInfo =>{paymentMethodId, authtoken}
 // paymentMethodIdは、カード情報をstripe側でtokenにしたもの
 // ==========================================================================
-export const registerdCard = (accountInfo) => (dispatch) => {
-  const paymentMethodId = accountInfo.paymentMethodId
+export const registerdCard = ({ paymentMethodId, authToken }) => (dispatch) => {
   // 最初にユーザーのtauthTokenから,uidとemailを取得する
   // checkAccountIdのreturn  ex) {id: "e3f5c447-1a7f-4633-8874-17c3048fc62", email: "n@gmail.com"}
-  checkAccountId(accountInfo.authToken.access)
+  checkAccountId(authToken.access)
     .then((res) => {
       const { id, email } = res.data
-      postPaymentCustomer({ id, email, paymentMethodId }).then((customer) => {
+      postPaymentCustomer({ id, email, paymentMethodId, authToken }).then((customer) => {
         dispatch(createPaymentCustomer(customer.data))
       })
     })

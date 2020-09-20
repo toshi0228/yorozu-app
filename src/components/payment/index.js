@@ -166,7 +166,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   // クレジットカード情報を登録する
-  registerdCardEvent: (paymentMethodId) => dispatch(registerdCard(paymentMethodId)),
+  registerdCardEvent: ({ paymentMethodId, authToken }) => dispatch(registerdCard({ paymentMethodId, authToken })),
   // クレジットカードの更新処理
   updateCardEvent: ({ customerId, prevPaymentMethodId, nextPaymentMethodId }) =>
     dispatch(updateCard({ customerId, prevPaymentMethodId, nextPaymentMethodId })),
