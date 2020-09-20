@@ -1,6 +1,6 @@
-import { postPayment, postPaymentCustomer, postPlanContract, postMessage } from '../../services/ApiRequest'
+import { getPayment, postPayment, postPaymentCustomer, postPlanContract, postMessage } from '../../services/ApiRequest'
 import { checkAccountId } from '../../services/authApiRequest'
-import { CREATE_PAYMENT_CUSTOMER } from '../actionTypes'
+import { READ_PAYMENT_CUSTOMER, CREATE_PAYMENT_CUSTOMER, READ_PAYMENT_CUSTOMER_ERROR } from '../actionTypes'
 import { sentPlanContract } from './planContract'
 import { sendMessageLoginUser, readRoomMessage } from './message'
 
@@ -35,6 +35,35 @@ export const payment = (token) => (dispatch) => {
 }
 
 // ==========================================================================
+// stripeから発行されたcutomer_id,paymentMethodIdを取得する
+// ==========================================================================
+
+export const fetchPayment = (authToken) => (dispatch) => {
+  return getPayment(authToken['access'])
+    .then((customer) => {
+      dispatch(readPayment(customer))
+    })
+    .catch((e) => {
+      dispatch(createPaymentCustomerError(e))
+    })
+}
+
+const readPayment = (customer) => {
+  return {
+    type: READ_PAYMENT_CUSTOMER,
+    payload: customer,
+  }
+}
+
+// stripeで顧客情報を登録していない、取得できないときの処理
+const createPaymentCustomerError = (e) => {
+  return {
+    type: READ_PAYMENT_CUSTOMER_ERROR,
+    payload: e,
+  }
+}
+
+// ==========================================================================
 // stripeの顧客情報を登録する
 // accountInfo =>{paymentMethodId, authtoken}
 // paymentMethodIdは、カード情報をstripe側でtokenにしたもの
@@ -47,7 +76,7 @@ export const registerdCard = (accountInfo) => (dispatch) => {
     .then((res) => {
       const { id, email } = res.data
       postPaymentCustomer({ id, email, paymentMethodId }).then((customer) => {
-        dispatch(createPaymentCustomer({ ...customer.data, paymentMethodId }))
+        dispatch(createPaymentCustomer(customer.data))
       })
     })
     .catch((e) => {

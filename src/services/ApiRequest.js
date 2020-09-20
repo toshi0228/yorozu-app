@@ -212,6 +212,14 @@ export const postPayment = (token) => {
 }
 
 // =====================================================================================
+// Stripeから発行されてた cutomerIdとpaymentMethodIdを取得する
+// =====================================================================================
+export const getPayment = (authToken) => {
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  return axios.get(`${host.localhost()}/api/payment/customer`)
+}
+
+// =====================================================================================
 // stripeのカード情報の登録
 // =====================================================================================
 export const postPaymentCustomer = (accountInfo) => {

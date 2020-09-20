@@ -120,5 +120,9 @@ export const PLAN_APPROVAL_EVENT = 'PLAN_APPROVAL_EVENT'
 // ============================================================
 // payment 決済処理
 // ============================================================
+// sripeから発行された顧客情報、カード情報のトークンを取得する
+export const READ_PAYMENT_CUSTOMER = 'READ_PAYMENT_CUSTOMER'
+// sripeから発行された顧客情報、カード情報のトークンを取得を失敗(まだ登録指定ない)
+export const READ_PAYMENT_CUSTOMER_ERROR = 'READ_PAYMENT_CUSTOMER_ERROR'
 // クレジットカードの情報を登録した時の処理
 export const CREATE_PAYMENT_CUSTOMER = 'CREATE_PAYMENT_CUSTOMER'
