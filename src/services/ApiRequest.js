@@ -223,7 +223,7 @@ export const getPayment = (authToken) => {
 // stripeのカード情報の登録
 // =====================================================================================
 export const postPaymentCustomer = ({ id, email, paymentMethodId, authToken }) => {
-  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken
+  axios.defaults.headers.common['Authorization'] = 'JWT ' + authToken.access
   return axios.post(`${host.localhost()}/api/payment/customer`, { id, email, paymentMethodId })
 }
 
