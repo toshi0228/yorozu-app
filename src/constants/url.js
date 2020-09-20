@@ -6,3 +6,8 @@ const hostList = {
 }
 
 export default hostList
+
+// console.log('process.env.NODE_ENVの情報')
+// console.log(process.env.NODE_ENV)
+// console.log('development')
+// console.log("production")

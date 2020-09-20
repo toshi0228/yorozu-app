@@ -8,10 +8,6 @@ import { Row, Col, Button } from 'antd'
 import { registerdCard } from '../../store/actions/payment'
 
 const Payment = ({ authToken, paymentInfo, registerdCardEvent }) => {
-  console.log('process.env.NODE_ENVの情報')
-  console.log(process.env.NODE_ENV)
-  // console.log('development')
-
   // useStripeを使うことでストライプ側に情報を送信できる
   const stripe = useStripe()
 
@@ -62,6 +58,23 @@ const Payment = ({ authToken, paymentInfo, registerdCardEvent }) => {
     },
   }
 
+  // 既にカード情報があれば、編集の作業を行う
+  const toggleBtn = () => {
+    if (paymentInfo['paymentMethodId']) {
+      return (
+        <Button size="large" type="primary" onClick={registerd}>
+          変更する
+        </Button>
+      )
+    } else {
+      return (
+        <Button size="large" type="primary" onClick={registerd}>
+          保存する
+        </Button>
+      )
+    }
+  }
+
   return (
     <>
       {/* 説明 */}
@@ -70,13 +83,17 @@ const Payment = ({ authToken, paymentInfo, registerdCardEvent }) => {
         <div style={{ marginTop: 8 }}>※ご利用頂けるカードは、上記のカードです。</div>
       </Row>
 
-      {/* 登録中のカード情報 */}
-      <Row>
-        <Col style={{ marginTop: 32 }}>
-          登録中のカード情報<span style={{ marginLeft: 32 }}>**** **** **** 9299</span>
-        </Col>
-        {/* <Col style={{ marginTop: 8 }}>**** **** **** 9299</Col> */}
-      </Row>
+      {/* 登録中のカード情報 登録してあるカード情報があれば表示される */}
+      {paymentInfo['paymentMethodId'] && (
+        <Row>
+          <Col style={{ marginTop: 32 }}>登録中のカード情報</Col>
+
+          <Col style={{ marginTop: 8 }}>
+            <span>{paymentInfo['cardBrand']}</span>
+            <span style={{ marginLeft: 32 }}>{`**** **** **** ${paymentInfo['cardlast4']}`}</span>
+          </Col>
+        </Row>
+      )}
 
       {/* カード番号の入力 */}
       <Row>
@@ -122,12 +139,7 @@ const Payment = ({ authToken, paymentInfo, registerdCardEvent }) => {
 
       {/* ボタン */}
       <Row type="flex" justify="end">
-        <Col style={{ marginTop: 32, marginBottom: 32 }}>
-          {/* <Button size="large" type="primary" onClick={() => registerd()}> */}
-          <Button size="large" type="primary" onClick={registerd}>
-            保存する
-          </Button>
-        </Col>
+        <Col style={{ marginTop: 32, marginBottom: 32 }}>{toggleBtn()}</Col>
       </Row>
     </>
   )
